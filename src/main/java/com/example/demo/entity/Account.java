@@ -17,16 +17,16 @@ import lombok.NoArgsConstructor;
 @Table(name="account")
 public class Account {
 	@Id
-	private String id;
+	private String aid;
 	private String pwd;
-	private String birth;
 	private String email;
-	private String name;
+	private String name_;
 	private String nick;
-	private String phone;
 	private String img;
+
 	@Transient
 	private MultipartFile uploadFile;
-	private String a_level;
-	private String a_date;
+	
+	private String level_;
+	private String regdate;
 }

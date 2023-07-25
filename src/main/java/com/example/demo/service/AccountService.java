@@ -22,16 +22,21 @@ public class AccountService implements UserDetailsService{
 	public List<Account> findAll(){
 		return dao.findAll();
 	}
+	
+	public String findOneByNick(String nick) {
+		return dao.findOneByNick(nick);
+	}
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		UserDetails user = null;
 		
-		System.out.println(dao.findById(username));
+		System.out.println(dao.findByAid(username));
 		System.out.println("id"+username);
 		
 		
-		Account acc = dao.findById(username);
+		
+		Account acc = dao.findByAid(username);
 		if (acc == null) {
 			try {
 				throw new UsernameNotFoundException(username);
@@ -45,5 +50,10 @@ public class AccountService implements UserDetailsService{
 			}
 		
 		return user;
+	}
+
+	public void save(Account a) {
+		dao.save(a);
+		
 	}
 }

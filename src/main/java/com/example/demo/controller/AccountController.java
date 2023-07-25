@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -22,24 +23,36 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.Setter;
 	
 	@Setter
-	@Controller
+	@RestController
 	public class AccountController {
 		@Autowired
 		private PasswordEncoder passwordEncoder;
 		@Autowired
 		private AccountService as;
 		
-		@Autowired
-		private AccountDAO dao;
+		
 		
 		@GetMapping("/list")
 		public void list(Model model){
 			model.addAttribute("list",as.findAll());
 		}
 		@GetMapping("/join")
-		public void join() {
-			
+		public ModelAndView join() {
+			ModelAndView mav = new ModelAndView("/join");
+			return mav;
 		}
+		
+		@GetMapping("/nickCheck")
+		public String nickCheck(String nick) {
+			String msg = "사용 가능한 닉네임입니다!";
+			String check = as.findOneByNick(nick);
+			if (check != null && !check.equals("")) {
+				msg = "사용불가능한 닉네임입니다!";
+			}
+			System.out.println("msg:"+msg);
+			return msg;
+		}
+		
 		@PostMapping("/join")
 		public ModelAndView join(Account a, HttpServletRequest request) {
 			ModelAndView mav = new ModelAndView("redirect:/login");
@@ -60,9 +73,9 @@ import lombok.Setter;
 			}else {
 				fname = "";
 			}
-			a.setImg(fname);
+		 	a.setImg(fname);
 			a.setPwd(passwordEncoder.encode(a.getPwd()));
-			dao.save(a);
+			as.save(a);
 			return mav;
 		}
 		

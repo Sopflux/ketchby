@@ -8,6 +8,28 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 	<style>
 	</style>
+	<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+	<script>
+		$(function () {
+			$("#btn_check").click(function () {
+				var nick = $("#nick").val()
+				alert(nick)
+				$.ajax({
+					url: '/nickCheck',
+					method: 'GET',
+					data:{nick:nick},
+					success: function (data) {
+						alert(data);
+					},
+					error: function (error) {
+						// 오류 처리
+						console.error('Error:', error);
+					}
+				});
+			})
+		})
+
+	</script>
 </head>
 
 <body>
@@ -40,7 +62,7 @@
 						<div class="card-header">Profile Picture</div>
 						<div class="card-body text-center">
 							<form action="/join" method="post" enctype="multipart/form-data">
-								<input type = "hidden" name = "${_csrf.parameterName }" value="${_csrf.token }"/>
+								<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
 								<!-- Profile picture image-->
 								<img class="img-account-profile rounded-circle mb-2" src="photo/poo.jpg" alt="">
 								<!-- Profile picture help block-->
@@ -49,7 +71,7 @@
 								<label for="inputFile" class="btn btn-primary"
 									style="position: relative; border-color: #008375; background-color: #008375; overflow: hidden;">
 									Upload new File
-									<input type="file" name="uploadFile" 
+									<input type="file" name="uploadFile"
 										style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0;" />
 								</label>
 
@@ -64,49 +86,50 @@
 							<!-- Form Group (username)-->
 							<div class="mb-3">
 								<label class="small mb-1" for="inputUsername">ID</label>
-								<input class="form-control"  name = "id" type="text"
-									placeholder="Enter your id">
+								<input class="form-control" name="aid" type="text" placeholder="Enter your id">
 							</div>
 							<!-- Form Row-->
 							<div class="row gx-3 mb-3">
-								<!-- Form Group (first name)-->
+								<!-- Form Group (name)-->
 								<div class="col-md-6">
 									<label class="small mb-1" for="inputFirstName">Name</label>
-									<input class="form-control"  name="name" type="text"
-										placeholder="Enter your name">
+									<input class="form-control" name="name_" type="text" placeholder="Enter your name">
 								</div>
-								<!-- Form Group (last name)-->
+								<!-- Form Group (nick name)-->
 								<div class="col-md-6">
 									<label class="small mb-1" for="inputLastName">Nick name</label>
-									<input class="form-control" name = "nick" type="text"
+									<input class="form-control" name="nick" type="text" id="nick"
 										placeholder="Enter your nick name">
+									<button class="btn btn-primary"
+										style=" border-color: #008375; background-color: #008375;" id="btn_check"
+										type="button">Check</button>
 								</div>
 							</div>
 							<!-- Form Row        -->
 							<div class="row gx-3 mb-3">
-								<!-- Form Group (organization name)-->
+								<!-- Form Group (password)-->
 								<div class="col-md-6">
 									<label class="small mb-1" for="inputPassword">Password</label>
-									<input class="form-control" name = "pwd"  type="password"
+									<input class="form-control" name="pwd" type="password"
 										placeholder="Enter your password">
 								</div>
-								<!-- Form Group (location)-->
+								<!-- Form Group (password check)-->
 								<div class="col-md-6">
 									<label class="small mb-1" for="inputPasswordcheck">Password check</label>
-									<input class="form-control"  type="password"
-										placeholder="Check your password">
+									<input class="form-control" type="password" placeholder="Check your password">
 								</div>
 							</div>
 							<!-- Form Group (email address)-->
 							<div class="mb-3">
 								<label class="small mb-1" for="inputEmailAddress">Email address</label>
-								<input class="form-control"  type="email" name = "email"
+								<input class="form-control" type="email" name="email"
 									placeholder="Enter your email address">
 							</div>
-			
+
 							<!-- Save changes button-->
-							<input type="submit" value="Sign up2"class="btn btn-primary"style=" border-color: #008375; background-color: #008375; " />
-							<button class="btn btn-primary"style=" border-color: #008375; background-color: #008375; " type="button">Sign up</button>
+							<input type="submit" value="Sign up" class="btn btn-primary"
+								style=" border-color: #008375; background-color: #008375; " />
+
 							</form>
 						</div>
 					</div>
