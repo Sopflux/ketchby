@@ -30,7 +30,6 @@
 		<form action="/login" method="post">
 			<div class="mb-3">
 				<label class="form-label">ID</label>
-				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 				<input type="text" class="form-control" name="username" placeholder="ID">
 			</div>
 			<label class="form-label">Password</label>

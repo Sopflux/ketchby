@@ -5,5 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.demo.entity.Account;
 
 public interface AccountDAO extends JpaRepository<Account, Integer> {
-	public Account findById(String id);
+	public Account findByAid(String id);
+	public Account findByNick(String nick);
 }
