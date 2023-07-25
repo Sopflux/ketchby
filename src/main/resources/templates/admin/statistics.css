@@ -1,0 +1,185 @@
+/* 페이지 스타일 */
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Open Sans', sans-serif; /* Open Sans 폰트 적용 */
+}
+
+.container-scroller {
+    display: flex;
+    position: relative;
+
+}
+
+.class {
+    flex: 1; /* 남아있는 공간을 모두 차지하도록 설정 */
+    padding-left: 250px;
+    background: #000000;
+    color: #FFF; /* 글자 색 변경 */
+    overflow-y: auto; /* 내용이 많아질 경우 스크롤 생성 */
+}
+
+.page{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: row;
+    padding-left: 0;
+    padding-right: 0;
+    transition: all 0.25s ease;
+    width: calc(100% - 70px);
+}
+
+.main-wrapper{
+    background: black;
+    padding: 1.875rem 1.75rem;
+    width: 100%;
+    flex-grow: 1;
+}
+
+#page-header {
+    font-weight: normal;
+    background: #191C24;
+    left: 250px;
+    -webkit-transition: left 0.25s ease;
+}
+
+#page-content {
+    width: 100%;
+    height: auto;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap; /* 카드가 가로로 꽉 찰 경우 세로로 배치되도록 변경 */
+    justify-content: space-between; /* 카드 사이의 간격 균등하게 변경 */
+}
+
+/* 사이드바 스타일 */
+
+#sidebar-all {
+    min-height: calc(100% - 70px);
+    background: #191C24;
+    font-weight: normal;
+    padding: 0;
+    width: 250px;
+    z-index: 11;
+    -webkit-transition: width 0.25s ease, background 0.25s ease;
+}
+
+.sidebar {
+    width: 250px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar li {
+    text-indent: 1.5em;
+    line-height: 2.8em;
+}
+
+.sidebar li a {
+    display: block;
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+.sidebar li a:hover {
+    color: #fff;
+    background: #008375;
+}
+
+.sidebar > .sidebar-user {
+    font-size: 1.3em;
+    line-height: 3em;
+}
+
+/* 카드 스타일 */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -0.75rem;
+    margin-left: -0.75rem;
+}
+
+.stretch-card{
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: stretch;
+    align-items: stretch;
+    justify-content: stretch;
+    margin-bottom: 1.5rem;
+    flex: 1 0 calc(25% - 1.5rem);
+
+}
+
+.grid-margin {
+    margin-bottom: 1.5rem;
+}
+
+@media (min-width: 576px) {
+    .col-sm-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+}
+
+.stretch-card > .card {
+    width: 100%;
+    min-width: 100%;
+}
+
+.card {
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    min-width: 0 !important;
+    word-wrap: break-word !important;
+    background-color: #191c24 !important;
+    background-clip: border-box !important;
+    border: 1px solid rgba(0, 0, 0, 0.125) !important;
+    border-radius: 0.25rem !important;
+}
+
+
+.card-body {
+    flex: 1 1 auto;
+    max-height: 120px;
+    padding: 1.25rem;
+}
+
+.card-title, .card-content {
+    display: flex;
+    flex-direction: row;
+    color: white !important;
+    font-weight: bold !important;
+}
+
+.card-title p {
+    color: dimgrey;
+    margin-left: 5px;
+    font-size: 15px;
+}
+
+.card-content {
+    align-items: center;
+    justify-content: center; /* 가로로 가운데 정렬 */
+}
+
+.card-content {
+    margin-right: 30px !important;
+    margin-left: 10px !important;
+}
+
+.card-content p {
+    color: #008375;
+    font-size: 20px;
+}
+
+
+/* 테이블 스타일 */
+.main-chart {
+    width: 500px;
+    height:300px;
+}
+

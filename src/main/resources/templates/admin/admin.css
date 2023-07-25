@@ -94,18 +94,6 @@ body, html {
   line-height: 3em;
 }
 
-.card {
-  width: 300px;
-  height: 100px;
-  background: #191C24;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); /* 그림자 효과 추가 */
-  transition: 0.3s; /* 애니메이션 추가 */
-  margin-bottom: 20px; /* 카드 아래 여백 추가 */
-}
-
-.card:hover {
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2); /* 마우스 호버 시 그림자 강조 */
-}
 
 .main-table{
   padding: 1.75rem 1.5625rem;
