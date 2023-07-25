@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>제목을 입력하세요</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" type="text/css" href="qanda_open.css">
+
+<script>
+function countCharacters(textarea) {
+  const countElement = document.querySelector('.countkor'); // countkor 클래스를 가진 요소를 선택
+
+  const message = textarea.value; // Text Area에 입력된 내용을 가져옴
+  const characterCount = message.length; // 글자 수를 계산
+
+  if (characterCount === 0) {
+    countElement.textContent = '0/500'; // 텍스트가 입력되지 않았을 때 '0/500'으로 표시
+  } else {
+    countElement.textContent = `${characterCount}/500`; // 글자 수를 countkor 클래스를 가진 요소에 표시
+  }
+
+  // 체크박스 상태에 따라 제출 버튼을 활성화 또는 비활성화합니다.
+  const submitButton = document.querySelector('.form_submit');
+  const checkbox = document.querySelector('.checkbox');
+
+  if (checkbox.checked) {
+    submitButton.classList.remove('disabled');
+  } else {
+    submitButton.classList.add('disabled');
+  }
+}
+</script>
+</head>
+<body>
+<div class="main">
+  <div class="main_top">
+    <span class="title">이메일 문의하기</span>
+    <div class="additional-space-top"></div>
+    <span class="title_s">클래스 개설 문의는 고객센터 콜 센터로 요청해 주세요</span>
+  </div>
+  <form action="" method="">
+    <select class="form-select" aria-label="Default select example">
+      <option selected>문의 유형</option>
+      <option value="101">취소/환불</option>
+      <option value="102">예약/결제</option>
+      <option value="103">클래스관련</option>
+      <option value="104">로그인/회원정보</option>
+      <option value="105">서비스/기타</option>
+    </select>
+    <span class="select_s">웹 개선 제안은 '서비스/기타'로 선택해 주세요.</span>
+    <div class="form-gap"></div>
+    <input type="text" name="name" class="qanda1-input" placeholder="이름" />
+    <div class="additional-space"></div>
+    <input type="text" name="email" class="qanda1-input" placeholder="이메일" />
+    <div class="additional-space"></div>
+    <input type="text" name="title" class="qanda1-input-title" placeholder="제목" />
+    <div class="additional-space"></div>
+    <textarea class="text_area" name="message" maxlength="500" placeholder="문의 내용" oninput="countCharacters(this)"></textarea>
+    <div class="countkor"></div>
+    <div class="additional-space"></div>
+    <div class="check">
+    <input type="checkbox" class="checkbox" onclick="countCharacters(this)" />
+    <span class="check_title">개인정보 수집 및 이용동의</span>
+    <div class="check_content">
+1. 수집하는 개인정보 항목 : 이름, 이메일
+2. 수집 목적 : 문의자 확인, 문의에 대한 회신 등의 처리
+3. 보유 기간 : 목적 달성 후 파기, 단, 관계법령에 따라 또는 회사 정책에 따른 정보보유사유가 발생하여 보존할 필요가 있는 경우에는 필요한 기간 동안 해당 정보를 보관합니다. 전자상거래 등에서의 소비자 보호에 관한 법률, 전자금융거래법, 통신비밀보호법 등 법령에서 일정기간 정보의 보관을 규정하는 경우, 이 기간 동안 법령의 규정에 따라 개인정보를 보관하며, 다른 목적으로는 절대 이용하지 않습니다. (개인정보처리방침 참고)
+4. 귀하는 회사의 정보수집에 대해 동의하지 않거나 거부할 수 있습니다. 다만, 이때 원활한 문의 및 서비스 이용 등이 제한될 수 있습니다.
+    </div>
+    </div>
+    <div class="additional-space"></div>
+    <input type="submit" value="제출하기" class="form_submit disabled" />
+  </form>
+</div>
+</body>
+</html>
