@@ -16,21 +16,21 @@
 		$(function () {
 			var authNum;
 			var auth = 0;
-
-			$("#f").submit(function (event) {
-				if (auth === 1) {
-					alert("회원가입하러 간다 !!! ")
-					// 인증이 성공한 경우 폼을 제출합니다.
-					// 이때, 서버로 데이터가 전송됩니다.
-					return true; // 기본 동작 실행 (폼 제출)
-				} else {
-					// 인증이 실패한 경우 폼 제출을 막습니다.
-					event.preventDefault(); // 폼 전송 막기
-					alert("인증이 필요합니다.");
-					return false; // 폼 제출 취소
-				}
-			});
-
+			/*
+						$("#f").submit(function (event) {
+							if (auth === 1) {
+								alert("회원가입하러 간다 !!! ")
+								// 인증이 성공한 경우 폼을 제출합니다.
+								// 이때, 서버로 데이터가 전송됩니다.
+								return true; // 기본 동작 실행 (폼 제출)
+							} else {
+								// 인증이 실패한 경우 폼 제출을 막습니다.
+								event.preventDefault(); // 폼 전송 막기
+								alert("인증이 필요합니다.");
+								return false; // 폼 제출 취소
+							}
+						});
+						*/
 
 			$("#btn_check").click(function () {
 				var nick = $("#nick").val()
@@ -107,7 +107,7 @@
 
 		<!-- Main page content-->
 		<div class="container-xl px-4 mt-4">
-			<form action="/join" method="post" id="f" enctype="multipart/form-data">
+			<form action="/joinOK" method="post" id="f" enctype="multipart/form-data">
 				<div class="row">
 					<div class="col-xl-4">
 						<!-- Profile picture card-->
@@ -190,6 +190,7 @@
 											id="btnCheckNUM">확인</button>
 									</div>
 								</div>
+								<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
 								<!-- Save changes button-->
 								<button type="submit" class="btn btn-primary"
 									style="border-color: #008375; background-color: #008375;" id="btnJoin">Sign

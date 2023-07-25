@@ -14,9 +14,11 @@ public class SecurityConfig {
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-		http.authorizeHttpRequests().requestMatchers("/join","/login","/").permitAll()
+		http.authorizeHttpRequests().requestMatchers("/join","/login","/","/nickCheck","/emailCheck","/joinOK").permitAll()
 		.requestMatchers("/admin/**").hasRole("admin")
-		.anyRequest().authenticated();
+		.anyRequest().authenticated()
+		.and().csrf().ignoringRequestMatchers("/join");
+		;
 		
 		
 		http.formLogin().loginPage("/login").permitAll()
@@ -28,6 +30,8 @@ public class SecurityConfig {
 		.logoutSuccessUrl("/login");
 		
 		http.httpBasic();
+		
+		http.csrf().disable();
 		return http.build();
 	}
 
