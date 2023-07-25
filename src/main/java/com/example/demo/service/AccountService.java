@@ -23,8 +23,12 @@ public class AccountService implements UserDetailsService{
 		return dao.findAll();
 	}
 	
-	public String findOneByNick(String nick) {
-		return dao.findOneByNick(nick);
+	public String findByNick(String nick) {
+		Account a =  dao.findByNick(nick);
+		if(a == null) {
+			return "";
+		}
+		return a.getNick();
 	}
 
 	@Override

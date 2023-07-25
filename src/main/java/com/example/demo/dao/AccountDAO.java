@@ -6,5 +6,5 @@ import com.example.demo.entity.Account;
 
 public interface AccountDAO extends JpaRepository<Account, Integer> {
 	public Account findByAid(String id);
-	public String findOneByNick(String nick);
+	public Account findByNick(String nick);
 }
