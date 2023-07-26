@@ -15,7 +15,16 @@ public class AjaxController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	@Autowired
-	private AccountService as;
+	private AccountService as; 
+	
+	@GetMapping("/duplicateEmail")
+	public String duplicateEmail(String email) {
+		System.out.println("duplicate Check email : "+email);
+		if(as.findByEmail(email)==null) {
+			return "";
+		}
+		return as.findByEmail(email).getEmail();
+	}
 	
 	@GetMapping("/nickCheck")
 	public String nickCheck(String nick) {

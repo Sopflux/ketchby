@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
 	<meta charset="UTF-8">
@@ -10,6 +10,7 @@
 		#box_check {
 			display: none;
 		}
+		#sp_pwd {color:red}
 	</style>
 	<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 	<script>
@@ -47,21 +48,46 @@
 					}
 				});
 			})
+
+			$("#pwd_check").on('keyup', function () {
+				var pwd_origin = $("#pwd_origin").val();
+				var pwd_check = $(this).val();
+
+				if (pwd_origin === pwd_check) {
+					$("#sp_pwd").text("비밀번호가 같습니다.");
+				} else {
+					$("#sp_pwd").text("비밀번호가 다릅니다.");
+				}
+			});
+
 			$("#btn_emailcheck").click(function () {
 				var email = $("#email").val()
-				$("#box_check").css("display", "block")
 				$.ajax({
-					url: '/emailCheck',
-					method: 'GET',
+					url: '/duplicateEmail',
 					data: {email: email},
-					success: function (data) {
-						authNum = data
-					},
-					error: function (error) {
-						// 오류 처리
-						console.error('Error:', error);
+					success: function (email2) {
+						console.log("email:", email2)
+						if (email2 === "") {
+							$("#box_check").css("display", "block")
+							console.log("email check 동작함!")
+							$.ajax({
+								url: '/emailCheck',
+								method: 'GET',
+								data: {email: email},
+								success: function (data) {
+									authNum = data
+								},
+								error: function (error) {
+									// 오류 처리
+									console.error('Error:', error);
+								}
+							});
+						} else {
+							alert("중복된 이메일 입니다!")
+						}
+
 					}
-				});
+				})
 
 			})
 
@@ -153,7 +179,7 @@
 									<div class="col-md-6">
 										<label class="small mb-1" for="inputLastName">Nick name</label>
 										<input class="form-control" name="nick" type="text" id="nick" required
-											placeholder="Enter your nick name">
+											th:value="${session.name}" placeholder="Enter your nick name">
 										<button class="btn btn-primary"
 											style=" border-color: #008375; background-color: #008375;" id="btn_check"
 											type="button">Check</button>
@@ -164,21 +190,24 @@
 									<!-- Form Group (password)-->
 									<div class="col-md-6">
 										<label class="small mb-1" for="inputPassword">Password</label>
-										<input class="form-control" name="pwd" type="password" required
+										<input class="form-control" name="pwd" type="password" required id="pwd_origin"
 											placeholder="Enter your password">
 									</div>
 									<!-- Form Group (password check)-->
 									<div class="col-md-6">
-										<label class="small mb-1" for="inputPasswordcheck">Password check</label>
-										<input class="form-control" required type="password"
+										<label class="small mb-1" for="inputPasswordcheck">Password check
+											<span id="sp_pwd"></span>
+										</label>
+										<input class="form-control" required type="password" id="pwd_check"
 											placeholder="Check your password">
+
 									</div>
 								</div>
 								<!-- Form Group (email address)-->
 								<div class="mb-3">
 									<label class="small mb-1" for="inputEmailAddress">Email address</label>
 									<input class="form-control" type="email" name="email" id="email" required
-										placeholder="Enter your email address">
+										th:value="${session.email}" placeholder="Enter your email address">
 									<button class="btn btn-primary"
 										style=" border-color: #008375; background-color: #008375;" id="btn_emailcheck"
 										type="button">Email Check</button>
@@ -190,6 +219,7 @@
 											id="btnCheckNUM">확인</button>
 									</div>
 								</div>
+								<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
 								<!-- Save changes button-->
 								<button type="submit" class="btn btn-primary"
 									style="border-color: #008375; background-color: #008375;" id="btnJoin">Sign

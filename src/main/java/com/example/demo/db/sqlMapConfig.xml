@@ -5,7 +5,7 @@
 <configuration>
   <properties resource="com/example/demo/db/db.properties"/>
   <typeAliases>
-  	<typeAlias type="com.example.demo.entity.Dept" alias="deptVO"/>
+  	<typeAlias type="com.example.demo.entity.Account" alias="account"/>
   </typeAliases>
   <environments default="development">
     <environment id="development">
@@ -19,6 +19,6 @@
     </environment>
   </environments>
   <mappers>
-    <mapper resource="com/example/demo/db/deptMapper.xml"/>
+    <mapper resource="com/example/demo/db/accountMapper.xml"/>
   </mappers>
 </configuration>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
 	<meta charset="UTF-8">
@@ -15,22 +15,22 @@
 	<script>
 		$(function () {
 			var authNum;
-			var auth = 0;
-			/*
-						$("#f").submit(function (event) {
-							if (auth === 1) {
-								alert("회원가입하러 간다 !!! ")
-								// 인증이 성공한 경우 폼을 제출합니다.
-								// 이때, 서버로 데이터가 전송됩니다.
-								return true; // 기본 동작 실행 (폼 제출)
-							} else {
-								// 인증이 실패한 경우 폼 제출을 막습니다.
-								event.preventDefault(); // 폼 전송 막기
-								alert("인증이 필요합니다.");
-								return false; // 폼 제출 취소
-							}
-						});
-						*/
+			var auth = 1;
+
+			$("#f").submit(function (event) {
+				if (auth === 1) {
+					alert("회원가입하러 간다 !!! ")
+					// 인증이 성공한 경우 폼을 제출합니다.
+					// 이때, 서버로 데이터가 전송됩니다.
+					return true; // 기본 동작 실행 (폼 제출)
+				} else {
+					// 인증이 실패한 경우 폼 제출을 막습니다.
+					event.preventDefault(); // 폼 전송 막기
+					alert("인증이 필요합니다.");
+					return false; // 폼 제출 취소
+				}
+			});
+
 
 			$("#btn_check").click(function () {
 				var nick = $("#nick").val()
@@ -49,19 +49,32 @@
 			})
 			$("#btn_emailcheck").click(function () {
 				var email = $("#email").val()
-				$("#box_check").css("display", "block")
 				$.ajax({
-					url: '/emailCheck',
-					method: 'GET',
-					data: {email: email},
-					success: function (data) {
-						authNum = data
-					},
-					error: function (error) {
-						// 오류 처리
-						console.error('Error:', error);
+					url:'/duplicateEmail',
+					data:{email:email},
+					success:function(email2){
+						console.log("email:",email2)
+					if(email2 ===""){
+						$("#box_check").css("display", "block")
+						console.log("email check 동작함!")
+						$.ajax({
+							url: '/emailCheck',
+							method: 'GET',
+							data: {email: email},
+							success: function (data) {
+								authNum = data
+							},
+							error: function (error) {
+								// 오류 처리
+								console.error('Error:', error);
+							}
+						});						
+					}else{
+						alert("중복된 이메일 입니다!")
 					}
-				});
+						
+					}
+				})
 
 			})
 
@@ -107,7 +120,7 @@
 
 		<!-- Main page content-->
 		<div class="container-xl px-4 mt-4">
-			<form action="/joinOK" method="post" id="f" enctype="multipart/form-data">
+			<form action="/join" method="post" id="f" enctype="multipart/form-data">
 				<div class="row">
 					<div class="col-xl-4">
 						<!-- Profile picture card-->
@@ -152,7 +165,7 @@
 									<!-- Form Group (nick name)-->
 									<div class="col-md-6">
 										<label class="small mb-1" for="inputLastName">Nick name</label>
-										<input class="form-control" name="nick" type="text" id="nick" required
+										<input class="form-control" name="nick" type="text" id="nick" required th:value="${session.name}"
 											placeholder="Enter your nick name">
 										<button class="btn btn-primary"
 											style=" border-color: #008375; background-color: #008375;" id="btn_check"
@@ -177,7 +190,7 @@
 								<!-- Form Group (email address)-->
 								<div class="mb-3">
 									<label class="small mb-1" for="inputEmailAddress">Email address</label>
-									<input class="form-control" type="email" name="email" id="email" required
+									<input class="form-control" type="email" name="email" id="email" required th:value="${session.email}"
 										placeholder="Enter your email address">
 									<button class="btn btn-primary"
 										style=" border-color: #008375; background-color: #008375;" id="btn_emailcheck"
