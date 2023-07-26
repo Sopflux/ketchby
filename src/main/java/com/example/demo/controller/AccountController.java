@@ -25,7 +25,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.Setter;
 
 @Setter
-@RestController
+@Controller
 public class AccountController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -50,16 +50,6 @@ public class AccountController {
 		return "OK";
 	}
 
-	@GetMapping("/nickCheck")
-	public String nickCheck(String nick) {
-		String msg = "사용 가능한 닉네임입니다!";
-		String check = as.findByNick(nick);
-		if (check != null && !check.equals("")) {
-			msg = "사용불가능한 닉네임입니다!";
-		}
-		System.out.println("msg:" + msg);
-		return msg;
-	}
 
 	@PostMapping("/join")
 
