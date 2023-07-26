@@ -13,7 +13,8 @@ import com.example.demo.entity.ClassVO;
 public interface ClassDAO extends JpaRepository<ClassVO, Integer> {
 	
 	@Modifying
-	@Query(value = "select clno, cltitle, cllevel, aid from class")
+	@Query(value = "select * from Class c", nativeQuery = true)
+	
 	public List<ClassVO> selectAll();
 	
 }
