@@ -19,4 +19,9 @@ public class QandAService {
 	public List<QandA> findAll(){
 		return dao.findAll();
 	}
+	public List<QandA> findByQno(int qno){
+		return dao.findByQno(qno);
+	}
+	
+	
 }

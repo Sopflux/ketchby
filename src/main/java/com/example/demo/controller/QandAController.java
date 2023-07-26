@@ -20,7 +20,7 @@ public class QandAController {
 	private QandAService qs;
 	
 	@GetMapping("/qanda/qandamain")
-	public void list(Model model) {
-		model.addAttribute("list",qs.findAll());
+	public void list(Model model, int qno) {
+		model.addAttribute("list",qs.findByQno(qno));
 	}
 }
