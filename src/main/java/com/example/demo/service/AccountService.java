@@ -11,16 +11,24 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.AccountDAO;
+import com.example.demo.dao.AccountDAO_mb;
 import com.example.demo.entity.Account;
 
 @Service
 public class AccountService implements UserDetailsService{
+	@Autowired
+	private AccountDAO_mb dao_mb;
 	
 	@Autowired
 	private AccountDAO dao;
 	
 	public List<Account> findAll(){
 		return dao.findAll();
+	}
+	
+	public Account findByEmail(String email) {
+		Account a = dao_mb.findByEmail(email);
+		return a;
 	}
 	
 	public String findByNick(String nick) {

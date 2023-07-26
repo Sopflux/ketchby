@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Insert title here</title>
@@ -39,12 +39,12 @@
             <li class="sidebar-user">
                 Ketchby
             </li>
-            <li><a href="#">Dashboard</a></li>
-            <li><a href="#">사용자 관리</a></li>
-            <li><a href="#">문의 관리</a></li>
-            <li><a href="#">공지사항 관리</a></li>
-            <li><a href="#">클래스 관리</a></li>
-            <li><a href="#">게시판 관리</a></li>
+            <li><a href="#">📊 Dashboard</a></li>
+            <li><a href="#">👤 사용자 관리</a></li>
+            <li><a href="#">📧 문의 관리</a></li>
+            <li><a href="#">📢 공지사항 관리</a></li>
+            <li><a href="#">🪧 클래스 관리</a></li>
+            <li><a href="#">🧾 게시판 관리</a></li>
         </ul>
     </nav>
     <div id="page" class="page">
@@ -73,24 +73,12 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>10</td>
-                    <td>뚝딱뚝딱 목공</td>
-                    <td>lv.5</td>
-                    <td>유리심장</td>
-                </tr>
-                <tr>
-                    <td>Mary</td>
-                    <td>Moe</td>
-                    <td>mary@example.com</td>
-                    <td>유리심장</td>
-                </tr>
-                <tr>
-                    <td>July</td>
-                    <td>Dooley</td>
-                    <td>july@example.com</td>
-                    <td>유리심장</td>
-                </tr>
+                <tr th:each="c:${listClass}">
+					<td th:text="{c.no}"></td>
+					<td th:text="{c.titile}"></td>
+					<td th:text="{c.cllevel}"></td>
+					<td th:text="{c.aid}"></td>
+				</tr>
                 </tbody>
             </table>
             </div>

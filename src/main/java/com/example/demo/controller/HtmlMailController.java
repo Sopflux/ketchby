@@ -13,11 +13,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.demo.dao.AccountDAO_mb;
+
 import lombok.Setter;
 
 @Controller
 @Setter
 public class HtmlMailController {
+	@Autowired
+	private AccountDAO_mb dao_mb;
 	
 	@Autowired
 	private JavaMailSender sender;
@@ -25,7 +29,7 @@ public class HtmlMailController {
 	@GetMapping("/emailCheck")
 	@ResponseBody
 	public String send(String email) {
-		
+
 		Random r = new Random();
 		int a = r.nextInt(10); //0~9
 		int b = r.nextInt(10); //0~9

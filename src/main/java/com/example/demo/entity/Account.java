@@ -20,6 +20,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Table(name="account")
 public class Account {
+	
 	@Id
 	private String aid;
 	private String pwd;

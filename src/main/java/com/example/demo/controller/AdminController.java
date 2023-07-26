@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.example.demo.ApiBigQueryAuthentication;
 import com.example.demo.dao.AccountDAO;
+import com.example.demo.service.AdminService;
 
 import lombok.Setter;
 
@@ -17,6 +18,17 @@ import lombok.Setter;
 public class AdminController {
 	@Autowired
 	private AccountDAO a_dao;
+	
+	@Autowired
+	private AdminService adminService;
+	
+	
+	@GetMapping("/admin/class")
+	public void listClass(Model model) {
+		model.addAttribute("listClass", adminService.findAll());
+	}
+	
+	
 	
 	@GetMapping("/admin/user")
 	public void list(Model model){

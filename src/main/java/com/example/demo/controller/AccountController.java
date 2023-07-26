@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,20 +19,25 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.dao.AccountDAO;
+import com.example.demo.dao.AccountDAO_mb;
 import com.example.demo.entity.Account;
 import com.example.demo.service.AccountService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.Setter;
 
 @Setter
-@RestController
+@Controller
 public class AccountController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	@Autowired
 	private AccountService as;
-
+	
+	@Autowired
+	private AccountDAO_mb dao_mb;
+	
 	@GetMapping("/list")
 	public void list(Model model) {
 		model.addAttribute("list", as.findAll());
@@ -44,21 +50,25 @@ public class AccountController {
 		return mav;
 	}
 
+
 	@RequestMapping("/joinOK")
 	@ResponseBody
 	public String joinOK() {
 		return "OK";
 	}
-
-	@GetMapping("/nickCheck")
-	public String nickCheck(String nick) {
-		String msg = "사용 가능한 닉네임입니다!";
-		String check = as.findByNick(nick);
-		if (check != null && !check.equals("")) {
-			msg = "사용불가능한 닉네임입니다!";
+	
+	@GetMapping("/kakaologin/{name}/{email}")
+	public ModelAndView kakaologin(@PathVariable String name, @PathVariable String email, HttpSession session) {
+		ModelAndView mav = new ModelAndView("redirect:/list");
+		System.out.println("카카오 로그인 작동!");
+		System.out.println("name:"+name);
+		System.out.println("email:"+email);
+		session.setAttribute("name", name);
+		session.setAttribute("email", email);
+		if (as.findByEmail(email) == null) {
+			mav.setViewName("redirect:/join");
 		}
-		System.out.println("msg:" + msg);
-		return msg;
+		return mav;
 	}
 
 	@PostMapping("/join")
