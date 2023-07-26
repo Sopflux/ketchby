@@ -5,11 +5,13 @@
 <mapper namespace="feed">	
 	<select id="findAll" resultType="feed">
 	
+	
 		select * from feed
 	</select>	
 	
 	<select id="imgFindByFno" resultType="String">
 		select imgname from image where fno = #{fno}
 	</select>	
+	
 	
 </mapper>
