@@ -11,6 +11,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity // 시큐리티 환경설정! 
 public class SecurityConfig {
+	
+	
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
