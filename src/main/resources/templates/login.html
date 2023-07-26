@@ -9,31 +9,190 @@
 	<title>Login</title>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="http://developers.kakao.com/sdk/js/kakao.js"></script>
+	<script src=" https://code.jquery.com/jquery-3.7.0.min.js"></script>
 	<script>
 		Kakao.init("7c248b2a7ecace1d70680b17adec6fb8");
-			function kakaologin(){
-				Kakao.Auth.loginForm({
-					scope:"profile_nickname,account_email",
-					success:function(){
-						Kakao.API.request({
-							url:"/v2/user/me",
-							success:function(res){
-								var name = res.kakao_account.profile.nickname;
-								var email = res.kakao_account.email;
-								console.log(name);
-								console.log(email);
-								alert(name)
-								location.href = "/kakaologin/"+name+"/"+email;
-							}
-						})
+		function kakaologin() {
+			Kakao.Auth.loginForm({
+				scope: "profile_nickname,account_email",
+				success: function () {
+					Kakao.API.request({
+						url: "/v2/user/me",
+						success: function (res) {
+							var name = res.kakao_account.profile.nickname;
+							var email = res.kakao_account.email;
+							console.log(name);
+							console.log(email);
+							location.href = "/kakaologin/" + name + "/" + email;
+						}
+					})
+				}
+			})
+		}
+		$(function () {
+			$("#openID").click(function (event) {
+				event.preventDefault();
+				$("#findID").modal("show");
+
+			});
+			$("#openPwd").click(function (event) {
+				event.preventDefault();
+				$("#findPwd").modal("show");
+
+			});
+			var email;
+			var auth = 0;
+			$("#btn_idcheck").click(function () {
+				id = $("#id_pwd").val();
+				console.log("id :", id);
+				$.ajax({
+					url: '/idCheck',
+					method: 'GET',
+					data: {id: id},
+					success: function (data) {
+						if(data === ""){
+							alert("존재하지 않는 아이디입니다.")
+						}else if (data != id){
+							alert("아이디가 일치하지 않습니다.")
+						}else{
+							id = data 
+							auth += 1;
+						}
+					},
+					error: function (error) {
+						// 오류 처리
+						console.error('Error:', error);
+					}
+				});
+
+			})
+
+			$("#btn_emailcheck").click(function () {
+				email = $("#email").val()
+				console.log(email);
+				$.ajax({
+					url: '/duplicateEmail',
+					data: {email: email},
+					success: function (email2) {
+						console.log("email:", email2)
+						if (email2 === "") {
+							alert("아이디와 일치하지않는 이메일 입니다!")
+						} else {
+							$("#box_check").css("display", "block")
+							console.log("email check 동작함!")
+							$.ajax({
+								url: '/emailCheck',
+								method: 'GET',
+								data: {email: email},
+								success: function (data) {
+									authNum = data
+								},
+								error: function (error) {
+									// 오류 처리
+									console.error('Error:', error);
+								}
+							}); // end email Check ajax
+						}
+
 					}
 				})
+
+			}); // end btn_check email
+			$("#btn_emailcheck2").click(function () {
+				email = $("#email2").val()
+				console.log(email);
+				$.ajax({
+					url: '/emailCheckWithEmail',
+					data: {email: email},
+					success: function (email2) {
+						console.log("email:", email2)
+						if (email2 === "") {
+							alert("존재하지 않는 이메일 입니다!")
+						} else {
+							$("#box_check").css("display", "block")
+							console.log("email check 동작함!")
+							$.ajax({
+								url: '/emailCheck',
+								method: 'GET',
+								data: {email: email, id:id},
+								success: function (data) {
+									authNum = data
+								},
+								error: function (error) {
+									// 오류 처리
+									console.error('Error:', error);
+								}
+							}); // end email Check ajax
+						}
+
+					}
+				})
+
+			}); // end btn_check email
+
+			$("#btnCheckNUM").click(function (event) {
+				var userNum = $("#checkNUM").val()
+				if (authNum == userNum) {
+					alert("인증되었습니다!");
+					auth += 1;
+					event.preventDefault();
+					$.ajax({
+						url: '/getID',
+						method: 'GET',
+						data: {email: email},
+						success: function (id) {
+							$("#id").val(id);
+						},
+						error: function (error) {
+							// 오류 처리
+							console.error('Error:', error);
+						}
+					});
+				} else {
+					alert("다시 인증해주세요!")
+					auth = 0;
+					event.preventDefault();
+				}
+			});
+			$("#btnCheckNUM2").click(function (event) {
+				var userNum = $("#checkNUM2").val()
+				if (authNum == userNum) {
+					alert("인증되었습니다!");
+					auth += 1;
+					event.preventDefault();
+					$.ajax({
+						url: '/getID',
+						method: 'GET',
+						data: {email: email},
+						success: function (id) {
+							$("#id").val(id);
+						},
+						error: function (error) {
+							// 오류 처리
+							console.error('Error:', error);
+						}
+					});
+				} else {
+					alert("다시 인증해주세요!")
+					auth = 0;
+					event.preventDefault();
+				}
+			});
+			
+			if(auth == 2){
+				$("#changePwd").css("display","block");
 			}
+			
+			
+		})
 	</script>
+
+
+
 	<style>
 		.loginBody {
 			width: 300px;
-			height:300px;
+			height: 300px;
 			margin: 0 auto;
 			margin-top: 50vh;
 			transform: translateY(-50%);
@@ -42,6 +201,10 @@
 		.div_login {
 			margin-top: 16px;
 			width: 300px;
+		}
+
+		#box_check {
+			display: none;
 		}
 	</style>
 </head>
@@ -62,13 +225,94 @@
 			</div>
 			<div class="div_login">
 				<a href="javascript:kakaologin()">
-				<!--	<img src="/image/kakao_login_large_wide.png" style="width: 300px; height: 36.5px;" alt="Kakao Login">-->
-				카카오 로그인
-				</a>
+					<!--	<img src="/image/kakao_login_large_wide.png" style="width: 300px; height: 36.5px;" alt="Kakao Login">-->
+					카카오 로그인 </a>
+				<a id="openID">아이디 찾기</a>
+				<a id="openPwd">비밀번호 찾기</a>
 			</div>
 
 		</form>
 	</div>
+
+
+
+	<!-- 아이디 찾기 모달  -->
+	<div class="modal" tabindex="-1" id="findID">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">아이디 찾기</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+
+				<div class="modal-body">
+					<div class="mb-3">
+						<label class="form-label">Email</label>
+						<input type="text" class="form-control" name="email" id="email" placeholder="Email">
+						<button class="btn btn-primary" style=" border-color: #008375; background-color: #008375;"
+							id="btn_emailcheck" type="button">Email Check</button>
+					</div>
+					<div id="box_check">
+						<label class="small mb-1" for="inputEmailAddress">Verification</label>
+						<input class="form-control" type="text" id="checkNUM">
+						<button class="btn btn-primary" style=" border-color: #008375; background-color: #008375;"
+							id="btnCheckNUM">확인</button>
+					</div>
+					<div class="mb-3">
+						<label class="form-label">ID</label>
+						<input type="text" class="form-control" id="id" placeholder="This is yout ID">
+
+					</div>
+
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+	<!-- 아이디 찾기 모달 끝  -->
+
+	<!-- 비밀번호 찾기 모달 -->
+	<div class="modal" tabindex="-1" id="findPwd">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">비밀번호 찾기</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+
+				<div class="modal-body">
+					<div class="mb-3">
+						<label class="form-label">ID</label>
+						<input type="text" class="form-control" name="id" id="id_pwd" placeholder="ID">
+						<button class="btn btn-primary" style=" border-color: #008375; background-color: #008375;"
+							id="btn_idcheck" type="button">ID Check</button>
+					</div>
+					<div class="mb-3">
+						<label class="form-label">Email</label>
+						<input type="text" class="form-control" name="email" id="email2" placeholder="Email">
+						<button class="btn btn-primary" style=" border-color: #008375; background-color: #008375;"
+							id="btn_emailcheck2" type="button">Email Check</button>
+					</div>
+					<div id="box_check2">
+						<label class="small mb-1" for="inputEmailAddress">Verification</label>
+						<input class="form-control" type="text" id="checkNUM2">
+						<button class="btn btn-primary" style=" border-color: #008375; background-color: #008375;"
+							id="btnCheckNUM2">확인</button>
+					</div>
+					<div class="mb-3">
+						<label class="form-label">ID</label>
+						<input type="text" class="form-control" id="id" placeholder="This is yout ID">
+
+					</div>
+
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+	<!-- 비밀번호 찾기 모달 끝 -->
 </body>
 
 </html>

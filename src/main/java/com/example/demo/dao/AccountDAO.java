@@ -7,4 +7,5 @@ import com.example.demo.entity.Account;
 public interface AccountDAO extends JpaRepository<Account, Integer> {
 	public Account findByAid(String id);
 	public Account findByNick(String nick);
+	public Account findByEmail(String email);
 }

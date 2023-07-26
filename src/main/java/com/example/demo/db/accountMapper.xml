@@ -7,8 +7,12 @@
 		select * from account where nick = #{nick}
 	</select>	
 	
-	<select id="findByEmail" resultType="account">
+	<select id="findByEmail" resultType="account" parameterType="String">
 		select * from account where email = #{email}
+	</select>
+	
+	<select id="emailCheckWithEmail" resultType="account">
+		select * from account where email = #{email} and aid = #{id}
 	</select>	
 	
 </mapper>

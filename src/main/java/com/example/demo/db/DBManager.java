@@ -1,6 +1,7 @@
 package com.example.demo.db;
 
 import java.io.InputStream;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -28,6 +29,16 @@ public class DBManager {
 		SqlSession session =  sqlSessionFactory.openSession();
 		Account a = null;
 		a = session.selectOne("account.findByNick", nick);
+		return a;
+	}
+	
+	public static Account emailCheckWithEmail(String email, String id) {
+		SqlSession session =  sqlSessionFactory.openSession();
+		Account a = null;
+		HashMap<String, String> params = new HashMap<>();
+	    params.put("email", email);
+	    params.put("id", id);
+		a = session.selectOne("account.emailCheckWithEmail",params);
 		return a;
 	}
 	
