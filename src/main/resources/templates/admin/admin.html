@@ -5,65 +5,72 @@
     <title>Insert title here</title>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="admin.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="//code.jquery.com/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
 
-</head>
-<body style="background-color:black">
-    <div id="page">
-        <!-- 사이드바 -->
-        <div id="sidebar-all">
-            <ul class="sidebar">
-                <li class="sidebar-user">
-                    <li>Ketchby</li>
-                </li>
-                <li><a href="#">Dashboard</a></li>
-                <li><a href="#">사용자 관리</a></li>
-                <li><a href="#">문의 관리</a></li>
-                <li><a href="#">공지사항 관리</a></li>
-                <li><a href="#">클래스 관리</a></li>
-                <li><a href="#">게시판 관리</a></li>
-            </ul>
-        </div>
-        <!-- /사이드바 -->
 
-        <!-- 본문 -->
+</head>
+<body style="background-color:black" >
+<div class="container-scroller">
+    <!-- 사이드바 -->
+    <nav id="sidebar-all">
+        <ul class="sidebar">
+            <li class="sidebar-user">
+                Ketchby
+            </li>
+            <li><a href="#">📊 Dashboard</a></li>
+            <li><a href="#">👤 사용자 관리</a></li>
+            <li><a href="#">📧 문의 관리</a></li>
+            <li><a href="#">📢 공지사항 관리</a></li>
+            <li><a href="#">🪧 클래스 관리</a></li>
+            <li><a href="#">🧾 게시판 관리</a></li>
+        </ul>
+    </nav>
+    <div id="page" class="page">
+
         <!-- 본문 헤더-->
         <div id="page-header">
 
         </div>
-
-        <div id="page-content">
-            <div class="box-container">
-                <div class="card">
-                    <div class="card-header">사용자</div>
-                    <div class="card-body">Content 1</div>
-                </div>
-            </div>
-            <div class="box-container">
-                <div class="card">
-                    <div class="card-header">Header 2</div>
-                    <div class="card-body">Content 2</div>
-                </div>
-            </div>
-            <div class="box-container">
-                <div class="card">
-                    <div class="card-header">Header 3</div>
-                    <div class="card-body">Content 3</div>
-                </div>
-            </div>
-            <div class="box-container">
-                <div class="card">
-                    <div class="card-header">Header 4</div>
-                    <div class="card-body">Content 4</div>
-                </div>
+        <div class="main-wrapper">
+        <div class="main-table">
+            <h2>클래스</h2>
+            <p>총 클래스:63&nbsp; 공예:30&nbsp; 스포츠:20&nbsp; 언어:15&nbsp; </p>
+            <table class="table table-dark table-hover">
+                <thead>
+                <tr>
+                    <th>클래스 번호</th>
+                    <th>클래스명</th>
+                    <th>클래스 레벨</th>
+                    <th>클래스 개설자</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>10</td>
+                    <td>뚝딱뚝딱 목공</td>
+                    <td>lv.5</td>
+                    <td>유리심장</td>
+                </tr>
+                <tr>
+                    <td>Mary</td>
+                    <td>Moe</td>
+                    <td>mary@example.com</td>
+                    <td>유리심장</td>
+                </tr>
+                <tr>
+                    <td>July</td>
+                    <td>Dooley</td>
+                    <td>july@example.com</td>
+                    <td>유리심장</td>
+                </tr>
+                </tbody>
+            </table>
             </div>
         </div>
-
-        <!-- /본문 -->
     </div>
-
-
+</div>
 </body>
 </html>
-
