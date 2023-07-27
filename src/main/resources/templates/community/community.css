@@ -1,0 +1,147 @@
+@charset "EUC-KR";
+input, button {
+  border: none;
+}
+.search_keyword::placeholder{
+    color: rgba(189, 189, 189, 1);
+}
+
+.maindiv{
+  top: 240px;
+  left: 293px;
+  width: 917px;
+  height: 1093px;
+  display: flex;
+  position: absolute;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+.main_search{
+  left: 33px;
+  position: absolute;
+  
+}
+
+.form-select-lg{
+  width: auto;
+  padding: 8px 35.769996643066406px 9px 16px;
+  border-color: rgba(225, 225, 225, 1);
+  border-radius: 19px;
+  font-size: 15px;
+}
+
+.main_content{
+  gap: 2px;
+  top: 140px;
+  left: 0px;
+  width: 917px;
+  height: 942px;
+  display: flex;
+  padding: 10px 0 0;
+  position: absolute;
+  align-items: flex-start;
+  flex-shrink: 0;
+  flex-direction: column;
+}
+.search_keyword{
+  width: 641px;
+  height: 44px;
+  border-radius: 8px;
+  background-color: rgba(244, 244, 244, 1);
+}
+.search_btn{
+  top: 57px;
+  left: 655px;
+  width: 120px;
+  height: 44px;
+  position: absolute;
+  border-radius: 6px;
+  background-color: rgba(0, 199, 174, 1);
+  color: white;
+}
+.search_btn:hover {
+  background-color: rgba(0, 153, 133, 1);
+}
+
+.hotingi{
+  color: rgba(0, 0, 0, 1);
+  height: auto;
+  font-size: 13px;
+  text-align: center;
+}
+.hot_board{
+  width: 888px;
+  height: 150px;
+  display: flex;
+  position: relative;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+.board{
+  width: 889px;
+  height: 600px;
+  display: flex;
+  position: relative;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+.hot_title{
+  color: rgba(140, 90, 210, 1);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 28px;
+  text-decoration: none;
+}
+.hot_other{
+  color: rgba(154, 154, 154, 1);
+  height: auto;
+  font-size: 16px;
+  font-stretch: normal;
+  text-decoration: none;
+}
+
+.td-number {
+  width: 40px;
+}
+
+.td-title {
+  width: 600px;
+}
+
+.td-date {
+  width: 90px;
+}
+
+.td-author {
+  width: 100px;
+}
+
+.board-td-title{	
+	width: 639px;
+}
+
+
+.hot_td tr:not(:last-child),
+ .board_td tr:not(:last-child){
+  border-bottom: 1px solid #E6E6E6;
+}
+.line{
+    width: 800px;
+    height: 5px;
+    overflow: hidden;
+    margin: 20px 10px ;
+    background-color: rgba(247, 249, 250, 1);
+}
+
+.board_td{
+  width: 888px;
+  height: 150px;
+  display: flex;
+  position: relative;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+
+.board_td td{
+	padding: 8px 0;
+}

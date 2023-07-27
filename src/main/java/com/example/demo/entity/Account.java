@@ -8,14 +8,19 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
+@Setter
+@Getter
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name="account")
 public class Account {
+	
 	@Id
 	private String aid;
 	private String pwd;
