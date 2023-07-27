@@ -184,7 +184,7 @@
 							<div>
 								<div class="nav nav-divider">
 									<h6 class="nav-item card-title mb-0">
-										<a href="#!"> 바오바오 </a>
+										<a href="#!" th:text="${f.aid}"> </a>
 									</h6>
 									<span class="nav-item small"> 2hr</span>
 								</div>
@@ -231,7 +231,7 @@
 							</button>
 						</div>
 
-						<p>안뇽 내 이름은 푸바오!</p>
+						<span th:text="${f.fcontent}"></span>
 						<ul class="nav nav-stack py-3 small">
 							<li class="nav-item"><a class="nav-link active" href="#!"
 								data-bs-container="body" data-bs-toggle="tooltip"

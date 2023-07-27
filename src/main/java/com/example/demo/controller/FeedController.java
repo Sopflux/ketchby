@@ -5,8 +5,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.ModelAndView;
 
-import com.example.demo.dao.FeedDAO_mb;
+import com.example.demo.dao.FeedImgDAO_mb;
 
 import lombok.Setter;
 
@@ -15,11 +16,12 @@ import lombok.Setter;
 public class FeedController {
 	
 	@Autowired
-	private FeedDAO_mb dao;
+	private FeedImgDAO_mb dao;
 
 	@GetMapping("/feed/feed")
 	public void main(Model model){
-		model.addAttribute("list",dao.findAllFeed());
-		model.addAttribute("list_img", dao.imgFindByFno());
+		model.addAttribute("list", dao.findAllFeedIMg());
 	}
+	
 }
+

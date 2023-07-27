@@ -7,7 +7,6 @@
   <typeAliases>
   	<typeAlias type="com.example.demo.entity.Account" alias="account"/>
   	<typeAlias type="com.example.demo.entity.Feed" alias="feed"/>
-  	<typeAlias type="com.example.demo.entity.Image" alias="image"/>
   </typeAliases>
   <environments default="development">
     <environment id="development">
@@ -24,4 +23,6 @@
     <mapper resource="com/example/demo/db/accountMapper.xml"/>
     <mapper resource="com/example/demo/db/feedMapper.xml"/>
   </mappers>
+  
 </configuration>
+

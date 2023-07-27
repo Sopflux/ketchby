@@ -16,7 +16,6 @@ public class KetchbyApplication {
 		SpringApplication.run(KetchbyApplication.class, args);
 	}
 
-	
 	@SpringBootApplication
 	public class JpaBoard3Application {
 		@Bean
