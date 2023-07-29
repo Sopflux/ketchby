@@ -95,6 +95,59 @@ body, html {
 }
 
 
+/*탭 디자인*/
+.container{
+	width: 500px;
+	margin: 0 auto;
+}
+
+/* Reset default list styles for tabs */
+ul.tabs {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Style each tab */
+ul.tabs li {
+  background: none;
+  color: white;
+  display: inline-block;
+  padding: 10px 15px;
+  cursor: pointer;
+  position: relative; /* Add position relative to the li elements */
+}
+
+/* Add the purple underline to the active tab */
+ul.tabs li.current::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #8457D5;
+}
+
+/* Style the active tab */
+ul.tabs li.current {
+  background: #191C24;
+  color: #8457D5;
+}
+
+/* Style the tab content container */
+.tab-content {
+  display: none;
+  padding: 15px;
+}
+
+/* Show the active tab content */
+.tab-content.current {
+  display: block;
+}
+
+
+/*본문 디자인*/
 .main-table{
   padding: 1.75rem 1.5625rem;
   background: #191C24;
@@ -115,6 +168,24 @@ body, html {
 .main-table td {
   border: none !important;
   border-color: #191C24 !important;
+  
+}
+
+.main-table a {
+	 text-decoration: none;
+    color: white;
+}
+
+.btn_alert {
+    color: #8457D5 !important;
+    background-color: #212529 !important;
+    border: none;
+}
+
+.btn_alert:hover {
+    background-color: #ffffff !important;
+    color: #8457D5 !important;
+    border: none;
 }
 
 
@@ -150,3 +221,59 @@ body, html {
     outline:0;
 }
 
+
+/*모달 디자인*/
+
+.modal {
+    background: rgba(0,0,0,0.2);
+    height: auto;
+  }
+
+  .modal-header {
+    background: #191C24 !important;
+    color: white;
+    border: none !important;
+  }
+
+  .modal-body {
+    background: #191C24 !important;
+    height: auto;
+    color: white;
+    border: none !important;
+  }
+  .modal-footer {
+    background: #191C24 !important;
+    border: none !important;
+  }
+
+  .modal-table {
+    padding: 1.75rem 1.5625rem;
+    width: 100%;
+    background: #191C24;
+  }
+  
+  .modal-table h2 {
+    font-weight: bold;
+  }
+  .modal-table h2, p{
+    color: white;
+  }
+  
+  .modal-table th {
+    color: #8457D5 !important;
+    border: none !important;
+  }
+  
+  .modal-table td {
+    border: none !important;
+    border-color: #191C24 !important;
+  }
+  .modal-input {
+    background-color: #2A3038;
+    width: 95%;
+    box-shadow:0 1px 0 rgba(255,255,255,0.1), 0 1px 3px rgba(0,0,0,0.2) inset;
+    border:0 none;
+    color: white;
+  }
+
+ 

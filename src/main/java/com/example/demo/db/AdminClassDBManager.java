@@ -1,6 +1,7 @@
 package com.example.demo.db;
 
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.io.Resources;
@@ -25,9 +26,17 @@ public class AdminClassDBManager {
 		}
 	}
 	
-	public static List<AdminClass> findAll(){
+	public static int getTotalRecord() {
+		int n =0;
 		SqlSession session = sqlSessionFactory.openSession();
-		List<AdminClass> list = session.selectList("adminClass.findAll");
+		n=session.selectOne("adminClass.getTotalRecord");
+		session.close();
+		return n;
+	}
+	
+	public static List<AdminClass> findAll(HashMap<String, Object> map){
+		SqlSession session = sqlSessionFactory.openSession();
+		List<AdminClass> list = session.selectList("adminClass.findAll", map);
 		session.close();
 		return list;
 	}

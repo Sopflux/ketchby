@@ -1,6 +1,8 @@
 package com.example.demo.entity;
 
 
+import org.springframework.web.multipart.MultipartFile;
+
 import jakarta.persistence.Id;
 import lombok.Data;
 
@@ -25,6 +27,9 @@ public class AdminClass {
 	private String cltype;
 	private String scaname;
 	private String aid;
+	private MultipartFile uploadFile;
+	
+	
 	public int getClno() {
 		return clno;
 	}
@@ -114,6 +119,12 @@ public class AdminClass {
 	}
 	public void setAid(String aid) {
 		this.aid = aid;
+	}
+	public MultipartFile getUploadFile() {
+		return uploadFile;
+	}
+	public void setUploadFile(MultipartFile uploadFile) {
+		this.uploadFile = uploadFile;
 	}
 	
 	
