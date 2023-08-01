@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="adminAccount">	
+
+	<select id="findAll" resultType="account">
+		select aid, pwd, email, name_, nick, img, level_, regdate from (
+		select rownum n, aid, pwd, email, name_, nick, img, level_, regdate from (
+		select * from account order by regdate desc) 
+		<include refid="searching"></include>
+		) a
+		where a.n between #{start } and #{end }
+	</select>
+		
+	<sql id="searching">
+		<choose>
+			<when test="column=='all'">
+				where aid like '%' || #{keyword, jdbcType=VARCHAR } || '%'
+				or email like '%' || #{keyword, jdbcType=VARCHAR } || '%'
+				or name_ like '%' || #{keyword, jdbcType=VARCHAR } || '%'
+			</when>
+			<otherwise>
+				where ${column} like '%' || #{keyword, jdbcType=VARCHAR } || '%'
+			</otherwise>
+		</choose>
+	</sql>
+	
+	<select id="getTotalForPage" resultType="java.lang.Integer">
+		select count(*) from account
+		<include refid="searching"></include>
+	</select>
+	
+	<select id="getTotalUser" resultType="java.lang.Integer">
+		select count(*) from account	
+	</select>
+	
+	<select id="findAccount" resultType="account">
+		select * from account where aid = #{aid }
+	</select>	
+	
+	<insert id="insert" parameterType="account">
+		insert into account(id, pwd, email, name_, nick, img, level_, regdate) 
+		values(#{id}, #{pwd}, #{email}, #{name_}, #{nick}, #{img}, #{level_}, sysdate
+	</insert>
+	
+	<delete id="delete" parameterType="account">
+		delete account where aid=#{aid}
+	</delete>
+</mapper>

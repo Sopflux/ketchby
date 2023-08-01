@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <title>Insert title here</title>
 	<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-	<link rel="stylesheet" href="./user.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="//code.jquery.com/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="/style/user.css" />
 	<script>
 	     $(function(){
 	        $(".search-bar input")
@@ -19,12 +19,19 @@
 	        $(".header").removeClass("wide");
 	        });
 	    
-
             $('#open-modal').click(function(e){
                 e.preventDefault();
                 $('.main-modal').modal("show");
                 $("#btnUpdate").css('display', 'inline-block');
                 $("#btnDelete").css('display', 'inline-block');
+                var no = $('#open-modal').val();
+                $.ajax({
+					data: {aid: no},
+					url: '',
+					success: function(m){
+						$('#name_').val(m.name_);
+					}
+				})
             });
             
             $('#btnInsert').click(function(e){
@@ -33,6 +40,8 @@
                 $("#btnUpdate").css('display', 'none');
                 $("#btnDelete").css('display', 'none');
             });
+            
+            $("#")
         })
     </script> 
 </head>
@@ -62,15 +71,24 @@
         <div class="main-wrapper">
         <div class="main-table">
             <h2>사용자</h2>
-            <p th:text="총 사용자: ${member}"></p>
+            <p th:text="'총 사용자: '+${member}"></p>
           	<div class="app">
                 <div id="search5back">
-                    <form method="get" action="/search" id="searchbox5">
-                        <input id="search5" name="q" type="text" size="40" placeholder="Search" />
-                    </form>
-                  </div>
-                  <table class="table table-dark table-hover">
-                    <thead>
+					
+					<!-- 칼럼, 검색어로 검색 -->
+					<select id="searchColumn" name="column" th:value="${column}">
+						<option th:selected="${column}=='all'">all</option>
+						<option th:selected="${column}=='aid'">aid</option>
+						<option th:selected="${column}=='email'">email</option>
+						<option th:selected="${column}=='name_'">name_</option>
+					</select>
+					
+                    	<input th:if="${keyword != null}" th:value="${keyword}" id="search5" name="keyword" type="text" size="40" placeholder="Search Aid"/>
+                </div>
+
+                 <!-- 테이블 출력 -->
+                <table class="table table-dark table-hover">
+                	<thead>
                     <tr>
                         <th>아이디</th>
                         <th>이메일</th>
@@ -83,15 +101,69 @@
                         <td th:text="${m.aid}"></td>
                         <td th:text="${m.email}"></td>
                         <td th:text="${m.name_}"></td>
-                        <td id="open-modal" name="open-modal" value="${m.aid}">
-                            <span data-bs-toggle="modal" data-bs-target="#myModal">액션</span>
+                        <td id="open-modal" name="open-modal" data-bs-toggle="modal" data-bs-target="#myModal">
+                        <span >자세히 보기</span>
                         </td>
                     </tr>
                     </tbody>
                 </table>
-                
                 <button type="button" class="btn btn-danger" id="btnInsert" name="btnInsert">추가</button>
             </div>
+            <div class="pagingNumber">
+	            <th:block th:each="i:${#numbers.sequence(1, totalPage)}">
+					<a th:href="@{/admin/user(pageNum=${pageNum}, column=${column}, keyword=${keyword})}" 
+					th:text = "${i }" name="pageNum" id="pageNum" class="pagingName"></a>&nbsp;&nbsp;
+				</th:block>
+			</div>
+			<script type="text/javascript">
+				$(document).ready(function() {
+			        $('.pagingName').click(function(e) {
+			            e.preventDefault();
+			            var pageNum = $(this).text();
+			            var column = $("#searchColumn").val();
+			            var keyword = $('#search5').val();
+			            location.href = 'user?pageNum=' + pageNum + '&column=' + column + '&keyword=' + keyword;
+			        });
+			   	 });
+				
+				
+		        
+		        function searching(e){
+		           let keyword = document.getElementById("search5").value;
+		           let column = document.getElementById("searchColumn").value;
+		           let pageNum = getParameterByName('pageNum');
+		           
+		           if (pageNum === null) {
+			            pageNum = 1;
+			        }
+		           console.log('keyword: '+keyword);
+		           console.log('column: '+column);
+		           console.log('pageNum: '+pageNum);
+		           const code = e.code;
+				   location.href='user?pageNum=1'+'&column='+column+'&keyword='+keyword;
+		        }
+		        
+		        $('#search5').keydown(function (e) {
+						console.log('working');
+		            if (e.keyCode == 13) {
+						console.log('enter press');
+		                e.preventDefault();
+		                searching(e);
+		            }
+		        });
+		        
+		         // URL에서 파라미터 값을 추출하는 함수
+		        function getParameterByName(name) {
+		            var url = window.location.href;
+		            name = name.replace(/[\[\]]/g, '\\$&');
+		            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+		                results = regex.exec(url);
+		            if (!results) return null;
+		            if (!results[2]) return '';
+		            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+		        }
+		
+		    </script>
         </div>
     </div>
 </div>
@@ -132,7 +204,7 @@
 	                        <input class="modal-input" type="text" name="email">
 	                    </td>
 	                    <td>
-	                        <input class="modal-input" type="text" name="alevel">
+	                        <input class="modal-input" type="text" name="level_">
 	                    </td>
 	                </tr>
 	                <tr>
@@ -141,26 +213,78 @@
 	                </tr>
 	                <tr>
 	                    <td>
-	                        <input class="modal-input" type="text" name="password">
+	                        <input class="modal-input" type="text" name="pwd">
 	                    </td>
 	                    <td>
-	                        <input class="modal-input" type="text" name="anick">
+	                        <input class="modal-input" type="text" name="nick">
 	                    </td>
 	                </tr>
 	                <tr>
-	                    <td>전화번호</td>
 	                    <td>이미지파일</td>
+	                    <td></td>
 	                </tr>
 	                <tr>
-	                    <td>
-	                        <input class="modal-input" type="text" name="phone">
-	                    </td>
-	                    <td>
-	                        <input class="modal-input" type="text" name="file">
-	                    </td>
+	                    <td class="filebox bs3-primary preview-image">
+                            <input class="upload-name" value="파일선택" disabled="disabled" style="width: 200px;">
+              
+                            <label for="input_file">업로드</label> 
+                            <input type="file" id="input_file" class="upload-hidden" name="img"> 
+                        </td>
+
+                        <script>
+                            $(document).ready(function(){
+                            var fileTarget = $('.filebox .upload-hidden');
+
+                                fileTarget.on('change', function(){
+                                    if(window.FileReader){
+                                        // 파일명 추출
+                                        var filename = $(this)[0].files[0].name;
+                                    } 
+
+                                    else {
+                                        // Old IE 파일명 추출
+                                        var filename = $(this).val().split('/').pop().split('\\').pop();
+                                    };
+
+                                    $(this).siblings('.upload-name').val(filename);
+                                });
+
+                                //preview image 
+                                var imgTarget = $('.preview-image .upload-hidden');
+
+                                imgTarget.on('change', function(){
+                                    var parent = $(this).parent();
+                                    parent.children('.upload-display').remove();
+
+                                    if(window.FileReader){
+                                        //image 파일만
+                                        if (!$(this)[0].files[0].type.match(/image\//)) return;
+                                        
+                                        var reader = new FileReader();
+                                        reader.onload = function(e){
+                                            var src = e.target.result;
+                                            parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');
+                                        }
+                                        reader.readAsDataURL($(this)[0].files[0]);
+                                    }
+
+                                    else {
+                                        $(this)[0].select();
+                                        $(this)[0].blur();
+                                        var imgSrc = document.selection.createRange().text;
+                                        parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img class="upload-thumb"></div></div>');
+
+                                        var img = $(this).siblings('.upload-display').find('img');
+                                        img[0].style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enable='true',sizingMethod='scale',src=\""+imgSrc+"\")";        
+                                    }
+                                });
+                            });
+                            
+                        </script>
+	                    <td></td>
 	                </tr>
 	            </table>
-	
+				
 	        </div>
  	 	</form>	
         <!-- Modal footer -->

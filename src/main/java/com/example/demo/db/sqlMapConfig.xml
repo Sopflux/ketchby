@@ -20,5 +20,6 @@
   </environments>
   <mappers>
     <mapper resource="com/example/demo/db/accountMapper.xml"/>
+    <mapper resource="com/example/demo/db/AdminAccountMapper.xml"/>
   </mappers>
 </configuration>
