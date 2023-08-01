@@ -38,6 +38,8 @@ public class DBManager {
 		HashMap<String, String> params = new HashMap<>();
 	    params.put("email", email);
 	    params.put("id", id);
+	    System.out.println("DBManager id:"+id);
+	    System.out.println("DBManager email:"+email);
 		a = session.selectOne("account.emailCheckWithEmail",params);
 		return a;
 	}

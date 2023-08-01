@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
 	<meta charset="UTF-8">
@@ -14,11 +14,12 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 	<style>
 		.card {
-			position: absolute;
-			top: 50%;
+			position: inherit;
+			width: 800px;
+			/* top: 50%;
 			left: 50%;
 			transform: translate(-50%, -50%);
-			overflow: scroll;
+			overflow: scroll; */
 		}
 
 		.card-body {
@@ -45,9 +46,14 @@
 
 		.nav-tabs {
 			position: relative;
-			/* 수정된 부분: position을 relative로 변경 */
+
 			margin-top: 10px;
-			/* 수정된 부분: margin-top 추가 */
+
+		}
+
+		#tab_body {
+			position: relative;
+
 		}
 	</style>
 	<!-- Bootstrap JavaScript -->
@@ -81,50 +87,62 @@
 
 <body>
 	<div style="width: 100%; height: 100%;">
-		<div class="card">
-			<div class="card-body">
-				<table class="table table-bordered" style="border-color: white; border: none; margin-top: 30px;">
-					<tr style="border: none;">
-						<td rowspan="4" style="text-align: center; border: none;"><img class="img-circle"
-								src="/image/ahyeon_change.png" style="width: 170px; height: 170px;" alt="" /></td>
-					</tr>
-					<tr style="border: none;">
-						<td colspan="4" style="text-align: center; border: none;">
-							<h4 class="card-title">오리는덕덕s</h4>
-						</td>
-					</tr>
-					<tr style="border: none;">
-						<td style="text-align: center; border: none;">팔로우</td>
-						<td style="text-align: center; border: none;">119</td>
-						<td style="text-align: center; border: none;">팔로잉</td>
-						<td style="text-align: center; border: none;">1232</td>
-					</tr>
-					<tr style="border: none;">
-						<td colspan="2" style="text-align: center; border: none;"><button class="btn">팔로우</button></td>
-						<td colspan="2" style="text-align: center; border: none;"><button class="btn">메일 문의</button>
-						</td>
-					</tr>
-				</table>
-			</div>
-			<div class="p-3 m-0 border-1 bd-example m-0 border-0">
-				<div class="tab-content" style="position: relative;">
-					<ul class="nav nav-tabs">
-						<li class="nav-item">
-							<a class="nav-link " data-toggle="tab" data-target="#tab-content-1" href="#">탭 1</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" data-toggle="tab" data-target="#tab-content-2" href="#">탭 2</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" data-toggle="tab" data-target="#tab-content-3" href="#">탭 3</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" data-toggle="tab" data-target="#tab-content-4" href="#">Disabled</a>
-						</li>
-					</ul>
+		<div style="display: flex !important; margin: 0 auto !important; flex-direction: column;">
+			<div class="card">
+				<div class="card-body">
+
+					<table class="table table-bordered" style="border-color: white; border: none; margin-top: 30px;">
+						<tr style="border: none;">
+							<td rowspan="4" style="text-align: center; border: none;"><img class="img-circle"
+									src="/image/ahyeon_change.png" style="width: 170px; height: 170px;" alt="" /></td>
+						</tr>
+						<tr style="border: none;">
+							<td colspan="4" style="text-align: center; border: none;">
+								<h4 class="card-title" th:text="${session.a.nick}"></h4>
+							</td>
+						</tr>
+						<tr style="border: none;">
+							<td style="text-align: center; border: none;">팔로우</td>
+							<td style="text-align: center; border: none;" th:text="${follow}"></td>
+							<td style="text-align: center; border: none;">팔로잉</td>
+							<td style="text-align: center; border: none;" th:text="${following}"></td>
+						</tr>
+						<tr style="border: none;">
+							<td colspan="2" style="text-align: center; border: none;"><button class="btn">팔로우</button>
+							</td>
+							<td colspan="2" style="text-align: center; border: none;"><button class="btn">메일 문의</button>
+							</td>
+						</tr>
+					</table>
 				</div>
-				
-			
+			</div>
+
+			<div class="p-3 m-0 border-1 bd-example m-0 border-0"
+				style="position: inherit; width: 826px;">
+
+				<div class="card-body 2">
+					<div class="tab-content" style="position: relative;">
+						<ul class="nav nav-tabs">
+							<li class="nav-item">
+								<a class="nav-link " data-toggle="tab" data-target="#tab-content-1" href="#">게시물</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" data-toggle="tab" data-target="#tab-content-2" href="#">수강내역</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" data-toggle="tab" data-target="#tab-content-3" href="#">후기</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" data-toggle="tab" data-target="#tab-content-4" href="#">좋아요</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" data-toggle="tab" data-target="#tab-content-5" href="#">소모임</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+
 				<div class="tab-content">
 					<div id="tab-content-1" class="tab-pane fade active in show">
 						<h2>탭 1 내용</h2>
@@ -173,6 +191,8 @@
 			</div>
 		</div>
 	</div>
+	</div>
+
 	</div>
 </body>
 

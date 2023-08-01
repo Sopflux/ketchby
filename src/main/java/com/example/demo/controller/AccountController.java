@@ -4,6 +4,9 @@ import java.io.FileOutputStream;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -34,15 +37,27 @@ public class AccountController {
 	private PasswordEncoder passwordEncoder;
 	@Autowired
 	private AccountService as;
-	
+
 	@Autowired
 	private AccountDAO_mb dao_mb;
-	
-	@GetMapping("/list")
-	public void list(Model model) {
-		model.addAttribute("list", as.findAll());
-	}
 
+	@GetMapping("/list")
+	public void list(Model model, HttpSession session) {
+		model.addAttribute("list", as.findAll());
+		/*
+		// 로그인한 회원의 정보를 가져오기 위해 authentication 객체 생성
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+		// authenticatio 객체를 통해서 로그인한 회원의 정보를 가져옴
+		User user = (User) authentication.getPrincipal();
+
+		// user를 통해서 로그인한 회원의 아이디를 가져옴
+		String loginId = user.getUsername();
+
+		session.setAttribute("a", as.findByAid(loginId));
+		*/
+
+	}
 	@GetMapping("/join")
 	public ModelAndView join() {
 		ModelAndView mav = new ModelAndView("/join");
@@ -50,19 +65,18 @@ public class AccountController {
 		return mav;
 	}
 
-
 	@RequestMapping("/joinOK")
 	@ResponseBody
 	public String joinOK() {
 		return "OK";
 	}
-	
+
 	@GetMapping("/kakaologin/{name}/{email}")
 	public ModelAndView kakaologin(@PathVariable String name, @PathVariable String email, HttpSession session) {
 		ModelAndView mav = new ModelAndView("redirect:/list");
 		System.out.println("카카오 로그인 작동!");
-		System.out.println("name:"+name);
-		System.out.println("email:"+email);
+		System.out.println("name:" + name);
+		System.out.println("email:" + email);
 		session.setAttribute("name", name);
 		session.setAttribute("email", email);
 		if (as.findByEmail(email) == null) {
