@@ -13,4 +13,7 @@ public class AccountDAO_mb {
 	public Account findByEmail(String email) {
 		return DBManager.findByEmail(email);
 	}
+	public Account emailCheckWithEmail(String email,String id) {
+		return DBManager.emailCheckWithEmail(email, id);
+	}
 }

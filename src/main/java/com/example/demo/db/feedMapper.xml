@@ -4,12 +4,27 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="feed">	
 	<select id="findAll" resultType="feed">
-	
-		select * from feed
+		select * from feed order by fdate desc
 	</select>	
 	
 	<select id="imgFindByFno" resultType="String">
 		select imgname from image where fno = #{fno}
 	</select>	
+	
+	<select id="findAccount" resultType="account">
+		select * from account where aid = #{aid}	
+	</select>
+	
+	<select id="maxFeedNo" resultType="integer">
+		select nvl(max(fno),0)+1 from feed
+	</select>
+	
+	<insert id="insertFeed" parameterType="feed">
+		insert into feed (fno,aid,fcontent,fdate) values(#{fno},#{aid},#{fcontent},sysdate)
+	</insert>
+	
+	<insert id="insertFeedImg" parameterType="image">
+		insert into image (imgno,fno,aid,imgname) values(seq_image.nextval,#{fno},#{aid},#{imgname})
+	</insert>
 	
 </mapper>

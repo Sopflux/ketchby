@@ -7,52 +7,133 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
 	rel="stylesheet">
-<link rel="stylesheet" href="feed.css" />
+<link rel="stylesheet" href="/style/feed.css" />
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <script>
-	$(document).ready(function() {
-		// 버튼과 모달 요소를 가져옵니다.
-		var button = $("#modalButton");
-		var plus = $("#insertfeed");
-		var modal = $("#myModal");
-		var modal2 = $("#myModal2");
+    $(document).ready(function() {
+        // 버튼과 모달 요소
+        var plus = $("#insertfeed");
+        var modal2 = $("#myModal2");
 
-		// 모달을 표시하는 함수를 정의합니다.
-		function showModal() {
-			modal.css("display", "block");
-		}
+        function showModal2() {
+            modal2.css("display", "block");
+        }
 
-		// 모달을 닫는 함수를 정의합니다.
-		function closeModal() {
-			modal.css("display", "none");
-		}
 
-		// 모달을 표시하는 함수를 정의합니다.
-		function showModal2() {
-			modal2.css("display", "block");
-		}
+        plus.click(showModal2);
 
-		// 모달2를 닫는 함수를 정의합니다.
-		function closeModal2() {
-			modal2.css("display", "none");
-		}
+    });
+    
+    var fileNo = 0;
+var filesArr = new Array();
 
-		// 버튼을 클릭했을 때 showModal 함수를 실행합니다.
-		button.click(showModal);
-		plus.click(showModal2);
+/* 첨부파일 추가 */
+function addFile(obj){
+    var maxFileCnt = 3;   // 첨부파일 최대 개수
+    var attFileCnt = document.querySelectorAll('.filebox').length;    // 기존 추가된 첨부파일 개수
+    var remainFileCnt = maxFileCnt - attFileCnt;    // 추가로 첨부가능한 개수
+    var curFileCnt = obj.files.length;  // 현재 선택된 첨부파일 개수
 
-		// 닫기 버튼을 클릭했을 때 closeModal 함수를 실행합니다.
-		var closeButton = $("#btn-close1");
-		closeButton.click(closeModal);
+    // 첨부파일 개수 확인
+    if (curFileCnt > remainFileCnt) {
+        alert("첨부파일은 최대 " + maxFileCnt + "개 까지 첨부 가능합니다.");
+    }
 
-		// 모달2의 닫기 버튼을 클릭했을 때 closeModal2 함수를 실행합니다.
-		var closeButton2 = $("#btn-close2");
-		closeButton2.click(closeModal2);
-	});
+    for (var i = 0; i < Math.min(curFileCnt, remainFileCnt); i++) {
+
+        const file = obj.files[i];
+
+        // 첨부파일 검증
+        if (validation(file)) {
+            // 파일 배열에 담기
+            var reader = new FileReader();
+            reader.onload = function () {
+                filesArr.push(file);
+            };
+            reader.readAsDataURL(file)
+
+            // 목록 추가
+            let htmlData = '';
+            htmlData += '<div id="file' + fileNo + '" class="filebox">';
+            htmlData += '   <p class="name">' + file.name + '</p>';
+            htmlData += '   <a class="delete" onclick="deleteFile(' + fileNo + ');"><i class="far fa-minus-square"></i></a>';
+            htmlData += '</div>';
+            $('.file-list').append(htmlData);
+            fileNo++;
+        } else {
+            continue;
+        }
+    }
+    // 초기화
+    document.querySelector("input[type=file]").value = "";
+}
+
+/* 첨부파일 검증 */
+function validation(obj){
+    const fileTypes = ['application/pdf', 'image/gif', 'image/jpeg', 'image/png', 'image/bmp', 'image/tif', 'application/haansofthwp', 'application/x-hwp'];
+    if (obj.name.length > 100) {
+        alert("파일명이 100자 이상인 파일은 제외되었습니다.");
+        return false;
+    } else if (obj.size > (100 * 1024 * 1024)) {
+        alert("최대 파일 용량인 100MB를 초과한 파일은 제외되었습니다.");
+        return false;
+    } else if (obj.name.lastIndexOf('.') == -1) {
+        alert("확장자가 없는 파일은 제외되었습니다.");
+        return false;
+    } else if (!fileTypes.includes(obj.type)) {
+        alert("첨부가 불가능한 파일은 제외되었습니다.");
+        return false;
+    } else {
+        return true;
+    }
+}
+
+
+// 첨부파일 삭제 
+function deleteFile(num) {
+    document.querySelector("#file" + num).remove();
+    filesArr[num].is_delete = true;
+}
+
+// 폼 전송
+    function submitForm() {
+        // FormData 객체 생성
+        var formData = new FormData();
+        
+        // 텍스트 데이터 추가
+        var aid = document.querySelector("input[name='aid']").value;
+        var fcontent = document.querySelector("textarea[name='fcontent']").value;
+        formData.append("aid", aid);
+        formData.append("fcontent", fcontent);
+        
+        // 파일 데이터 추가
+        for (var i = 0; i < filesArr.length; i++) {
+            if (!filesArr[i].is_delete) {
+                formData.append("uploadFile", filesArr[i]);
+            }
+        }
+
+        // AJAX 통신
+        $.ajax({
+            method: 'POST',
+            url: "/feed/insert",
+            dataType: 'json',
+            data: formData,
+            async: true,
+            contentType: false, // 필수: FormData 객체 사용시 false로 설정
+            processData: false, // 필수: FormData 객체 사용시 false로 설정
+            success: function () {
+                alert("파일업로드 성공");
+            },
+            error: function (xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    }
 </script>
+
 
 </head>
 <body>
@@ -74,90 +155,50 @@
 					<!-- Avatar -->
 					<div class="avatar avatar-story me-2">
 						<a href="#!"> <img class="avatar-img rounded-circle"
-							src="photo/poo.jpg" alt="" style="width: 50px; height: 50px;">
-						</a>
+									th:src="@{'/profile/' + ${session.a.img}}" alt="" style="width: 70px; height: 70px;">
+								</a>
 					</div>
 					<!-- Info -->
 					<div>
 						<div class="nav nav-divider">
 							<h6 class="nav-item card-title mb-0">
-								<a href="#!"> 바오바오 </a>
+								<a href="#!"><span th:text="${session.a.nick}"></span></a>
 							</h6>
 						</div>
+						<p><span th:text="${session.aid}"></span></p>
 						<p>내 피드 올리기!</p>
 					</div>
 					<button type="button" id="insertfeed" class="btn btn-dark"
 						style="font-size: 30px;">+</button>
 				</div>
 			</div>
-	<!-- 피드작성 -->
+			<!-- 피드작성 -->
 			<div id="myModal2" class="modal">
 				<div
 					class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-					style="max-width: 1200px;">
+					style="max-width: 900px;">
 					<div class="modal-content">
 						<button type="button" id="btn-close2" class="btn-close"
 							aria-label="Close"
 							style="position: absolute; top: 10px; right: 10px; z-index: 1;"></button>
-						<div class="modal-body" style="height: 1300px;">
+						<div class="modal-body" style="height: 800px;">
 							<p>피드작성</p>
-							<div class="mb-3">
-								<label for="exampleFormControlTextarea1" class="form-label">Example
-									textarea</label>
-								<textarea class="form-control" id="exampleFormControlTextarea1"
-									rows="3"></textarea>
-							</div>
+							<!--form 문 시작-->
+							 <form method="POST" enctype="multipart/form-data">
+    <input type="hidden" name="aid" th:value="${session.a.aid}" />
+    <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="fcontent"></textarea>
+    </div>
+                                
+    <!-- 이미지 등록 -->
+    <input type="file" name="uploadFile" onchange="addFile(this);" multiple />
+    <div class="file-list"></div>
 
-
-							<div class="d-flex">
-
-
-								<div class="upload-box">
-									<div id="drop-file" class="drag-file">
-										<img
-											src="https://img.icons8.com/pastel-glyph/2x/image-file.png"
-											alt="파일 아이콘" class="image">
-										<p class="message">Drag files to upload</p>
-									</div>
-								</div>
-								<label class="file-label" for="chooseFile">Choose File</label> <input
-									class="file" id="chooseFile" type="file" multiple>
-							</div>
-
-							<div class="d-flex">
-
-
-								<div class="upload-box">
-									<div id="drop-file" class="drag-file">
-										<img
-											src="https://img.icons8.com/pastel-glyph/2x/image-file.png"
-											alt="파일 아이콘" class="image">
-										<p class="message">Drag files to upload</p>
-									</div>
-								</div>
-								<label class="file-label" for="chooseFile">Choose File</label> <input
-									class="file" id="chooseFile" type="file" multiple>
-							</div>
-
-							<div class="d-flex">
-
-
-								<div class="upload-box">
-									<div id="drop-file" class="drag-file">
-										<img
-											src="https://img.icons8.com/pastel-glyph/2x/image-file.png"
-											alt="파일 아이콘" class="image">
-										<p class="message">Drag files to upload</p>
-									</div>
-								</div>
-								<label class="file-label" for="chooseFile">Choose File</label> <input
-									class="file" id="chooseFile" type="file" multiple>
-							</div>
-
-
-							<div class="d-flex justify-content-center mt-auto">
-								<button type="button" class="btn btn-success">피드작성하기</button>
-							</div>
+</form>
+                            <div class="d-flex justify-content-center mt-auto">
+                                    <input type="submit" class="btn btn-success" value="피드작성" onclick="submitForm();">
+                                </div>
 
 
 						</div>
@@ -165,11 +206,21 @@
 				</div>
 			</div>
 		</div>
-    <!--피드메인-->
-		<div class="mb-3"></div> 
-		<div class="row">
 	
+  <div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+  <label class="form-check-label" for="inlineRadio1">전체보기</label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+  <label class="form-check-label" for="inlineRadio2">내친구보기</label>
+</div>
+		<!--피드메인-->
+		<div class="mb-3"></div>
+		<div class="row">
+
 			<div th:each="f:${list}" class="col-md-6">
+
 
 				<div class="card mb-5" style="height: 800px;">
 					<div class="card-body">
@@ -177,83 +228,84 @@
 							<!-- Avatar -->
 							<div class="avatar avatar-story me-2">
 								<a href="#!"> <img class="avatar-img rounded-circle"
-									src="photo/poo.jpg" alt="" style="width: 70px; height: 70px;">
+									th:src="@{'/profile/' + ${f.img}}" alt="" style="width: 70px; height: 70px;">
 								</a>
 							</div>
 							<!-- Info -->
 							<div>
 								<div class="nav nav-divider">
 									<h6 class="nav-item card-title mb-0">
-										<a href="#!" th:text="${f.aid}"> </a>
+										<a href="#!" th:text="${f.nick}"> </a>
 									</h6>
-									<span class="nav-item small"> 2hr</span>
 								</div>
-								<p class="mb-0 small">동물>판다</p>
 							</div>
 						</div>
 
-						<div id="carouselExampleIndicators" class="carousel slide">
+						<div th:attr="id=${'carouselExampleIndicators-' + f.fno}"
+							class="carousel slide">
+							<!-- Carousel 인디케이터 버튼 -->
 							<div class="carousel-indicators">
 								<button type="button"
-									data-bs-target="#carouselExampleIndicators"
+									data-bs-target="#carouselModalExampleIndicators"
 									data-bs-slide-to="0" class="active" aria-current="true"
 									aria-label="Slide 1"></button>
 								<button type="button"
-									data-bs-target="#carouselExampleIndicators"
+									data-bs-target="#carouselModalExampleIndicators"
 									data-bs-slide-to="1" aria-label="Slide 2"></button>
 								<button type="button"
-									data-bs-target="#carouselExampleIndicators"
+									data-bs-target="#carouselModalExampleIndicators"
 									data-bs-slide-to="2" aria-label="Slide 3"></button>
 							</div>
+							<!-- Carousel 슬라이드 이미지 -->
 							<div class="carousel-inner" style="margin-top: 20px;">
-								<div class="carousel-item active" style="margin-top: 20px;">
-									<img src="photo/poo.jpg" class="d-block" alt="..." width="500"
-										height="500">
-								</div>
-								<div class="carousel-item" style="margin-top: 20px;">
-									<img src="photo/poo.jpg" class="d-block" alt="..." width="500"
-										height="500">
-								</div>
-								<div class="carousel-item" style="margin-top: 20px;">
-									<img src="photo/poo.jpg" class="d-block" alt="..." width="500"
-										height="500">
+								<div th:each="fimg, iterStat:${f.flist}" class="carousel-item"
+									th:classappend="${iterStat.index == 0} ? 'active'">
+									<img th:src="@{'/feed/' + ${fimg}}" class="d-block" alt="..."
+										width="500" height="500">
 								</div>
 							</div>
+							<!-- 이전 버튼 -->
 							<button class="carousel-control-prev" type="button"
-								data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+								th:attr="data-bs-target=${'#carouselExampleIndicators-' + f.fno}, data-bs-slide='prev'">
 								<span class="carousel-control-prev-icon" aria-hidden="true"></span>
 								<span class="visually-hidden">Previous</span>
 							</button>
+							<!-- 다음 버튼 -->
 							<button class="carousel-control-next" type="button"
-								data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+								th:attr="data-bs-target=${'#carouselExampleIndicators-' + f.fno}, data-bs-slide='next'">
 								<span class="carousel-control-next-icon" aria-hidden="true"></span>
 								<span class="visually-hidden">Next</span>
 							</button>
 						</div>
 
 						<span th:text="${f.fcontent}"></span>
-						<ul class="nav nav-stack py-3 small">
-							<li class="nav-item"><a class="nav-link active" href="#!"
-								data-bs-container="body" data-bs-toggle="tooltip"
-								data-bs-placement="top" data-bs-html="true"
-								data-bs-custom-class="tooltip-text-start"
-								data-bs-title="Frances Guerrero<br> Lori Stevens<br> Billy Vasquez<br> Judy Nguyen<br> Larry Lawson<br> Amanda Reed<br> Louis Crawford">
-									<i class="bi bi-hand-thumbs-up-fill pe-1"></i>Liked(56)
-							</a></li>
-							<li class="nav-item"><a class="nav-link modalButton"
-								href="#!" data-modal-id="myModal"> <i
-									class="bi bi-chat-fill pe-1"></i>Comments(12)
-							</a></li>
-						</ul>
-						<div class="btn-group">
-							<button type="button" class="btn btn-sm btn-outline-secondary"
-								id="modalButton">Views</button>
-						</div>
-						<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+						<table class="table caption-top">
+		<tbody>
+			<tr>
+				<td onmouseover="this.style.background='#F0F3F4'"
+					onmouseout="this.style.background='white'"><svg
+						xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+						height="24">
+        <path
+							d="m12 20.703.343.667a.748.748 0 0 1-.686 0l-.003-.002-.007-.003-.025-.013a31.138 31.138 0 0 1-5.233-3.576C3.8 15.573 1 12.332 1 8.514v-.001C1 5.053 3.829 2.5 6.736 2.5 9.03 2.5 10.881 3.726 12 5.605 13.12 3.726 14.97 2.5 17.264 2.5 20.17 2.5 23 5.052 23 8.514c0 3.818-2.801 7.06-5.389 9.262a31.148 31.148 0 0 1-5.233 3.576l-.025.013-.007.003-.002.001ZM6.736 4C4.657 4 2.5 5.88 2.5 8.514c0 3.107 2.324 5.96 4.861 8.12a29.655 29.655 0 0 0 4.566 3.175l.073.041.073-.04c.271-.153.661-.38 1.13-.674.94-.588 2.19-1.441 3.436-2.502 2.537-2.16 4.861-5.013 4.861-8.12C21.5 5.88 19.343 4 17.264 4c-2.106 0-3.801 1.389-4.553 3.643a.751.751 0 0 1-1.422 0C10.537 5.389 8.841 4 6.736 4Z"></path>
+    </svg> Liked(56)</td>
+				<td onmouseover="this.style.background='#F0F3F4'"
+					onmouseout="this.style.background='white'" class="modalButton"
+								th:attr="data-modal-id='myModal' + ${f.fno}"><svg
+						xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+						height="24" >
+        <path
+							d="M1.5 4.25c0-.966.784-1.75 1.75-1.75h17.5c.966 0 1.75.784 1.75 1.75v12.5a1.75 1.75 0 0 1-1.75 1.75h-9.69l-3.573 3.573A1.458 1.458 0 0 1 5 21.043V18.5H3.25a1.75 1.75 0 0 1-1.75-1.75ZM3.25 4a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h2.5a.75.75 0 0 1 .75.75v3.19l3.72-3.72a.749.749 0 0 1 .53-.22h10a.25.25 0 0 0 .25-.25V4.25a.25.25 0 0 0-.25-.25Z"></path>
+    </svg> Comments(12)</td>
+			</tr>
 
+		</tbody>
+	</table>
+						
 					</div>
 					<!--피드상세보기-->
-					<div id="myModal" class="modal">
+
+					<div th:attr="id='myModal' + ${f.fno}" class="modal">
 						<div
 							class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
 							style="max-width: 1000px;">
@@ -268,19 +320,18 @@
 											<!-- Avatar -->
 											<div class="avatar avatar-story me-2">
 												<a href="#!"> <img class="avatar-img rounded-circle"
-													src="photo/poo.jpg" alt=""
-													style="width: 70px; height: 70px;">
-												</a>
+									th:src="@{'/profile/' + ${f.img}}" alt="" style="width: 70px; height: 70px;">
+								</a>
 											</div>
 											<!-- Info -->
 											<div>
 												<div class="nav nav-divider">
 													<h6 class="nav-item card-title mb-0">
-														<a href="#!"> 바오바오 </a>
+														<a href="#!" th:text="${f.nick}"> </a>
 													</h6>
-													<span class="nav-item small"> 2hr</span>
+													
 												</div>
-												<p class="mb-0 small">동물>판다</p>
+												
 											</div>
 										</div>
 										<!-- Card feed action dropdown START -->
@@ -296,7 +347,9 @@
 										<!-- Card feed action dropdown END -->
 
 									</div>
-									<div class="carousel slide" id="carouselModalExampleIndicators">
+									<div th:attr="id=${'carouselExampleIndicators-' + f.fno+f.fno}"
+										class="carousel slide">
+										<!-- Carousel 인디케이터 버튼 -->
 										<div class="carousel-indicators">
 											<button type="button"
 												data-bs-target="#carouselModalExampleIndicators"
@@ -309,49 +362,53 @@
 												data-bs-target="#carouselModalExampleIndicators"
 												data-bs-slide-to="2" aria-label="Slide 3"></button>
 										</div>
+										<!-- Carousel 슬라이드 이미지 -->
 										<div class="carousel-inner" style="margin-top: 20px;">
-											<div class="carousel-item active" style="margin-top: 20px;">
-												<img src="photo/poo.jpg" class="d-block mx-auto" alt="..."
-													width="500" height="500">
-											</div>
-											<div class="carousel-item" style="margin-top: 20px;">
-												<img src="photo/poo.jpg" class="d-block mx-auto" alt="..."
-													width="500" height="500">
-											</div>
-											<div class="carousel-item" style="margin-top: 20px;">
-												<img src="photo/poo.jpg" class="d-block mx-auto" alt="..."
-													width="500" height="500">
+											<div th:each="fimg, iterStat:${f.flist}"
+												class="carousel-item"
+												th:classappend="${iterStat.index == 0} ? 'active'">
+												<img th:src="@{'/feed/' + ${fimg}}" class="d-block"
+													alt="..." width="500" height="500">
 											</div>
 										</div>
+										<!-- 이전 버튼 -->
 										<button class="carousel-control-prev" type="button"
-											data-bs-target="#carouselModalExampleIndicators"
-											data-bs-slide="prev">
+											th:attr="data-bs-target=${'#carouselExampleIndicators-' + f.fno+f.fno}, data-bs-slide='prev'">
 											<span class="carousel-control-prev-icon" aria-hidden="true"></span>
 											<span class="visually-hidden">Previous</span>
 										</button>
+										<!-- 다음 버튼 -->
 										<button class="carousel-control-next" type="button"
-											data-bs-target="#carouselModalExampleIndicators"
-											data-bs-slide="next">
+											th:attr="data-bs-target=${'#carouselExampleIndicators-' + f.fno+f.fno}, data-bs-slide='next'">
 											<span class="carousel-control-next-icon" aria-hidden="true"></span>
 											<span class="visually-hidden">Next</span>
 										</button>
 									</div>
 
 
-									<p>안뇽 내이름은 푸바오!</p>
-									<ul class="nav nav-stack py-3 small">
-										<li class="nav-item"><a class="nav-link active" href="#!"
-											data-bs-container="body" data-bs-toggle="tooltip"
-											data-bs-placement="top" data-bs-html="true"
-											data-bs-custom-class="tooltip-text-start"
-											data-bs-title="Frances Guerrero<br> Lori Stevens<br> Billy Vasquez<br> Judy Nguyen<br> Larry Lawson<br> Amanda Reed<br> Louis Crawford">
-												<i class="bi bi-hand-thumbs-up-fill pe-1"></i>Liked(56)
-										</a></li>
-										<li class="nav-item"><a class="nav-link" href="#!"> <i
-												class="bi bi-chat-fill pe-1"></i>Comments(12)
-										</a></li>
-									</ul>
-									<hr>
+									<span th:text="${f.fcontent}"></span>
+									<table class="table caption-top">
+		<tbody>
+			<tr>
+				<td onmouseover="this.style.background='#F0F3F4'"
+					onmouseout="this.style.background='white'"><svg
+						xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+						height="24">
+        <path
+							d="m12 20.703.343.667a.748.748 0 0 1-.686 0l-.003-.002-.007-.003-.025-.013a31.138 31.138 0 0 1-5.233-3.576C3.8 15.573 1 12.332 1 8.514v-.001C1 5.053 3.829 2.5 6.736 2.5 9.03 2.5 10.881 3.726 12 5.605 13.12 3.726 14.97 2.5 17.264 2.5 20.17 2.5 23 5.052 23 8.514c0 3.818-2.801 7.06-5.389 9.262a31.148 31.148 0 0 1-5.233 3.576l-.025.013-.007.003-.002.001ZM6.736 4C4.657 4 2.5 5.88 2.5 8.514c0 3.107 2.324 5.96 4.861 8.12a29.655 29.655 0 0 0 4.566 3.175l.073.041.073-.04c.271-.153.661-.38 1.13-.674.94-.588 2.19-1.441 3.436-2.502 2.537-2.16 4.861-5.013 4.861-8.12C21.5 5.88 19.343 4 17.264 4c-2.106 0-3.801 1.389-4.553 3.643a.751.751 0 0 1-1.422 0C10.537 5.389 8.841 4 6.736 4Z"></path>
+    </svg> Liked(56)</td>
+				<td onmouseover="this.style.background='#F0F3F4'"
+					onmouseout="this.style.background='white'"><svg
+						xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+						height="24">
+        <path
+							d="M1.5 4.25c0-.966.784-1.75 1.75-1.75h17.5c.966 0 1.75.784 1.75 1.75v12.5a1.75 1.75 0 0 1-1.75 1.75h-9.69l-3.573 3.573A1.458 1.458 0 0 1 5 21.043V18.5H3.25a1.75 1.75 0 0 1-1.75-1.75ZM3.25 4a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h2.5a.75.75 0 0 1 .75.75v3.19l3.72-3.72a.749.749 0 0 1 .53-.22h10a.25.25 0 0 0 .25-.25V4.25a.25.25 0 0 0-.25-.25Z"></path>
+    </svg> Comments(12)</td>
+			</tr>
+
+		</tbody>
+	</table>
+								
 									<h1 class="h2">댓글</h1>
 									<div class="d-flex">
 										<textarea data-autoresize=""
@@ -363,97 +420,25 @@
 							</div>
 						</div>
 					</div>
+
+					<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+					<script>
+						// 버튼과 모달 요소.
+						$(".modalButton").click(function() {
+							// 현재 클릭한 버튼의 data-modal-id 속성 값을 가져옴
+							var modalId = $(this).data("modal-id");
+							// 해당 ID의 모달을 찾아서 표시
+							$("#" + modalId).css("display", "block");
+						});
+
+						// 모달 닫기 버튼 클릭 이벤트 처리
+						$(".btn-close").click(function() {
+							// 현재 클릭한 닫기 버튼의 상위 모달 요소를 찾아서 닫음
+							$(this).closest(".modal").css("display", "none");
+						});
+					</script>
 				</div>
 			</div>
-
-			<!--두번째 피든-->
-			<div class="col-md-6">
-
-				<div class="card mb-5" style="height: 800px;">
-					<div class="card-body">
-						<div class="d-flex align-items-center">
-							<!-- Avatar -->
-							<div class="avatar avatar-story me-2">
-								<a href="#!"> <img class="avatar-img rounded-circle"
-									src="photo/poo.jpg" alt="" style="width: 70px; height: 70px;">
-								</a>
-							</div>
-							<!-- Info -->
-							<div>
-								<div class="nav nav-divider">
-									<h6 class="nav-item card-title mb-0">
-										<a href="#!"> 바오바오 </a>
-									</h6>
-									<span class="nav-item small"> 2hr</span>
-								</div>
-								<p class="mb-0 small">동물>판다</p>
-							</div>
-						</div>
-
-						<div id="carouselExampleIndicators" class="carousel slide">
-							<div class="carousel-indicators">
-								<button type="button"
-									data-bs-target="#carouselExampleIndicators"
-									data-bs-slide-to="0" class="active" aria-current="true"
-									aria-label="Slide 1"></button>
-								<button type="button"
-									data-bs-target="#carouselExampleIndicators"
-									data-bs-slide-to="1" aria-label="Slide 2"></button>
-								<button type="button"
-									data-bs-target="#carouselExampleIndicators"
-									data-bs-slide-to="2" aria-label="Slide 3"></button>
-							</div>
-							<div class="carousel-inner" style="margin-top: 20px;">
-								<div class="carousel-item active" style="margin-top: 20px;">
-									<img src="photo/poo.jpg" class="d-block" alt="..." width="500"
-										height="500">
-								</div>
-								<div class="carousel-item" style="margin-top: 20px;">
-									<img src="photo/poo.jpg" class="d-block" alt="..." width="500"
-										height="500">
-								</div>
-								<div class="carousel-item" style="margin-top: 20px;">
-									<img src="photo/poo.jpg" class="d-block" alt="..." width="500"
-										height="500">
-								</div>
-							</div>
-							<button class="carousel-control-prev" type="button"
-								data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-								<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-								<span class="visually-hidden">Previous</span>
-							</button>
-							<button class="carousel-control-next" type="button"
-								data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-								<span class="carousel-control-next-icon" aria-hidden="true"></span>
-								<span class="visually-hidden">Next</span>
-							</button>
-						</div>
-
-						<p>안뇽 내 이름은 푸바오!</p>
-						<ul class="nav nav-stack py-3 small">
-							<li class="nav-item"><a class="nav-link active" href="#!"
-								data-bs-container="body" data-bs-toggle="tooltip"
-								data-bs-placement="top" data-bs-html="true"
-								data-bs-custom-class="tooltip-text-start"
-								data-bs-title="Frances Guerrero<br> Lori Stevens<br> Billy Vasquez<br> Judy Nguyen<br> Larry Lawson<br> Amanda Reed<br> Louis Crawford">
-									<i class="bi bi-hand-thumbs-up-fill pe-1"></i>Liked(56)
-							</a></li>
-							<li class="nav-item"><a class="nav-link modalButton"
-								href="#!" data-modal-id="myModal"> <i
-									class="bi bi-chat-fill pe-1"></i>Comments(12)
-							</a></li>
-						</ul>
-						<div class="btn-group">
-							<button type="button" class="btn btn-sm btn-outline-secondary"
-								id="modalButton">Views</button>
-						</div>
-						<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-
-					</div>
-
-				</div>
-			</div>
-
 		</div>
 
 

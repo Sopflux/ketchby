@@ -31,6 +31,16 @@ public class AccountService implements UserDetailsService{
 		return a;
 	}
 	
+	public Account emailCheckWithEmail(String email, String id) {
+		Account a = dao_mb.emailCheckWithEmail(email, id);
+		return a;
+	}
+	
+	public Account findByAid(String id) {
+		return dao.findByAid(id);
+	
+	}
+	
 	public String findByNick(String nick) {
 		Account a =  dao.findByNick(nick);
 		if(a == null) {
@@ -68,4 +78,5 @@ public class AccountService implements UserDetailsService{
 		dao.save(a);
 		
 	}
+
 }
