@@ -22,17 +22,15 @@
                 });
                 
             $(document).ready(function(){
-	           
-	            $('ul.tabs li').click(function(){
-	                var tab_id = $(this).attr('data-tab');
+				
+				$("#class").click(function (e) {
+			        e.preventDefault();
+			        $(".submenu").slideToggle();
+		        });
+		        
+		        var keyword = "${keyword != null ? keyword : sessionKeyword}";
+        		$("#searchKeyword").val(keyword);
 	
-	                $('ul.tabs li').removeClass('current');
-	                $('.tab-content').removeClass('current');
-	
-	                $(this).addClass('current');
-	                $("#"+tab_id).addClass('current');
-	            });
-
         	});    
 
             $(".cldetail").click(function () {
@@ -51,6 +49,13 @@
                 $("#myModal").fadeOut();
             });
 
+			
+			function deleteClass(clno){
+				var re = confirm("삭제하시겠습니까?");
+				if(re == true){
+					location.href = "deleteClass?clno="+clno;
+				}
+			}
 
         });
 
@@ -62,7 +67,7 @@
 <body style="background-color:black">
     <div class="container-scroller">
         <!-- 사이드바 -->
-        <nav id="sidebar-all">
+		<nav id="sidebar-all">
             <ul class="sidebar">
                 <li class="sidebar-user">
                     Ketchby
@@ -71,10 +76,17 @@
                 <li><a href="/admin/user" id="user">👤 사용자 관리</a></li>
                 <li><a href="/admin/qanda" id="qanda">📧 문의 관리</a></li>
                 <li><a href="/admin/notification" id="notification">📢 공지사항 관리</a></li>
-                <li><a href="/admin/class" id="class">🪧 클래스 관리</a></li>
-                <li><a href="/admin/community" id="community">🧾 커뮤니티 관리</a></li>
+				<li class="has-submenu">
+				    <a href="#" id="class">📑 클래스 관리</a>
+				    <ul class="submenu">
+				        <li><a href="/admin/class">기존 클래스</a></li>
+				        <li><a href="/admin/class">승인 요청된 클래스</a></li>
+				    </ul>
+				</li>                
+				<li><a href="/admin/community" id="community">🧾 커뮤니티 관리</a></li>
             </ul>
-        </nav>
+        </nav>        
+        
         <div id="page" class="page">
             <!-- 본문 헤더-->
             <div id="page-header">
@@ -84,16 +96,17 @@
                 <div class="main-table">
                     <h2>클래스</h2>
                     <p>요청된 클래스:63 </p>
-                    <div class="container">
-						<ul class="tabs">
-				            <li class="tab-link current" data-tab="tab1">승인 요청 클래스</li>
-				            <li class="tab-link" data-tab="tab2">기존 클래스</li>
-				        </ul>
-				        <div id="tab1" class="tab-content current">
 							<!--변경 해야할 내역-->
 							<div id="search5back">
-	                            <form method="get" action="/search" id="searchbox5">
-	                                <input id="search5" name="q" type="text" size="40" placeholder="Search" />
+	                            <form method="get" action="/admin/class" id="searchbox5">
+									<select name="searchColumn" id="searchColumn">
+										<option value="all">전체</option>
+										<option value="clno">클래스 번호</option>
+										<option value="cltitle">클래스명</option>
+										<option value="cllevel">클래스 레벨</option>
+										<option value="aid">클래스 개설자</option>
+									</select>
+	                                <input type="search" name="keyword" id="keyword" />
 	                            </form>
                         	</div>
                         <table class="table table-dark table-hover">
@@ -117,55 +130,16 @@
                                     <td th:text="${c.cllevel}"></td>
                                     <td th:text="${c.aid}"></td>
                                     <td>
-                                        <button type="button" class="btn_alert btnUpdate" data-bs-dismiss="modal">수정</button>
-                                        <button type="button" class="btn_alert btnDelete" data-bs-dismiss="modal">삭제</button>
+										<a href="#" th:onclick="'deleteClass('+${c.clno}+')'">삭제</a>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
-                        <th:block th:each="i:${#numbers.sequence(1, totalPage)}">
-						    <a th:href="@{'/admin/class?pageNo='+ ${i}}" th:text="${i}" class="page"></a>
-					  </th:block>
+                        <div class="pagingNumber">
+				            <th:block th:each="i : ${#numbers.sequence(1, totalPage)}">
+							    <a th:href="@{/admin/class(pageNo=${i}, keyword=${keyword != null ? keyword : sessionKeyword}, searchColumn=${searchColumn != null ? searchColumn : sessionSearchColumn})}" th:text="${i}"></a>  
+							</th:block>
 						</div>
-						 <div id="tab2" class="tab-content">
-                        	<div id="search5back">
-	                            <form method="get" action="/search" id="searchbox5">
-	                                <input id="search5" name="q" type="text" size="40" placeholder="Search" />
-	                            </form>
-                        	</div>
-                        <table class="table table-dark table-hover">
-                            <thead>
-                                <tr>
-                                    <th>클래스 번호</th>
-                                    <th>클래스명</th>
-                                    <th>클래스 레벨</th>
-                                    <th>클래스 개설자</th>
-                                    <th>
-
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr th:each="c : ${listClass}">
-                                    <td th:text="${c.clno}"></td>
-                                    <td>
-                                        <a href="#" class="cldetail" th:text="${c.cltitle}"></a>
-                                    </td>
-                                    <td th:text="${c.cllevel}"></td>
-                                    <td th:text="${c.aid}"></td>
-                                    <td>
-                                        <button type="button" class="btn_alert btnUpdate" data-bs-dismiss="modal">수정</button>
-                                        <button type="button" class="btn_alert btnDelete" data-bs-dismiss="modal">삭제</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                      </div>
-                      <hr>
-                      <th:block th:each="i : ${#numbers.sequence(1, totalPage)}">
-		                    	<a th:href="@{'/admin/class?pageNo='+ ${i}}" th:text="${i}" class="page"></a>
-		               </th:block>
-                   </div>
                </div>
             </div>
         </div>
@@ -185,9 +159,18 @@
             <form>
                 <div class="modal-body">
                     <div class="modal-row">
-                        <div class="col-md-4">
-                            <img src="image21.jpg" class="class-image">
-                        </div>
+                        <div class="card-body">
+		                  <div class="d-flex flex-column align-items-center text-center">
+		                    <img src="/style/image21.png" alt="Admin" width="150">
+		                    <div class="mt-3">
+		                      <h4>John Doe</h4>
+		                      <p class="text-secondary mb-1">Full Stack Developer</p>
+		                      <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
+		                      <button class="btn btn-primary">Follow</button>
+		                      <button class="btn btn-outline-primary">Message</button>
+		                    </div>
+		                  </div>
+		                </div>
                         <div class="col-md-8">
                             <!-- 클래스 번호 -->
                             <div class="modal-form">

@@ -17,7 +17,7 @@ public class AdminClassDAO {
 	 * totalRecord = 전체 레코드의 수
 	 * totalPage = 전체 페이지 수
 	 * */
-	public static int pageSize=10;
+	public static int pageSize=15;
 	public static int totalRecord;
 	public static int totalPage;
 	
@@ -27,6 +27,10 @@ public class AdminClassDAO {
 		totalPage = (int)Math.ceil(totalRecord/(double)pageSize);
 		
 		return AdminClassDBManager.findAll(map);
+	}
+
+	public int delete(int clno) {
+		return AdminClassDBManager.delete(clno);
 	}
 
 }

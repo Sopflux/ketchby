@@ -9,7 +9,40 @@
 	</select>
 	
 	<select id="findAll" resultType="adminClass">
-		select * from (select rownum n, c.* from class c order by clno) a  
-		where a.n between #{start} and #{end}   
+    select clno, cltitle, cllevel, aid from (
+    select rownum n, clno, cltitle, cllevel, aid from (
+    select * from class order by clno)
+    <include refid="searching"></include>
+    ) a
+    where a.n between #{start} and #{end}   
 	</select>
+		
+	<sql id="searching">
+	    <where>
+	        <choose>
+	            <when test="searchColumn=='all'">
+	                clno like '%' || #{keyword, jdbcType=NUMERIC } || '%'
+	                or cltitle like '%' || #{keyword, jdbcType=VARCHAR } || '%'
+	                or cllevel like '%' || #{keyword, jdbcType=VARCHAR } || '%'
+	                or aid like '%' || #{keyword, jdbcType=VARCHAR } || '%'
+	            </when>
+	            <when test="searchColumn=='clno'">
+	                clno like '%' || #{keyword, jdbcType=NUMERIC } || '%'
+	            </when>
+	            <otherwise>
+	                <if test="searchColumn != null">
+	                    ${searchColumn} like '%' || #{keyword, jdbcType=VARCHAR } || '%'
+	                </if>
+	            </otherwise>
+	        </choose>
+	    </where>
+	</sql>
+
+
+
+
+	
+	<delete id="delete">
+		delete class where clno=#{clno}
+	</delete>
 </mapper>

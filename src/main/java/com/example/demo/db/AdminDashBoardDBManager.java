@@ -10,8 +10,9 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import com.example.demo.entity.AdminClass;
+import com.example.demo.entity.AdminDashBoard;
 
-public class AdminClassDBManager {
+public class AdminDashBoardDBManager {
 	
 	public static SqlSessionFactory sqlSessionFactory;
 	static {
@@ -25,27 +26,19 @@ public class AdminClassDBManager {
 			
 		}
 	}
-	
-	public static int getTotalRecord() {
+	public static int getTotalUsers() {
 		int n =0;
 		SqlSession session = sqlSessionFactory.openSession();
-		n=session.selectOne("adminClass.getTotalRecord");
+		n=session.selectOne("adminDashBoard.getTotalUsers");
 		session.close();
 		return n;
 	}
-	
-	public static List<AdminClass> findAll(HashMap<String, Object> map){
+	public static List<AdminDashBoard> getDailyUsers() {
 		SqlSession session = sqlSessionFactory.openSession();
-		List<AdminClass> list = session.selectList("adminClass.findAll", map);
+		List<AdminDashBoard> list = session.selectList("adminDashBoard.getDailyUsers");
 		session.close();
 		return list;
 	}
 
-	public static int delete(int clno) {
-		int re = -1;
-		SqlSession session = sqlSessionFactory.openSession(true);
-		re = session.delete("adminClass.delete", clno);
-		session.close();
-		return re;
-	}
+	
 }
