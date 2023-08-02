@@ -29,8 +29,15 @@ public class AdminClassDAO {
 		return AdminClassDBManager.findAll(map);
 	}
 
+	// 클래스 단일 목록 조회
+	public AdminClass findByClno(int clno) {
+		return AdminClassDBManager.findByClno(clno);
+	}
+
+	// 클래스 삭제
 	public int delete(int clno) {
 		return AdminClassDBManager.delete(clno);
 	}
 
+	
 }

@@ -39,8 +39,16 @@ public class AdminClassDBManager {
 		List<AdminClass> list = session.selectList("adminClass.findAll", map);
 		session.close();
 		return list;
-	}
+	}    
 
+	public static AdminClass findByClno(int clno) {
+		AdminClass ac = null;
+		SqlSession session = sqlSessionFactory.openSession();
+		ac = session.selectOne("adminClass.findByClno", clno);
+		session.close();
+		return ac;
+	}
+	
 	public static int delete(int clno) {
 		int re = -1;
 		SqlSession session = sqlSessionFactory.openSession(true);
@@ -48,4 +56,8 @@ public class AdminClassDBManager {
 		session.close();
 		return re;
 	}
+
+
+
+	
 }

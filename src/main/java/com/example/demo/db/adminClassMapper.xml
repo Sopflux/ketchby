@@ -5,17 +5,25 @@
 <mapper namespace="adminClass">	
 	
 	<select id="getTotalRecord" resultType="java.lang.Integer">
-		select count(*) from class 
+		select count(*)
+	    from class c
+	    join confirm cf ON c.clno = cf.clno
+	   	where cf.cfcd = '승인'
 	</select>
 	
 	<select id="findAll" resultType="adminClass">
-    select clno, cltitle, cllevel, aid from (
-    select rownum n, clno, cltitle, cllevel, aid from (
-    select * from class order by clno)
-    <include refid="searching"></include>
-    ) a
-    where a.n between #{start} and #{end}   
+	    select clno, cltitle, cllevel, aid from (
+	        select rownum n, c.clno, c.cltitle, c.cllevel, c.aid
+	        from class c
+	        join confirm cf ON c.clno = cf.clno
+	        where cf.cfcd = '승인'
+	        order by c.clno
+	    ) a
+	    <include refid="searching"></include>
+	    where a.n between #{start} and #{end}
 	</select>
+	
+
 		
 	<sql id="searching">
 	    <where>
@@ -39,10 +47,19 @@
 	</sql>
 
 
+	
+	<select id="findByClno" resultType="adminClass">
+	    SELECT c.*
+	    FROM class c
+	    JOIN confirm cf ON c.clno = cf.clno
+	    WHERE c.clno = #{clno} AND cf.cfcd = '승인'
+	</select>
+
 
 
 	
 	<delete id="delete">
 		delete class where clno=#{clno}
 	</delete>
+
 </mapper>

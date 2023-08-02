@@ -27,9 +27,23 @@ public class AdminClass {
 	private String cltype;
 	private String scaname;
 	private String aid;
+	private int cfno;
+	private String cfcd;
 	private MultipartFile uploadFile;
 	
 	
+	public int getCfno() {
+		return cfno;
+	}
+	public void setCfno(int cfno) {
+		this.cfno = cfno;
+	}
+	public String getCfcd() {
+		return cfcd;
+	}
+	public void setCfcd(String cfcd) {
+		this.cfcd = cfcd;
+	}
 	public int getClno() {
 		return clno;
 	}

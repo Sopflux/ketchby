@@ -221,56 +221,99 @@ body, html {
 
 /*모달 디자인*/
 
+
 .modal {
-    background: rgba(0,0,0,0.2);
-    height: auto;
-  }
+    background: rgba(0, 0, 0, 0.2);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed; /* Change from relative to fixed */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10000;
+}
 
-  .modal-header {
+.modal-wrapper {
+	max-width: 900px;
+	margin-left: 400px;
+    margin-top: 100px;
+    background-color: dimgray;
+}
+
+.modal-header {
     background: #191C24 !important;
     color: white;
     border: none !important;
-  }
+}
 
-  .modal-body {
+.modal-body {
     background: #191C24 !important;
     height: auto;
-    color: white;
+    color:  white;
     border: none !important;
-  }
-  .modal-footer {
+}
+
+.modal-footer {
     background: #191C24 !important;
     border: none !important;
-  }
+}
 
-  .modal-table {
+
+.modal-container {
+    background-color: #191C24;
+}
+
+.modal-image{
+	width: 230px;
+	height: 230px;
+}
+
+.modal-table {
     padding: 1.75rem 1.5625rem;
     width: 100%;
     background: #191C24;
-  }
-  
-  .modal-table h2 {
+}
+
+.modal-table h2 {
     font-weight: bold;
-  }
-  .modal-table h2, p{
-    color: white;
-  }
-  
-  .modal-table th {
+}
+
+.modal-table h2,
+p {
+    color: #191C24;
+}
+
+.modal-form {
+	margin-bottom: 5px;
+}
+
+.modal-form label {
+	color: dimgray;
+}
+
+.modal-table th {
     color: #8457D5 !important;
     border: none !important;
-  }
-  
-  .modal-table td {
+}
+
+.modal-table td {
     border: none !important;
     border-color: #191C24 !important;
-  }
-  .modal-input {
+}
+
+.modal-input {
     background-color: #2A3038;
     width: 95%;
-    box-shadow:0 1px 0 rgba(255,255,255,0.1), 0 1px 3px rgba(0,0,0,0.2) inset;
-    border:0 none;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2) inset;
+    border: 0 none;
     color: white;
-  }
-
- 
+}    
+    
+    
+btnClose {
+	width: 20px;
+    height: 3px;
+}   

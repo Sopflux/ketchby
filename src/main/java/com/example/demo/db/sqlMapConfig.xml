@@ -25,6 +25,7 @@
     <mapper resource="com/example/demo/db/accountMapper.xml"/>
     <mapper resource="com/example/demo/db/feedMapper.xml"/>
   	<mapper resource="com/example/demo/db/adminClassMapper.xml"/>
+  	<mapper resource="com/example/demo/db/adminClassPendingMapper.xml"/>
   	<mapper resource="com/example/demo/db/adminDashBoardMapper.xml"/>
   </mappers>
   
