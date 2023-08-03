@@ -9,6 +9,7 @@ import com.example.demo.db.FeedDBManager;
 import com.example.demo.entity.Account;
 import com.example.demo.entity.Feed;
 import com.example.demo.entity.Image;
+import com.example.demo.entity.Likes;
 
 @Repository
 public class FeedDAO_mb {
@@ -31,4 +32,17 @@ public class FeedDAO_mb {
 	public int findFeedMax() {
 		return FeedDBManager.findFeedMax();
 	}
+	
+	public int userCntLike(int fno, String aid) {
+		return FeedDBManager.userCntLike(fno, aid);
+	}
+	public int cntLike(int fno) {
+		return FeedDBManager.cntLike(fno);
+	}
+	public int insertLike(Likes l) {
+		return FeedDBManager.insertLike(l);
+	}
+	public int deleteLike(int fno, String aid) {
+		return FeedDBManager.deleteLike(fno, aid);
+ 	}
 }

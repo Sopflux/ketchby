@@ -29,6 +29,7 @@ public class FeedImgDAO_mb {
             fm.setNick(feedDao.findAccount(f.getAid()).getNick());
             fm.setImg(feedDao.findAccount(f.getAid()).getImg());
             fm.setFlist(feedDao.imgFindByFno(f.getFno())); // 이미지 파일 이름 리스트를 FeedIMG 인스턴스의 flist에 설정
+            fm.setCntLike(feedDao.cntLike(f.getFno()));
             list.add(fm);
         }
 

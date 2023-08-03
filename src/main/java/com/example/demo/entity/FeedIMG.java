@@ -16,7 +16,12 @@ public class FeedIMG {
 	private Date fdate;
 	private String nick;
 	private String img;
+	private int cntLike;
+	private int cntComment;
+	private int userLike;
+
 	private List<String> flist;
+	
 	
 	
 	public FeedIMG() {

@@ -19,6 +19,20 @@
      background-repeat: no-repeat;
 }
 
+.radio{
+	margin-top: 19px;
+	
+}
+
+.table{
+	margin-top: 50px;
+}
+
+.fcontent{
+	margin-top: 30px
+}
+
+
 .b {
 	border: solid 1px black;
 }

@@ -19,6 +19,22 @@
 		select nvl(max(fno),0)+1 from feed
 	</select>
 	
+	<select id="cntLike" resultType="integer">
+		select count(*) from likes where fno=#{fno}
+	</select>
+	
+	<select id="userCntLike" resultType="integer">
+		select count(*) from likes where fno=#{fno} and aid=#{aid}
+	</select>
+	
+	<insert id="insertLike" parameterType="likes">
+		insert into likes (lno,aid,fno) values(seq_likes.nextval,#{aid},#{fno})
+	</insert>
+	
+	<delete id="deleteLike">
+		delete likes where fno=#{fno} and aid=#{aid}
+	</delete>
+	
 	<insert id="insertFeed" parameterType="feed">
 		insert into feed (fno,aid,fcontent,fdate) values(#{fno},#{aid},#{fcontent},sysdate)
 	</insert>

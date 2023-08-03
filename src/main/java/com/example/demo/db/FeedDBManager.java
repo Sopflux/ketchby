@@ -1,7 +1,9 @@
 package com.example.demo.db;
 
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -12,6 +14,7 @@ import com.example.demo.entity.Account;
 import com.example.demo.entity.Feed;
 import com.example.demo.entity.FeedIMG;
 import com.example.demo.entity.Image;
+import com.example.demo.entity.Likes;
 
 
 
@@ -29,6 +32,9 @@ public class FeedDBManager {
 			
 		}
 	}
+	
+	
+	
 	
 	public static int insertFeed(Feed f) {
 		int re1=-1;
@@ -54,6 +60,43 @@ public class FeedDBManager {
 		int maxNo = session.selectOne("feed.maxFeedNo");
 		session.close();
 		return maxNo;
+	}
+	
+	public static int cntLike(int fno) {
+		SqlSession session= sqlSessionFactory.openSession();
+		int cntLike = session.selectOne("feed.cntLike",fno);
+		session.close();
+		return cntLike;
+	}
+	
+	public static int userCntLike(int fno, String aid) {
+		SqlSession session= sqlSessionFactory.openSession();
+		Map<String, Object> map = new HashMap<>();
+	    map.put("fno", fno);
+	    map.put("aid", aid);
+		int n=session.selectOne("feed.userCntLike",map);
+		session.close();
+		return n;
+	}
+	
+	public static int insertLike(Likes l) {
+		int re=-1;
+		SqlSession session= sqlSessionFactory.openSession();
+		re = session.insert("feed.insertLike", l);
+		session.commit(); 
+		session.close();
+		return re;
+	}
+	public static int deleteLike(int fno, String aid) {
+	    int re = -1;
+	    SqlSession session = sqlSessionFactory.openSession();
+	    Map<String, Object> map = new HashMap<>();
+	    map.put("fno", fno);
+	    map.put("aid", aid);
+	    re = session.delete("feed.deleteLike", map);
+	    session.commit();
+	    session.close();
+	    return re;
 	}
 
 	public static List<Feed> findAllFeed(){

@@ -1,6 +1,10 @@
 package com.example.demo.controller;
 
 import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -18,7 +22,9 @@ import com.example.demo.dao.FeedDAO_mb;
 import com.example.demo.dao.FeedImgDAO_mb;
 import com.example.demo.entity.Account;
 import com.example.demo.entity.Feed;
+import com.example.demo.entity.FeedIMG;
 import com.example.demo.entity.Image;
+import com.example.demo.entity.Likes;
 import com.example.demo.service.AccountService;
 
 import jakarta.servlet.http.HttpServlet;
@@ -92,13 +98,62 @@ public class FeedController {
 		 return mav;
 	}
 	
+	@RequestMapping(value = "/feed/insertLike", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> insertLike(Likes l, Model model) {
+		System.out.println("컨드롤러 감");
+		System.out.println("fno:"+l.getFno());
+		Map<String, Object> response = new HashMap<>();
+		
+		
+		try {
+			int re = daof.insertLike(l);
+			
+		}catch (Exception e) {
+			System.out.println("피드 인서트 중 예외 발생: " + e.getMessage());
+		}
+		int cntLike = daof.cntLike(l.getFno());
+		 response.put("cntLike", cntLike);
+		 response.put("userLike", daof.userCntLike(l.getFno(), l.getAid()));
+	     response.put("success", true); // 성공 여부를 추가
+		model.addAttribute("list", dao.findAllFeedIMg());
+		
+		return response;
+	}
+	
+	@RequestMapping(value = "/feed/deleteLike", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> deleteLike(int fno, String aid, Model model) {
+		System.out.println("컨드롤러 감");
+		Map<String, Object> response = new HashMap<>();
+		
+		try {
+			int re = daof.deleteLike(fno,aid);
+			
+		}catch (Exception e) {
+			System.out.println("좋아요 취소 중 예외 발생: " + e.getMessage());
+		}
+		int cntLike = daof.cntLike(fno);
+		response.put("cntLike", cntLike);
+		response.put("userLike", daof.userCntLike(fno, aid));
+		response.put("success", true); // 성공 여부를 추가
+		model.addAttribute("list", dao.findAllFeedIMg());
+		
+		return response;
+	}
+	
 	@GetMapping("/feed/feed")
 	public void feed(Model model, HttpSession session, HttpServletRequest request){
-		Account str2= (Account)request.getSession().getAttribute("a");
+		Account str= (Account)request.getSession().getAttribute("a");
 		//Account str = (Account)session.getAttribute("a");
-		System.out.println(str2.getAid());
-		System.out.println(str2);
-		model.addAttribute("list", dao.findAllFeedIMg());
+		
+		List<FeedIMG> list = dao.findAllFeedIMg();
+		for(FeedIMG f:list) {
+			f.setUserLike(daof.userCntLike(f.getFno(), str.getAid()));
+			System.out.println("cnt:"+daof.userCntLike(f.getFno(), str.getAid()));
+		}
+		
+		model.addAttribute("list", list);
 	}
 	
 }
