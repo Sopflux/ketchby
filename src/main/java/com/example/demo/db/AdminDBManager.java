@@ -27,7 +27,6 @@ public class AdminDBManager {
 	public static List<Account> findAll(HashMap<String, Object> map) {
 		SqlSession session =  sqlSessionFactory.openSession();
 		List<Account> list = null;
-		System.out.println("manager에서 map확인 "+map);
 		list = session.selectList("adminAccount.findAll", map);
 		session.close();
 		return list;
@@ -57,6 +56,42 @@ public class AdminDBManager {
 		session.close();
 		System.out.println("검색어 : "+m);
 		return m;
+	}
+
+	public static Account findByAid(String aid) {
+		// TODO Auto-generated method stub
+		SqlSession session = sqlSessionFactory.openSession();
+		Account a = null;
+		a = session.selectOne("adminAccount.findByAid", aid);
+		session.close();
+		System.out.println("a: "+a);
+		return a;
+	}
+
+	public static int deleteAccount(String aid) {
+		// TODO Auto-generated method stub
+		SqlSession session = sqlSessionFactory.openSession(true);
+		int re = -1;
+		re = session.delete("adminAccount.deleteAccount",aid);
+		session.close();
+		return re;
+	}
+
+	public static int updateAccount(Account a) {
+		// TODO Auto-generated method stub
+		SqlSession session = sqlSessionFactory.openSession(true);
+		int re = -1;
+		re = session.update("adminAccount.updateAccount", a);
+		session.close();
+		return re;
+	}
+	
+	public static int insertAccount(Account a) {
+		SqlSession session = sqlSessionFactory.openSession(true);
+		int re = -1;
+		re = session.delete("adminAccount.insertAccount", a);
+		session.close();
+		return re;
 	}
 
 }

@@ -4,15 +4,40 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="adminAccount">	
 
+	<!-- 사용자 정보 등록 -->
+	<insert id="insertAccount" parameterType="account">
+		insert into account(aid, pwd, email, name_, nick, img, level_, regdate) 
+		values(#{aid}, #{pwd}, #{email}, #{name_}, #{nick}, #{img}, #{level_}, sysdate)
+	</insert>
+	
+	<!-- 사용자 정보 수정 -->
+	<update id="updateAccount" parameterType="account">
+		update account set name_ = #{name_} and email = #{email} 
+		and nick = #{nick} and img = ${img} and level_ = #{level_} 
+		where aid = #{aid}
+	</update>
+	
+	<!-- 사용자 정보 삭제 -->
+	<delete id="deleteAccount" parameterType="java.lang.String">
+		delete account where aid = #{aid}
+	</delete>
+	
+	<!-- 사용자 정보 보기 -->
+	<select id="findByAid" resultType="account">
+		select * from account where aid = #{aid}
+	</select>
+	
+	<!-- 페이징 처리, 칼럼별 검색 -->
 	<select id="findAll" resultType="account">
 		select aid, pwd, email, name_, nick, img, level_, regdate from (
 		select rownum n, aid, pwd, email, name_, nick, img, level_, regdate from (
-		select * from account order by regdate desc) 
+		select * from account order by regdate desc)
 		<include refid="searching"></include>
 		) a
 		where a.n between #{start } and #{end }
 	</select>
 		
+	<!-- 추가할 sql문 -->
 	<sql id="searching">
 		<choose>
 			<when test="column=='all'">
@@ -26,25 +51,17 @@
 		</choose>
 	</sql>
 	
+	<!-- 페이징 처리, 칼럼별 검색 레코드 수 조회 -->
 	<select id="getTotalForPage" resultType="java.lang.Integer">
 		select count(*) from account
 		<include refid="searching"></include>
 	</select>
 	
 	<select id="getTotalUser" resultType="java.lang.Integer">
-		select count(*) from account	
+		select count(*) from account
 	</select>
 	
 	<select id="findAccount" resultType="account">
 		select * from account where aid = #{aid }
 	</select>	
-	
-	<insert id="insert" parameterType="account">
-		insert into account(id, pwd, email, name_, nick, img, level_, regdate) 
-		values(#{id}, #{pwd}, #{email}, #{name_}, #{nick}, #{img}, #{level_}, sysdate
-	</insert>
-	
-	<delete id="delete" parameterType="account">
-		delete account where aid=#{aid}
-	</delete>
 </mapper>

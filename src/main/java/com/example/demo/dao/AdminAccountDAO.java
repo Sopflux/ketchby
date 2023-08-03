@@ -19,12 +19,34 @@ public class AdminAccountDAO {
 	
 	public List<Account> findAll(HashMap<String, Object> map){
 		userTotalRecord = AdminDBManager.getTotalRecord();
+		
+		//검색 결과에 해당하는 레코드 갯수 가져오기
 		int userTotalForPage = AdminDBManager.getTotalForPage(map);
-		userTotalPage = (int)Math.ceil(userTotalRecord/(double)userPageSize);
-		if(userTotalRecord != userTotalForPage) {
-			userTotalPage = (int)Math.ceil(userTotalForPage/(double)userPageSize);
-		}
+		
+		//페이지 갯수 구하기
+		userTotalPage = (int)Math.ceil(userTotalForPage/(double)userPageSize);
 		return AdminDBManager.findAll(map);
+	}
+
+	public Account findByAid(String aid) {
+		// TODO Auto-generated method stub
+		return AdminDBManager.findByAid(aid);
+	}
+
+	//계정 삭제
+	public int deleteAccount(String aid) {
+		// TODO Auto-generated method stub
+		return AdminDBManager.deleteAccount(aid);
+	}
+	
+	//계정 수정
+	public int updateAccount(Account a) {
+		return AdminDBManager.updateAccount(a);
+	}
+	
+	//계정 추가
+	public int insertAccount(Account a) {
+		return AdminDBManager.insertAccount(a);
 	}
 }
 
