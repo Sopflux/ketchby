@@ -2,13 +2,13 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="adminClass">	
+<mapper namespace="adminClassPending">	
 	
 	<select id="getTotalRecord" resultType="java.lang.Integer">
 		select count(*)
 	    from class c
 	    join confirm cf ON c.clno = cf.clno
-	   	where cf.cfcd = '승인'
+	   	where cf.cfcd = '대기중'
 	</select>
 	
 	
@@ -19,7 +19,7 @@
 	      SELECT rownum n, c.clno, c.cltitle, c.cllevel, c.aid
 	      FROM class c
 	      JOIN confirm cf ON c.clno = cf.clno
-	      WHERE cf.cfcd = '승인'
+	      WHERE cf.cfcd = '대기중'
 	      <if test="searchColumn == 'all'">
 	        AND (
 	          cf.clno = #{keyword, jdbcType=NUMERIC}
@@ -45,14 +45,14 @@
 	    SELECT c.*
 	    FROM class c
 	    JOIN confirm cf ON c.clno = cf.clno
-	    WHERE c.clno = #{clno} AND cf.cfcd = '승인'
+	    WHERE c.clno = #{clno} AND cf.cfcd = '대기중'
 	</select>
 
 
 
 	
-	<delete id="delete">
-		delete class where clno=#{clno}
-	</delete>
+	<update id="update">
+		 UPDATE confirm SET cfcd = #{cfcd} WHERE clno = #{clno}
+	</update>
 
 </mapper>

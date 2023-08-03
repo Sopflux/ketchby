@@ -18,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.demo.dao.AdminClassDAO;
 import com.example.demo.dao.AdminDashBoardDAO;
 import com.example.demo.entity.AdminClass;
-import com.google.api.client.json.Json;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.Setter;
@@ -34,12 +33,13 @@ public class AdminController {
 	@Autowired
 	private AdminDashBoardDAO adminDashBoardDao;
 	
+	
 	@GetMapping("/admin")
 	public String admin() {
 		return "/admin/dashboard";
 	}
 	
-	
+	//adminClass 메소드
 	@RequestMapping("/admin/class")
 	public void listClass(Model model, 
 			@RequestParam(value = "keyword", required = false) String keyword,
@@ -66,7 +66,7 @@ public class AdminController {
 	        session.setAttribute("searchColumn", searchColumn);
 	    }
 	    
-	    model.addAttribute("listClass", adminClassDao.findAll(map));
+	    model.addAttribute("listClass", adminClassDao.findAll("adminClass", map));
 	    model.addAttribute("totalPage", adminClassDao.totalPage);
 	}
 
@@ -75,14 +75,14 @@ public class AdminController {
 	@GetMapping("/admin/detailClass")
 	@ResponseBody
 	public AdminClass detailClass(int clno) {
-		return adminClassDao.findByClno(clno);
+		return adminClassDao.findByClno("adminClass", clno);
 	}
 
 	
 	@GetMapping("/admin/deleteClass")
 	public ModelAndView deleteClass(@RequestParam("clno") int clno) {
 		ModelAndView mav = new ModelAndView("redirect:/admin/class");
-		int re = adminClassDao.delete(clno);
+		int re = adminClassDao.delete("adminClass", clno);
 		if(re !=1) {
 			mav.addObject("msg", "클래스 삭제에 실패했습니다");
 		}
@@ -90,8 +90,10 @@ public class AdminController {
 	}
 	
 
+	//adminClassPending 메소드
+	
 	@RequestMapping("/admin/classPending")
-	public void listPendingClass(Model model, 
+	public void listClassPending(Model model, 
 			@RequestParam(value = "keyword", required = false) String keyword,
             @RequestParam(value = "searchColumn", required = false) String searchColumn,
             @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
@@ -116,11 +118,35 @@ public class AdminController {
 	        session.setAttribute("searchColumn", searchColumn);
 	    }
 	    
-	    model.addAttribute("listClass", adminClassDao.findAll(map));
+	    model.addAttribute("listClassPending", adminClassDao.findAll("adminClassPending", map));
 	    model.addAttribute("totalPage", adminClassDao.totalPage);
 	}
 	
 	
+	@GetMapping("/admin/detailClassPending")
+	@ResponseBody 
+	public AdminClass detailClassPending(int clno) {
+		return adminClassDao.findByClno("adminClassPending", clno);
+	}
+
+	
+	
+	@GetMapping("/admin/updateClassPending")
+	public ModelAndView updateClassPending(int clno, String cfcd) {
+		ModelAndView mav = new ModelAndView("redirect:/admin/classPending");
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("clno", clno);
+		map.put("cfcd", cfcd);
+		int re = adminClassDao.update(map);
+		if (re != 1) {
+	        mav.addObject("msg", "클래스 " + cfcd + "에 실패했습니다");
+	    }
+		return mav;
+	}
+	
+	
+	
+	//adminDashboard 메소드
 	@GetMapping("/admin/dashboard")
 	public void listDashBoard(Model model){
 		model.addAttribute("totalUsers", adminDashBoardDao.getTotalUsers());

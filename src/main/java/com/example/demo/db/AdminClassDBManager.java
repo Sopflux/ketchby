@@ -26,33 +26,41 @@ public class AdminClassDBManager {
 		}
 	}
 	
-	public static int getTotalRecord() {
+	public static int getTotalRecord(String mapperId) {
 		int n =0;
 		SqlSession session = sqlSessionFactory.openSession();
-		n=session.selectOne("adminClass.getTotalRecord");
+		n=session.selectOne(mapperId +".getTotalRecord");
 		session.close();
 		return n;
 	}
 	
-	public static List<AdminClass> findAll(HashMap<String, Object> map){
+	public static List<AdminClass> findAll(String mapperId, HashMap<String, Object> map){
 		SqlSession session = sqlSessionFactory.openSession();
-		List<AdminClass> list = session.selectList("adminClass.findAll", map);
+		List<AdminClass> list = session.selectList(mapperId +".findAll", map);
 		session.close();
 		return list;
 	}    
 
-	public static AdminClass findByClno(int clno) {
+	public static AdminClass findByClno(String mapperId, int clno) {
 		AdminClass ac = null;
 		SqlSession session = sqlSessionFactory.openSession();
-		ac = session.selectOne("adminClass.findByClno", clno);
+		ac = session.selectOne(mapperId +".findByClno", clno);
 		session.close();
 		return ac;
 	}
 	
-	public static int delete(int clno) {
+	public static int delete(String mapperId, int clno) {
 		int re = -1;
 		SqlSession session = sqlSessionFactory.openSession(true);
-		re = session.delete("adminClass.delete", clno);
+		re = session.delete(mapperId +".delete", clno);
+		session.close();
+		return re;
+	}
+
+	public static int update(HashMap<String, Object> map) {
+		int re = -1;
+		SqlSession session = sqlSessionFactory.openSession(true);
+		re = session.update("adminClassPending.update", map);
 		session.close();
 		return re;
 	}

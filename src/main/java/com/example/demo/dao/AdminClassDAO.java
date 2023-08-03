@@ -22,21 +22,27 @@ public class AdminClassDAO {
 	public static int totalPage;
 	
 	// 클래스 전체 목록 조회
-	public List<AdminClass> findAll(HashMap<String, Object> map) {
-		totalRecord = AdminClassDBManager.getTotalRecord();
+	public List<AdminClass> findAll(String mapperId, HashMap<String, Object> map) {
+		
+		totalRecord = AdminClassDBManager.getTotalRecord(mapperId);
 		totalPage = (int)Math.ceil(totalRecord/(double)pageSize);
 		
-		return AdminClassDBManager.findAll(map);
+		return AdminClassDBManager.findAll(mapperId, map);
 	}
 
 	// 클래스 단일 목록 조회
-	public AdminClass findByClno(int clno) {
-		return AdminClassDBManager.findByClno(clno);
+	public AdminClass findByClno(String mapperId, int clno) {
+		return AdminClassDBManager.findByClno(mapperId, clno);
 	}
 
 	// 클래스 삭제
-	public int delete(int clno) {
-		return AdminClassDBManager.delete(clno);
+	public int delete(String mapperId, int clno) {
+		return AdminClassDBManager.delete(mapperId, clno);
+	}
+
+	// 클래스 업데이트
+	public int update(HashMap<String, Object> map) {
+		return AdminClassDBManager.update(map);
 	}
 
 	
