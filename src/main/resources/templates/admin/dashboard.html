@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Statistics</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/style/dashboard.css">
+    <script src="//code.jquery.com/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body style="background-color:black" >
+<div class="container-scroller">
+    <!-- 사이드바 -->
+    <nav id="sidebar-all">
+        <ul class="sidebar">
+            <li class="sidebar-user">
+                Ketchby
+            </li>
+            <li><a href="/admin/dashboard" id="dashboard">📊 Dashboard</a></li>
+            <li><a href="/admin/user" id="user">👤 사용자 관리</a></li>
+            <li><a href="/admin/qanda" id="qanda">📧 문의 관리</a></li>
+            <li><a href="/admin/notification" id="notification">📢 공지사항 관리</a></li>
+            <li><a href="/admin/class" id="class">📢 클래스 관리</a></li>
+            <li><a href="/admin/community" id="community">🧾 커뮤니티 관리</a></li>
+        </ul>
+    </nav>
+    <div id="page" class="page">
+
+        <!-- 본문 헤더-->
+        <div id="page-header">
+
+        </div>
+
+        <!-- 본문 메인-->
+        <div class="main-wrapper">
+            <div class="row">
+                <div class="stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-title">
+                                <h4>사용자</h4>
+                                <p>user</p>
+                            </div>
+                            <div class="card-content">
+                                <h2>24명</h2>
+                                <p>+3.5%</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--신규 가입자 차트-->
+            <div class="chart-wrapper">
+                <div class="chart-container">
+                    <canvas id="dailyUsers"></canvas>
+                </div>
+                <div class="chart-container">
+                    <canvas id="categoryClasses"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--신규 가입자 수 차트-->
+<script>
+    const dailyUsersLabels = ['2023-07-23', '2023-07-24', '2023-07-25', '2023-07-26', '2023-07-27', '2023-07-28'];
+    const dailyUsersData = [0, 3, 5, 4, 2, 6];
+
+    const dailyUsersConfig = {
+        type: 'bar',
+        data: {
+            labels: dailyUsersLabels,
+            datasets: [{
+                label: '신규 사용자 수',
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1,
+                pointBackgroundColor: 'rgba(255, 99, 132, 1)',
+                pointBorderColor: '#fff',
+                pointBorderWidth: 2,
+                pointRadius: 5,
+                pointHoverRadius: 7,
+                data: dailyUsersData,
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        font: {
+                            size: 14,
+                            weight: 'bold',
+                        },
+                        color: 'rgba(255, 255, 255, 0.6)',
+                        precision: 0,
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)',
+                    },
+                },
+                x: {
+                    ticks: {
+                        font: {
+                            size: 14,
+                            weight: 'bold',
+                        },
+                        color: 'rgba(255, 255, 255, 0.6)',
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)',
+                    },
+                },
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        color: 'white',
+                        font: {
+                            size: 14,
+                            weight: 'bold',
+                        },
+                    },
+                },
+            },
+        },
+    };
+
+    // Draw the 신규 가입자 수 차트
+    const dailyUsers = new Chart(document.getElementById('dailyUsers'), dailyUsersConfig);
+
+    <!-- 카테고리별 클래스 차트 -->
+    const categoryClassesLabels = ['요리/공예', '외국어', '스포츠', '몰라요', '어쨌든'];
+    const categoryClassesData = [10, 20, 5, 15, 30];
+
+    const categoryClassesConfig = {
+        type: 'doughnut',
+        data: {
+            labels: categoryClassesLabels,
+            datasets: [{
+                label: '카테고리별 클래스 수',
+                data: categoryClassesData,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.7)',
+                    'rgba(54, 162, 235, 0.7)',
+                    'rgba(255, 206, 86, 0.7)',
+                    'rgba(75, 192, 192, 0.7)',
+                    'rgba(153, 102, 255, 0.7)',
+                ],
+                borderColor: 'white',
+                borderWidth: 0.5,
+            }],
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        color: 'white',
+                        font: {
+                            size: 14,
+                            weight: 'bold',
+                        },
+                    },
+                },
+            },
+        },
+    };
+
+    // Draw the 카테고리별 클래스 차트
+    const categoryClasses = new Chart(document.getElementById('categoryClasses'), categoryClassesConfig);
+</script>
+
+</body>
+</html>
