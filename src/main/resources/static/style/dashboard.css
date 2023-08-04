@@ -25,7 +25,7 @@ body, html {
     min-height: 100vh;
     display: flex;
     flex-direction: row;
-    padding-left: 0;
+    paddding-left: 0;
     padding-right: 0;
     transition: all 0.25s ease;
     width: calc(100% - 70px);
@@ -51,7 +51,7 @@ body, html {
     padding: 20px;
     display: flex;
     flex-wrap: wrap; /* 카드가 가로로 꽉 찰 경우 세로로 배치되도록 변경 */
-    justify-content: space-between; /* 카드 사이의 간격 균등하게 변경 */
+    justify-content: space-around; /* 카드 사이의 간격 균등하게 변경 */
 }
 
 /* 사이드바 스타일 */
@@ -94,6 +94,7 @@ body, html {
     line-height: 3em;
 }
 
+
 /* 카드 스타일 */
 .row {
     display: flex;
@@ -103,14 +104,12 @@ body, html {
 }
 
 .stretch-card{
-    display: -webkit-flex;
     display: flex;
-    -webkit-align-items: stretch;
     align-items: stretch;
     justify-content: stretch;
     margin-bottom: 1.5rem;
     flex: 1 0 calc(25% - 1.5rem);
-
+    padding: 1.25rem;
 }
 
 .grid-margin {
@@ -177,9 +176,21 @@ body, html {
 }
 
 
-/* 테이블 스타일 */
-.main-chart {
-    width: 500px;
-    height:300px;
+/* 차트 스타일 */
+.chart-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
 }
 
+.chart-container {
+    flex: 1;
+    margin-right: 10px;
+}
+
+
+canvas {
+    width: 100%;
+    height: 100%;
+    max-width: 500px;
+}
