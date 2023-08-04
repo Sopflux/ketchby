@@ -21,6 +21,7 @@
   </environments>
   <mappers>
     <mapper resource="com/example/demo/db/accountMapper.xml"/>
+    <mapper resource="com/example/demo/db/AdminAccountMapper.xml"/>
     <mapper resource="com/example/demo/db/feedMapper.xml"/>
   </mappers>
   

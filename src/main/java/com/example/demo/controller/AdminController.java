@@ -28,13 +28,7 @@ public class AdminController {
 		model.addAttribute("listClass", adminService.findAll());
 	}
 	
-	
-	
-	@GetMapping("/admin/user")
-	public void list(Model model){
-		model.addAttribute("list",a_dao.findAll());
-		model.addAttribute("member", a_dao.count());
-	}
+
 	
 	@GetMapping("/")
     public String getBigQueryData(Model model) {
