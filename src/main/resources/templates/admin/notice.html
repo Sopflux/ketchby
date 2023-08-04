@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmln:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Insert title here</title>
@@ -21,19 +21,58 @@
 	        });
 	    
 
-            $('#open-modal').click(function(e){
+            $('.open-modal').click(function(e){
                 e.preventDefault();
                 $('.main-modal').modal("show");
+                $("#btnInsert").css('display', 'none');
                 $("#btnUpdate").css('display', 'inline-block');
                 $("#btnDelete").css('display', 'inline-block');
             });
             
-            $('#btnInsert').click(function(e){
+            $('#addNotice').click(function(e){
                 e.preventDefault();
                 $('.main-modal').modal("show");
+                $("#btnInsert").css('display','inline-block')
                 $("#btnUpdate").css('display', 'none');
                 $("#btnDelete").css('display', 'none');
+                
+                $("#noticetitle").val("");
+                $("#noticecontent").val("");
             });
+            
+            
+            $(document).ready(function() {
+			        $('.pagingName').click(function(e) {
+			            e.preventDefault();
+			            var pageNum = $(this).text();
+			            var keyword = $('#search5').val();
+			            location.href = 'notice?pageNum=' + pageNum + '&keyword=' + keyword;
+			        });
+			   	 });
+				
+		        function searching(e){
+		           let keyword = document.getElementById("search5").value;
+		           let pageNum = getParameterByName('pageNum');
+		           
+		           if (pageNum === null) {
+			            pageNum = 1;
+			        }
+			        
+		           console.log('keyword: '+keyword);
+		           console.log('pageNum: '+pageNum);
+		           const code = e.code;
+				   location.href='notice?pageNum=1&keyword='+keyword;
+		        }
+		        
+		        $('#search5').keydown(function (e) {
+						console.log('working');
+		            if (e.keyCode == 13) {
+						console.log('enter press');
+		                e.preventDefault();
+		                searching(e);
+		            }
+		        });
+		        
         })
 	</script>
 </head>
@@ -63,10 +102,11 @@
         <div class="main-wrapper">
         <div class="main-table">
             <h2>공지사항</h2>
+            <p th:text="'총 공지사항: '+${notice}"></p>
           	<div class="app">
                 <div id="search5back">
                     <form method="get" action="/search" id="searchbox5">
-                        <input id="search5" name="q" type="text" size="40" placeholder="Search" />
+                        <input th:if="${keyword != null}" th:value="${keyword}" id="search5" name="keyword" type="text" size="40" placeholder="Search Title" />
                     </form>
                   </div>
                   <table class="table table-dark table-hover">
@@ -79,19 +119,25 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>2</td>
-                        <td>3</td>
-                        <td id="open-modal" name="open-modal" data-bs-toggle="modal" data-bs-target="#myModal">
-                            상세보기
+                    <tr th:each="n:${list}">
+                        <td th:text="${n.noticeno}"></td>
+                        <td th:text="${n.noticetitle}"></td>
+                        <td th:text="${n.noticedate}"></td>
+                        <td class="open-modal" data-bs-toggle="modal" data-bs-target="#myModal" th:data-value="${n.noticeno}">
+                            자세히 보기
                         </td>
                     </tr>
                     </tbody>
                 </table>
                 
-                <button type="button" class="btn btn-danger" id="btnInsert" name="btnInsert" data-bs-toggle="modal" data-bs-target="#myModal">추가</button>
+                <button type="button" class="btn btn-danger" id="addNotice" name="addNotice" data-bs-toggle="modal" data-bs-target="#myModal">추가</button>
             </div>
+            <div class="pagingNumber">
+				<th:block th:each="i:${#numbers.sequence(1, totalPage)}">
+					<a th:href="@{/admin/notice(pageNum=${pageNum}, keyword=${keyword})}"
+					th:text="${i }" name="pageNum" id="pageNum" class="pagingName"></a>&nbsp;&nbsp;
+				</th:block>
+			</div>
         </div>
     </div>
 </div>
@@ -110,25 +156,99 @@
         </div>
   
         <!-- Modal body -->
-        <form>
+        <form id="uploadNotice" role="form">
+			<input type="hidden" id="noticeno" name="noticeno">
 	        <div class="modal-body">
+				
                 <h5>제목</h5>
-                <input type="text" name="nTitle" id="ntitle" class="input-title"><br>
+                <input type="text" name="noticetitle" id="noticetitle" class="input-title"><br>
                 <h5>작성일</h5>
                 <div class="div-date">
-                    <span type="text" name="text">2020-11-11 00:00:00</span>    
+                    <span type="text" name="noticedate" id = "noticedate"></span>    
                 </div>
 	            <h5>내용</h5>
-                <textarea class="textarea-input"></textarea><br>
+                <textarea class="textarea-input" id="noticecontent" name="noticecontent"></textarea><br>
 	        </div>
  	 	</form>	
         <!-- Modal footer -->
         <div class="modal-footer">
+		  <button type="button" class="btn btn-danger" id="btnInsert" name="btnInsert" data-bs-dismiss="modal">추가</button>
           <button type="button" class="btn btn-danger" id="btnUpdate" name="btnUpdate" data-bs-dismiss="modal">수정</button>
           <button type="button" class="btn btn-danger" id="btnDelete" name="btnDelete" data-bs-dismiss="modal">삭제</button>
-          <button type="button" class="btn btn-danger" id="btnClose" name="btnClose" data-bs-dismiss="modal">닫기</button>
         </div>
   
+  		<script type="text/javascript">
+			$(".open-modal").click(function(){
+				console.log(this);
+				let noticeno = $(this).data('value');
+				console.log(noticeno);
+				$.ajax({
+					url: '/admin/notice/detail',
+					data: {
+						noticeno: noticeno
+					},
+					success: function(n){
+						console.log(n.noticeno);
+						console.log(n);
+						$("#noticeno").val(n.noticeno);
+						$("#noticedate").val(n.noticedate);
+						$("#noticetitle").val(n.noticetitle);
+						$("#noticecontent").val(n.noticecontent);
+					}
+				})
+			})
+			  
+			$("#btnInsert").click(function(){
+				let data = $("#uploadNotice").serialize();
+				console.log(data);
+				$.ajax({
+					url: "/admin/notice/insert",
+					type: "post",
+					data: data,
+					success: function(r){
+						alert(r);
+						window.location.reload();
+					}, error: function(){
+						alert("추가에 실패하였습니다.");
+					}
+				});
+			})  
+			
+			$("#btnUpdate").click(function(){
+				let data = $("#uploadNotice").serialize();
+				console.log('before update data: '+ data);
+				$.ajax({
+					url: "/admin/notice/update",
+					type: 'post',
+					data: data,
+					success: function(a){
+						alert(a);
+						window.location.reload();
+					},error: function(a){
+						alert(a);
+					}
+				})
+			})
+			
+			$("#btnDelete").click(function(){
+				let noticeno = $("#noticeno").val();
+				if(confirm('정말로 삭제할까요?')==true){
+					$.ajax({
+						url: '/admin/notice/delete',
+						data: {
+							noticeno: noticeno
+						},
+						type: 'post',
+						success: function(a){
+							alert(a);
+							window.location.reload();
+						},error: function(a){
+						alert(a);
+					}
+					})
+				}
+			})
+		</script>
       </div>
     </div>
   </div>

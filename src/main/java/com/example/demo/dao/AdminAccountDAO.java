@@ -18,14 +18,14 @@ public class AdminAccountDAO {
 	public static int userPageSize = 15;
 	
 	public List<Account> findAll(HashMap<String, Object> map){
-		userTotalRecord = AdminDBManager.getTotalRecord();
+		userTotalRecord = AdminDBManager.getTotalRecordAccount();
 		
 		//검색 결과에 해당하는 레코드 갯수 가져오기
-		int userTotalForPage = AdminDBManager.getTotalForPage(map);
+		int userTotalForPage = AdminDBManager.getTotalForPageAccount(map);
 		
 		//페이지 갯수 구하기
 		userTotalPage = (int)Math.ceil(userTotalForPage/(double)userPageSize);
-		return AdminDBManager.findAll(map);
+		return AdminDBManager.findAllAccount(map);
 	}
 
 	public Account findByAid(String aid) {

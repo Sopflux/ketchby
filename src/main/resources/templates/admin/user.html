@@ -133,7 +133,7 @@
 						<option th:selected="${column}=='email'">email</option>
 						<option th:selected="${column}=='name_'">name_</option>
 					</select>
-                    	<input th:if="${keyword != null}" th:value="${keyword}" id="search5" name="keyword" type="text" size="40" placeholder="Search Aid"/>
+                    	<input th:if="${keyword != null}" th:value="${keyword}" id="search5" name="keyword" type="text" size="40" placeholder="Search"/>
                 </div>
 
                  <!-- 테이블 출력 -->
@@ -178,7 +178,7 @@
   
         <!-- Modal Header -->
         <div class="modal-header">
-          <h4 class="modal-title">상세정보</h4>
+          <h4 class="modal-title">사용자 상세</h4>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
   	
@@ -277,7 +277,6 @@
         <button type="button" class="btn btn-danger" id="btnInsert" name="btnInsert" data-bs-dismiss="modal">추가</button>
         <button type="button" class="btn btn-danger" id="btnUpdate" name="btnUpdate" data-bs-dismiss="modal">수정</button>
         <button type="button" class="btn btn-danger" id="btnDelete" name="btnDelete" data-bs-dismiss="modal">삭제</button>
-        <button type="button" class="btn btn-danger" id="btnClose" name="btnClose" data-bs-dismiss="modal">닫기</button>
           
         </div>
   		<script type="text/javascript">
@@ -286,7 +285,7 @@
 				var aid = $(this).data('value');
 				console.log(aid);
 				$.ajax({
-					url: '/admin/detail',
+					url: '/admin/user/detail',
 					data: {
 						aid:aid
 					},
@@ -318,7 +317,7 @@
 			$("#btnInsert").click(function(){
 				let data = new FormData(document.getElementById("uploadAccount"));
 				$.ajax({
-					url: "/admin/insert",
+					url: "/admin/user/insert",
 					type: "post",
 					processData: false,
 					contentType: false,
@@ -336,7 +335,7 @@
 				let data = new FormData(document.getElementById("uploadAccount"));
 				console.log('before update data: '+ data);
 				$.ajax({
-					url: "/admin/update",
+					url: "/admin/user/update",
 					type: 'post',
 					processData: false,
 					contentType: false,
@@ -354,7 +353,7 @@
 				var aid = $("#aid").val();
 				if(confirm('정말로 삭제할까요?')==true){
 					$.ajax({
-						url: '/admin/delete',
+						url: '/admin/user/delete',
 						data: {
 							aid: aid
 						},
