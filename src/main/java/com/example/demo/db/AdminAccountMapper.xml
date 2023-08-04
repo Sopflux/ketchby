@@ -12,9 +12,11 @@
 	
 	<!-- 사용자 정보 수정 -->
 	<update id="updateAccount" parameterType="account">
-		update account set name_ = #{name_} and email = #{email} 
-		and nick = #{nick} and img = ${img} and level_ = #{level_} 
-		where aid = #{aid}
+		update account set 
+		name_ = #{name_, jdbcType=VARCHAR }, email = #{email, jdbcType=VARCHAR }
+		, nick = #{nick, jdbcType=VARCHAR }, img = #{img, jdbcType=VARCHAR }
+		, level_ = #{level_, jdbcType=VARCHAR } 
+		where aid = #{aid, jdbcType=VARCHAR }
 	</update>
 	
 	<!-- 사용자 정보 삭제 -->

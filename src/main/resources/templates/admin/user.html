@@ -120,7 +120,7 @@
 
         </div>
         <div class="main-wrapper">
-        <div class="main-table">
+        <div class="main-table" id="main-table">
             <h2>사용자</h2>
             <p th:text="'총 사용자: '+${member}"></p>
           	<div class="app">
@@ -221,10 +221,10 @@
 							
 						</td>
 						<td class="filebox bs3-primary preview-image">
-							<img name="img" id="img" style="width: 50px; height: 50px;">
-                            <input class="upload-name" value="파일선택" disabled="disabled" style="width: 200px;">
+							<img onerror="this.src = '/profile/noimage.png'" id="img" style="background-color: #191C24; width: 50px; height: 50px;">
+                            <input class="upload-name" name = 'img_src' id = 'img_src' value="파일선택" disabled="disabled" style="width: 200px;">
                             <label for="input_file">업로드</label> 
-                            <input type="file" id="input_file" name="uploadFile" class="upload-hidden"> 
+                            <input type="file" id="input_file" name="uploadFile" accept="image/*" class="upload-hidden"> 
                         </td>
 	                    
 	                </tr>
@@ -237,51 +237,31 @@
 	                        <span class="modal-input1" name="regdate" id="regdate"></span>
 	                    </td>
                         <script type="text/javascript">
-                           	$(document).ready(function(){
-							  var fileTarget = $('.filebox .upload-hidden');
+                           	 $(document).ready(function() {
+							    // 파일 선택 시 라벨과 이미지 태그 업데이트
+							    $('#input_file').on('change', function() {
+							      var file = this.files[0];
+							      var fileLabel = $('#img_src');
+							      var imgTag = $('#img');
 							
-							  fileTarget.on('change', function(){  // 값이 변경되면
-							    if(window.FileReader){  // modern browser
-							      var filename = $(this)[0].files[0].name;
-							    } 
-							    else {  // old IE
-							      var filename = $(this).val().split('/').pop().split('\\').pop();  // 파일명만 추출
-							    }
-							    
-							    // 추출한 파일명 삽입
-							    $(this).siblings('.upload-name').val(filename);
+							      if (file) {
+							        // 선택한 파일 이름을 라벨에 표시
+							        console.log(file.name);
+							        fileLabel.val(file.name);
+							
+							        // FileReader를 사용하여 이미지 미리보기 생성
+							        var reader = new FileReader();
+							        reader.onload = function(e) {
+							          imgTag.attr('src', e.target.result);
+							        };
+							        reader.readAsDataURL(file);
+							      } else {
+							        // 파일을 선택하지 않았을 때 라벨을 초기화하고 이미지 미리보기 리셋
+							        fileLabel.val('파일 선택');
+							        imgTag.attr('src', '');
+							      }
+							    });
 							  });
-							  
-							//preview image 
-						    var imgTarget = $('.preview-image .upload-hidden');
-						
-						    imgTarget.on('change', function(){
-						        var parent = $(this).parent();
-						        parent.children('.upload-display').remove();
-						
-						        if(window.FileReader){
-						            //image 파일만
-						            if (!$(this)[0].files[0].type.match(/image\//)) return;
-						            
-						            var reader = new FileReader();
-						            reader.onload = function(e){
-						                var src = e.target.result;
-						                parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');
-						            }
-						            reader.readAsDataURL($(this)[0].files[0]);
-						        }
-						
-						        else {
-						            $(this)[0].select();
-						            $(this)[0].blur();
-						            var imgSrc = document.selection.createRange().text;
-						            parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img class="upload-thumb"></div></div>');
-						
-						            var img = $(this).siblings('.upload-display').find('img');
-						            img[0].style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enable='true',sizingMethod='scale',src=\""+imgSrc+"\")";        
-						        }
-						    });  
-							}); 
                         	</script>
                         <td>
 	                        <input class="modal-input" type="text" name="pwd" id="pwd">
@@ -325,7 +305,11 @@
 						
 						$("#regdate").html(a.regdate);
 						$("#regdate_txt").html("가입일");
+						$("#img").attr("src", '/profile/'+a.img);
 						$(".upload-name").val(a.img);
+						if(a.img == null){
+							$(".upload-name").val('파일 선택');
+						}
 						$("#img").attr('src','/profile/'+a.img);
 					}
 				})
@@ -333,7 +317,6 @@
 			  
 			$("#btnInsert").click(function(){
 				let data = new FormData(document.getElementById("uploadAccount"));
-				console.log(data);
 				$.ajax({
 					url: "/admin/insert",
 					type: "post",
@@ -342,38 +325,27 @@
 					data: data,
 					success: function(r){
 						alert(r);
+						window.location.reload();
 					}, error: function(){
 						alert("추가에 실패하였습니다.");
 					}
 				});
-				
 			})  
 			
 			$("#btnUpdate").click(function(){
-				var formData = new FormData;
-				formData.append('aid', $("#aid").val());
-				formData.append("name_", $("#name_").val());
-				formData.append('level_', $("#level_").val());
-				formData.append('nick', $("#nick").val());
-				formData.append("email", $("#email").val());
-				formData.append('uploadFile', $("#input_file")[0].files[0]);
-				console.log('formdata: '+formdata);
-				
-				var aid = $("#aid").val();
-				var name_ = $('#name_').val();
-				var level_ = $('#level_').val();
-				var nick = $("#nick").val();
-				var email = $('#email').val();
-				var uploadFile = $("#input_file").val();
+				let data = new FormData(document.getElementById("uploadAccount"));
+				console.log('before update data: '+ data);
 				$.ajax({
-					url: '/admin/update',
-					data: formData,
+					url: "/admin/update",
+					type: 'post',
+					processData: false,
+					contentType: false,
+					data: data,
 					success: function(a){
-						console.log(a);
-						alert("수정 완료하였습니다.");
-						location.href = '/admin/user';
-					},error: function(){
-						alert('수정 실패했습니다.');
+						alert(a);
+						window.location.reload();
+					},error: function(a){
+						alert(a);
 					}
 				})
 			})
@@ -386,11 +358,12 @@
 						data: {
 							aid: aid
 						},
-						success: function(){
-							alert("삭제 완료했습니다.");
-							location.href = '/admin/user';
-						},error: function(){
-						alert('삭제 실패했습니다.');
+						type: 'post',
+						success: function(a){
+							alert(a);
+							window.location.reload();
+						},error: function(a){
+						alert(a);
 					}
 					})
 				}

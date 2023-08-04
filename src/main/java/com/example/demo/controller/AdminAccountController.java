@@ -12,17 +12,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.dao.AdminAccountDAO;
 import com.example.demo.entity.Account;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import lombok.Setter;
 
 @Controller
@@ -41,7 +38,6 @@ public class AdminAccountController {
 		String email = request.getParameter("email");
 		String pwd = request.getParameter("pwd");
 		MultipartFile uploadFile = ((MultipartHttpServletRequest) request).getFile("uploadFile");
-		System.out.println("aid: "+aid);
 		Account a = new Account();
 
 		a.setAid(aid);
@@ -53,9 +49,6 @@ public class AdminAccountController {
 		a.setUploadFile(uploadFile);
 		
 		String path = request.getServletContext().getRealPath("profile");
-		System.out.println("path: "+path);
-		
-		System.out.println("uploadFile: "+uploadFile);
 		
 		//일단 파일명에 "" 설정
 		String img = null;
@@ -112,28 +105,37 @@ public class AdminAccountController {
 		return "추가에 성공하였습니다.";
 	}
 	
-	@RequestMapping("/admin/update")
+	@PostMapping("/admin/update")
 	@ResponseBody
-	public ModelAndView updateAccount(@RequestParam(value = "aid") String aid,
-			@RequestParam(value = "name_") String name_, @RequestParam(value = "level_")String level_,
-			@RequestParam(value = "nick")String nick, @RequestParam(value = "email")String email,
-			@RequestPart(value = "uploadFile")MultipartFile uploadFile, HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView("redirect:/admin/user");
-		String path = request.getServletContext().getRealPath("profile");
+	public String updateAccount(HttpServletRequest request) {
 		
-		Account a = new Account();
+		String str = "수정 성공했습니다.";
+		
+		Account a = a_dao.findByAid(request.getParameter("aid"));
+		
+		String aid = request.getParameter("aid");
+		String name_ = request.getParameter("name_");
+		String level_ = request.getParameter("level_");
+		String email = request.getParameter("email");
+		String nick = request.getParameter("nick");
+		MultipartFile uploadFile = ((MultipartHttpServletRequest) request).getFile("uploadFile");
+
+		System.out.println("uploadFile: "+uploadFile);
 		
 		a.setAid(aid);
 		a.setName_(name_);
 		a.setLevel_(level_);
 		a.setNick(nick);
 		a.setEmail(email);
+		a.setUploadFile(uploadFile);
+		
+
+		String path = request.getServletContext().getRealPath("profile");
+		System.out.println("path: "+path);
 		
 		//원래 사진 이름 저장할 변수
-		String oldImg;
-		
-		//원래 사진이름 저장
-		oldImg = a.getImg();
+		String oldImg = a.getImg();
+		System.out.println("oldImg: "+oldImg);
 		
 		//업로드한 파일 객체 담아오기
 		uploadFile = a.getUploadFile();
@@ -151,17 +153,16 @@ public class AdminAccountController {
 			String fname1 = img.substring(0, img.lastIndexOf("."));
 			String fname2 = img.substring(img.lastIndexOf("."));
 			
-			System.out.println(fname1);
-			System.out.println(fname2);
-			
 			img = fname1 + n + fname2;
-			System.out.println(img);
+			a.setImg(img);
+			System.out.println("img: "+img);
 			
 			//파일의 내용을 가지고 옴
 			try {
 				int re = a_dao.updateAccount(a);
 				
-				if(re==1 && img!=null && !img.equals("")) {
+				if(re==1)
+					if(img!=null && !img.equals("")) {
 					try {
 						byte[] data = uploadFile.getBytes();
 						
@@ -171,29 +172,27 @@ public class AdminAccountController {
 						//파일로 내용을 출력
 						fos.write(data);
 						fos.close();
-						
-						//업로드한 파일이름을 vo에 저장
-						a.setImg(img);
 					} catch (Exception e) {
 						// TODO: handle exception
-						System.out.println("updateAccount error: "+e.getMessage());
+						System.out.println("updateAccount first error: "+e.getMessage());
 					}
 				}
 				File file = new File(path+"/"+oldImg);
+				System.out.println("path: "+path+"/"+oldImg);
 				file.delete();
 			} catch (Exception e) {
 				// TODO: handle exception
-				mav.addObject("msg", "수정 실패하였습니다.");
-				mav.setViewName("error");
+				System.out.println("updateAccount second error: "+e.getMessage());
+				str = "수정 실패하였습니다.";
 			}
 		}
-		return mav;
+		return str;
 	}
 	
-	@RequestMapping("admin/delete")
+	@PostMapping("admin/delete")
 	@ResponseBody
-	public ModelAndView deleteAccount(@RequestParam(value="aid")String aid, HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView("redirect:/admin/user");
+	public String deleteAccount(@RequestParam(value="aid")String aid, HttpServletRequest request) {
+		String str = "삭제 성공했습니다.";
 		//이미지 실제 경로 가져오기
 		String path = request.getServletContext().getRealPath("profile");
 		
@@ -208,11 +207,10 @@ public class AdminAccountController {
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
-			mav.addObject("msg", "삭제에 실패하였습니다.");
-			mav.setViewName("error");
+			str = "삭제에 실패하였습니다.";
 		}
 		
-		return mav;
+		return str;
 	}
 	
 	@RequestMapping("/admin/detail")
