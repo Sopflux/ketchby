@@ -6,8 +6,8 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <!-- Bootstrap JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<link rel="stylesheet" type="text/css" href="qanda_open.css">
-
+<link rel="stylesheet" type="text/css" href="/style/qanda_open.css">
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <script>
 function countCharacters(textarea) {
   const countElement = document.querySelector('.countkor'); // countkor 클래스를 가진 요소를 선택
@@ -31,36 +31,61 @@ function countCharacters(textarea) {
     submitButton.classList.add('disabled');
   }
 }
+
+$(function(){
+	$(".form_submit").click(function(){
+		var category=$("#category").val();
+		var name=$("#name").val();
+		var email=$("#email").val();
+		var title=$("#title").val();
+		var message=$("#message").val();
+		$.ajax({
+			url:"/qanda/qanda_open_ajax",
+			data:{
+				category:category,
+				name:name,
+				email:email,
+				title:title,
+				message:message},
+			success:function(){
+				alert("문의 완료되었습니다");
+				location.href = "/qanda/qandamain";
+			}
+		});
+	});
+});
 </script>
 </head>
 <body>
+	<div th:replace="menu :: head"></div>
 <div class="main">
   <div class="main_top">
     <span class="title">이메일 문의하기</span>
     <div class="additional-space-top"></div>
     <span class="title_s">클래스 개설 문의는 고객센터 콜 센터로 요청해 주세요</span>
   </div>
-  <form action="" method="">
-    <select class="form-select" aria-label="Default select example">
+  <form action="">
+    <select id="category" class="form-select" aria-label="Default select example">
       <option selected>문의 유형</option>
-      <option value="101">취소/환불</option>
-      <option value="102">예약/결제</option>
-      <option value="103">클래스관련</option>
-      <option value="104">로그인/회원정보</option>
-      <option value="105">서비스/기타</option>
+      <option value="취소/환불">취소/환불</option>
+      <option value="예약/결제">예약/결제</option>
+      <option value="클래스관련">클래스관련</option>
+      <option value="로그인/회원정보">로그인/회원정보</option>
+      <option value="서비스/기타">서비스/기타</option>
     </select>
     <span class="select_s">웹 개선 제안은 '서비스/기타'로 선택해 주세요.</span>
     <div class="form-gap"></div>
-    <input type="text" name="name" class="qanda1-input" placeholder="이름" />
+    <input type="text" id="name" class="qanda1-input" placeholder="이름" />
     <div class="additional-space"></div>
-    <input type="text" name="email" class="qanda1-input" placeholder="이메일" />
+    <input type="text" id="email" class="qanda1-input" placeholder="이메일" />
     <div class="additional-space"></div>
-    <input type="text" name="title" class="qanda1-input-title" placeholder="제목" />
+    <input type="text" id="title" class="qanda1-input-title" placeholder="제목" />
     <div class="additional-space"></div>
-    <textarea class="text_area" name="message" maxlength="500" placeholder="문의 내용" oninput="countCharacters(this)"></textarea>
+    <textarea class="text_area" id="message" maxlength="500" placeholder="문의 내용" oninput="countCharacters(this)"></textarea>
     <div class="countkor"></div>
     <div class="additional-space"></div>
     <div class="check">
+		
     <input type="checkbox" class="checkbox" onclick="countCharacters(this)" />
     <span class="check_title">개인정보 수집 및 이용동의</span>
     <div class="check_content">
@@ -71,8 +96,8 @@ function countCharacters(textarea) {
     </div>
     </div>
     <div class="additional-space"></div>
-    <input type="submit" value="제출하기" class="form_submit disabled" />
-  </form>
+    </form>
+    <input type="button" value="제출하기" class="form_submit disabled"></input>
 </div>
 </body>
 </html>
