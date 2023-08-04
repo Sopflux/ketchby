@@ -1,0 +1,159 @@
+@charset "utf-8";
+
+body, h1, h2, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+.main{
+  gap: 39.589996337890625px;
+  top: 347px;
+  left: 298px;
+  width: 750px;
+  display: flex;
+  padding: 0 0 39.999969482421875px;
+  position: absolute;
+  align-items: flex-start;
+  flex-shrink: 0;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.info_div {
+    width: 677px;
+    height: 316px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    border-radius: 8px;
+    background-color: rgba(247, 249, 250, 1);
+}
+
+.info_div span {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.time {
+    font-size: 20px;
+    color: rgba(47, 52, 56, 1);
+    width: auto;
+    height: auto;
+    font-style: Bold;
+    text-align: left;
+    font-family: Noto Sans KR;
+    font-stretch: normal;
+    text-decoration: none;
+    margin: 0;
+}
+
+.weekday,
+.weekend {
+    color: rgba(130, 140, 148, 1);
+    width: 100%;
+    height: auto;
+    font-size: 14px;
+    font-style: DemiLight;
+    text-align: center;
+    font-family: Noto Sans KR;
+    font-weight: 400;
+    line-height: 20px;
+    font-stretch: normal;
+    text-decoration: none;
+    margin: 0;
+}
+
+.phone {
+    font-size: 24px;
+    color: rgba(140, 90, 210, 1);
+}
+
+.button_wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    margin: 0 auto;
+
+}
+
+.qanda_button {
+    padding: 10px;
+    border-radius: 19px;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin: 0 5px;
+    background-color: rgba(247, 249, 250, 1);
+    border: 1px solid rgba(218, 221, 224, 1);
+}
+
+.qanda_button.active {
+    background-color: rgba(140, 90, 210, 1);
+    border: 1px solid rgba(140, 90, 210, 1);
+}
+
+.qanda_button:hover:not(.active) {
+    background-color: rgba(237, 239, 240, 1);
+    border: 1px solid rgba(218, 221, 224, 1);
+}
+
+.line_div {
+    width: 677px;
+    height: 10px;
+    display: flex;
+    overflow: hidden;
+    margin: 20px auto;
+    background-color: rgba(247, 249, 250, 1);
+}
+
+.content_div {
+    width: 677px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+    border-radius: 8px;
+    background-color: rgba(247, 249, 250, 1);
+}
+
+.qanda_email,
+.qanda_emailcopy {
+    padding: 13.2px 30px 12.8px 30px;
+    flex-shrink: 0;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 1);
+    margin: 0 5px;
+}
+
+.qanda_email {
+    border: 1px solid rgba(140, 90, 210, 1);
+    color: rgba(140, 90, 210, 1);
+}
+
+.qanda_emailcopy {
+    border: 1px solid rgba(218, 221, 224, 1);
+}
+
+.button_row {
+    display: flex;
+    justify-content: center;
+}
+
+.accordion {
+    width: 677px;
+    height: 150px;
+}
+
+/* 아코디언 헤더의 커스텀 스타일 */
+.accordion-button:not(.collapsed) {
+    background-color: white;
+    color: rgba(140, 90, 210, 1);
+    font-weight: bold;
+}
+
+/* 아코디언 내용의 커스텀 스타일 */
+.accordion-body {
+    background-color: rgba(247, 249, 250, 1);
+    color: #555;
+}

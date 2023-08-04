@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+	
+	<script>
+		$(function(){
+			$(".menubar-text").click(function(){
+				location.href="";
+			})
+			$(".menubar-text2").click(function(){
+				location.href="/community/community/1";
+			})
+			$(".menubar-text4").click(function(){
+				location.href="";
+			})
+			$(".menubar-text6").click(function(){
+				location.href="/qanda/qandamain";
+			})
+		})
+	</script>
+	
+	<style>
+		.menubar-container {
+			width: 100%;
+			display: flex;
+			overflow: auto;
+			min-height: 100vh;
+			align-items: center;
+			flex-direction: column;
+		}
+
+		.menubar-menubar {
+			width: 100%;
+			height: 243px;
+			display: flex;
+			position: relative;
+			align-items: flex-start;
+			flex-shrink: 0;
+		}
+
+		.menubar-frame27 {
+			top: 400px;
+			left: 30px;
+			width: 157px;
+			height: 227px;
+			display: flex;
+			position: absolute;
+			align-items: flex-start;
+			flex-shrink: 0;
+		}
+
+		.menubar-text {
+			width: 128px;
+			height: auto;
+			position: absolute;
+			font-size: 24px;
+			text-align: center;
+			font-weight: 400;
+			line-height: 28.079999923706055px;
+		}
+
+		.menubar-text2 {
+			top: 57px;
+			width: 155px;
+			font-size: 24px;
+			height: auto;
+			position: absolute;
+			text-align: center;
+			font-weight: 400;
+			line-height: 28.079999923706055px;
+		}
+
+		.menubar-text4 {
+			top: 113px;
+			width: 155px;
+			font-size: 24px;
+			height: auto;
+			position: absolute;
+			text-align: center;
+			font-weight: 400;
+			line-height: 28.079999923706055px;
+		}
+
+		.menubar-text6 {
+			top: 169px;
+			width: 105px;
+			font-size: 24px;
+			height: auto;
+			position: absolute;
+			text-align: center;
+			font-weight: 400;
+			line-height: 28.079999923706055px;
+		}
+
+		span:hover,
+		button:hover {
+			background-color: #F5F5F5;
+		}
+
+		button {
+			border: none;
+			background: none;
+			padding: 0;
+			font-size: inherit;
+			font-family: inherit;
+			cursor: pointer;
+		}
+	</style>
+</head>
+
+<body>
+	<div th:fragment="head">
+			<div class="menubar-menubar">
+				<div class="menubar-frame27">
+					<button class="menubar-text">#소모임</button>
+					<button class="menubar-text2">#커뮤니티</button>
+					<button class="menubar-text4">#공지사항</button>
+					<button class="menubar-text6">&nbsp;#Q&amp;A</button>
+				</div>
+			</div>
+	</div>
+
+</body>
+
+</html>
