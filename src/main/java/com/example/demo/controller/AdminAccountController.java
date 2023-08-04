@@ -28,7 +28,7 @@ public class AdminAccountController {
 	@Autowired
 	public AdminAccountDAO a_dao;
 	
-	@PostMapping("/admin/insert")
+	@PostMapping("/admin/user/insert")
 	@ResponseBody
 	public String insertAccount(HttpServletRequest request) {
 		String aid = request.getParameter("aid");
@@ -105,7 +105,7 @@ public class AdminAccountController {
 		return "추가에 성공하였습니다.";
 	}
 	
-	@PostMapping("/admin/update")
+	@PostMapping("/admin/user/update")
 	@ResponseBody
 	public String updateAccount(HttpServletRequest request) {
 		
@@ -189,7 +189,7 @@ public class AdminAccountController {
 		return str;
 	}
 	
-	@PostMapping("admin/delete")
+	@PostMapping("admin/user/delete")
 	@ResponseBody
 	public String deleteAccount(@RequestParam(value="aid")String aid, HttpServletRequest request) {
 		String str = "삭제 성공했습니다.";
@@ -213,7 +213,7 @@ public class AdminAccountController {
 		return str;
 	}
 	
-	@RequestMapping("/admin/detail")
+	@RequestMapping("/admin/user/detail")
 	@ResponseBody
 	public Account detailAccount(String aid) {
 		Account a = a_dao.findByAid(aid);
