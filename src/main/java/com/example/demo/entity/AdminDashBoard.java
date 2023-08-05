@@ -7,6 +7,7 @@ public class AdminDashBoard {
 	// 총 사용자 및 신규 사용자 파악을 위한 vo
 	private String aid;
 	private String regdate;
+	private int countaid;
 	
 	// 총 클래스 수, 신규 클래스 개설 수 및 카테고리별 클래스 수
 	private int clno;
@@ -14,7 +15,7 @@ public class AdminDashBoard {
 	private String scaname;
 	private int bcano;
 	private String bcaname;
-	//private String clregdate;
+	private String clregdate;
 	
 	// 커뮤니티 게시물 수 및 신규 게시물 수
 	private int bno;
@@ -35,6 +36,19 @@ public class AdminDashBoard {
 	public String getAid() {
 		return aid;
 	}
+	
+
+	public int getCountaid() {
+		return countaid;
+	}
+
+	public void setCountaid(int countaid) {
+		this.countaid = countaid;
+	}
+
+
+
+
 	public void setAid(String aid) {
 		this.aid = aid;
 	}
@@ -127,6 +141,18 @@ public class AdminDashBoard {
 	}
 	public void setRereason(String rereason) {
 		this.rereason = rereason;
+	}
+
+
+
+	public String getClregdate() {
+		return clregdate;
+	}
+
+
+
+	public void setClregdate(String clregdate) {
+		this.clregdate = clregdate;
 	}
 	
 	

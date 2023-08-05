@@ -1,5 +1,6 @@
 package com.example.demo.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +11,13 @@ import com.example.demo.entity.AdminDashBoard;
 
 @Repository
 public class AdminDashBoardDAO {
-	
-	public Integer getTotalUsers() {
-        return AdminDashBoardDBManager.getTotalUsers();
-    }
 
-    public List<AdminDashBoard> getDailyUsers() {
-        return AdminDashBoardDBManager.getDailyUsers();
-    }
+	public int findTotalUsers() {
+		return AdminDashBoardDBManager.findTotalUsers();
+	}
+
+
+	public List<AdminDashBoard> findDailyUsers(HashMap<String, Object> map) {
+		return AdminDashBoardDBManager.findDailyUsers(map);
+	}
 }

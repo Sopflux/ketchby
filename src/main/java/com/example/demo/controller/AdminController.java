@@ -18,12 +18,14 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.demo.dao.AdminClassDAO;
 import com.example.demo.dao.AdminDashBoardDAO;
 import com.example.demo.entity.AdminClass;
+import com.example.demo.entity.AdminDashBoard;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.Setter;
 
 @Setter
 @Controller
+@RequestMapping("/admin")
 public class AdminController {
 	
 	@Autowired
@@ -34,13 +36,11 @@ public class AdminController {
 	private AdminDashBoardDAO adminDashBoardDao;
 	
 	
-	@GetMapping("/admin")
-	public String admin() {
-		return "/admin/dashboard";
-	}
+	/*
+	 * adminClassPending 메소드
+	 */
 	
-	//adminClass 메소드
-	@RequestMapping("/admin/class")
+	@RequestMapping("/class")
 	public void listClass(Model model, 
 			@RequestParam(value = "keyword", required = false) String keyword,
             @RequestParam(value = "searchColumn", required = false) String searchColumn,
@@ -72,14 +72,14 @@ public class AdminController {
 
 		
 	
-	@GetMapping("/admin/detailClass")
+	@GetMapping("/detailClass")
 	@ResponseBody
 	public AdminClass detailClass(int clno) {
 		return adminClassDao.findByClno("adminClass", clno);
 	}
 
 	
-	@GetMapping("/admin/deleteClass")
+	@GetMapping("/deleteClass")
 	public ModelAndView deleteClass(@RequestParam("clno") int clno) {
 		ModelAndView mav = new ModelAndView("redirect:/admin/class");
 		int re = adminClassDao.delete("adminClass", clno);
@@ -90,9 +90,11 @@ public class AdminController {
 	}
 	
 
-	//adminClassPending 메소드
+	/*
+	 * adminClassPending 메소드
+	 */
 	
-	@RequestMapping("/admin/classPending")
+	@RequestMapping("/classPending")
 	public void listClassPending(Model model, 
 			@RequestParam(value = "keyword", required = false) String keyword,
             @RequestParam(value = "searchColumn", required = false) String searchColumn,
@@ -123,7 +125,7 @@ public class AdminController {
 	}
 	
 	
-	@GetMapping("/admin/detailClassPending")
+	@GetMapping("/detailClassPending")
 	@ResponseBody 
 	public AdminClass detailClassPending(int clno) {
 		return adminClassDao.findByClno("adminClassPending", clno);
@@ -145,12 +147,40 @@ public class AdminController {
 	}
 	
 	
+	/*
+	 * adminDashboard 메소드
+	 */
 	
-	//adminDashboard 메소드
-	@GetMapping("/admin/dashboard")
-	public void listDashBoard(Model model){
-		model.addAttribute("totalUsers", adminDashBoardDao.getTotalUsers());
-		model.addAttribute("dailyUsers", adminDashBoardDao.getDailyUsers());
+	@GetMapping
+	public String admin() {
+		return "/admin/dashboard";
 	}
+	
+	@GetMapping("/dashboard")
+	public void listDashBoard(Model model){
+		model.addAttribute("totalUsers", adminDashBoardDao.findTotalUsers());
+	}
+	
+	
+	@GetMapping("/totalUsers")
+    @ResponseBody
+    public int getTotalUsers() {
+        return adminDashBoardDao.findTotalUsers();
+    }
+
+    @GetMapping("/dailyUsers")
+    @ResponseBody
+    public List<AdminDashBoard> getDailyUsers(
+    		@RequestParam String startDate,
+    		@RequestParam String endDate) {
+    	
+    	HashMap<String, Object> map = new HashMap<>();
+		map.put("startDate", startDate);
+		map.put("endDate", endDate);
+    	System.out.println("startDate:" + startDate); 
+    	System.out.println("endDate:" + endDate); 
+    	return adminDashBoardDao.findDailyUsers(map);
+    }
+	
 	
 }

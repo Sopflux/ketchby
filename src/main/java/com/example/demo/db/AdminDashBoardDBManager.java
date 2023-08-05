@@ -26,16 +26,17 @@ public class AdminDashBoardDBManager {
 			
 		}
 	}
-	public static int getTotalUsers() {
+
+	public static int findTotalUsers() {
 		int n =0;
 		SqlSession session = sqlSessionFactory.openSession();
-		n=session.selectOne("adminDashBoard.getTotalUsers");
+		n=session.selectOne("adminDashBoard.findTotalUsers");
 		session.close();
 		return n;
 	}
-	public static List<AdminDashBoard> getDailyUsers() {
+	public static List<AdminDashBoard> findDailyUsers(HashMap<String, Object> map) {
 		SqlSession session = sqlSessionFactory.openSession();
-		List<AdminDashBoard> list = session.selectList("adminDashBoard.getDailyUsers");
+		List<AdminDashBoard> list = session.selectList("adminDashBoard.findDailyUsers", map); 
 		session.close();
 		return list;
 	}
