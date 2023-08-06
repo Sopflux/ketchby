@@ -16,6 +16,7 @@ public class AdminDashBoard {
 	private int bcano;
 	private String bcaname;
 	private String clregdate;
+	private int countclno;
 	
 	// 커뮤니티 게시물 수 및 신규 게시물 수
 	private int bno;
@@ -37,7 +38,7 @@ public class AdminDashBoard {
 		return aid;
 	}
 	
-
+	
 	public int getCountaid() {
 		return countaid;
 	}
@@ -45,8 +46,6 @@ public class AdminDashBoard {
 	public void setCountaid(int countaid) {
 		this.countaid = countaid;
 	}
-
-
 
 
 	public void setAid(String aid) {
@@ -142,17 +141,17 @@ public class AdminDashBoard {
 	public void setRereason(String rereason) {
 		this.rereason = rereason;
 	}
-
-
-
 	public String getClregdate() {
 		return clregdate;
 	}
-
-
-
 	public void setClregdate(String clregdate) {
 		this.clregdate = clregdate;
+	}
+	public int getCountclno() {
+		return countclno;
+	}
+	public void setCountclno(int countclno) {
+		this.countclno = countclno;
 	}
 	
 	

@@ -10,6 +10,8 @@
 <script src="https://code.jquery.com/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+<script defer type="text/javascript" src="/userStatistics.js"></script>
+<script defer type="text/javascript" src="/classStatistics.js"></script>
 </head>
 <body>
 <div class="container-scroller">
@@ -51,6 +53,7 @@
                             </div>
                             <div class="card-content">
                                 <h2 th:text="${totalUsers}"></h2>
+                                <p>user</p>
                             </div>
                         </div>
                     </div>
@@ -77,112 +80,33 @@
                     </div>
                 </div>
             </div>
-            <!--신규 가입자 차트-->
-            <div class="chart-wrapper">
-               <h2>일별 신규 사용자</h2>
-                <div class="chart-controls">
-                    <input type="date" id="startDate" name="startDate">-
-                    <input type="date" id="endDate" name="endDate">
-
-                    <button onclick="dailyUsersData()" id="btnSelect">선택</button>
-                </div>
-                <div class="chart-container">
-                    <canvas id="dailyUsersChart"></canvas>
-                </div>
-            </div>
+            <!--날짜별 신규 가입자-->
+            <div class="chart-row">
+	            <div class="chart-wrapper">
+	                <div class="chart-title">
+                        <h5>날짜별 신규 가입자</h5>
+                    </div>
+	                <div class="chart-container">
+	                    <canvas id="dailyUsersChart"></canvas>
+	                </div>
+	                <div class="chart-controls">
+	                    <input type="date" id="startDate" name="startDate"> -
+	                    <input type="date" id="endDate" name="endDate">
+	
+	                    <button onclick="dailyUsersData()" id="btnSelect">선택</button>
+	                </div>
+	            </div>
+	            <div class="chart-wrapper">
+	                <div class="chart-title">
+                        <h5>카테고리 별 클래스 수</h5>
+                    </div>
+	                <div class="chart-container">
+	                    <canvas id="classByBcaChart"></canvas>
+	                </div> 
+	            </div>
+        	</div>
         </div>
     </div>
 </div>
-
-<!--신규 가입자 수 차트-->
-<script type="text/javascript">
-    var dailyUsersChart = null;
-
-    function createDailyUsersChart(labels, values) {
-        var ctx = document.getElementById('dailyUsersChart').getContext('2d');
-        
-		//차트가 다른 값으로 변경될 때 기존 차트 지우고 새로 덮어씀
-        if (dailyUsersChart) {
-            dailyUsersChart.destroy(); // Destroy the previous chart if it exists
-        }
-		
-		
-		// 차트 그리기
-        dailyUsersChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: '일별 신규 가입자수',
-                    data: values,
-                    backgroundColor: 'rgba(0, 131, 117, 0.2)', 
-            		borderColor: 'rgba(0, 131, 117, 1)', 
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    x: {
-                        type: 'time',
-                        time: {
-                            unit: 'day',
-                            displayFormats: {
-                                day: 'MM-dd',
-                            },
-                        },
-                        title: {
-                            display: true,
-                            text: 'Date',
-                        }
-                    },
-                    y: {
-                        title: {
-                            display: true,
-                            text: 'Number of New Users',
-                        },
-                    },
-                },
-            },
-        });
-    }
-
-    function dailyUsersData() {
-        var startDate = document.getElementById("startDate").value;
-        var endDate = document.getElementById("endDate").value;
-        
-        console.log("startDate:", startDate);
-    	console.log("endDate:", endDate);
-
-        $.ajax({
-            url: "/admin/dailyUsers?startDate=" + startDate + "&endDate=" + endDate,
-            type: "GET",
-            dataType: "json",
-            success: function (data) {
-                // Extract labels and values from the data
-                var labels = data.map(item => item.regdate);
-                var values = data.map(item => item.countaid);
-
-                // Convert count values from string to integers
-                values = values.map(value => parseInt(value, 10));
-
-                console.log("Labels:", labels);
-                console.log("Values:", values);
-
-                // Call the function to update the chart with the fetched data
-                createDailyUsersChart(labels, values);
-            },
-            error: function (error) {
-                console.log("An error occurred:", error);
-            }
-        });
-    }
-
-    // Initial chart creation on page load
-    dailyUsersData();
-
-</script>
-
 </body>
 </html>

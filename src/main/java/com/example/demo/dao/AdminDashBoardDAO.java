@@ -20,4 +20,9 @@ public class AdminDashBoardDAO {
 	public List<AdminDashBoard> findDailyUsers(HashMap<String, Object> map) {
 		return AdminDashBoardDBManager.findDailyUsers(map);
 	}
+
+
+	public List<AdminDashBoard> findClassByBca() {
+		return AdminDashBoardDBManager.findClassByBca();
+	}
 }

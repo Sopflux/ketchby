@@ -176,11 +176,17 @@ public class AdminController {
     	
     	HashMap<String, Object> map = new HashMap<>();
 		map.put("startDate", startDate);
-		map.put("endDate", endDate);
-    	System.out.println("startDate:" + startDate); 
-    	System.out.println("endDate:" + endDate); 
+		map.put("endDate", endDate); 
     	return adminDashBoardDao.findDailyUsers(map);
     }
 	
 	
+    @GetMapping("/classByBca")
+    @ResponseBody
+    public List<AdminDashBoard> getClassByBca(){
+    	return adminDashBoardDao.findClassByBca();
+    }
+ 
+    
+
 }

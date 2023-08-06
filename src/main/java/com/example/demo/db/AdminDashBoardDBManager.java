@@ -40,6 +40,12 @@ public class AdminDashBoardDBManager {
 		session.close();
 		return list;
 	}
+	public static List<AdminDashBoard> findClassByBca() {
+		SqlSession session = sqlSessionFactory.openSession();
+		List<AdminDashBoard> list = session.selectList("adminDashBoard.findClassByBca"); 
+		session.close();
+		return list;
+	}
 
 	
 }
