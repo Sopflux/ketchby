@@ -13,19 +13,20 @@ public class FeedIMG {
 	private int fno;
 	private String aid;
 	private String fcontent;
-	private Date fdate;
+	private String fdate;
 	private String nick;
 	private String img;
 	private int cntLike;
 	private int cntComment;
 	private int userLike;
+	private List<Feedcommentary> fcolist;
+
 
 	private List<String> flist;
-	
-	
 	
 	public FeedIMG() {
 		this.flist = new ArrayList<>();
 	}
+
 
 }

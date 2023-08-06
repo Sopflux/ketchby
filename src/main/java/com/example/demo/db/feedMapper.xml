@@ -7,6 +7,10 @@
 		select * from feed order by fdate desc
 	</select>	
 	
+	<select id="findMyFeed" resultType="feed">
+		select * from feed where aid=#{aid} order by fdate desc
+	</select>
+	
 	<select id="imgFindByFno" resultType="String">
 		select imgname from image where fno = #{fno}
 	</select>	
@@ -34,6 +38,19 @@
 	<delete id="deleteLike">
 		delete likes where fno=#{fno} and aid=#{aid}
 	</delete>
+	
+	<select id="cntComment" resultType="integer">
+		select count(*) from feedcommentary where fno=#{fno}
+	</select>
+	
+	<select id="findComment" resultType="feedcommentary">
+		select fcono, fno, f.aid, fcocomment,to_char(fcodate, 'yy/mm/dd')as fcodate ,nick, img from feedcommentary f , account a where a.aid=f.aid and f.fno=#{fno} order by fcodate desc 
+	</select>
+	
+	<insert id="insertComment" parameterType="feedcommentary">
+		insert into feedcommentary (fcono,fno,aid,fcocomment,fcodate) values(seq_feedcommentary.nextval,#{fno},#{aid},#{fcocomment},sysdate)
+	</insert>
+
 	
 	<insert id="insertFeed" parameterType="feed">
 		insert into feed (fno,aid,fcontent,fdate) values(#{fno},#{aid},#{fcontent},sysdate)

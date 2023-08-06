@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,6 +24,7 @@ import com.example.demo.dao.FeedImgDAO_mb;
 import com.example.demo.entity.Account;
 import com.example.demo.entity.Feed;
 import com.example.demo.entity.FeedIMG;
+import com.example.demo.entity.Feedcommentary;
 import com.example.demo.entity.Image;
 import com.example.demo.entity.Likes;
 import com.example.demo.service.AccountService;
@@ -142,6 +144,28 @@ public class FeedController {
 		return response;
 	}
 	
+	@RequestMapping(value = "/feed/insertComment", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> insertComment(Feedcommentary fco,Model model) {
+		System.out.println("컨드롤러 감");
+		Map<String, Object> response = new HashMap<>();
+		
+		try {
+			int re = daof.insertComment(fco);
+			
+		}catch (Exception e) {
+			System.out.println("댓글 인서트 중 예외 발생: " + e.getMessage());
+		}
+		int cntComment = daof.cntComment(fco.getFno());
+		List<Feedcommentary> list = daof.findComment(fco.getFno());
+		 response.put("cntComment", cntComment);
+		 response.put("list", list);
+	     response.put("success", true); // 성공 여부를 추가
+		model.addAttribute("list", dao.findAllFeedIMg());
+		
+		return response;
+	}
+	
 	@GetMapping("/feed/feed")
 	public void feed(Model model, HttpSession session, HttpServletRequest request){
 		Account str= (Account)request.getSession().getAttribute("a");
@@ -154,6 +178,21 @@ public class FeedController {
 		}
 		
 		model.addAttribute("list", list);
+	}
+	@RequestMapping(value = "/feed/myFeed", method = RequestMethod.POST)
+	@ResponseBody
+	public void myFeed(Model model, HttpSession session, HttpServletRequest request){
+		Account str= (Account)request.getSession().getAttribute("a");
+		//Account str = (Account)session.getAttribute("a");
+		
+		List<FeedIMG> list = dao.findMyFeedIMg(str.getAid());
+		for(FeedIMG f:list) {
+			f.setUserLike(daof.userCntLike(f.getFno(), str.getAid()));
+			System.out.println("cnt:"+daof.userCntLike(f.getFno(), str.getAid()));
+		}
+		
+		model.addAttribute("list", list);
+		
 	}
 	
 }

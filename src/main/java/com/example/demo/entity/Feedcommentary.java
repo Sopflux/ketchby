@@ -9,13 +9,16 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="feed")
-public class Feed {
+public class Feedcommentary {
 	
 	@Id
-	private int fno;
+	private int fcono;
 	
+	
+	private int fno;
 	private String aid;
-	private String fcontent;
-	private String fdate;
+	private String fcocomment;
+	private String fcodate;
+	private String nick;
+	private String img;
 }

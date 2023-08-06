@@ -13,6 +13,7 @@ import org.springframework.boot.autoconfigure.web.WebProperties.Resources;
 import com.example.demo.entity.Account;
 import com.example.demo.entity.Feed;
 import com.example.demo.entity.FeedIMG;
+import com.example.demo.entity.Feedcommentary;
 import com.example.demo.entity.Image;
 import com.example.demo.entity.Likes;
 
@@ -98,6 +99,32 @@ public class FeedDBManager {
 	    session.close();
 	    return re;
 	}
+	
+	public static int cntComment(int fno) {
+		SqlSession session= sqlSessionFactory.openSession();
+		int cntComment = session.selectOne("feed.cntComment",fno);
+		session.close();
+		return cntComment;
+	}
+	
+	public static List<Feedcommentary> findComment(int fno) {
+		List<Feedcommentary> list = null;
+		SqlSession session= sqlSessionFactory.openSession();
+		list = session.selectList("feed.findComment",fno);
+		session.close();
+		return list;
+	}
+	
+	
+	public static int insertComment(Feedcommentary fco) {
+		int re=-1;
+		SqlSession session= sqlSessionFactory.openSession();
+		re = session.insert("feed.insertComment",fco);
+		session.commit(); 
+		session.close();
+		return re;
+	}
+	
 
 	public static List<Feed> findAllFeed(){
 		List<Feed> list = null;
@@ -106,6 +133,15 @@ public class FeedDBManager {
 		session.close();
 		return list;
 	}
+	
+	public static List<Feed> findMyFeed(String aid){
+		List<Feed> list = null;
+		SqlSession session= sqlSessionFactory.openSession();
+		list = session.selectList("feed.findMyFeed",aid);
+		session.close();
+		return list;
+	}
+	
 	public static List<String> imgFindByFno(int fno){
 		List<String> list = null;
 		SqlSession session= sqlSessionFactory.openSession();

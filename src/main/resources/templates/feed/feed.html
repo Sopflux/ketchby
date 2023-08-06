@@ -25,6 +25,57 @@
             modal2.css("display", "block");
         }
         plus.click(showModal2);
+        
+        $("#inlineRadio3").on('click', function() {
+    // Send an AJAX request to the server
+    $.ajax({
+      url: "/feed/myFeed", 
+      type: "POST", 
+      success: function() {
+        
+      },
+      error: function(error) {
+        console.log("Error fetching user's feed: " + error);
+      }
+    });
+  });
+        
+        
+        
+        
+         $(".commentBtn").on('click', function() {
+			 var fno = $(this).attr('id').split('-')[1];
+var formData = $('#commentForm-' + fno).serialize();
+    $.ajax({
+      url: "/feed/insertComment",
+      type: "POST", 
+      data: formData,
+      success: function(response) {
+        var cntCommentValue = response.cntComment;
+        var list = response.list;
+        var commentTable = $("#commentTable-"+fno);
+        var commentHtml = "";
+        
+        commentTable.empty();
+		  list.forEach(function(comment) {
+            commentHtml += "<tr><td><div class=\"avatar avatar-story me-2\">" +
+                "<a href=\"#!\"><img class=\"avatar-img rounded-circle\"" +
+                "src=\"/profile/" + comment.img + "\" alt=\"\" style=\"width: 55px; height: 55px;\"></a>" +
+                "</div></td><td>" + comment.nick + "</td><td>" + comment.fcocomment +
+                "</td><td>" + comment.fcodate + "</td></tr>";
+        });
+
+            commentTable.html(commentHtml);
+        alert("댓글달기성공");
+        console.log(response); 
+      },
+      error: function(error) {
+        
+        console.log("댓글달기실패");
+        
+      }
+    });
+  });
       
        $('.likeButton').on('click', function() {
         var fno = $(this).attr('id').split('-')[1];
@@ -35,7 +86,6 @@
         console.log(cntLikeValue);
         console.log(userLike);
         
-        var likeIcon = $("#likeButton-" + fno + " svg");
         var $this = $(this);
         if (userLike == 0) {
         $.ajax({
@@ -47,9 +97,9 @@
                 var userLike = response.userLike;
                 $('#userLike-' + fno).val(userLike);
                 $('#likeCount-' + fno).text(cntLikeValue);
-                $this.attr("userLike", userLike); // $this로 클릭한 버튼 요소 참조
+                $this.attr("userLike", userLike); 
                 alert("좋아요 성공");
-                var svg = $('#likeIcon');
+                var svg = $('#likeIcon-'+fno);
             	svg.find('path').attr('d', 'M14 20.408c-.492.308-.903.546-1.192.709-.153.086-.308.17-.463.252h-.002a.75.75 0 0 1-.686 0 16.709 16.709 0 0 1-.465-.252 31.147 31.147 0 0 1-4.803-3.34C3.8 15.572 1 12.331 1 8.513 1 5.052 3.829 2.5 6.736 2.5 9.03 2.5 10.881 3.726 12 5.605 13.12 3.726 14.97 2.5 17.264 2.5 20.17 2.5 23 5.052 23 8.514c0 3.818-2.801 7.06-5.389 9.262A31.146 31.146 0 0 1 14 20.408Z'); 
                 
             },
@@ -68,9 +118,9 @@
                 console.log(userLike);
                 $('#userLike-' + fno).val(userLike);
                 $('#likeCount-' + fno).text(cntLikeValue);
-                $this.attr("userLike", userLike); // $this로 클릭한 버튼 요소 참조
+                $this.attr("userLike", userLike); 
                 alert("좋아요 취소 성공");
-                var svg = $('#likeIcon');
+                var svg = $('#likeIcon-'+fno);
             	svg.find('path').attr('d', 'm12 20.703.343.667a.748.748 0 0 1-.686 0l-.003-.002-.007-.003-.025-.013a31.138 31.138 0 0 1-5.233-3.576C3.8 15.573 1 12.332 1 8.514v-.001C1 5.053 3.829 2.5 6.736 2.5 9.03 2.5 10.881 3.726 12 5.605 13.12 3.726 14.97 2.5 17.264 2.5 20.17 2.5 23 5.052 23 8.514c0 3.818-2.801 7.06-5.389 9.262a31.148 31.148 0 0 1-5.233 3.576l-.025.013-.007.003-.002.001ZM6.736 4C4.657 4 2.5 5.88 2.5 8.514c0 3.107 2.324 5.96 4.861 8.12a29.655 29.655 0 0 0 4.566 3.175l.073.041.073-.04c.271-.153.661-.38 1.13-.674.94-.588 2.19-1.441 3.436-2.502 2.537-2.16 4.861-5.013 4.861-8.12C21.5 5.88 19.343 4 17.264 4c-2.106 0-3.801 1.389-4.553 3.643a.751.751 0 0 1-1.422 0C10.537 5.389 8.841 4 6.736 4Z'); 
             },
             error: function(error) {
@@ -268,15 +318,15 @@ function deleteFile(num) {
       </div>
    <div class="radio">
   <div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked>
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="allFeed" value="option1" checked>
   <label class="form-check-label" for="inlineRadio1">전체보기</label>
 </div>
 <div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="followFeed" value="option2">
   <label class="form-check-label" for="inlineRadio2">내친구보기</label>
 </div>
 <div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="myFeed" value="option3">
   <label class="form-check-label" for="inlineRadio3">내피드보기</label>
 </div>
    </div>
@@ -353,13 +403,13 @@ function deleteFile(num) {
             <td th:attr="userLike=''+${f.userLike}, id='likeButton-' + ${f.fno}" class="likeButton" onmouseover="this.style.background='#F0F3F4'" onmouseout="this.style.background='white'">
          <input type="hidden" th:attr="id='userLike-' + ${f.fno}" name="userLike" th:value="${f.userLike}" /> 
         <div class="like_yes" th:attr="id='userLike-' + ${f.fno}" th:if="${f.userLike == 0}">
-            <svg id="likeIcon" class="like-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+            <svg th:attr="id='likeIcon-'+${f.fno}" class="like-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
             <path d="m12 20.703.343.667a.748.748 0 0 1-.686 0l-.003-.002-.007-.003-.025-.013a31.138 31.138 0 0 1-5.233-3.576C3.8 15.573 1 12.332 1 8.514v-.001C1 5.053 3.829 2.5 6.736 2.5 9.03 2.5 10.881 3.726 12 5.605 13.12 3.726 14.97 2.5 17.264 2.5 20.17 2.5 23 5.052 23 8.514c0 3.818-2.801 7.06-5.389 9.262a31.148 31.148 0 0 1-5.233 3.576l-.025.013-.007.003-.002.001ZM6.736 4C4.657 4 2.5 5.88 2.5 8.514c0 3.107 2.324 5.96 4.861 8.12a29.655 29.655 0 0 0 4.566 3.175l.073.041.073-.04c.271-.153.661-.38 1.13-.674.94-.588 2.19-1.441 3.436-2.502 2.537-2.16 4.861-5.013 4.861-8.12C21.5 5.88 19.343 4 17.264 4c-2.106 0-3.801 1.389-4.553 3.643a.751.751 0 0 1-1.422 0C10.537 5.389 8.841 4 6.736 4Z"></path>    
             </svg> Liked(<span th:attr="id='likeCount-' + ${f.fno}" th:text="${f.cntLike}"></span>)
         </div>
         <div class="like_no" th:attr="id='userLike-' + ${f.fno}" th:unless="${f.userLike == 0}" >
          
-            <svg id="likeIcon" class="like-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+            <svg th:attr="id='likeIcon-'+${f.fno}" class="like-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
                 <path d="M14 20.408c-.492.308-.903.546-1.192.709-.153.086-.308.17-.463.252h-.002a.75.75 0 0 1-.686 0 16.709 16.709 0 0 1-.465-.252 31.147 31.147 0 0 1-4.803-3.34C3.8 15.572 1 12.331 1 8.513 1 5.052 3.829 2.5 6.736 2.5 9.03 2.5 10.881 3.726 12 5.605 13.12 3.726 14.97 2.5 17.264 2.5 20.17 2.5 23 5.052 23 8.514c0 3.818-2.801 7.06-5.389 9.262A31.146 31.146 0 0 1 14 20.408Z"></path>
             </svg> Liked(<span th:attr="id='likeCount-' + ${f.fno}" th:text="${f.cntLike}"></span>)
            
@@ -380,7 +430,7 @@ function deleteFile(num) {
                   height="24" >
         <path
                      d="M1.5 4.25c0-.966.784-1.75 1.75-1.75h17.5c.966 0 1.75.784 1.75 1.75v12.5a1.75 1.75 0 0 1-1.75 1.75h-9.69l-3.573 3.573A1.458 1.458 0 0 1 5 21.043V18.5H3.25a1.75 1.75 0 0 1-1.75-1.75ZM3.25 4a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h2.5a.75.75 0 0 1 .75.75v3.19l3.72-3.72a.749.749 0 0 1 .53-.22h10a.25.25 0 0 0 .25-.25V4.25a.25.25 0 0 0-.25-.25Z"></path>
-    </svg> Comments(12)</td>
+    </svg> Comments(<span th:attr="id='CommentCount-' + ${f.fno}" th:text="${f.cntComment}"></span>)
          </tr>
 
       </tbody>
@@ -394,12 +444,12 @@ function deleteFile(num) {
                <div th:attr="id='myModal' + ${f.fno}" class="modal">
                   <div
                      class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-                     style="max-width: 1000px;">
+                     style="max-width: 800px;">
                      <div class="modal-content">
                         <button type="button" id="btn-close1" class="btn-close"
                            aria-label="Close"
                            style="position: absolute; top: 10px; right: 10px; z-index: 1;"></button>
-                        <div class="modal-body" style="height: 1200px;">
+                        <div class="modal-body" style="height: 1100px;">
                            <div class="card-header border-0 pb-0">
 
                               <div class="d-flex align-items-center">
@@ -473,33 +523,78 @@ function deleteFile(num) {
 
 
                            <span th:text="${f.fcontent}"></span>
-                           <table class="table caption-top">
+                          <table class="table caption-top">
+                   
       <tbody>
          <tr>
-            <td id="likeButton" onmouseover="this.style.background='#F0F3F4'" onmouseout="this.style.background='white'">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-      <path d="m12 20.703.343.667a.748.748 0 0 1-.686 0l-.003-.002-.007-.003-.025-.013a31.138 31.138 0 0 1-5.233-3.576C3.8 15.573 1 12.332 1 8.514v-.001C1 5.053 3.829 2.5 6.736 2.5 9.03 2.5 10.881 3.726 12 5.605 13.12 3.726 14.97 2.5 17.264 2.5 20.17 2.5 23 5.052 23 8.514c0 3.818-2.801 7.06-5.389 9.262a31.148 31.148 0 0 1-5.233 3.576l-.025.013-.007.003-.002.001ZM6.736 4C4.657 4 2.5 5.88 2.5 8.514c0 3.107 2.324 5.96 4.861 8.12a29.655 29.655 0 0 0 4.566 3.175l.073.041.073-.04c.271-.153.661-.38 1.13-.674.94-.588 2.19-1.441 3.436-2.502 2.537-2.16 4.861-5.013 4.861-8.12C21.5 5.88 19.343 4 17.264 4c-2.106 0-3.801 1.389-4.553 3.643a.751.751 0 0 1-1.422 0C10.537 5.389 8.841 4 6.736 4Z"></path>
-    </svg> Liked(<span th:text="${f.cntLike}">56</span>)
-  </td>
+            <td th:attr="userLike=''+${f.userLike}, id='likeButton-' + ${f.fno}" class="likeButton" onmouseover="this.style.background='#F0F3F4'" onmouseout="this.style.background='white'">
+         <input type="hidden" th:attr="id='userLike-' + ${f.fno}" name="userLike" th:value="${f.userLike}" /> 
+        <div class="like_yes" th:attr="id='userLike-' + ${f.fno}" th:if="${f.userLike == 0}">
+            <svg id="likeIcon" class="like-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+            <path d="m12 20.703.343.667a.748.748 0 0 1-.686 0l-.003-.002-.007-.003-.025-.013a31.138 31.138 0 0 1-5.233-3.576C3.8 15.573 1 12.332 1 8.514v-.001C1 5.053 3.829 2.5 6.736 2.5 9.03 2.5 10.881 3.726 12 5.605 13.12 3.726 14.97 2.5 17.264 2.5 20.17 2.5 23 5.052 23 8.514c0 3.818-2.801 7.06-5.389 9.262a31.148 31.148 0 0 1-5.233 3.576l-.025.013-.007.003-.002.001ZM6.736 4C4.657 4 2.5 5.88 2.5 8.514c0 3.107 2.324 5.96 4.861 8.12a29.655 29.655 0 0 0 4.566 3.175l.073.041.073-.04c.271-.153.661-.38 1.13-.674.94-.588 2.19-1.441 3.436-2.502 2.537-2.16 4.861-5.013 4.861-8.12C21.5 5.88 19.343 4 17.264 4c-2.106 0-3.801 1.389-4.553 3.643a.751.751 0 0 1-1.422 0C10.537 5.389 8.841 4 6.736 4Z"></path>    
+            </svg> Liked(<span th:attr="id='likeCount-' + ${f.fno}" th:text="${f.cntLike}"></span>)
+        </div>
+        <div class="like_no" th:attr="id='userLike-' + ${f.fno}" th:unless="${f.userLike == 0}" >
+         
+            <svg id="likeIcon" class="like-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                <path d="M14 20.408c-.492.308-.903.546-1.192.709-.153.086-.308.17-.463.252h-.002a.75.75 0 0 1-.686 0 16.709 16.709 0 0 1-.465-.252 31.147 31.147 0 0 1-4.803-3.34C3.8 15.572 1 12.331 1 8.513 1 5.052 3.829 2.5 6.736 2.5 9.03 2.5 10.881 3.726 12 5.605 13.12 3.726 14.97 2.5 17.264 2.5 20.17 2.5 23 5.052 23 8.514c0 3.818-2.801 7.06-5.389 9.262A31.146 31.146 0 0 1 14 20.408Z"></path>
+            </svg> Liked(<span th:attr="id='likeCount-' + ${f.fno}" th:text="${f.cntLike}"></span>)
+           
+        </div>
+        
+        
+        <form th:attr="id='likeForm-'+${f.fno}">
+            <input type="hidden" name="aid" th:value="${session.a.aid}" />
+            <input type="hidden" name="fno" th:value="${f.fno}" />
+        </form>
+    </td>
+
+    
             <td onmouseover="this.style.background='#F0F3F4'"
-               onmouseout="this.style.background='white'"><svg
+               onmouseout="this.style.background='white'" class="modalButton"
+                        th:attr="data-modal-id='myModal' + ${f.fno}"><svg
                   xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
-                  height="24">
+                  height="24" >
         <path
                      d="M1.5 4.25c0-.966.784-1.75 1.75-1.75h17.5c.966 0 1.75.784 1.75 1.75v12.5a1.75 1.75 0 0 1-1.75 1.75h-9.69l-3.573 3.573A1.458 1.458 0 0 1 5 21.043V18.5H3.25a1.75 1.75 0 0 1-1.75-1.75ZM3.25 4a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h2.5a.75.75 0 0 1 .75.75v3.19l3.72-3.72a.749.749 0 0 1 .53-.22h10a.25.25 0 0 0 .25-.25V4.25a.25.25 0 0 0-.25-.25Z"></path>
-    </svg> Comments(12)</td>
+    </svg> Comments(<span th:attr="id='CommentCount-' + ${f.fno}" th:text="${f.cntComment}"></span>)
          </tr>
 
       </tbody>
    </table>
+   <!--댓글달기-->
                         
                            <h1 class="h2">댓글</h1>
+                            <form th:attr="id='commentForm-'+${f.fno}">
                            <div class="d-flex">
                               <textarea data-autoresize=""
                                  class="form-control pe-5 bg-light flex-grow-1" rows="1"
-                                 placeholder="Add a comment..."></textarea>
-                              <button type="button" class="btn btn-light">Add</button>
+                                 placeholder="Add a comment..." name="fcocomment"></textarea>
+                                 
+            <input type="hidden" name="aid" th:value="${session.a.aid}" />
+            <input type="hidden" name="fno" th:value="${f.fno}" />
+                              <button type="button" th:attr="id='commentButton-' + ${f.fno}" class="commentBtn btn btn-light">Add</button>
                            </div>
+                           
+                          
+        </form>
+                           <table class="table">
+
+  <tbody th:attr="id='commentTable-'+${f.fno}">
+	  
+    <tr th:each="fco:${f.fcolist}">
+      <td><div class="avatar avatar-story me-2">
+                  <a href="#!"> <img class="avatar-img rounded-circle"
+                           th:src="@{'/profile/' + ${fco.img}}" alt="" style="width: 55px; height: 55px;">
+                        </a>
+               </div></td>
+      <td><label th:text="${fco.nick}"></label></td>
+      <td><label th:text="${fco.fcocomment}"></label></td>
+      <td><label th:text="${fco.fcodate}"></label></td>
+      
+    </tr>
+  </tbody>
+</table>
                         </div>
                      </div>
                   </div>

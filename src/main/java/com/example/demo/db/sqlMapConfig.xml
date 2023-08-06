@@ -9,6 +9,7 @@
   	<typeAlias type="com.example.demo.entity.Feed" alias="feed"/>
   	<typeAlias type="com.example.demo.entity.Image" alias="image"/>
   	<typeAlias type="com.example.demo.entity.Likes" alias="likes"/>
+  	<typeAlias type="com.example.demo.entity.Feedcommentary" alias="feedcommentary"/>
   </typeAliases>
   <environments default="development">
     <environment id="development">

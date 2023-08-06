@@ -8,6 +8,7 @@ import com.example.demo.db.DBManager;
 import com.example.demo.db.FeedDBManager;
 import com.example.demo.entity.Account;
 import com.example.demo.entity.Feed;
+import com.example.demo.entity.Feedcommentary;
 import com.example.demo.entity.Image;
 import com.example.demo.entity.Likes;
 
@@ -16,6 +17,9 @@ public class FeedDAO_mb {
 
 	public List<Feed> findAllFeed(){
 		return FeedDBManager.findAllFeed();
+	}
+	public List<Feed> findMyFeed(String aid){
+		return FeedDBManager.findMyFeed(aid);
 	}
 	public List<String> imgFindByFno(int fno){
 		return FeedDBManager.imgFindByFno(fno);
@@ -45,4 +49,13 @@ public class FeedDAO_mb {
 	public int deleteLike(int fno, String aid) {
 		return FeedDBManager.deleteLike(fno, aid);
  	}
+	public int cntComment(int fno) {
+		return FeedDBManager.cntComment(fno);
+	}
+	public List<Feedcommentary> findComment(int fno){
+		return FeedDBManager.findComment(fno);
+	}
+	public int insertComment(Feedcommentary fco) {
+		return FeedDBManager.insertComment(fco);
+	}
 }
