@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -99,6 +100,53 @@ public class FeedController {
 		 
 		 return mav;
 	}
+	@RequestMapping(value = "/feed/update", method = RequestMethod.POST)
+	@ResponseBody
+	public ModelAndView update(Feed f,Image im,@RequestParam("uploadFile") MultipartFile[] uploadFiles, HttpServletRequest request) {
+		System.out.println("컨드롤러 감");
+		
+		List<String> old = daof.imgFindByFno(f.getFno());
+		String path = request.getServletContext().getRealPath("feed");
+		System.out.println("path:"+path);
+		ModelAndView mav = new ModelAndView("redirect:/feed/feed");
+		String imgname = null;
+		
+		
+		try {
+			int re1 = daof.updateFeed(f);
+			// 파일 배열에 들어있는 파일들 개별적으로 인서트 수행
+			for (MultipartFile file : uploadFiles) {
+				
+				imgname = file.getOriginalFilename();
+				im.setImgname(imgname);
+				
+				int re2 = daof.deleteFeedImg(f.getFno());
+				daof.insertFeedImg(im);
+				if(imgname != null && !imgname.equals("")) {
+					try {
+						byte []data=file.getBytes();
+						FileOutputStream fos = new FileOutputStream(path+"/"+imgname);
+						fos.write(data);
+						fos.close();
+						
+					}catch(Exception e) {
+						System.out.println("파일업로드중예외발생:"+e.getMessage());
+					}
+					
+					for(String oldFname:old) {
+						File ofile = new File(path+"/"+oldFname);
+						ofile.delete();
+					}
+				}
+			}
+			
+			
+		} catch (Exception e) {
+			System.err.println("피드 인서트 중 예외 발생: " + e.getMessage());
+		}
+		
+		return mav;
+	}
 	
 	@RequestMapping(value = "/feed/insertLike", method = RequestMethod.POST)
 	@ResponseBody
@@ -179,20 +227,33 @@ public class FeedController {
 		
 		model.addAttribute("list", list);
 	}
-	@RequestMapping(value = "/feed/myFeed", method = RequestMethod.POST)
-	@ResponseBody
-	public void myFeed(Model model, HttpSession session, HttpServletRequest request){
+	@GetMapping("/feed/myFeed")
+	public String myFeed(Model model, HttpSession session, HttpServletRequest request){
 		Account str= (Account)request.getSession().getAttribute("a");
 		//Account str = (Account)session.getAttribute("a");
-		
+		System.out.println("마이피드 동작함");
 		List<FeedIMG> list = dao.findMyFeedIMg(str.getAid());
 		for(FeedIMG f:list) {
 			f.setUserLike(daof.userCntLike(f.getFno(), str.getAid()));
 			System.out.println("cnt:"+daof.userCntLike(f.getFno(), str.getAid()));
 		}
 		
-		model.addAttribute("list", list);
+		model.addAttribute("list",list);
+		return "/feed/feed";
+	}
+	@GetMapping("/feed/followFeed")
+	public String followFeed(Model model, HttpSession session, HttpServletRequest request){
+		Account str= (Account)request.getSession().getAttribute("a");
+		//Account str = (Account)session.getAttribute("a");
+		System.out.println("마이피드 동작함");
+		List<FeedIMG> list = dao.findFollowFeedIMg(str.getAid());
+		for(FeedIMG f:list) {
+			f.setUserLike(daof.userCntLike(f.getFno(), str.getAid()));
+			System.out.println("cnt:"+daof.userCntLike(f.getFno(), str.getAid()));
+		}
 		
+		model.addAttribute("list",list);
+		return "/feed/feed";
 	}
 	
 }

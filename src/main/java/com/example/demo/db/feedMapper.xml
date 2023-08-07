@@ -11,6 +11,12 @@
 		select * from feed where aid=#{aid} order by fdate desc
 	</select>
 	
+	<select id="findFollowFeed" resultType="feed">
+		select * from feed f, account a, follow fo where f.aid=a.aid and fo.aid=a.aid and fo.afollowaid=#{aid}
+	</select>
+	
+	
+	
 	<select id="imgFindByFno" resultType="String">
 		select imgname from image where fno = #{fno}
 	</select>	
@@ -44,7 +50,7 @@
 	</select>
 	
 	<select id="findComment" resultType="feedcommentary">
-		select fcono, fno, f.aid, fcocomment,to_char(fcodate, 'yy/mm/dd')as fcodate ,nick, img from feedcommentary f , account a where a.aid=f.aid and f.fno=#{fno} order by fcodate desc 
+		select fcono, fno, f.aid, fcocomment,to_char(fcodate, 'yy/mm/dd')as fcodate ,nick, img from feedcommentary f , account a where a.aid=f.aid and f.fno=#{fno} order by fcono desc 
 	</select>
 	
 	<insert id="insertComment" parameterType="feedcommentary">
@@ -59,5 +65,14 @@
 	<insert id="insertFeedImg" parameterType="image">
 		insert into image (imgno,fno,aid,imgname) values(seq_image.nextval,#{fno},#{aid},#{imgname})
 	</insert>
+	
+	<update id="updateFeed" parameterType="feed">
+		update feed set aid=#{aid},fcontent=#{fcontent} where fno=#{fno}
+	</update>
+	
+	<delete id="deleteFeedImg">
+		delete image where fno=#{fno}
+	</delete>
+	
 	
 </mapper>

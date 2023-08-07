@@ -21,6 +21,9 @@ public class FeedDAO_mb {
 	public List<Feed> findMyFeed(String aid){
 		return FeedDBManager.findMyFeed(aid);
 	}
+	public List<Feed> findFollowFeed(String aid){
+		return FeedDBManager.findFollowFeed(aid);
+	}
 	public List<String> imgFindByFno(int fno){
 		return FeedDBManager.imgFindByFno(fno);
 	}
@@ -33,6 +36,13 @@ public class FeedDAO_mb {
 	public int insertFeedImg(Image im) {
 		return FeedDBManager.insertFeedImg(im);
 	}
+	public int updateFeed(Feed f) {
+		return FeedDBManager.updateFeed(f);
+	}
+	public int deleteFeedImg(int fno) {
+		return FeedDBManager.deleteFeedImg(fno);
+	}
+	
 	public int findFeedMax() {
 		return FeedDBManager.findFeedMax();
 	}

@@ -1,6 +1,15 @@
+
+.updatedelete{
+	margin-left: 160px;
+}
+
   table {
     border-collapse: collapse;
     border: none;
+
+  }
+  .table{
+	  margin-top: 0px;
   }
 
 
@@ -59,5 +68,11 @@
 	cursor: pointer;
 }
 
+.nav{
+	width: 250px;
+}
 
+.d-flex{
+	height:85px;
+}
 

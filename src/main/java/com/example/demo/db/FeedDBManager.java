@@ -53,8 +53,22 @@ public class FeedDBManager {
 		session.close();
 		return re2;
 	}
-	
-	
+	public static int updateFeed(Feed f) {
+		int re1=-1;
+		SqlSession session= sqlSessionFactory.openSession();
+		re1 = session.insert("feed.updateFeed", f);
+		session.commit(); 
+		session.close();
+		return re1;
+	}
+	public static int deleteFeedImg(int fno) {
+	    int re = -1;
+	    SqlSession session = sqlSessionFactory.openSession();
+	    re = session.delete("feed.deleteFeedImg", fno);
+	    session.commit();
+	    session.close();
+	    return re;
+	}
 	
 	public static int findFeedMax() {
 		SqlSession session= sqlSessionFactory.openSession();
@@ -138,6 +152,14 @@ public class FeedDBManager {
 		List<Feed> list = null;
 		SqlSession session= sqlSessionFactory.openSession();
 		list = session.selectList("feed.findMyFeed",aid);
+		session.close();
+		return list;
+	}
+	
+	public static List<Feed> findFollowFeed(String aid){
+		List<Feed> list = null;
+		SqlSession session= sqlSessionFactory.openSession();
+		list = session.selectList("feed.findFollowFeed",aid);
 		session.close();
 		return list;
 	}
