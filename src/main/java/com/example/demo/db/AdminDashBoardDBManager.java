@@ -46,6 +46,12 @@ public class AdminDashBoardDBManager {
 		session.close();
 		return list;
 	}
+	public static List<AdminDashBoard> findDailyClass(HashMap<String, Object> map) {
+		SqlSession session = sqlSessionFactory.openSession();
+		List<AdminDashBoard> list = session.selectList("adminDashBoard.findDailyClass", map); 
+		session.close();
+		return list;
+	}
 
 	
 }

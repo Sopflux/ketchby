@@ -170,9 +170,7 @@ public class AdminController {
 
     @GetMapping("/dailyUsers")
     @ResponseBody
-    public List<AdminDashBoard> getDailyUsers(
-    		@RequestParam String startDate,
-    		@RequestParam String endDate) {
+    public List<AdminDashBoard> getDailyUsers(@RequestParam String startDate,@RequestParam String endDate) {
     	
     	HashMap<String, Object> map = new HashMap<>();
 		map.put("startDate", startDate);
@@ -187,6 +185,14 @@ public class AdminController {
     	return adminDashBoardDao.findClassByBca();
     }
  
-    
+    @GetMapping("/dailyClass")
+    @ResponseBody
+    public List<AdminDashBoard> getDailyClass(@RequestParam String startDate, @RequestParam String endDate) {
+    	
+    	HashMap<String, Object> map = new HashMap<>();
+		map.put("startDate", startDate);
+		map.put("endDate", endDate);
+    	return adminDashBoardDao.findDailyClass(map);
+    }
 
 }

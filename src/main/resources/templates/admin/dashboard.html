@@ -12,6 +12,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
 <script defer type="text/javascript" src="/userStatistics.js"></script>
 <script defer type="text/javascript" src="/classStatistics.js"></script>
+<script defer type="text/javascript" src="/dailyClassStatistics.js"></script>
 </head>
 <body>
 <div class="container-scroller">
@@ -80,29 +81,54 @@
                     </div>
                 </div>
             </div>
-            <!--날짜별 신규 가입자-->
+            <!--첫 줄 차트-->
             <div class="chart-row">
 	            <div class="chart-wrapper">
 	                <div class="chart-title">
-                        <h5>날짜별 신규 가입자</h5>
+                        <h5>날짜별 신규 가입자 수</h5>
+                        <div class="chart-controls">
+		                    <input type="date" id="startDate" name="startDate"> -
+		                    <input type="date" id="endDate" name="endDate">
+		
+		                    <button onclick="dailyUsersData()" id="btnSelect">선택</button>
+	                	</div>
                     </div>
 	                <div class="chart-container">
 	                    <canvas id="dailyUsersChart"></canvas>
 	                </div>
-	                <div class="chart-controls">
-	                    <input type="date" id="startDate" name="startDate"> -
-	                    <input type="date" id="endDate" name="endDate">
-	
-	                    <button onclick="dailyUsersData()" id="btnSelect">선택</button>
-	                </div>
+	            </div>
+	            <div class="chart-wrapper2">
+	                <div class="chart-title2">
+                        <h5>카테고리 별 클래스 수</h5>
+                    </div>
+	                <div class="chart-container2">
+	                    <canvas id="classByBcaChart"></canvas>
+	                </div> 
+	            </div>
+        	</div>
+        	<!--두번째 줄 차트-->
+        	 <div class="chart-row">
+				 <div class="chart-wrapper2">
+	                <div class="chart-title2">
+                        <h5>카테고리 별 클래스 수</h5>
+                    </div>
+	                <div class="chart-container2">
+	                    
+	                </div> 
 	            </div>
 	            <div class="chart-wrapper">
 	                <div class="chart-title">
-                        <h5>카테고리 별 클래스 수</h5>
+                        <h5>날짜별 신규 클래스 수</h5>
+                        <div class="chart-controls">
+		                    <input type="date" id="startDate" name="startDate"> -
+		                    <input type="date" id="endDate" name="endDate">
+		
+		                    <button onclick="dailyClassData()" id="btnSelect2">선택</button>
+	                	</div>
                     </div>
 	                <div class="chart-container">
-	                    <canvas id="classByBcaChart"></canvas>
-	                </div> 
+	                    <canvas id="dailyClassChart"></canvas>
+	                </div>
 	            </div>
         	</div>
         </div>
