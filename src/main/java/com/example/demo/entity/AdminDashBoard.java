@@ -17,6 +17,7 @@ public class AdminDashBoard {
 	private String bcaname;
 	private String clregdate;
 	private int countclno;
+	private int cumulative_count;
 	
 	// 커뮤니티 게시물 수 및 신규 게시물 수
 	private int bno;
@@ -39,6 +40,16 @@ public class AdminDashBoard {
 	}
 	
 	
+	public int getCumulative_count() {
+		return cumulative_count;
+	}
+
+	public void setCumulative_count(int cumulative_count) {
+		this.cumulative_count = cumulative_count;
+	}
+
+
+
 	public int getCountaid() {
 		return countaid;
 	}

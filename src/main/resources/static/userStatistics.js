@@ -6,7 +6,7 @@
         
 		//차트가 다른 값으로 변경될 때 기존 차트 지우고 새로 덮어씀
         if (dailyUsersChart) {
-            dailyUsersChart.destroy(); // Destroy the previous chart if it exists
+            dailyUsersChart.destroy(); 
         }
 		
 		
@@ -17,7 +17,7 @@
                 labels: labels,
                 datasets: [{
                     data: values,
-                    label: '날짜별 신규 가입자',
+                    label: '신규 가입자 추이',
                     backgroundColor: 'rgba(0, 131, 117, 0.2)', 
             		borderColor: 'rgba(0, 131, 117, 1)', 
                     borderWidth: 1
@@ -41,6 +41,7 @@
                         
                     },
                     y: {
+						beginAtZero: true,
                         grid: {
 		                    color: 'rgba(128, 128, 128, 0.1)', 
 		                },

@@ -248,9 +248,11 @@ body, html {
     display: flex;
     gap: 10px;
     margin-bottom: 20px;
+    margin-left: 140px;	
 }
 
-.chart-title, .chart-title2 {
+.chart-title, .chart-title2 {		
+	
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -269,9 +271,6 @@ body, html {
     height: 30px;
 }
 
-.chart-controls {
-	margin-left: 160px;	
-}
 
 .chart-container {
     width: 100%;
@@ -308,8 +307,39 @@ body, html {
 }
 
 #dailyClassChart {
-    height: 100%;
-    width: 100%;
+    height: 238px;
+    width: 638px;
     margin-top: 30px;
-    margin-left: 100px;
+}
+
+.chart-controls2 {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    margin-left: auto;
+}
+
+
+.chart-controls2 input[type="date"] {
+  	padding: 10px;
+    background-color: #131519;
+    border: 3px;
+    color: white;
+    border-radius: 3px;
+    font-size: 10px;
+    height: 30px;
+}
+
+#btnSelectCl {
+    background-color: #8C5AD2;
+    height: 30px;
+    color: white;
+    font-size: 10px;
+    width: 50px;
+}
+
+#dropdownBtn{
+	background-color: black;
+	font-size: 10px;
+	height: 30px;
 }

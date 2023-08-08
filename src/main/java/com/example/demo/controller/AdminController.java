@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -185,14 +186,17 @@ public class AdminController {
     	return adminDashBoardDao.findClassByBca();
     }
  
+    
+
     @GetMapping("/dailyClass")
     @ResponseBody
-    public List<AdminDashBoard> getDailyClass(@RequestParam String startDate, @RequestParam String endDate) {
-    	
-    	HashMap<String, Object> map = new HashMap<>();
-		map.put("startDate", startDate);
-		map.put("endDate", endDate);
-    	return adminDashBoardDao.findDailyClass(map);
+    public List<AdminDashBoard> getDailyClass(@RequestParam String startDate, @RequestParam String endDate, @RequestParam String bcaname) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("startDate", startDate);
+        map.put("endDate", endDate);
+        map.put("bcaname", bcaname); 
+        
+        return adminDashBoardDao.findDailyClass(map);
     }
-
+ 
 }

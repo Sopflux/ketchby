@@ -29,13 +29,15 @@
 	</select>
 	
 
-	<!-- 일자별 신규 가입자 수 -->
+	<!-- 카테고리 당 일자별 신규 클래스 수 -->
   	<select id="findDailyClass" resultType="AdminDashBoard">
-        SELECT TO_CHAR(CLREGDATE, 'YYYY-MM-DD') AS CLREGDATE, COUNT(CLNO)AS countclno
-		FROM class
-		WHERE CLREGDATE BETWEEN #{startDate} AND #{endDate}
-		GROUP BY TO_CHAR(CLREGDATE, 'YYYY-MM-DD')
-		ORDER BY CLREGDATE
+        SELECT CLREGDATE, COUNT(CLNO) AS countclno
+	    FROM class c, SCATEGORY s, BCATEGORY b 
+	    WHERE c.SCANO = s.SCANO AND s.BCANO = b.BCANO
+	    AND CLREGDATE BETWEEN #{startDate} AND #{endDate}
+	    AND BCANAME = #{bcaname, jdbcType=VARCHAR}
+	    GROUP BY CLREGDATE
+	    ORDER BY CLREGDATE
     </select>
 	
 </mapper>
