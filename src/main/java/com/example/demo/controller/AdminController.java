@@ -147,19 +147,7 @@ public class AdminController {
 		return mav;
 	}
 	
-<<<<<<< HEAD
 
-=======
-	
-	/*
-	 * adminDashboard 메소드
-	 */
-	
-	@GetMapping
-	public String admin() {
-		return "/admin/dashboard";
-	}
->>>>>>> main
 	
 	@GetMapping("/dashboard")
 	public void listDashBoard(Model model){
