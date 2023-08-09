@@ -13,24 +13,7 @@
 	<script src="http://developers.kakao.com/sdk/js/kakao.js"></script>
 	<script src=" https://code.jquery.com/jquery-3.7.0.min.js"></script>
 	<script>
-		Kakao.init("7c248b2a7ecace1d70680b17adec6fb8");
-		function kakaologin() {
-			Kakao.Auth.loginForm({
-				scope: "profile_nickname,account_email",
-				success: function () {
-					Kakao.API.request({
-						url: "/v2/user/me",
-						success: function (res) {
-							var name = res.kakao_account.profile.nickname;
-							var email = res.kakao_account.email;
-							console.log(name);
-							console.log(email);
-							location.href = "/kakaologin/" + name + "/" + email;
-						}
-					})
-				}
-			})
-		}
+		
 		$(function () {
 			$("#openID").click(function (event) {
 				event.preventDefault();
@@ -52,12 +35,12 @@
 					method: 'GET',
 					data: {id: id},
 					success: function (data) {
-						if(data === ""){
+						if (data === "") {
 							alert("존재하지 않는 아이디입니다.")
-						}else if (data != id){
+						} else if (data != id) {
 							alert("아이디가 일치하지 않습니다.")
-						}else{
-							id = data 
+						} else {
+							id = data
 							auth += 1;
 						}
 					},
@@ -118,7 +101,7 @@
 							$.ajax({
 								url: '/emailCheck',
 								method: 'GET',
-								data: {email: email, id:id_pwd},
+								data: {email: email, id: id_pwd},
 								success: function (data) {
 									authNum = data
 								},
@@ -133,7 +116,9 @@
 				})
 
 			}); // end btn_check email
-
+			$(".btn_close").click(function(){
+				$("#email").val("");
+			})
 			$("#btnCheckNUM").click(function (event) {
 				var userNum = $("#checkNUM").val()
 				if (authNum == userNum) {
@@ -182,17 +167,13 @@
 					event.preventDefault();
 				}
 			});
-			
-			if(auth == 2){
-				$("#changePwd").css("display","block");
+
+			if (auth == 2) {
+				$("#changePwd").css("display", "block");
 			}
-			
-			
 		})
+
 	</script>
-
-
-
 	<style>
 		.loginBody {
 			width: 300px;
@@ -228,9 +209,9 @@
 					style=" width: 300px; color: white;   font-size: 15px;   background-color: rgba(45, 42, 38, 1);    border-radius: 56px;">
 			</div>
 			<div class="div_login">
-				<a href="javascript:kakaologin()">
-					<!--	<img src="/image/kakao_login_large_wide.png" style="width: 300px; height: 36.5px;" alt="Kakao Login">-->
-					카카오 로그인 </a>
+				<a href="/oauth2/authorization/kakao">
+						<img src="/image/kakao_login_large_wide.png" style="width: 300px; height: 36.5px;" alt="Kakao Login">
+					 </a>
 				<a id="openID">아이디 찾기</a>
 				<a id="openPwd">비밀번호 찾기</a>
 			</div>

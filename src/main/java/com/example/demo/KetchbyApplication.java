@@ -12,7 +12,7 @@ import com.example.demo.entity.Account;
 
 @SpringBootApplication
 public class KetchbyApplication {
-
+ 
 	public static void main(String[] args) {
 		SpringApplication.run(KetchbyApplication.class, args);
 	}

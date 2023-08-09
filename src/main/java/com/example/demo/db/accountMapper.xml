@@ -2,17 +2,85 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="account">	
+
+<mapper namespace="account">
+	<insert id="insertReview" parameterType="Review">
+		insert into review (rno,clno,rcontent,rstar,rdate,aid)
+		values(seq_review.nextval,
+		#{clno},#{rcontent},#{rstar},sysdate,#{aid})
+	</insert>
+	<select id="findClassInfo" resultType="reclass">
+		select a.name_, cltitle, to_char(clsdate,'YYYY-MM-DD'), climg,clno 
+		from class cl, account a 
+		where a.aid = cl.aid and cl.clno = #{clno}
+	</select>
+	<select id="findLike" resultType="accLike">
+		select cl.cltitle,
+		cl.climg,b.bcaname, scaname ,cl.clno
+		from likes l , class cl, bcategory b, scategory s
+		where l.clno = cl.clno and l.aid = #{aid} and
+		cl.scano = s.scano and b.bcano = s.bcano
+	</select>
+	<select id="findClub" resultType="accclub">
+		select cb.cbno , cb.cbtitle,
+		cb.cbimg, bcaname, scaname,cb.slocno
+		from club cb, scategory sca,
+		bcategory bca, club_application cbap
+		where cb.scano = sca.scano and
+		cbap.cbno = cb.cbno and sca.bcano = bca.bcano and cbap.aid= #{aid}
+		order by cb.cbno
+	</select>
+	<select id="findReservation" resultType="reservation">
+		select cl.clno, to_char(rsdate,'YYYY-MM-DD'),
+		cltitle, climg, clprice
+		from reservation rs , class cl
+		where rs.clno =
+		cl.clno and rs.aid = #{aid}
+	</select>
+	<select id="findFeedImage" resultType="image">
+		select fno,imgname from
+		image where (fno, imgno)
+		in (select fno , min(imgno) from image where
+		aid = #{aid} group by fno)
+	</select>
+	<select id="findReview" resultType="review">
+		select r.clno, rcontent,
+		r.rstar, to_char(r.rdate,'YYYY-MM-DD'), cl.cltitle
+		from review r , class cl
+		where r.aid =
+		#{aid} and cl.clno = r.clno
+	</select>
 	<select id="findByNick" resultType="account">
-		select * from account where nick = #{nick}
-	</select>	
-	
-	<select id="findByEmail" resultType="account" parameterType="String">
+		select * from account where
+		nick = #{nick}
+	</select>
+	<update id="update" parameterType="account">
+		update account set aid =#{aid}
+		, pwd = #{pwd}, name_ = #{name_}, nick =
+		#{nick},img = #{img},level_
+		='Lv.1',role=#{role},regdate = sysdate
+		where email = #{email}
+	</update>
+	<select id="findByEmail" resultType="account"
+		parameterType="String">
 		select * from account where email = #{email}
 	</select>
-	
+
 	<select id="emailCheckWithEmail" resultType="account">
-		select * from account where email = #{email} and aid = #{id}
-	</select>	
-	
+		select * from
+		account where email = #{email} and aid = #{id}
+	</select>
+
+	<select id="findByAid" resultType="account">
+		select * from account where
+		aid = #{aid}
+	</select>
+	<select id="findFollow" resultType="int">
+		select count(*) from follow
+		f, account a where a.aid = f.aid and email = #{email}
+	</select>
+	<select id="findFollowing" resultType="int">
+		select count(*) from
+		follow f, account a where a.aid = f.afollowaid and email = #{email}
+	</select>
 </mapper>

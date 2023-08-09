@@ -16,4 +16,17 @@ public class AccountDAO_mb {
 	public Account emailCheckWithEmail(String email,String id) {
 		return DBManager.emailCheckWithEmail(email, id);
 	}
+	public Account findByAid(String id) {
+		return DBManager.findByAid(id);
+	}
+	public int findFollow(String email) {
+		return DBManager.findFollow(email);
+	}
+	public int findFollowing(String email) {
+		return DBManager.findFollowing(email);
+	}
+	public int update(Account a) {
+		return DBManager.update(a);
+		
+	}
 }

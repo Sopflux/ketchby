@@ -6,6 +6,12 @@
   <properties resource="com/example/demo/db/db.properties"/>
   <typeAliases>
   	<typeAlias type="com.example.demo.entity.Account" alias="account"/>
+  	<typeAlias type="com.example.demo.entity.Image" alias="image"/>
+  	<typeAlias type="com.example.demo.entity.Review" alias="review"/>
+  	<typeAlias type="com.example.demo.entity.Accclub" alias="accclub"/>
+  	<typeAlias type="com.example.demo.entity.Acclike" alias="acclike"/>
+  	<typeAlias type="com.example.demo.entity.Reclass" alias="reclass"/>
+  	<typeAlias type="com.example.demo.entity.Reservation" alias="reservation"/>
   </typeAliases>
   <environments default="development">
     <environment id="development">

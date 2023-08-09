@@ -23,17 +23,18 @@ public class AdminController {
 		model.addAttribute("list",a_dao.findAll());
 	}
 	
-	@GetMapping("/")
+	@GetMapping("/start")
     public String getBigQueryData(Model model) {
-        ApiBigQueryAuthentication apiBigQueryAuthentication = new ApiBigQueryAuthentication();
-        try {
-            java.util.List<Map<String, Object>> dataList = apiBigQueryAuthentication.selectBigQuery();
-            model.addAttribute("dataList", dataList);
-        } catch (Exception e) {
-            // Handle any exceptions that may occur during the BigQuery query.
-            // You may want to add error handling logic here.
-            e.printStackTrace();
-        }
+		System.out.println("루트 컨트롤러 동작함!");
+//        ApiBigQueryAuthentication apiBigQueryAuthentication = new ApiBigQueryAuthentication();
+//        try {
+//            java.util.List<Map<String, Object>> dataList = apiBigQueryAuthentication.selectBigQuery();
+//            model.addAttribute("dataList", dataList);
+//        } catch (Exception e) {
+//            // Handle any exceptions that may occur during the BigQuery query.
+//            // You may want to add error handling logic here.
+//            e.printStackTrace();
+//        }
         return "index";
     }
 }

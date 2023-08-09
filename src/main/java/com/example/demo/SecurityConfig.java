@@ -2,38 +2,67 @@ package com.example.demo;
 
 import java.io.IOException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import com.example.demo.entity.Account;
 import com.example.demo.service.AccountService;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import lombok.Setter;
 
+@Setter
+@EnableWebSecurity
 @Configuration
-@EnableWebSecurity // 시큐리티 환경설정! 
 public class SecurityConfig {
-	
-	
 
+	@Autowired
+	AccountService as;
+	
+	@Autowired
+	CustomSuccessHandler handler;
+	
+	@Autowired
+	private CustomOAuth2UserService customOAuth2UserService;
+	
+	
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-		http.authorizeHttpRequests().requestMatchers("/join","/login","/","/nickCheck","/emailCheck","/joinOK","/kakaologin/**","/join2","/list","/duplicateEmail/**","/getID/**","/idCheck/**","/emailCheckWithEmail/**").permitAll()
-		.requestMatchers("/admin/**").hasRole("admin")
+		
+	
+	http.oauth2Login()
+	.loginPage("/login")
+	.successHandler(handler)
+         .userInfoEndpoint()
+
+		.userService(customOAuth2UserService); // 커스텀한 서비스에서 정보 처리
+		
+		
+		http.authorizeHttpRequests().requestMatchers("/join","/login","/","/nickCheck","/emailCheck","/joinOK","/kakaologin","/join2","/list","/duplicateEmail/**","/getID/**","/idCheck/**","/emailCheckWithEmail/**","/image/**").permitAll()
+		.requestMatchers("/admin/**").hasRole("ADMIN")
 		.anyRequest().authenticated()
 		.and().csrf().ignoringRequestMatchers("/join");
-		;
 		
 		
+ 		
 		http.formLogin().loginPage("/login").permitAll()
 		.successHandler(successHandler);
 		
@@ -44,7 +73,7 @@ public class SecurityConfig {
 		
 		http.httpBasic();
 		
-		http.csrf().disable();
+		http.csrf().disable().headers().frameOptions().disable(); // post 가능하게 설정 
 		return http.build();
 	}
 	
@@ -54,12 +83,14 @@ public class SecurityConfig {
 		public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 				Authentication authentication) throws IOException, ServletException {
 			HttpSession session = request.getSession();
-			AccountService as = new AccountService();
+			System.out.println("이거 동작!");
 			String loginId = authentication.getName();
 			System.out.println("로그인 아이디 : "+loginId);
 			System.out.println("findByAid : "+as.findByAid(loginId));
+			
 			session.setAttribute("a", as.findByAid(loginId));
-			response.sendRedirect("/list");
+		
+			response.sendRedirect("/mypage2");
 			
 		}
 	};
