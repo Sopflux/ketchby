@@ -61,13 +61,23 @@ public class FeedDBManager {
 		session.close();
 		return re1;
 	}
-	public static int deleteFeedImg(int fno) {
+	
+	
+	public static int deleteFeed(int fno) {
 	    int re = -1;
 	    SqlSession session = sqlSessionFactory.openSession();
-	    re = session.delete("feed.deleteFeedImg", fno);
+	    re = session.delete("feed.deleteFeed", fno);
 	    session.commit();
 	    session.close();
 	    return re;
+	}
+	public static int deleteFeedImg(int fno) {
+		int re = -1;
+		SqlSession session = sqlSessionFactory.openSession();
+		re = session.delete("feed.deleteFeedImg", fno);
+		session.commit();
+		session.close();
+		return re;
 	}
 	
 	public static int findFeedMax() {

@@ -39,6 +39,9 @@ public class FeedDAO_mb {
 	public int updateFeed(Feed f) {
 		return FeedDBManager.updateFeed(f);
 	}
+	public int deleteFeed(int fno) {
+		return FeedDBManager.deleteFeed(fno);
+	}
 	public int deleteFeedImg(int fno) {
 		return FeedDBManager.deleteFeedImg(fno);
 	}

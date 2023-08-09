@@ -59,15 +59,16 @@ public class FeedController {
 	
 	@RequestMapping(value = "/feed/insert", method = RequestMethod.POST)
 	@ResponseBody
-	public ModelAndView insert(Feed f,Image im,@RequestParam("uploadFile") MultipartFile[] uploadFiles, HttpServletRequest request) {
+	public String insert(Feed f,Image im,@RequestParam("uploadFile") MultipartFile[] uploadFiles, HttpServletRequest request) {
 		System.out.println("컨드롤러 감");
 		
 		int maxNo = daof.findFeedMax();
 		f.setFno(maxNo);
 		im.setFno(maxNo);
 		String path = request.getServletContext().getRealPath("feed");
+		System.out.println("fcontent:"+f.getFcontent());
+		System.out.println("aid:"+f.getAid());
 		System.out.println("path:"+path);
-		ModelAndView mav = new ModelAndView("redirect:/feed/feed");
 		String imgname = null;
 		
 		
@@ -78,6 +79,7 @@ public class FeedController {
 		        	
 		        	imgname = file.getOriginalFilename();
 		        	im.setImgname(imgname);
+		        	System.out.println(imgname);
 		        	
 		            int re2 = daof.insertFeedImg(im);
 		            if(imgname != null && !imgname.equals("")) {
@@ -98,7 +100,7 @@ public class FeedController {
 		        System.err.println("피드 인서트 중 예외 발생: " + e.getMessage());
 		    }
 		 
-		 return mav;
+		 return "ok";
 	}
 	@RequestMapping(value = "/feed/update", method = RequestMethod.POST)
 	@ResponseBody
@@ -117,10 +119,13 @@ public class FeedController {
 			// 파일 배열에 들어있는 파일들 개별적으로 인서트 수행
 			for (MultipartFile file : uploadFiles) {
 				
+				int re2 = daof.deleteFeedImg(f.getFno());
+				
 				imgname = file.getOriginalFilename();
 				im.setImgname(imgname);
-				
-				int re2 = daof.deleteFeedImg(f.getFno());
+				im.setFno(f.getFno());
+				im.setAid(f.getAid());
+				System.out.println("fno:"+f.getFno());
 				daof.insertFeedImg(im);
 				if(imgname != null && !imgname.equals("")) {
 					try {
@@ -142,7 +147,38 @@ public class FeedController {
 			
 			
 		} catch (Exception e) {
-			System.err.println("피드 인서트 중 예외 발생: " + e.getMessage());
+			System.err.println("피드 수정 중 예외 발생: " + e.getMessage());
+		}
+		
+		return mav;
+	}
+	
+	@RequestMapping(value = "/feed/delete", method = RequestMethod.POST)
+	@ResponseBody
+	public ModelAndView delete(int fno,HttpServletRequest request) {
+		System.out.println("컨드롤러 감");
+		
+		List<String> old = daof.imgFindByFno(fno);
+		String path = request.getServletContext().getRealPath("feed");
+		System.out.println("path:"+path);
+		ModelAndView mav = new ModelAndView("redirect:/feed/feed");
+		String imgname = null;
+		
+		
+		try {
+			int re = daof.deleteFeed(fno);
+			for(String oldfname:old) {
+				if(re==1) {
+					if(oldfname!=null&&!oldfname.equals("")) {
+						File file = new File(path+"/"+oldfname);
+						file.delete();
+					}
+				}
+			}
+			
+			
+		} catch (Exception e) {
+			System.err.println("피드삭제 중 예외 발생: " + e.getMessage());
 		}
 		
 		return mav;

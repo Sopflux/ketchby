@@ -12,12 +12,10 @@
    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-	
-	var modal2;
     $(document).ready(function() {
         // 버튼과 모달 요소
         var plus = $("#insertfeed");
-        modal2 = $("#myModal2");
+        var modal2 = $("#myModal2");
         var modal3 = $("#myModal3");
 
         function showModal2() {
@@ -236,7 +234,7 @@ function deleteFile(num) {
         
         // 텍스트 데이터 추가
         formData.append("aid", $("input[name='aid']").val());
-		formData.append("fcontent", $("#fcontentform").val());
+		formData.append("fcontent", $("textarea[name='fcontent']").val());
         
         // 파일 데이터 추가
         for (var i = 0; i < filesArr.length; i++) {
@@ -254,11 +252,8 @@ function deleteFile(num) {
             async: true,
             contentType: false, // 필수: FormData 객체 사용시 false로 설정
             processData: false, // 필수: FormData 객체 사용시 false로 설정
-            complete: function () {
+            success: function () {
                 alert("파일업로드 성공");
-                modal2.css("display", "none");
-                location.href="/feed/feed"
-                
             },
             error: function (xhr, status, error) {
                 console.error(xhr.responseText);
@@ -352,7 +347,7 @@ function deleteFile(num) {
     <input type="hidden" name="aid" th:value="${session.a.aid}" />
     <div class="mb-3">
         <label for="exampleFormControlTextarea1" class="form-label">Content</label>
-        <textarea class="form-control" id="fcontentform" rows="3" name="fcontent"></textarea>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="fcontent"></textarea>
     </div>
                                 
     <!-- 이미지 등록 -->

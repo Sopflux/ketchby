@@ -70,6 +70,10 @@
 		update feed set aid=#{aid},fcontent=#{fcontent} where fno=#{fno}
 	</update>
 	
+	<delete id="deleteFeed">
+		delete feed where fno=#{fno}
+	</delete>
+	
 	<delete id="deleteFeedImg">
 		delete image where fno=#{fno}
 	</delete>
