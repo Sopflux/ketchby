@@ -5,8 +5,55 @@
 <mapper namespace="adminDashBoard">	
 	
 	<!-- 총 가입자 수 -->
-	<select id="findTotalUsers" resultType="java.lang.Integer">
+	<select id="findTodayUsers" resultType="java.lang.Integer">
     	select count(aid) from account
+    	WHERE REGDATE = TRUNC(SYSDATE)
+  	</select>
+  	
+  	
+  	<select id="findYesterdayUsers" resultType="java.lang.Integer">
+    	select count(aid) from account
+    	WHERE REGDATE = TRUNC(SYSDATE-1)
+  	</select>
+  
+	<select id="findTodayClass" resultType="java.lang.Integer">
+    	SELECT COUNT(clno)
+		FROM class
+		WHERE CLREGDATE = TRUNC(SYSDATE)
+  	</select>
+
+
+	<select id="findYesterdayClass" resultType="java.lang.Integer">
+    	SELECT COUNT(clno)
+		FROM class
+		WHERE CLREGDATE = TRUNC(SYSDATE-1)
+  	</select>
+  	
+  	<select id="findTodayPayment" resultType="java.lang.Integer">
+    	SELECT COUNT(payno)
+		FROM PAYMENT
+		WHERE PAYDATE = TRUNC(SYSDATE)
+  	</select>
+
+
+	<select id="findYesterdayPayment" resultType="java.lang.Integer">
+    	SELECT COUNT(payno)
+		FROM PAYMENT
+		WHERE PAYDATE = TRUNC(SYSDATE-1)
+  	</select>
+  	
+  	
+  	<select id="findTodayQuit" resultType="java.lang.Integer">
+    	SELECT COUNT(qno)
+		FROM quit
+		WHERE QDATE = TRUNC(SYSDATE)
+  	</select>
+
+
+	<select id="findYesterdayQuit" resultType="java.lang.Integer">
+    	SELECT COUNT(qno)
+		FROM quit
+		WHERE QDATE = TRUNC(SYSDATE-1)
   	</select>
   	
   	
@@ -19,13 +66,22 @@
 		ORDER BY REGDATE
     </select>
 	
+	<!-- 레벨별 사용자 수 -->
+  	<select id="findLevelByUser" resultType="AdminDashBoard">
+    	select level_, count(aid) as countaid
+		from account
+		group by level_
+		order by level_
+  	</select>
+  	
+	
 	<!-- 카테고리별 클래스 수 -->
 	<select id="findClassByBca" resultType="AdminDashBoard">
 	    select b.bcano, bcaname, count(clno) as countclno
 	    from bcategory b, scategory s, class c
 	    where b.bcano = s.bcano and s.scano=c.scano
 	    group by b.bcano, bcaname
-	    order by b.bcano
+	    order by b.bcano DESC
 	</select>
 	
 
@@ -40,4 +96,25 @@
 	    ORDER BY CLREGDATE
     </select>
 	
+	
+	<!-- 누적 결제 수 -->
+  	<select id="findDailyPayment" resultType="AdminDashBoard">
+        SELECT
+		TO_CHAR(paydate, 'YYYY-MM-DD') AS paydate,
+		SUM(COUNT(payno)) OVER (ORDER BY TO_CHAR(paydate, 'YYYY-MM-DD')) AS countpayno
+		FROM payment
+		WHERE paydate BETWEEN '2023/08/01' AND '2023/08/15'
+		GROUP BY TO_CHAR(paydate, 'YYYY-MM-DD')
+		ORDER BY paydate
+	</select>
+	 
+	<select id="findQuitReason" resultType="AdminDashBoard">
+        SELECT REREASON, COUNT(q.QNO) AS countquit
+		FROM reason r
+		LEFT JOIN quit q ON r.RENO = q.RENO
+		GROUP BY REREASON
+		ORDER BY countquit DESC
+    </select>  
+    
+
 </mapper>

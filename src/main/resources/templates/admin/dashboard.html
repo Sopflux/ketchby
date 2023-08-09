@@ -15,6 +15,12 @@
 <script defer type="text/javascript" src="/userStatistics.js"></script>
 <script defer type="text/javascript" src="/classStatistics.js"></script>
 <script defer type="text/javascript" src="/dailyClassStatistics.js"></script>
+<script defer type="text/javascript" src="/payStatistics.js"></script>
+<script defer type="text/javascript" src="/quitStatistics.js"></script>
+<script defer type="text/javascript" src="/levelStatistics.js"></script>
+<script type="text/javascript">
+	
+</script>
 </head>
 <body>
 <div class="container-scroller">
@@ -29,7 +35,7 @@
             <li><a href="/admin/qanda" id="qanda">📧 문의 관리</a></li>
             <li><a href="/admin/notification" id="notification">📢 공지사항 관리</a></li>
 			<li class="has-submenu">
-			    <a   id="class">📑 클래스 관리</a>
+			    <a id="class">📑 클래스 관리</a>
 			    <ul class="submenu">
 			        <li><a href="/admin/class">기존 클래스</a></li>
 			        <li><a href="/admin/classPending">승인 요청된 클래스</a></li>
@@ -51,12 +57,12 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="card-title">
-                                <h5>총 사용자 수</h5>
+                                <h5>당일 신규 가입자</h5>
                                 <p>user</p>
                             </div>
                             <div class="card-content">
-                                <h2 th:text="${totalUsers}"></h2>
-                                <p>user</p>
+                                <h2 th:text="${todayUsers}"></h2>
+                                <p th:text="${todayUsers}-${yesterdayUsers != null ? '+' + ((todayUsers != null ? todayUsers : 0) - (yesterdayUsers != null ? yesterdayUsers : 0)) : (todayUsers != null ? todayUsers : 0) - (yesterdayUsers != null ? yesterdayUsers : 0)}"></p>
                             </div>
                         </div>
                     </div>
@@ -64,21 +70,42 @@
                 <div class="stretch-card">
                     <div class="card">
                         <div class="card-body">
-
+							<div class="card-title">
+                                <h5>당일 개설 클래스</h5>
+                                <p>class</p>
+                            </div>
+                            <div class="card-content">
+                                <h2 th:text="${todayClass}"></h2>
+                                <p th:text="${todayClass}-${yesterdayClass}"></p>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="stretch-card">
                     <div class="card">
                         <div class="card-body">
-
+							<div class="card-title">
+                                <h5>당일 예약 건수</h5>
+                                <p>payment</p>
+                            </div>
+                            <div class="card-content">
+                                <h2 th:text="${todayPayment}"></h2>
+                              	<p th:text="${todayPayment}-${yesterdayPayment != null ? '+' + ((todayPayment != null ? todayPayment : 0) - yesterdayPayment) : (todayPayment != null ? todayPayment : 0) - (yesterdayPayment != null ? yesterdayPayment : 0)}"></p>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="stretch-card">
                     <div class="card">
                         <div class="card-body">
-
+							<div class="card-title">
+                                <h5>당일 탈퇴 인원</h5>
+                                <p>Quit</p>
+                            </div>
+                            <div class="card-content">
+                                <h2 th:text="${todayQuit}"></h2>
+                                <p th:text="${todayQuit}-${yesterdayQuit != null ? '+' + ((todayQuit != null ? todayQuit : 0) - yesterdayQuit) : (todayQuit != null ? todayQuit : 0) - (yesterdayQuit != null ? yesterdayQuit : 0)}"></p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -99,23 +126,23 @@
 	                    <canvas id="dailyUsersChart"></canvas>
 	                </div>
 	            </div>
-	            <div class="chart-wrapper2">
-	                <div class="chart-title2">
-                        <h5>카테고리 별 클래스 수</h5>
+	            <div class="chart-wrapper3">
+	                <div class="chart-title3">
+                        <h5>레벨별 사용자 분포</h5>
                     </div>
-	                <div class="chart-container2">
-	                    <canvas id="classByBcaChart"></canvas>
+	                <div class="chart-container3">
+	                    <canvas id="levelByUserChart"></canvas>
 	                </div> 
 	            </div>
         	</div>
         	<!--두번째 줄 차트-->
         	 <div class="chart-row">
 				 <div class="chart-wrapper2">
-	                <div class="chart-title2">
+	               	<div class="chart-title2">
                         <h5>카테고리 별 클래스 수</h5>
                     </div>
 	                <div class="chart-container2">
-	                    
+	                    <canvas id="classByBcaChart"></canvas>
 	                </div> 
 	            </div>
 	            <div class="chart-wrapper">
@@ -143,6 +170,31 @@
 	                <div class="chart-container">
 	                    <canvas id="dailyClassChart"></canvas>
 	                </div>
+	            </div>
+        	</div>
+        	 <!--세번째 줄 차트-->
+        	 <div class="chart-row">
+	            <div class="chart-wrapper">
+	                <div class="chart-title">
+                        <h5>누적 클래스 예약 추이</h5>
+                        <div class="chart-controls">
+		                    <input type="date" id="startDatePay" name="startDatePay"> -
+		                    <input type="date" id="endDatePay" name="endDatePay">
+		
+		                    <button onclick="dailyPaymentData()" id="btnSelectPay">선택</button>
+	                	</div>
+                    </div>
+	                <div class="chart-container">
+	                    <canvas id="dailyPaymentChart"></canvas>
+	                </div>
+	            </div>
+	            <div class="chart-wrapper3">
+	                <div class="chart-title3">
+                        <h5>탈퇴이유 별 탈퇴 건수</h5>
+                    </div>
+	                <div class="chart-container3">
+	                    <canvas id="quitReasonChart"></canvas>
+	                </div> 
 	            </div>
         	</div>
         </div>

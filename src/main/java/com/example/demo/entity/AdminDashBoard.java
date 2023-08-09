@@ -9,6 +9,10 @@ public class AdminDashBoard {
 	private String regdate;
 	private int countaid;
 	
+	// 레벨 별 사용자
+	private String level_; 
+	
+	
 	// 총 클래스 수, 신규 클래스 개설 수 및 카테고리별 클래스 수
 	private int clno;
 	private int scano;
@@ -17,48 +21,41 @@ public class AdminDashBoard {
 	private String bcaname;
 	private String clregdate;
 	private int countclno;
-	private int cumulative_count;
 	
-	// 커뮤니티 게시물 수 및 신규 게시물 수
-	private int bno;
-	private String bdate;
 	
-	// 피드 수 및 신규 피드 수
-	private int fno;
-	private String fdate;
-	
-	// 결제 수 및 신규 결제 수
+	// 결제 수 및 예약수
 	private int payno;
 	private String paydate;
+	private int countpayno;
+	private int rsno;
+	private String rsdate;
+	private int countrsno;
 	
 	// 탈퇴 수 및 탈퇴 사유 비율
 	private int qno;
+	private String qdate;
 	private int reno;
 	private String rereason;
+	private int countquit;
+	
+	
+	
+	
+	public String getLevel_() {
+		return level_;
+	}
+	public void setLevel(String level_) {
+		this.level_ = level_;
+	}
+	public int getCountquit() {
+		return countquit;
+	}
+	public void setCountquit(int countquit) {
+		this.countquit = countquit;
+	}
 	public String getAid() {
 		return aid;
 	}
-	
-	
-	public int getCumulative_count() {
-		return cumulative_count;
-	}
-
-	public void setCumulative_count(int cumulative_count) {
-		this.cumulative_count = cumulative_count;
-	}
-
-
-
-	public int getCountaid() {
-		return countaid;
-	}
-
-	public void setCountaid(int countaid) {
-		this.countaid = countaid;
-	}
-
-
 	public void setAid(String aid) {
 		this.aid = aid;
 	}
@@ -67,6 +64,12 @@ public class AdminDashBoard {
 	}
 	public void setRegdate(String regdate) {
 		this.regdate = regdate;
+	}
+	public int getCountaid() {
+		return countaid;
+	}
+	public void setCountaid(int countaid) {
+		this.countaid = countaid;
 	}
 	public int getClno() {
 		return clno;
@@ -98,30 +101,19 @@ public class AdminDashBoard {
 	public void setBcaname(String bcaname) {
 		this.bcaname = bcaname;
 	}
-	public int getBno() {
-		return bno;
+	public String getClregdate() {
+		return clregdate;
 	}
-	public void setBno(int bno) {
-		this.bno = bno;
+	public void setClregdate(String clregdate) {
+		this.clregdate = clregdate;
 	}
-	public String getBdate() {
-		return bdate;
+	public int getCountclno() {
+		return countclno;
 	}
-	public void setBdate(String bdate) {
-		this.bdate = bdate;
+	public void setCountclno(int countclno) {
+		this.countclno = countclno;
 	}
-	public int getFno() {
-		return fno;
-	}
-	public void setFno(int fno) {
-		this.fno = fno;
-	}
-	public String getFdate() {
-		return fdate;
-	}
-	public void setFdate(String fdate) {
-		this.fdate = fdate;
-	}
+
 	public int getPayno() {
 		return payno;
 	}
@@ -133,6 +125,18 @@ public class AdminDashBoard {
 	}
 	public void setPaydate(String paydate) {
 		this.paydate = paydate;
+	}
+	public int getRsno() {
+		return rsno;
+	}
+	public void setRsno(int rsno) {
+		this.rsno = rsno;
+	}
+	public String getRsdate() {
+		return rsdate;
+	}
+	public void setRsdate(String rsdate) {
+		this.rsdate = rsdate;
 	}
 	public int getQno() {
 		return qno;
@@ -152,21 +156,23 @@ public class AdminDashBoard {
 	public void setRereason(String rereason) {
 		this.rereason = rereason;
 	}
-	public String getClregdate() {
-		return clregdate;
+	public int getCountpayno() {
+		return countpayno;
 	}
-	public void setClregdate(String clregdate) {
-		this.clregdate = clregdate;
+	public void setCountpayno(int countpayno) {
+		this.countpayno = countpayno;
 	}
-	public int getCountclno() {
-		return countclno;
+	public int getCountrsno() {
+		return countrsno;
 	}
-	public void setCountclno(int countclno) {
-		this.countclno = countclno;
+	public void setCountrsno(int countrsno) {
+		this.countrsno = countrsno;
 	}
-	
-	
-	
-	
+	public String getQdate() {
+		return qdate;
+	}
+	public void setQdate(String qdate) {
+		this.qdate = qdate;
+	}
 	
 }

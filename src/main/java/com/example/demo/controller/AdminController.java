@@ -159,15 +159,18 @@ public class AdminController {
 	
 	@GetMapping("/dashboard")
 	public void listDashBoard(Model model){
-		model.addAttribute("totalUsers", adminDashBoardDao.findTotalUsers());
+		model.addAttribute("todayUsers", adminDashBoardDao.findTodayUsers());
+		model.addAttribute("yesterdayUsers", adminDashBoardDao.findYesterdayUsers());
+		model.addAttribute("todayClass", adminDashBoardDao.findTodayClass());
+		model.addAttribute("yesterdayClass", adminDashBoardDao.findYesterdayClass());
+		model.addAttribute("todayPayment", adminDashBoardDao.findTodayPayment());
+		model.addAttribute("yesterdayPayment", adminDashBoardDao.findYesterdayPayment());
+		model.addAttribute("todayQuit", adminDashBoardDao.findTodayQuit());
+		model.addAttribute("yesterdayQuit", adminDashBoardDao.findYesterdayQuit());
+		
 	}
 	
-	
-	@GetMapping("/totalUsers")
-    @ResponseBody
-    public int getTotalUsers() {
-        return adminDashBoardDao.findTotalUsers();
-    }
+
 
     @GetMapping("/dailyUsers")
     @ResponseBody
@@ -179,14 +182,19 @@ public class AdminController {
     	return adminDashBoardDao.findDailyUsers(map);
     }
 	
-	
+    @GetMapping("/levelByUser")
+    @ResponseBody
+    public List<AdminDashBoard> getLevelByUser(){
+    	return adminDashBoardDao.findLevelByUser();
+    }
+    
+    
     @GetMapping("/classByBca")
     @ResponseBody
     public List<AdminDashBoard> getClassByBca(){
     	return adminDashBoardDao.findClassByBca();
     }
  
-    
 
     @GetMapping("/dailyClass")
     @ResponseBody
@@ -197,6 +205,22 @@ public class AdminController {
         map.put("bcaname", bcaname); 
         
         return adminDashBoardDao.findDailyClass(map);
+    }
+    
+    @GetMapping("/dailyPayment")
+    @ResponseBody
+    public List<AdminDashBoard> getDailyPayment(@RequestParam String startDate,@RequestParam String endDate) {
+    	
+    	HashMap<String, Object> map = new HashMap<>();
+		map.put("startDate", startDate);
+		map.put("endDate", endDate); 
+    	return adminDashBoardDao.findDailyPayment(map);
+    }
+    
+    @GetMapping("/quitReason")
+    @ResponseBody
+    public List<AdminDashBoard> getQuitReason(){
+    	return adminDashBoardDao.findQuitReason();
     }
  
 }
