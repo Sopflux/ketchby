@@ -17,7 +17,7 @@
             labels: labels,
             datasets: [{
                 data: values,
-                backgroundColor: 'rgba(54, 162, 235, 1)',
+                backgroundColor: 'rgba(54, 162, 235, 0.5)',
                 borderWidth: 1
             }]
         },
@@ -28,18 +28,18 @@
                     suggestedMax: 5,
                     stepSize: 1,
                     grid: {
-                        color: 'rgba(128, 128, 128, 1)',
+                        color: 'rgba(128, 128, 128, 0.6)',
                     },
                     ticks: {
                         beginAtZero: true,
-                        color: 'rgba(128, 128, 128, 1)',
+                        color: 'rgba(128, 128, 128, 0.6)',
                         showLabelBackdrop: false // hide square behind text // 이부분이 숫자 label의 배경 부분.
                     },
                     angleLines: {
-                        color: 'rgba(128, 128, 128, 1)' // 중심에서 라벨까지 줄 색상
+                        color: 'rgba(128, 128, 128, 0.6)' // 중심에서 라벨까지 줄 색상
                     },
                     pointLabels: {
-                        color: 'rgba(128, 128, 128, 1)', // 라벨의 글씨 색상
+                        color: 'rgba(128, 128, 128, 0.6)', // 라벨의 글씨 색상
                     }
                 },
             },

@@ -88,7 +88,7 @@
    
    //dafault 값 생성 후 페이지 열 때 뜨도록 함
    const defaultStartDate = "2023-08-01";
-   const defaultEndDate = "2023-08-07";
+   const defaultEndDate = "2023-08-14";
    document.getElementById("startDate").value = defaultStartDate;
    document.getElementById("endDate").value = defaultEndDate;
    

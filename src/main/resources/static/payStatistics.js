@@ -20,7 +20,11 @@
                     label: '신규 결제/예약 추이',
                     backgroundColor: 'rgba(255, 159, 64, 0.2)', 
             		borderColor: 'rgba(255, 159, 64, 1)', 
-                    borderWidth: 1
+                    borderWidth: 1,
+                    fill: {
+                    target: "start",
+                    below: 'rgba(255, 159, 64, 0.2)'
+                },
                 }]
             },
             options: {

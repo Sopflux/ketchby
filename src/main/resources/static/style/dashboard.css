@@ -204,7 +204,6 @@ body, html {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: center;
     align-items: center;
     flex-direction: column;
     padding: 20px;
@@ -225,7 +224,7 @@ body, html {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding: 20px;
+    padding: 20px 0px 0px 20px;
     border: 1px solid #191c24;
     border-radius: 0.25rem;
     margin-left: 10px; 
@@ -273,7 +272,6 @@ body, html {
 .chart-container {
     width: 100%;
     max-width: 800px;
-    margin: 0 auto;
     align-items: center;
 }
 
@@ -298,8 +296,8 @@ body, html {
 }
 
 #classByBcaChart {
-    height: 100%;
-    width: 100%;
+    height: 80%;
+    width: 80%;
     margin-top: 30px;
     margin-left: 100px;
 }
@@ -353,7 +351,7 @@ body, html {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding: 20px;
+    padding: 20px 40px 40px 20px;
     border: 1px solid #191c24;
     border-radius: 0.25rem;
 }
@@ -363,12 +361,20 @@ body, html {
     width: 100%;
     height: 100%; 
     align-items: center;
+    padding:20px;
 }
 
 
 #levelByUserChart {
-	height: 80%;
-    width: 80%;
-    margin-top: 30px;
-    margin-left: 30px;
+    margin-left: 40px;
+}
+
+#dailyPaymentChart {
+	height: 250px
+}
+
+#quitReasonChart  {
+	height: 335px !important;
+    width: 335px !important;
+    margin-left: 50px;
 }
