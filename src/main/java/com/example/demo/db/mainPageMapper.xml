@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mainPage">	
+	
+	<!-- 추천 클래스 조회 -->
+    <select id="findRecClass" resultType="MainPage">
+    <![CDATA[
+    SELECT cl_info.clno, cl_info.cltitle, cl_info.claddr,
+        cl_info.climg, cl_info.cllevel, cl_info.clprice, cl_info.bcaname,
+        cl_info.scaname, cl_info.level_
+    FROM (
+        SELECT c.clno, c.cltitle, SUBSTR(c.claddr, 1, INSTR(c.claddr,' ', 1, 2) - 1)  AS claddr, 
+        c.climg, c.cllevel, c.clprice, a.level_, b.bcaname, s.scaname
+        from class c, account a, scategory s, bcategory b
+        where c.aid = a.aid and c.scano = s.scano and b.bcano = s.bcano 
+    ) cl_info
+    WHERE cl_info.clno IN (
+        SELECT clno
+        FROM (
+            SELECT DISTINCT clno
+            FROM reservation rs
+            WHERE aid IN (
+                SELECT aid
+                FROM (
+                    SELECT aid, COUNT(aid) FROM reservation
+                    WHERE clno IN (
+                        SELECT c.clno 
+                        FROM account a, reservation rs, class c
+                        WHERE a.aid = rs.aid AND rs.clno = c.clno and rs.aid in
+                        (select a.aid from account where a.aid= #{aid, jdbcType=VARCHAR}))
+                    AND aid != #{aid, jdbcType=VARCHAR}
+                    GROUP BY aid
+                    ORDER BY count(aid) DESC
+                )
+                WHERE ROWNUM <= 3
+            )
+        AND clno NOT IN (
+            SELECT clno
+            FROM reservation
+            WHERE aid = #{aid, jdbcType=VARCHAR}
+        )
+        UNION
+        SELECT clno
+        FROM (
+            SELECT clno, COUNT(clno) AS countclno
+            FROM reservation
+            GROUP BY clno
+            ORDER BY COUNT(clno) DESC
+        )
+        WHERE ROWNUM <= 5)
+    ) AND ROWNUM <= 7]]>
+    </select>
+
+    <!-- 인기 클래스 조회 -->
+    <select id="findHotClass" resultType="MainPage">
+       <![CDATA[ 
+        SELECT c.clno, c.cltitle, SUBSTR(c.claddr, 1, INSTR(c.claddr, ' ', 1, 2) - 1),
+       	c.climg, c.cllevel, c.clprice, b.bcaname, s.scaname, a.level_
+		FROM class c
+		JOIN account a ON c.aid = a.aid
+		JOIN scategory s ON c.scano = s.scano
+		JOIN bcategory b ON s.bcano = b.bcano
+		WHERE c.clno IN (
+		    SELECT clno
+		    FROM (
+		        SELECT clno
+		        FROM reservation
+		        GROUP BY clno
+		        ORDER BY COUNT(clno) DESC
+		    )
+		    WHERE ROWNUM <= 7)]]>
+    </select>
+
+    <!-- HOT! 소모임 조회 -->
+    <select id="findHotClub" resultType="MainPage">
+        SELECT cb.cbno, cb.cbtitle, cb.cbpeople, count(ca.cbapno) AS ap_cnt,
+        cb.cbimg, bc.bcaname, sc.scaname, TO_CHAR(cb.cbclsdate, 'MM/DD') AS cbclsdate
+        FROM club cb
+        LEFT JOIN club_application ca ON cb.cbno = ca.cbno
+        JOIN scategory sc ON cb.scano = sc.scano
+        JOIN bcategory bc ON sc.bcano = bc.bcano
+        GROUP BY cb.cbno, cb.cbtitle, cb.cbpeople, cb.cbimg, bc.bcaname, sc.scaname, cb.cbclsdate
+        ORDER BY COUNT(ca.cbapno) / cb.cbpeople DESC
+        FETCH FIRST 3 ROWS ONLY
+    </select>
+
+    <!-- 인기 Talk! Talk! 조회 -->
+    <select id="findHotBoard" resultType="MainPage">
+        <![CDATA[
+        SELECT * FROM (
+            SELECT b.bno, b.btitle, b.bcontent, TO_CHAR(b.bdate, 'MM/DD') AS bdate,
+                a.aid, a.nick, a.img
+            FROM board b
+            JOIN comments c ON b.bno = c.bno
+            JOIN account a ON b.aid = a.aid
+            GROUP BY b.bno, b.btitle, b.bcontent, b.bdate, a.aid, a.nick, a.img
+            ORDER BY COUNT(c.cono) DESC
+        )
+        WHERE ROWNUM <= 4]]>
+    </select>
+
+</mapper>

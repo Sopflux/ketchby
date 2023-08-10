@@ -7,6 +7,11 @@
   <typeAliases>
   	<typeAlias type="com.example.demo.entity.Account" alias="account"/>
   	<typeAlias type="com.example.demo.entity.NoticeVO" alias="notice"/>
+  	<typeAlias type="com.example.demo.entity.Feed" alias="feed"/>
+  	<typeAlias type="com.example.demo.entity.AdminClass" alias="adminClass"/>
+  	<typeAlias type="com.example.demo.entity.AdminDashBoard" alias="adminDashBoard"/>
+  	<typeAlias type="com.example.demo.entity.MainPage" alias="mainPage"/>
+  	
   </typeAliases>
   <environments default="development">
     <environment id="development">
@@ -23,5 +28,9 @@
     <mapper resource="com/example/demo/db/accountMapper.xml"/>
     <mapper resource="com/example/demo/db/AdminAccountMapper.xml"/>
     <mapper resource="com/example/demo/db/AdminNoticeMapper.xml"/>
+    <mapper resource="com/example/demo/db/adminClassMapper.xml"/>
+  	<mapper resource="com/example/demo/db/adminClassPendingMapper.xml"/>
+  	<mapper resource="com/example/demo/db/adminDashBoardMapper.xml"/>
+  	<mapper resource="com/example/demo/db/mainPageMapper.xml"/>
   </mappers>
 </configuration>
