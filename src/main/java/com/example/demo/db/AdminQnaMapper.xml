@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="adminQna">	
+
+	<!-- 페이징 처리, 칼럼별 검색 -->
+	<select id="findAll" resultType="adminqnainsert">
+		select qino, qno, qca, qiname, qiemail, qititle, qicontent, qicondition, qidate from (
+		select rownum n, qino, qno, qca, qiname, qiemail, qititle, qicontent, qicondition, qidate from (
+		select qino, c.qno  qno, qca, qiname, qiemail, qititle, qicontent, qicondition, qidate 
+		from qnainsert i, qcategory c where i.qno=c.qno order by qidate desc)
+		<include refid="searching"></include>
+		<include refid="condition"></include>
+		) a
+		where a.n between #{start } and #{end }
+	</select>
+		
+	<!-- 추가할 sql문 -->
+	<sql id="searching">
+		<choose>
+			<when test="column=='all'">
+				where qidate like '%' || #{keyword, jdbcType=VARCHAR } || '%'
+				or qititle like '%' || #{keyword, jdbcType=VARCHAR } || '%'
+				or qiemail like '%' || #{keyword, jdbcType=VARCHAR } || '%'
+				or qno = #{keyword, jdbcType=NUMERIC }
+			</when>
+			<when test="column == 'qno'">
+				where qno = #{keyword, jdbcType=NUMERIC }
+			</when>
+			<otherwise>
+				where ${column, jdbcType=VARCHAR } like '%' || #{keyword, jdbcType=VARCHAR} || '%'
+			</otherwise>
+		</choose>
+	</sql>
+	
+	<sql id="condition">
+		<choose>
+			<when test="condition == '보냄'">
+				and qicondition like '보냄'
+			</when>
+			<when test="condition == ''">
+				and qicondition is null
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</sql>
+	
+	<!-- 페이징 처리, 칼럼별 검색 레코드 수 조회 -->
+	<select id="getTotalForPage" resultType="java.lang.Integer">
+		select count(*) from qnainsert 
+		<include refid="searching"></include>
+	</select>
+	
+	<!-- 총 문의사항 수 -->
+	<select id="getTotalQna" resultType="java.lang.Integer">
+		select count(*) from qnainsert
+	</select>
+	
+	<!-- 문의사항 상세 -->
+	<select id="findQino" resultType="adminqnainsert">
+		select qino, c.qno  qno, qca, qiname, qiemail, qititle, qicontent, qicondition, qidate 
+		from qnainsert i, qcategory c 
+		where i.qno=c.qno and qino = #{qino}
+	</select>	
+	
+	<update id="updateCondition" parameterType="java.lang.Integer">
+		update qnainsert set qicondition = '보냄' where qino = #{qino}
+	</update>
+</mapper>

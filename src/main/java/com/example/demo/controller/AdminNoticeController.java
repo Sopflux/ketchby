@@ -93,9 +93,14 @@ public class AdminNoticeController {
 		map.put("keyword", keyword);
 		map.put("pageNum", pageNum);
 		
+		int totalPage = dao.noticeTotalPage;
+		if(totalPage == 0) {
+			totalPage = 1;
+		}
+		
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("list", dao.findAll(map));
-		model.addAttribute("totalPage", dao.noticeTotalPage);
+		model.addAttribute("totalPage", totalPage);
 		model.addAttribute("notice", dao.noticeTotalRecord);
 		return "/admin/notice";
 	}

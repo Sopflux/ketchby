@@ -3,13 +3,16 @@ package com.example.demo.db;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import com.example.demo.entity.Account;
+import com.example.demo.entity.AdminQnainsertVO;
 import com.example.demo.entity.NoticeVO;
+import com.example.demo.entity.QnainsertVO;
 
 public class AdminDBManager {
 	
@@ -154,5 +157,53 @@ public class AdminDBManager {
 		session.close();
 		return re;
 	}
+
+	//qna
 	
+	//총 문의사항 수
+	public static int getTotalRecordQna() {
+		// TODO Auto-generated method stub
+		SqlSession session = sqlSessionFactory.openSession();
+		int re = -1;
+		re = session.selectOne("adminQna.getTotalQna");
+		session.close();
+		return re;
+	}
+
+	public static int getTotalForPageQna(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		SqlSession session = sqlSessionFactory.openSession();
+		int re = 0;
+		re = session.selectOne("adminQna.getTotalForPage", map);
+		session.close();
+		return 0;
+	}
+
+	public static List<AdminQnainsertVO> findAllQna(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		SqlSession session = sqlSessionFactory.openSession();
+		List<AdminQnainsertVO> list = null;
+		list = session.selectList("adminQna.findAll", map);
+		session.close();
+		return list;
+		
+	}
+
+	public static AdminQnainsertVO findByQino(int qino) {
+		// TODO Auto-generated method stub
+		SqlSession session = sqlSessionFactory.openSession();
+		AdminQnainsertVO q = null;
+		q = session.selectOne("adminQna.findQino", qino);
+		session.close();
+		return q;
+	}
+	
+	public static int updateCondition(int qino) {
+		SqlSession session = sqlSessionFactory.openSession(true);
+		int re = -1;
+		re = session.update("adminQna.updateCondition", qino);
+		session.close();
+		return re;
+	}
+
 }

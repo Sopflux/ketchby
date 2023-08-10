@@ -25,7 +25,7 @@ body, html {
     min-height: 100vh;
     display: flex;
     flex-direction: row;
-    paddding-left: 0;
+    padding-left: 0;
     padding-right: 0;
     transition: all 0.25s ease;
     width: calc(100% - 70px);
@@ -128,8 +128,6 @@ body, html {
     border: none !important;
     border-color: #191C24 !important;
   }
-  
-
 
   .modal {
     background: rgba(0,0,0,0.2);
@@ -148,39 +146,22 @@ body, html {
     color: white;
     border: none !important;
   }
+  
   .modal-footer {
     background: #191C24 !important;
     border: none !important;
   }
-
-  .modal-table {
-    padding: 1.75rem 1.5625rem;
-    width: 100%;
-    background: #191C24;
-  }
   
-  .modal-table h2 {
-    font-weight: bold;
-  }
-  .modal-table h2, p{
-    color: white;
-  }
-  
-  .modal-table th {
-    color: #8457D5 !important;
-    border: none !important;
-    width: 50%;
-  }
-  
-  .modal-table td {
-    border: none !important;
-    border-color: #191C24 !important;
-    width: 50%;
-  }
   .modal-input {
-    background-color: #2A3038;
+    background-color: #12151b;
+    width: 100%;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.1), 0 1px 3px rgba(0,0,0,0.2) inset;
+    border: 0 none;
+    color: white;
+    margin-bottom: 1rem;
+  }
+    .modal-input1 {
     width: 95%;
-    box-shadow:0 1px 0 rgba(255,255,255,0.1), 0 1px 3px rgba(0,0,0,0.2) inset;
     border:0 none;
     color: white;
   }
@@ -190,7 +171,7 @@ body, html {
     border-color: #8457D5 !important;
   }
 
-  .textarea-input{
+   .textarea-input{
     width: 100%;
     height: 10em;
     background-color: #12151b;
@@ -201,127 +182,8 @@ body, html {
     box-shadow: 0 1px 0 rgba(255,255,255,0.1), 0 1px 3px rgba(0,0,0,0.2) inset;
     padding: 0.5em 0.5em 0.5em 0.5em;
   }
-
-  .input-title{
-    margin-bottom: 0.8em;
-    width: 100%;
-    background-color: #12151b;
-    color: white;
-    border: 0 none;
-    text-shadow: 0 2px 2px rgba(0,0,0,0.3);
-    box-shadow: 0 1px 0 rgba(255,255,255,0.1), 0 1px 3px rgba(0,0,0,0.2) inset;
-    padding: 0.3em 0.3em 0.3em 0.5em;
-  }
-
-  .div-date{
-    margin-bottom: 0.8em;
-    width:
-
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.filebox input[type="file"] {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip:rect(0,0,0,0);
-  border: 0;
-}
-
-.filebox label {
-  display: inline-block;
-  padding: .5em .75em;
-  color: #999;
-  font-size: inherit;
-  line-height: normal;
-  vertical-align: middle;
-  background-color: #fdfdfd;
-  cursor: pointer;
-  border: 1px solid #ebebeb;
-  border-bottom-color: #e2e2e2;
-  border-radius: .25em;
-}
-
-/* named upload */
-.filebox .upload-name {
-  display: inline-block;
-  padding: .5em .75em;
-  font-size: inherit;
-  font-family: inherit;
-  line-height: normal;
-  vertical-align: middle;
-  background-color: #2A3038;
-  border: 1px solid #2A3038;;
-  border-bottom-color: #2A3038;
-  color: white;
-  border-radius: .25em;
-  -webkit-appearance: none; /* 네이티브 외형 감추기 */
-  -moz-appearance: none;
-  appearance: none;
-}
-
-/* imaged preview */
-.filebox .upload-display {
-  margin-bottom: 5px;
-}
-
-@media(min-width: 768px) {
-  .filebox .upload-display {
-    display: inline-block;
-    margin-right: 5px;
-    margin-bottom: 0;
-  }
-}
-
-.filebox .upload-thumb-wrap {
-  display: inline-block;
-  width: 54px;
-  padding: 2px;
-  vertical-align: middle;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background-color: #fff;
-}
-
-.filebox .upload-display img {
-  display: block;
-  max-width: 100%;
-  width: 100% \9;
-  height: auto;
-}
-
-.filebox.bs3-primary label {
-  color: #fff;
-  background-color: #8457D5 !important;
-  border-color: #8457D5 !important;
-}
-
-
-
-
-
-
-
-
-
-
-
-#search5back{
+  
+  #search5back{
     margin:0 0 0 0;  
 }
 
@@ -346,7 +208,16 @@ body, html {
 }
 
 #search5:focus {
-    width: 100%;
+    width: 85%;
     outline:0;
 }
 
+.pagingNumber{
+	text-align: center;
+}
+.pagingName{
+	text-decoration: none;
+	font-size: 15px;
+	color:white;
+	font-weight: bold;
+}

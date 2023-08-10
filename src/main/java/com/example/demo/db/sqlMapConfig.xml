@@ -7,6 +7,8 @@
   <typeAliases>
   	<typeAlias type="com.example.demo.entity.Account" alias="account"/>
   	<typeAlias type="com.example.demo.entity.NoticeVO" alias="notice"/>
+  	<typeAlias type="com.example.demo.entity.QnainsertVO" alias="qnainsert"/>
+  	<typeAlias type="com.example.demo.entity.AdminQnainsertVO" alias="adminqnainsert"/>
   </typeAliases>
   <environments default="development">
     <environment id="development">
@@ -23,5 +25,6 @@
     <mapper resource="com/example/demo/db/accountMapper.xml"/>
     <mapper resource="com/example/demo/db/AdminAccountMapper.xml"/>
     <mapper resource="com/example/demo/db/AdminNoticeMapper.xml"/>
+    <mapper resource="com/example/demo/db/AdminQnaMapper.xml"/>
   </mappers>
 </configuration>
