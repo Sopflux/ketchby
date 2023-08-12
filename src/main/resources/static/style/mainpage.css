@@ -1,0 +1,227 @@
+
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+*, *::before, *::after {
+    font-family: 'Pretendard-Regular', sans-serif;
+}
+
+
+/*배너*/
+
+.slider-container {
+  overflow: hidden;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  position: relative;
+}
+.slider {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+.slide {
+  flex: 0 0 100%;
+  min-width: 100%;
+  height: 440px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.slider-btn {
+ position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 1; 
+}
+
+.slider-btn img {
+  width: 100px;
+}
+
+#prevBtn {
+  left: 0;
+}
+
+#nextBtn {
+  right: 0;
+}
+
+/*카테고리*/
+
+.main-category {
+  padding: 1rem;
+  margin: 2rem auto 4rem;
+  max-width: 1400px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.category-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  
+}
+
+.category-item a {
+  text-decoration: none; /* 링크 밑줄 제거 */
+}
+
+.category-icon {
+  padding: 0.625rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 120px;
+  height: 180px;
+  transition: border-color 0.3s;
+}
+
+.category-icon:hover {
+  background-color:darkgrey;
+}
+
+.category-icon img {
+  width: 80%;
+  height: auto;
+}
+
+.category-item p {
+  margin-top: 0.5rem;
+  text-align: center;
+  font-size: 25px;
+  margin-top: 0.5rem;
+  color: black; 
+}
+
+
+/*본문 시작*/
+
+.container {
+  width: 100%;
+  margin-bottom: 3cm; /* 조절 가능 */
+}
+
+.title-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.carousel-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.carousel-prev-btn,
+.carousel-next-btn {
+  border: none;
+  background-color: transparent;
+  font-size: 24px;
+  color: #000;
+  cursor: pointer;
+}
+
+.cards-container {
+  display: flex;
+  overflow-x: hidden;
+  gap: 20px;
+  padding-bottom: 20px;
+  transition: transform 0.5s ease; /* 추가 */
+}
+
+.card {
+  flex: 0 0 auto;
+  float: left;
+  margin: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  width: 400px;
+  height: auto;
+  transform: translateX(0);
+  transition: transform 0.5s ease;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.card-body {
+  padding: 20px;
+  height: 219.3px;
+}
+
+.card-category {
+  font-weight: bold;
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+.card-addr {
+  margin-bottom: 10px;
+}
+
+.card-title {
+  color: rgba(0, 131, 117, 1);
+  font-weight: bold;
+  font-size: 18px;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.btn {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.btn_a_level,
+.btn_cl_level {
+  border-radius: 12px;
+  color: #fff;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 9px;
+  margin: 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border: none;
+}
+
+.btn_a_level {
+  background-color: rgba(0, 131, 117, 1);
+}
+
+.btn_a_level:hover {
+  background-color: #004d00;
+}
+
+.btn_cl_level {
+  background-color: #808080; /* Gray */
+}
+
+.btn_cl_level:hover {
+  background-color: #666666;
+}
