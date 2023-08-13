@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="adminNotice">	
+	<!-- 공지사항 삭제 -->
+	<delete id="deleteNotice" parameterType="java.lang.Integer">
+		delete notice where noticeno = #{noticeno, jdbcType=NUMERIC }
+	</delete>
+	
+	<!-- 공지사항 수정 -->
+	<update id="updateNotice" parameterType="notice">
+		update notice set
+		noticetitle = #{noticetitle, jdbcType=VARCHAR }, noticecontent = #{noticecontent, jdbcType=VARCHAR }
+		where noticeno = #{noticeno, jdbcType=NUMERIC }
+	</update>
+	
+	<!-- 공지사항 추가 -->
+	<insert id="insertNotice" parameterType="notice">
+		insert into notice (noticeno, noticetitle, noticewriter, noticecontent, noticedate)
+		values((select nvl(max(noticeno), 40000)+1 from notice), #{noticetitle, jdbcType=VARCHAR }, '관리자', #{noticecontent, jdbcType=VARCHAR }, sysdate)
+	</insert>
+	
+	<!-- 공지사항 조회 -->
+	<select id="findAll" resultType="notice">
+		select noticetitle, noticeno, noticedate from (
+		select rownum n, noticetitle, noticeno, noticedate, noticecontent from (
+		select * from notice order by noticedate desc)
+		where noticetitle like '%' || #{keyword, jdbcType=VARCHAR } || '%'
+		) a
+		where a.n between #{start } and #{end }
+	</select>
+
+	<!-- 공지사항 상세 -->
+	<select id="findNotice" resultType="notice">
+		select noticetitle, noticeno, noticecontent, to_char(noticedate, 'YYYY-MM-DD HH24:MI:SS')noticedate from notice where noticeno = #{noticeno, jdbcType=NUMERIC }
+	</select>
+	
+	<!-- 페이징 처리, 칼럼별 검색 레코드 수 조회 -->
+	<select id="getTotalForPage" resultType="java.lang.Integer">
+		select count(*) from notice
+		where noticetitle like '%' || #{keyword, jdbcType=VARCHAR } || '%'
+	</select>
+	
+	<select id="getTotalNotice" resultType="java.lang.Integer">
+		select count(*) from notice
+	</select>
+	
+</mapper>

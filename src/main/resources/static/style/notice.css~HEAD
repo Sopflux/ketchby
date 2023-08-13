@@ -184,72 +184,40 @@ body, html {
     border:0 none;
     color: white;
   }
-    .modal-input1 {
-    width: 95%;
-    border:0 none;
-    color: white;
-  }
 
   .btn-danger {
     background-color: #8457D5 !important;
     border-color: #8457D5 !important;
   }
 
+  .textarea-input{
+    width: 100%;
+    height: 10em;
+    background-color: #12151b;
+    color: white;
+    resize: none;
+    border: 0 none;
+    text-shadow: 0 2px 2px rgba(0,0,0,0.3);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.1), 0 1px 3px rgba(0,0,0,0.2) inset;
+    padding: 0.5em 0.5em 0.5em 0.5em;
+  }
 
+  .input-title{
+    margin-bottom: 0.8em;
+    width: 100%;
+    background-color: #12151b;
+    color: white;
+    border: 0 none;
+    text-shadow: 0 2px 2px rgba(0,0,0,0.3);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.1), 0 1px 3px rgba(0,0,0,0.2) inset;
+    padding: 0.3em 0.3em 0.3em 0.5em;
+  }
 
+  .div-date{
+    margin-bottom: 0.8em;
+    width:
 
-  /*https://webdir.tistory.com/435*/
-
-  .file-upload label {
-    display: inline-block;
-    padding: .5em .75em;
-    color: #999;
-    font-size: inherit;
-    line-height: normal;
-    vertical-align: middle;
-    background-color: #fdfdfd;
-    cursor: pointer;
-    border: 1px solid #ebebeb;
-    border-bottom-color: #e2e2e2;
-    border-radius: .25em;
-}
-.file-upload input[type="file"] {  /* 파일 필드 숨기기 */
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip:rect(0,0,0,0);
-    border: 0;
-}
-
-.file-upload input[type="file"] {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip:rect(0,0,0,0);
-    border: 0;
-}
-
-.file-upload label {
-    display: inline-block;
-    padding: .5em .75em;
-    color: #999;
-    font-size: inherit;
-    line-height: normal;
-    vertical-align: middle;
-    background-color: #fdfdfd;
-    cursor: pointer;
-    border: 1px solid #ebebeb;
-    border-bottom-color: #e2e2e2;
-    border-radius: .25em;
-}
-
-
+  }
 
 
 
@@ -378,29 +346,7 @@ body, html {
 }
 
 #search5:focus {
-    width: 85%;
+    width: 100%;
     outline:0;
 }
 
-.pagingNumber{
-	text-align: center;
-}
-.pagingName{
-	text-decoration: none;
-	font-size: 15px;
-	color:white;
-	font-weight: bold;
-}
-
-#searchColumn{
-  background-color: #2A3038;
-  color: white;
-  width: 150px;
-  padding: 6px 15px;
-  border: none;
-  border-radius: 3px;
-  text-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2) inset;
-  -webkit-transition: all 0.7s ease 0s;
-  height: 29px;
-}

@@ -1,188 +1,158 @@
 @charset "utf-8";
-	.main {
-  gap: 39.589996337890625px;
-  top: 347px;
-  left: 298px;
-  width: 750px;
-  display: flex;
-  padding: 0 0 39.999969482421875px;
-  position: absolute;
-  align-items: flex-start;
-  flex-shrink: 0;
-  flex-direction: column;
+
+body, h1, h2, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+.main {
+    gap: 39.589996337890625px;
+    left: 50px;
+    width: 750px;
+    height: 1800px;
+    display: flex;
+    padding: 0 0 39.999969482421875px;
+    position: absolute;
+    align-items: flex-start;
+    flex-shrink: 0;
+    flex-direction: column;
 }
 
-.qititle {
-  color: rgba(66, 66, 66, 1);
-  height: auto;
-  font-size: 23px;
-  font-style: Bold;
-  text-align: left;
-  font-family: Noto Sans KR;
-  font-weight: 700;
-  line-height: 24px;
-  font-stretch: normal;
-  text-decoration: none;
-}
-.qititle_s, .select_s {
-  color: rgba(130, 140, 148, 1);
-  height: auto;
-  font-size: 14px;
-  font-style: DemiLight;
-  text-align: left;
-  font-family: Noto Sans KR;
-  font-weight: 400;
-  line-height: 19.600000381469727px;
-  font-stretch: normal;
-  text-decoration: none;
+.info_div {
+    width: 677px;
+    height: 316px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    border-radius: 8px;
+    background-color: rgba(247, 249, 250, 1);
 }
 
-/* .form-select 클래스의 너비를 unset으로 설정하여 부트스트랩 스타일시트의 너비를 무시합니다. */
-.form-select {
-  height: 45px;
-  width: 200px;
-  border-color: rgba(234, 235, 239, 1);
-  border-style: solid;
-  border-width: 1px;
-  border-radius: 4px;
-  background-color: rgba(255, 255, 255, 1);
+.info_div span {
+    margin-bottom: 10px;
+    font-weight: bold;
 }
 
-.qanda1-input {
-  width: 343px;
-  display: flex;
-  padding: 7px 15px 7px;
-  position: absolute;
-  align-items: flex-start;
-  flex-shrink: 0;
-  border-color: rgba(234, 235, 239, 1);
-  border-style: solid;
-  border-width: 1px;
-  border-radius: 4px;
-  background-color: rgba(255, 255, 255, 1);
+.time {
+    font-size: 20px;
+    color: rgba(47, 52, 56, 1);
+    width: auto;
+    height: auto;
+    font-style: Bold;
+    text-align: left;
+    font-family: Noto Sans KR;
+    font-stretch: normal;
+    text-decoration: none;
+    margin: 0;
 }
 
-.qanda1-input-qititle{
-  width: 700px;
-  display: flex;
-  padding: 7px 15px 7px;
-  position: absolute;
-  align-items: flex-start;
-  flex-shrink: 0;
-  border-color: rgba(234, 235, 239, 1);
-  border-style: solid;
-  border-width: 1px;
-  border-radius: 4px;
-  background-color: rgba(255, 255, 255, 1);
+.weekday,
+.weekend {
+    color: rgba(130, 140, 148, 1);
+    width: 100%;
+    height: auto;
+    font-size: 14px;
+    font-style: DemiLight;
+    text-align: center;
+    font-family: Noto Sans KR;
+    font-weight: 400;
+    line-height: 20px;
+    font-stretch: normal;
+    text-decoration: none;
+    margin: 0;
 }
 
-.text_area{
-  width: 700px; /* 원하는 가로 크기로 조정 */
-  height: 200px; /* 원하는 세로 크기로 조정 */
-  resize: none; /* 사용자가 크기를 조정할 수 없도록 설정 (선택사항) */
-  border-color: rgba(234, 235, 239, 1);
-  border-style: solid;
-  border-width: 1px;
-  border-radius: 4px;
-  background-color: rgba(255, 255, 255, 1);
+.phone {
+    font-size: 24px;
+    color: rgba(140, 90, 210, 1);
 }
 
-/* 플레이스홀더 스타일 */
-.qanda1-input::placeholder,
-.qanda1-input-qititle::placeholder,
-.text_area::placeholder {
-  color: rgba(189, 189, 189, 1);
+.button_wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    margin: 0 auto;
+
 }
 
-/* 공백 스타일 */
-.form-gap {
-  height: 50px;
+.qanda_button {
+    padding: 10px;
+    border-radius: 19px;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin: 0 5px;
+    background-color: rgba(247, 249, 250, 1);
+    border: 1px solid rgba(218, 221, 224, 1);
 }
 
-/* 두 개의 입력 필드 사이에 추가적인 공백 스타일 */
-.additional-space {
-  
-  height: 53px;
-}
-.additional-space-top {
-  height: 5px;
-}
-.check{
-  width: 640px;
-  height: 216px;
-  display: flex;
-  position: relative;
-  align-items: flex-start;
-  flex-shrink: 0;
-  border-radius: 4px;
-  background-color: rgba(247, 248, 250, 1);
-}
-.check_qititle{
-  color: rgba(66, 66, 66, 1);
-  height: auto;
-  font-size: 14px;
-  font-style: Bold;
-  font-weight: 700;
-  line-height: 19.600000381469727px;
-  top: 19px;
-  left: 46px;
-  display: flex;
-  position: absolute;
-}
-.check_content{
-  top: 49px;
-  left: 20px;
-  width: 600px;
-  height: 147px;
-  display: flex;
-  position: absolute;
-  align-items: flex-start;
-  flex-shrink: 0;
-}
-.check_content {
-  white-space: pre-wrap; /* 공백과 줄바꿈을 유지하고 긴 단어는 자동으로 줄바꿈 */
-  word-break: break-all; /* 긴 단어를 강제로 줄바꿈 */
-  max-width: 100%; /* 부모 요소 너비를 넘지 않도록 설정 */
-  top: 30px;
-  left: 26px;
-  color: rgba(101, 110, 117, 1);
-  height: auto;
-  position: absolute;
-  font-size: 12px;
-  font-style: DemiLight;
-  text-align: left;
-  font-family: Noto Sans KR;
-  font-weight: 400;
-  line-height: 18px;
-  font-stretch: normal;
-  text-decoration: none;
+.qanda_button.active {
+    background-color: rgba(140, 90, 210, 1);
+    border: 1px solid rgba(140, 90, 210, 1);
 }
 
-.checkbox{
-  height: 16px;
-  top: 20px;
-  left: 17px;
-  width: 30px;
-  position: absolute;
+.qanda_button:hover:not(.active) {
+    background-color: rgba(237, 239, 240, 1);
+    border: 1px solid rgba(218, 221, 224, 1);
 }
-.form_submit{
-  width: 343px;
-  padding: 15px 141.9499969482422px 15px 142.0500030517578px;
-  border-radius: 4px;
-  background-color: rgba(140, 90, 210, 1);
-  color: white;
+
+.line_div {
+    width: 677px;
+    height: 10px;
+    display: flex;
+    overflow: hidden;
+    margin: 20px auto;
+    background-color: rgba(247, 249, 250, 1);
 }
-.countkor{
-  display: flex;
-  padding: 0 0 0 660px; /* 원하는 만큼 왼쪽 패딩값을 조정하세요. */
-  align-items: flex-start;
-  color: rgba(130, 140, 148, 1);
+
+.content_div {
+    width: 677px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+    border-radius: 8px;
+    background-color: rgba(247, 249, 250, 1);
 }
-.form_submit:hover {
-  background-color: rgba(101, 57, 162, 1);
+
+.qanda_email,
+.qanda_emailcopy {
+    padding: 13.2px 30px 12.8px 30px;
+    flex-shrink: 0;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 1);
+    margin: 0 5px;
 }
-.form_submit.disabled {
-  background-color: rgba(234, 235, 239, 1);
-  cursor: not-allowed;
-  pointer-events: none; /* 버튼에 대한 포인터 이벤트 비활성화 */
+
+.qanda_email {
+    border: 1px solid rgba(140, 90, 210, 1);
+    color: rgba(140, 90, 210, 1);
+}
+
+.qanda_emailcopy {
+    border: 1px solid rgba(218, 221, 224, 1);
+}
+
+.button_row {
+    display: flex;
+    justify-content: center;
+}
+
+.accordion {
+    width: 677px;
+    height: 150px;
+}
+
+/* 아코디언 헤더의 커스텀 스타일 */
+.accordion-button:not(.collapsed) {
+    background-color: white;
+    color: rgba(140, 90, 210, 1);
+    font-weight: bold;
+}
+
+/* 아코디언 내용의 커스텀 스타일 */
+.accordion-body {
+    background-color: rgba(247, 249, 250, 1);
+    color: #555;
 }
