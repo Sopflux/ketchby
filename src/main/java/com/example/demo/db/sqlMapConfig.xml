@@ -9,6 +9,15 @@
   	<typeAlias type="com.example.demo.entity.QandA" alias="qanda"/>
   	<typeAlias type="com.example.demo.entity.BoardHot" alias="boardhot"/>
   	<typeAlias type="com.example.demo.entity.Board" alias="board"/>
+  	<typeAlias type="com.example.demo.entity.Comments" alias="comments"/>
+  	<typeAlias type="com.example.demo.entity.ClubMain" alias="clubmain"/>
+  	<typeAlias type="com.example.demo.entity.Club" alias="club"/>
+  	<typeAlias type="com.example.demo.entity.Scategory" alias="scategory"/>
+  	<typeAlias type="com.example.demo.entity.Slocation" alias="slocation"/>
+  	<typeAlias type="com.example.demo.entity.ClubDetail" alias="clubdetail"/>
+  	<typeAlias type="com.example.demo.entity.Clubapplication" alias="clubapplication"/>
+  	<typeAlias type="com.example.demo.entity.Notice" alias="notice"/>
+  	<typeAlias type="com.example.demo.entity.QnainsertVO" alias="qnainsert"/>
   </typeAliases>
   <environments default="development">
     <environment id="development">
@@ -26,5 +35,14 @@
     <mapper resource="com/example/demo/db/qandaMapper.xml"/>
     <mapper resource="com/example/demo/db/boardhotMapper.xml"/>
     <mapper resource="com/example/demo/db/boardMapper.xml"/>
+    <mapper resource="com/example/demo/db/commentsMapper.xml"/>
+    <mapper resource="com/example/demo/db/clubmainMapper.xml"/>
+    <mapper resource="com/example/demo/db/clubMapper.xml"/>
+    <mapper resource="com/example/demo/db/scategoryMapper.xml"/>
+    <mapper resource="com/example/demo/db/slocationMapper.xml"/>
+    <mapper resource="com/example/demo/db/clubdetailMapper.xml"/>
+    <mapper resource="com/example/demo/db/clubapplicationMapper.xml"/>
+    <mapper resource="com/example/demo/db/noticeMapper.xml"/>
+    <mapper resource="com/example/demo/db/qnainsertMapper.xml"/>
   </mappers>
 </configuration>

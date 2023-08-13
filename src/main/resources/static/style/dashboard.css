@@ -1,0 +1,380 @@
+/* 페이지 스타일 */
+
+
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Pretendard-Regular', sans-serif; /* Apply Open Sans font */
+    background-color: #000000;
+}
+
+.container-scroller {
+    display: flex;
+    position: relative;
+
+}
+
+.class {
+    flex: 1; /* set to occupy all remaining space */
+    padding-left: 250px;
+    background: #000000;
+    color: #FFF; /* change text color */
+    overflow-y: auto; /* Create a scroll when there is a lot of content */
+}
+
+.page{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: row;
+    padding-left: 0;
+    padding-right: 0;
+    transition: all 0.25s ease;
+    width: calc(100% - 70px);
+}
+
+.main-wrapper{
+    background: black;
+    padding: 1.875rem 1.75rem;
+    width: 100%;
+    flex-grow: 1;
+}
+
+#page-header {
+    font-weight: normal;
+    background: #191C24;
+    left: 250px;
+    -webkit-transition: left 0.25s ease;
+}
+
+#page-content {
+    width: 100%;
+    height: auto;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: space-around; 
+}
+
+/* 사이드바 스타일 */
+
+#sidebar-all {
+    min-height: calc(100% - 70px);
+    background: #191C24;
+    font-weight: normal;
+    padding: 0;
+    width: 250px;
+    z-index: 11;
+    -webkit-transition: width 0.25s ease, background 0.25s ease;
+}
+
+.sidebar {
+    width: 250px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar li {
+    text-indent: 1.5em;
+    line-height: 2.8em;
+}
+
+.sidebar li a {
+    display: block;
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+.sidebar li a:hover {
+    color: #fff;
+    background: #008375;
+}
+
+.sidebar > .sidebar-user {
+    font-size: 1.3em;
+    line-height: 3em;
+}
+
+
+/* 카드 스타일 */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -0.75rem;
+    margin-left: -0.75rem;
+}
+
+.stretch-card{
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+    margin-bottom: 1.5rem;
+    flex: 1 0 calc(25% - 1.5rem);
+    padding: 1.25rem;
+}
+
+.grid-margin {
+    margin-bottom: 1.5rem;
+}
+
+@media (min-width: 576px) {
+    .col-sm-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+}
+
+.stretch-card > .card {
+    width: 100%;
+    min-width: 100%;
+}
+
+.card {
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    min-width: 0 !important;
+    word-wrap: break-word !important;
+    background-color: #191c24 !important;
+    background-clip: border-box !important;
+    border: 1px solid rgba(0, 0, 0, 0.125) !important;
+    border-radius: 0.25rem !important;
+}
+
+
+.card-body {
+    flex: 1 1 auto;
+    max-height: 120px;
+    padding: 1.25rem;
+}
+
+.card-title, .card-content {
+    display: flex;
+    flex-direction: row;
+    color: white !important;
+    font-weight: bold !important;
+}
+
+.card-title p {
+    color: dimgrey;
+    margin-left: 5px;
+    font-size: 15px;
+}
+
+.card-content {
+    align-items: center;
+    justify-content: center; /* 가로로 가운데 정렬 */
+    margin-right: 30px !important;
+    margin-left: 10px !important;
+}
+
+.card-content p {
+    color: #008375;
+    font-size: 20px;
+    margin-left: 5px;
+}
+
+
+/* 차트 스타일 */
+
+.chart-row {
+	display: flex;
+	margin-bottom: 20px;
+	height:400px;
+}
+
+.chart-row .chart-wrapper {
+    flex: 2 0 calc(66.6667% - 20px);
+    max-width: 680px;
+    align-items: center;
+    border: 1px solid #191c24;
+    border-radius: 0.25rem;
+    margin-right: 10px; /* Add a right margin */
+}
+
+.chart-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    border: 1px solid #191c24; /* Add border style */
+    border-radius: 0.25rem;
+    max-height: 400px;
+    margin-right: 20px;
+    margin-left: 10px;
+}
+
+
+.chart-wrapper2 {
+    flex: 1 0 calc(33.3333% - 10px); 
+   	max-width: 500px;
+    max-height: 400px;
+    align-items: center;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px 0px 0px 20px;
+    border: 1px solid #191c24;
+    border-radius: 0.25rem;
+    margin-left: 10px; 
+}
+
+
+.chart-wrapper label {
+    font-size: 30px;
+}
+
+.chart-wrapper h2 {
+    font-size: 24px;
+    color: #FFFFFF;
+    margin-bottom: 10px;
+}
+
+.chart-controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    margin-left: 140px;	
+}
+
+.chart-title, .chart-title2, .chart-title3 {		
+	
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    color: white !important;
+    font-weight: bold !important;
+    text-align: left;
+}
+
+.chart-controls input[type="date"] {
+  	padding: 10px;
+    background-color: #131519;
+    border: 3px;
+    color: white;
+    border-radius: 3px;
+    font-size: 10px;
+    height: 30px;
+}
+
+
+.chart-container {
+    width: 100%;
+    max-width: 800px;
+    align-items: center;
+}
+
+#dailyUsersChart {
+    height: 250px;
+    width: 100%;
+}
+
+#btnSelect {
+    background-color: #008375;
+    height: 30px;
+    color: white;
+    font-size: 10px;
+    width: 50px;
+}
+
+
+.chart-container2 {
+    width: 80%;
+    height: 80%; 
+    align-items: center;
+}
+
+#classByBcaChart {
+    height: 80%;
+    width: 80%;
+    margin-top: 30px;
+    margin-left: 100px;
+}
+
+#dailyClassChart {
+    height: 238px;
+    width: 638px;
+    margin-top: 30px;
+}
+
+.chart-controls2 {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    margin-left: auto;
+}
+
+
+.chart-controls2 input[type="date"] {
+  	padding: 10px;
+    background-color: #131519;
+    border: 3px;
+    color: white;
+    border-radius: 3px;
+    font-size: 10px;
+    height: 30px;
+}
+
+#btnSelectCl {
+    background-color: #8C5AD2;
+    height: 30px;
+    color: white;
+    font-size: 10px;
+    width: 50px;
+}
+
+#dropdownBtn{
+	background-color: black;
+	font-size: 10px;
+	height: 30px;
+}
+
+
+
+.chart-wrapper3 {
+    flex: 1 0 calc(33.3333% - 10px); 
+   	max-width: 500px;
+    max-height: 400px;
+    align-items: center;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px 40px 40px 20px;
+    border: 1px solid #191c24;
+    border-radius: 0.25rem;
+}
+
+
+.chart-container3 {
+    width: 100%;
+    height: 100%; 
+    align-items: center;
+    padding:20px;
+}
+
+
+#levelByUserChart {
+    margin-left: 40px;
+}
+
+#dailyPaymentChart {
+	height: 250px
+}
+
+#quitReasonChart  {
+	height: 335px !important;
+    width: 335px !important;
+    margin-left: 50px;
+}
