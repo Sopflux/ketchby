@@ -1,5 +1,5 @@
 @charset "utf-8";
-.main {
+	.main {
   gap: 39.589996337890625px;
   top: 347px;
   left: 298px;
@@ -11,7 +11,8 @@
   flex-shrink: 0;
   flex-direction: column;
 }
-.title {
+
+.qititle {
   color: rgba(66, 66, 66, 1);
   height: auto;
   font-size: 23px;
@@ -23,7 +24,7 @@
   font-stretch: normal;
   text-decoration: none;
 }
-.title_s, .select_s {
+.qititle_s, .select_s {
   color: rgba(130, 140, 148, 1);
   height: auto;
   font-size: 14px;
@@ -61,7 +62,7 @@
   background-color: rgba(255, 255, 255, 1);
 }
 
-.qanda1-input-title{
+.qanda1-input-qititle{
   width: 700px;
   display: flex;
   padding: 7px 15px 7px;
@@ -88,7 +89,7 @@
 
 /* 플레이스홀더 스타일 */
 .qanda1-input::placeholder,
-.qanda1-input-title::placeholder,
+.qanda1-input-qititle::placeholder,
 .text_area::placeholder {
   color: rgba(189, 189, 189, 1);
 }
@@ -116,7 +117,7 @@
   border-radius: 4px;
   background-color: rgba(247, 248, 250, 1);
 }
-.check_title{
+.check_qititle{
   color: rgba(66, 66, 66, 1);
   height: auto;
   font-size: 14px;
