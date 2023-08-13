@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import com.example.demo.entity.QandA;
+import com.example.demo.entity.QnainsertVO;
 
 public class DBManagerQandA {
 	public static SqlSessionFactory sqlSessionFactory;
@@ -34,5 +35,19 @@ public class DBManagerQandA {
 		List<QandA> list=session.selectList("qanda.findByQno", qno);
 		session.close();
 		return list;
+	}
+	
+	public static int getNextQino() {
+		SqlSession session=sqlSessionFactory.openSession();
+		int re=session.selectOne("qnainsert.getNextQino");
+		session.close();
+		return re;
+	}
+	public static int insert(QnainsertVO q) {
+		SqlSession session=sqlSessionFactory.openSession();
+		int re=session.insert("qnainsert.insert", q);
+		session.commit();
+		session.close();
+		return re;
 	}
 }

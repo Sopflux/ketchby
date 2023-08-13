@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>공지사항</title>
+	<link href="/style/notice_detail.css" rel="stylesheet" />
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+		console.log("          ___   .--.    \n" +
+            "    .--.-\"   \"-' .- |   \n" +
+            "   / .-,`          .'   \n" +
+            "   \\   `           \\    \n" +
+            "    '.            ! \\   \n" +
+            "      |     !  .--.  |  \n" +
+            "      \\        '--'  /.____ \n" +
+            "     /`-.     \\__,'.'      `\\ \n" +
+            "  __/   `\\-.__.-' `\\      /  \n" +
+            "  | `---`'-. _/-`     \\----'    _ \n" +
+            "  |,-'`  /             |    _.-' `\\ \n" +
+            " .'     /              |--'`     / | \n" +
+            "/      /\\              `         | |\n" +
+            "|   .\\/  \\      .--. __          \\ |\n" +
+            "'-'      '._       /  `\\         /\n" +
+            "             `\\    '     |------'`\n" +
+            "               \\  |      |\n" +
+            "                \\        /\n" +
+            "                 '._  _.'");
+	</script>
+</head>
+
+<body>
+	<div th:replace="menu :: head"></div>
+	<div class="maindiv">
+		<div class="titlediv">
+			<span class="noticetitle" th:text="${n.noticetitle}"></span>
+			<span class="noticewriter" th:text="${n.noticewriter}"></span> <!--작성자 닉네임 -->
+			<span class="noticedate" th:text="${n.noticedate}"></span>
+		</div>
+		<div class="noticecontent">
+			<span class="noticecontent" th:text="${n.noticecontent}"></span>
+
+		</div>
+	</div>
+</body>
+
+</html>
