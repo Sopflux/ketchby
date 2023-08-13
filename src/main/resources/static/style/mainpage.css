@@ -10,6 +10,11 @@
     font-family: 'Pretendard-Regular', sans-serif;
 }
 
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
 
 /*배너*/
 
@@ -105,76 +110,120 @@
 }
 
 
-/*본문 시작*/
+/*본문 */
 
 .container {
-  width: 100%;
-  margin-bottom: 3cm; /* 조절 가능 */
+  width: 1520px;
+  margin: auto;
+  position: relative;
+  margin-bottom: 80px;
 }
 
 .title-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.title {
-  font-size: 24px;
-  font-weight: bold;
   margin-bottom: 20px;
+  font-weight: bold;
 }
-
-.carousel-controls {
-  display: flex;
-  gap: 10px;
-}
-
-.carousel-prev-btn,
-.carousel-next-btn {
-  border: none;
-  background-color: transparent;
-  font-size: 24px;
-  color: #000;
-  cursor: pointer;
-}
-
 .cards-container {
   display: flex;
-  overflow-x: hidden;
-  gap: 20px;
+  flex-wrap: wrap;
   padding-bottom: 20px;
-  transition: transform 0.5s ease; /* 추가 */
+  transition: transform 0.5s ease;
+  overflow: hidden;
+  position: relative;
 }
+
+.cards-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    transition: transform 0.5s ease;
+    width: max-content;
+    transform: translateX(0);
+}
+
+/* Card */
+
+.club-container {
+  display: flex;
+  flex-wrap: wrap;
+  padding-bottom: 20px;
+  transition: transform 0.5s ease;
+  overflow: hidden;
+  position: relative;
+}
+
 
 .card {
-  flex: 0 0 auto;
-  float: left;
+  flex: 0 0 calc(25% - 20px); /* Four cards in a row */
   margin: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  transition: 0.3s;
-  width: 400px;
-  height: auto;
-  transform: translateX(0);
-  transition: transform 0.5s ease;
+  transition: transform 0.3s;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: white;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  max-width: calc(25% - 20px); /* Adjusted */
 }
 
-.card:hover {
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+.card-img {
+  position: relative;
+  overflow: hidden;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  width: 100%;
+  height: 200px; /* Adjusted */
 }
 
-.card-body {
+.card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 버튼 스타일 */
+.abtn{
+  width: 50px;
+  height: 30px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: white;
+  padding: 5px 10px;
+  font-size: 12px;
+  border-radius: 5px;
+  background-color: gray;
+}
+
+.clbtn {
+  width: 50px;
+  height: 30px;
+  position: absolute;
+  top: 10px;
+  right: 65px ;
+  background-color: #008375;
+  border: none;
+  cursor: pointer;
+  color: white;
+  padding: 5px 10px;
+  font-size: 12px;
+  border-radius: 5px;
+  margin-left: 10px; 
+}
+
+
+.card-info {
   padding: 20px;
-  height: 219.3px;
 }
 
 .card-category {
   font-weight: bold;
   font-size: 15px;
   margin-bottom: 10px;
-}
-
-.card-addr {
-  margin-bottom: 10px;
+  color: rgba(0, 0, 0, 0.7);
 }
 
 .card-title {
@@ -182,46 +231,118 @@
   font-weight: bold;
   font-size: 18px;
   text-decoration: none;
-  display: block;
-  width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  margin-bottom: 5px;
 }
 
-.btn {
+.card-addr {
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.card-price {
+  font-size: 18px;
+  font-weight: bold;
+  color: #f39c12;
+}
+
+.card-btn-wrapper {
   display: flex;
   justify-content: space-between;
-  margin-top: 10px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  padding: 0 20px;
 }
 
-.btn_a_level,
-.btn_cl_level {
-  border-radius: 12px;
-  color: #fff;
-  padding: 5px 10px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 9px;
-  margin: 2px;
-  transition-duration: 0.4s;
-  cursor: pointer;
+.card-btn {
+  background-color: transparent;
   border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
 }
 
-.btn_a_level {
-  background-color: rgba(0, 131, 117, 1);
+.card-btn img {
+  width: 50px;
+  height: 50px;
 }
 
-.btn_a_level:hover {
-  background-color: #004d00;
+#prevRecCardBtn, #prevRecCardBtn:hover {
+  transform: translateX(-5px);
 }
 
-.btn_cl_level {
-  background-color: #808080; /* Gray */
+#nextRecCardBtn, #nextHotCardBtn:hover {
+  transform: translateX(5px);
 }
 
-.btn_cl_level:hover {
-  background-color: #666666;
+
+
+/* 클럽 카드 */
+.club-card {
+  width: calc(33.33% - 20px);
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
+.club-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.clubCard-img img {
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+.clubCardinfo {
+  padding: 20px;
+}
+
+.clubCardtag {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.clubCardtitle {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.clubCarddescription {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.clubCardPeople {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.clubPeople {
+  font-size: 14px;
+  color: #333;
+}
+
+/* 미디어 쿼리 - 카드 레이아웃 반응형 조정 */
+@media (max-width: 768px) {
+  .club-card {
+    width: calc(50% - 20px);
+  }
+}
+
+@media (max-width: 480px) {
+  .club-card {
+    width: 100%;
+  }
+}
+
+
+
+

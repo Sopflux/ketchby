@@ -42,6 +42,15 @@ public class MainPage {
 	private String cbimg;
 	private String cbclsdate;
 	private int slocno;
+	private int ap_cnt;
+	
+	
+	public int getAp_cnt() {
+		return ap_cnt;
+	}
+	public void setAp_cnt(int ap_cnt) {
+		this.ap_cnt = ap_cnt;
+	}
 	public int getClno() {
 		return clno;
 	}

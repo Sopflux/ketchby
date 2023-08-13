@@ -75,7 +75,7 @@
 
     <!-- HOT! 소모임 조회 -->
     <select id="findHotClub" resultType="MainPage">
-        SELECT cb.cbno, cb.cbtitle, cb.cbpeople, count(ca.cbapno) AS ap_cnt,
+        <![CDATA[SELECT cb.cbno, cb.cbtitle, cb.cbpeople, count(ca.cbapno) AS ap_cnt, 
         cb.cbimg, bc.bcaname, sc.scaname, TO_CHAR(cb.cbclsdate, 'MM/DD') AS cbclsdate
         FROM club cb
         LEFT JOIN club_application ca ON cb.cbno = ca.cbno
@@ -83,7 +83,7 @@
         JOIN bcategory bc ON sc.bcano = bc.bcano
         GROUP BY cb.cbno, cb.cbtitle, cb.cbpeople, cb.cbimg, bc.bcaname, sc.scaname, cb.cbclsdate
         ORDER BY COUNT(ca.cbapno) / cb.cbpeople DESC
-        FETCH FIRST 3 ROWS ONLY
+        FETCH FIRST 4 ROWS ONLY]]>
     </select>
 
     <!-- 인기 Talk! Talk! 조회 -->
