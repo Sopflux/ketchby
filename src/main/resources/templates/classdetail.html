@@ -1,0 +1,254 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<head>
+<title>클래스 상세</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=27c65e2ff9ae6db35e5dc3fa427c77d9&libraries=services"></script>
+<script src="//code.jquery.com/jquery.min.js"></script>
+<link rel="stylesheet" href="./style/classdetail.css" />
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Create two columns/boxes that floats next to each other */
+nav {
+    float: left;
+    width: 50%;
+    background: #ffffff;
+    padding: 20px;
+}
+
+/* Style the list inside the menu */
+nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+article {
+    float: left;
+    padding: 20px;
+    width: 50%;
+    background-color: #ffffff;
+}
+
+/* Clear floats after the columns */
+section::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
+@media (max-width: 600px) {
+  nav, article {
+    width: 100%;
+    height: auto;
+  }
+}
+</style>
+<script type="text/javascript">
+	$(function(){
+		var check = $("#checkLike").val();
+		if(check == 0){
+			$("#like").attr('style', 'display:none');
+			$("#none").attr('style', "display:inline-block");
+		}else{
+			$("#like").attr('style', 'display:inline-block');
+			$("#none").attr('style', "display:none");
+		}
+	})	
+</script>
+</head>
+<body>
+<section style="padding: 5rem 15rem 0 15rem">
+	<input type="hidden" th:value="${check }" id="checkLike">
+    <nav>
+        <img th:src="'./class/'+${cl_list.climg}" style="width:100%; height:600px">
+    </nav>
+  
+    <article>
+    <div class="card-card">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<!-- 마이페이지로 이동 -->
+		
+    	<p class="card-content" th:text="${cl_list.bcaname } + '>' + ${cl_list.scaname}"></p>
+    	<p class="td-title" th:text="${cl_list.cltitle }"></p>
+
+    <table style="width:100%">
+        <tr>
+            <td  class="card-writer" th:text="${a_info.nick } + ' >'"></td>
+            <td style="text-align:right">
+                <label class="label-ct" th:text="${cl_list.cltype }"></label>
+                <label class="label-cl" th:text="${cl_list.cllevel }"></label>
+            </td>
+        </tr>
+    </table>
+
+    <button type="button" id="btn_like" class="btn btn-outline-primary">
+		
+		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-suit-heart" viewBox="0 0 16 16" id="none">
+		  <path d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595L8 6.236zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.55 7.55 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z"/>
+		</svg>
+		
+		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#D90D1E" class="bi bi-suit-heart-fill" viewBox="0 0 16 16" id="like">
+		  <path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"/>
+		</svg>
+		
+		<span th:text="'찜하기' + ${likes }" id="span_like"></span>
+	</button>
+	
+	<input type="hidden" id="clno" th:value="${cl_list.clno }">
+	<input type="hidden" id="aid" th:value="${aid }">
+	<input type="hidden" id="likes" th:value="${likes }">
+	<script type="text/javascript">
+		let clno = $("#clno").val();
+		let aid = $("#aid").val();
+		let oldlikes = $("#likes").val();		
+	
+		$("#btn_like").click(function() {
+			console.log(oldlikes);
+			
+			$.ajax({
+				url : "/classdetail/checklike",
+				data : {
+					clno : clno,
+					aid : aid
+				},
+				success : function(likes) {
+					console.log(likes);
+					
+					if(oldlikes>likes){
+						$("#like").attr('style', 'display:none');
+						$("#none").attr('style', "display:inline-block");
+						$("#span_like").text("찜하기"+likes);
+					}else{
+						$("#like").attr('style', 'display:inline-block');
+						$("#none").attr('style', 'display:none');
+						$("#span_like").text("찜하기"+likes);
+					}
+					location.reload();
+				}
+			})
+		})
+	</script>
+    <table class="table-intro">
+          <tr>
+            <td>Level</td>
+            <td>일 소요시간</td>
+            <td>최대인원</td>
+            <td>평점</td>
+        </tr>
+        <tr>
+            <td th:text="${cl_list.cllevel }"></td>
+            <td th:text="${times } + '시간'"></td>
+            <td th:text="${cl_list.clpeople }"></td>
+            <td th:text="${avg }"></td>
+        </tr>
+    </table>
+    <button class="btn btn-primary" type="button">수강신청</button>    
+  
+  </article>
+</section>
+<div class="main-div">
+    <hr style="margin: 0">
+    <table class="table-cal">
+        <tr>
+            <td>소개</td>
+            <td>시간</td>
+            <td>장소</td>
+            <td>후기</td>
+        </tr>
+    </table>
+    <hr style="margin-bottom:50px">
+    <div>
+		
+        <table style="width:100%">
+            <tr>
+                <td>
+                    <span style="font-weight: bold; font-size: 25px;">안녕하세요.</span><br>
+                    <span style="font-weight: bold; font-size: 25px;" th:text="${a_info.nick }+'입니다.'"></span>
+                </td>
+				<td>
+                    <img th:src="'./profile/'+${a_info.img}" style="width:100px; height:100px; border-radius: 50px;"></label>
+                </td>
+            </tr>
+        </table>
+        
+        <p class="text-title">제가 이번에 소개할 클래스는 </p><br>
+		<p id="content" th:utext="${cl_list.clcontent}"></p>
+
+        <p class="text-title">장소 및 편의시설</p>
+		<span th:text="${cl_list.claddr }" id="addr"></span>
+        <div id="map" style="width: 400px; height: 300px; margin-bottom: 15px;">
+			<script>
+				var addr = $("#addr").text();
+				var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+				mapOption = {
+					center : new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+					level : 3
+				// 지도의 확대 레벨
+				};
+				// 지도를 생성합니다    
+				var map = new kakao.maps.Map(mapContainer, mapOption);
+				// 주소-좌표 변환 객체를 생성합니다
+				var geocoder = new kakao.maps.services.Geocoder();
+				
+				// 주소로 좌표를 검색합니다
+				geocoder.addressSearch(addr, function(result, status) {
+					// 정상적으로 검색이 완료됐으면 
+					if (status === kakao.maps.services.Status.OK) {
+						var coords = new kakao.maps.LatLng(
+							result[0].y,
+							result[0].x);
+						// 결과값으로 받은 위치를 마커로 표시합니다
+						var marker = new kakao.maps.Marker({
+							map : map,
+							position : coords
+						});
+						// 인포윈도우로 장소에 대한 설명을 표시합니다
+						var infowindow = new kakao.maps.InfoWindow({
+							content : '<div style="width:150px;text-align:center;padding:6px 0;">'+addr+'</div>'
+						});
+						infowindow.open(map, marker);
+						// 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+						map.setCenter(coords);
+					}
+				});
+			</script>
+		</div>
+        <p class="text-title">이 시간대 어떠신가요?</p>
+        
+		<ul th:each="t : ${t_list}">
+	        <li th:text="${t.tday } +' : ' + ${t.tstime } +' ~ ' + ${t.tetime }"></li>
+		</ul>
+		
+		<p>수강 가능 기간</p>
+		<p th:text="${cl_list.clsdate } +' ~ '+ ${cl_list.cledate }"></p>
+        <p class="text-title">클래스 후기</p>
+        <div style="margin-bottom: 10px" th:each="r : ${r_list}">
+			<span style="font-size: 18px; font-weight: 500;" th:text="${r.nick}"></span>
+			<span class="review-star" th:text="'(' + ${r.rstar } + ')  ' + ${r.rdate }"></span><br>
+			<span th:text="${r.rcontent}"></span><br>
+		</div>
+    </div>
+</div>
+
+</body>
+</html>
+

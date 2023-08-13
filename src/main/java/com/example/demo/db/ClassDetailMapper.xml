@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="classDetail">	
+
+	<!-- 클래스 상세 정보 조회 -->
+	<select id="findAllClass" resultType="classdetail">
+		select c.clno, c.scano, c.aid, c.cltitle, c.climg, c.clcontent, 
+		c.cllevel, c.clpeople, c.clprice, c.claddr, c.cldate, to_char(c.clsdate, 'yyyy/mm/dd') clsdate, 
+		to_char(c.cledate, 'yyyy/mm/dd') cledate, c.cltype, bcaname, scaname 
+		from class c, scategory s, bcategory b 
+		where c.scano=s.scano and s.bcano=b.bcano and clno= #{clno}
+	</select>
+	
+	<!-- 클래스 개설자 정보 조회 -->
+	<select id="findAccountInfo" resultType="account">
+		select a.aid, pwd, email, name_, nick, img, level_, regdate from account a, class c 
+		where a.aid=c.aid and c.clno=#{clno, jdbcType=NUMERIC }
+	</select>
+	
+	<!-- 클래스 총 소요시간 조회 -->
+	<select id="totalClassTime" resultType="java.lang.Double">
+		select sum(tetime)-sum(tstime) from time where clno=#{clno}
+	</select>
+	
+	<!-- 클래스 시간, 날짜 조회 -->
+	<select id="findClassTime" resultType="classtime">
+		select tday, tstime, tetime from time 
+		where clno=#{clno }
+	</select>
+	
+	<!-- 클래스 평균 평점 조회 -->
+	<select id="findScore" resultType="java.lang.Double">
+		select avg(rstar) from review where clno=#{clno }
+	</select>
+	
+	<!-- 클래스 리뷰 조회 -->
+	<select id="findReview" resultType="reviewinfo">
+		select rcontent, to_char(rdate, 'yyyy/mm/dd') rdate, nick, rstar 
+		from review r, account a, class c 
+		where a.aid=c.aid and c.clno=r.clno 
+		and r.aid=a.aid and c.clno=#{clno}
+	</select>
+	
+	<!-- 좋아요 버튼 관련 sql문 -->
+	<delete id="deleteLikes">
+		delete from likes where aid=#{aid} and clno=#{clno}
+	</delete>
+	
+	<select id="checkLike" resultType="java.lang.Integer">
+		select count(*) from likes where aid=#{aid} and clno=#{clno}
+	</select>
+	
+	<select id="countLike" resultType="java.lang.Integer">
+		select count(aid) from likes where clno=#{clno}
+	</select>
+	
+	<insert id="insertLike">
+		insert into likes (lno,aid,clno) values((select nvl(max(lno), 16000)+1 from likes), #{aid}, #{clno})
+	</insert>
+	
+</mapper>
