@@ -1,0 +1,56 @@
+@charset "EUC-KR";
+
+.maindiv {
+	transform: scale(0.75);
+	top: 89px;
+	left: 160px;
+	width: 960px;
+	height: 1431px;
+	display: flex;
+	position: absolute;
+	align-items: flex-start;
+	flex-shrink: 0;
+}
+
+.titlediv {
+	top: 36px;
+	left: 9px;
+	width: 941px;
+	height: 140px;
+	display: flex;
+	position: absolute;
+	align-items: flex-start;
+	flex-shrink: 0;
+}
+
+.noticetitle {
+	width: 941px;
+	font-size: 34px;
+	font-weight: 700;
+}
+
+
+.noticewriter {
+	top: 85px;
+	height: auto;
+	position: absolute;
+	font-size: 20px;
+	font-weight: 700;
+}
+
+.noticedate {
+	top: 113px;
+	color: rgba(101, 110, 117, 1);
+	height: auto;
+	position: absolute;
+	font-size: 20px;
+	font-weight: 400;
+}
+
+.noticecontent {
+	top: 150px;
+	width: 941px;
+	position: absolute;
+	font-size: 28px;
+	line-height: 42px;
+}
