@@ -36,6 +36,9 @@ public class BoardDAO {
 	public int deleteComments(int cbno) {
 		return DBManagerBoard.deleteComments(cbno);
 	}
+	public int deletecommentsByboard(int bno){		
+		return DBManagerBoard.deletecommentsByboard(bno);
+	}
 	
 	public Board findByNo(int bno) {
 		return DBManagerBoard.findByNo(bno);

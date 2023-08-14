@@ -94,6 +94,14 @@ public class DBManagerBoard {
 		session.close();
 		return re;
 	}
+	public static int deletecommentsByboard(int bno) {
+		int re=-1;
+		SqlSession session = sqlSessionFactory.openSession();
+		re=session.insert("comments.deletecommentsByboard",bno);
+		session.commit();
+		session.close();
+		return re;
+	}
 	
 	public static int delete(int bno) {
 		int re = -1;

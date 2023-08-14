@@ -18,5 +18,4 @@ public class Board {
 	private MultipartFile uploadFile;
 	private String img;
 
-	
 }
