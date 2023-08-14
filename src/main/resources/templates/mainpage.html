@@ -107,7 +107,6 @@
 
 </head>
 <body>
-
 <!-- 배너 -->
 <div class="slider-container">
   <button id="prevBtn" class="slider-btn">
@@ -128,7 +127,15 @@
 <!-- 카테고리 -->
 <ul class="main-category">
   <li class="category-item">
-    <a href="#" title="cooking icons">
+    <a href="/classmain" class="category-link" data-category="all">
+      <div class="category-icon">
+        <img th:src="@{/class/hobbies.png}" />
+        <p>전체</p>
+      </div>
+    </a>
+  </li>
+  <li class="category-item">
+    <a href="/classmain?bcaname=요리/공예" class="category-link" data-category="cooking">
       <div class="category-icon">
         <img th:src="@{/class/cooking.png}" />
         <p>요리/공예</p>
@@ -136,7 +143,7 @@
     </a>
   </li>
   <li class="category-item">
-    <a href="#" title="languages icons">
+    <a href="/classmain?bcaname=외국어" class="category-link" data-category="languages">
       <div class="category-icon">
         <img th:src="@{/class/language.png}" />
         <p>외국어</p>
@@ -144,7 +151,7 @@
     </a>
   </li>
   <li class="category-item">
-    <a href="#" title="ball icons">
+    <a href="/classmain?bcaname=스포츠" class="category-link" data-category="sports">
       <div class="category-icon">
         <img th:src="@{/class/sports.png}" />
         <p>스포츠</p>
@@ -152,7 +159,7 @@
     </a>
   </li>
   <li class="category-item">
-    <a href="#" title="music note icons">
+    <a href="/classmain?bcaname=음악" class="category-link" data-category="music">
       <div class="category-icon">
         <img th:src="@{/class/music.png}" />
         <p>음악</p>
@@ -160,7 +167,7 @@
     </a>
   </li>
   <li class="category-item">
-    <a href="#" title="art icons">
+    <a href="/classmain?bcaname=미술" class="category-link" data-category="art">
       <div class="category-icon">
         <img th:src="@{/class/art.png}" />
         <p>미술</p>
@@ -168,6 +175,7 @@
     </a>
   </li>
 </ul>
+
 
 
 <!-- 추천 클래스 출력 -->
@@ -182,7 +190,7 @@
                     <div class="card-img">
                        <img class="cardimg" th:src="@{'class/' + ${m.climg}}">
 					   <button class="clbtn" th:text="${m.cllevel}"></button>
-					   <button class="abtn" th:text="${m.level_}"></button>
+					   <button class="abtn" th:text="${m.cltype}"></button>
                     </div>
                     <div class="card-info">
                         <h4 class="card-category" th:text="${m.bcaname + ' > ' + m.scaname}"></h4>
@@ -216,7 +224,7 @@
                     <div class="card-img">
                        <img class="cardimg" th:src="@{'class/' + ${h.climg}}">
 					   <button class="clbtn" th:text="${h.cllevel}"></button>
-					   <button class="abtn" th:text="${h.level_}"></button>
+					   <button class="abtn" th:text="${h.cltype}"></button>
                     </div>
                     <div class="card-info">
                         <h4 class="card-category" th:text="${h.bcaname + ' > ' + h.scaname}"></h4>
@@ -251,12 +259,12 @@
 		      <div class="clubCard-img">
 		          <img class="clubCardimg" th:src="@{'club/' + ${c.cbimg}}">
 		      </div>
-			  <div class="clubCardinfo">
-			     <div class="clubCardtag" th:text="${c.scaname}">헬스</div>
-			     	<h2 class="clubCardtitle" th:text="${c.cbtitle}" >작심 100일!! 우리함께 운동해요(다이어트, 운동인증)</h2>
-			      	<p class="clubCarddescription" th:text="'마감일: '+${c.cbclsdate}"></p>
-			      	<div class="clubCardPeople">
-			        <span class="clubPeople" th:text="${c.ap_cnt}/${c.cbpeople}">+3</span>
+			  <div class="clubCard-info">
+			     <div class="clubCard-tag" th:text="${c.scaname}"></div>
+			     	<h2 class="clubCard-title" th:text="${c.cbtitle}"></h2>
+			      	<p class="clubCard-description" th:text="'📌마감일: '+${c.cbclsdate}"></p>
+			      	<div class="clubCard-People">
+			        <span class="clubPeople" th:text="'👤참여자: '+${c.ap_cnt}+'/'+${c.cbpeople}">+3</span>
 			      	</div>
 			  </div>
 			</a>
@@ -269,29 +277,19 @@
 <div class="container" id="section4">
   <div class="title-container">
     <h2 class="title">커뮤니티 인기 게시물</h2>
-    <div class="carousel-controls">
-      <button class="carousel-prev-btn" type="button">&lt;</button>
-      <button class="carousel-next-btn" type="button">&gt;</button>
-    </div>
   </div>
-  <div class="cards-container">
-    <div class="card-carousel">
-      <div th:each="b : ${hotBoardList}">
-        <div class="card" style="width:600px">
-          <div class="card-body">
-            <p class="card-text" th:text="${b.bdate}"></p>
-            <a href="#" class="card-title" th:text="${b.btitle}"></a>
-            <p th:text="${b.bcontent}"></p>
-            <div class="btn">
-              <button class="btn_a_level" th:text="${b.nick}"></button>
-              <button class="btn_cl_level" th:text="${b.bcaname}"></button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <table class="table table-hover">
+      <tbody>
+        <tr th:each="b : ${hotBoardList}">
+          <td class="club-rownum" th:text="${b.rownum}"></td>
+          <td>
+            <a href="#" class="cldetail" th:text="${b.btitle}"></a>
+          </td>
+          <td th:text="${b.aid}"></td>
+          <td th:text="${b.bdate}"></td>
+        </tr>
+      </tbody>
+    </table>
 </div>
-</nav>
 </body>
 </html>

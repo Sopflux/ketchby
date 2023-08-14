@@ -14,8 +14,6 @@ import com.example.demo.entity.MainPage;
 
 import lombok.Setter;
 
-@Controller
-@Setter
 public class MainPageDBManager {
 	
 	public static SqlSessionFactory sqlSessionFactory;

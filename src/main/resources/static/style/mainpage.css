@@ -60,12 +60,13 @@ body, html {
   right: 0;
 }
 
+
 /*카테고리*/
 
 .main-category {
   padding: 1rem;
   margin: 2rem auto 4rem;
-  max-width: 1400px;
+  max-width: 1200px;
   display: flex;
   justify-content: space-evenly;
 }
@@ -93,8 +94,10 @@ body, html {
 }
 
 .category-icon:hover {
-  background-color:darkgrey;
+    border-radius: 12px;
+    margin-top: -5px; /* 아이콘이 위로 올라가도록 설정 */
 }
+
 
 .category-icon img {
   width: 80%;
@@ -104,10 +107,11 @@ body, html {
 .category-item p {
   margin-top: 0.5rem;
   text-align: center;
-  font-size: 25px;
+  font-size: 20px;
   margin-top: 0.5rem;
   color: black; 
 }
+
 
 
 /*본문 */
@@ -119,7 +123,7 @@ body, html {
   margin-bottom: 80px;
 }
 
-.title-container {
+.title-container h2 {
   margin-bottom: 20px;
   font-weight: bold;
 }
@@ -142,15 +146,6 @@ body, html {
 
 /* Card */
 
-.club-container {
-  display: flex;
-  flex-wrap: wrap;
-  padding-bottom: 20px;
-  transition: transform 0.5s ease;
-  overflow: hidden;
-  position: relative;
-}
-
 
 .card {
   flex: 0 0 calc(25% - 20px); /* Four cards in a row */
@@ -161,9 +156,11 @@ body, html {
   overflow: hidden;
   background-color: white;
   width: 100%;
+  min-width:280px;
   height: 100%;
+  min-height: 360px;
   object-fit: cover;
-  max-width: calc(25% - 20px); /* Adjusted */
+  max-width: calc(25% - 20px); 
 }
 
 .card-img {
@@ -192,7 +189,6 @@ body, html {
   border: none;
   cursor: pointer;
   color: white;
-  padding: 5px 10px;
   font-size: 12px;
   border-radius: 5px;
   background-color: gray;
@@ -278,71 +274,149 @@ body, html {
 
 
 
-/* 클럽 카드 */
+/* 클럽 카드 스타일 */
+.club-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 두 개의 칼럼 */
+  grid-template-rows: repeat(2, auto); /* 자동 높이 */
+  gap: 24px; 
+  height: 350px;
+}
+
 .club-card {
-  width: calc(33.33% - 20px);
   background-color: #f5f5f5;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  height: 100%; 
+  border-color:  rgba(0, 131, 117, 1);
+  border: 1px;
 }
 
 .club-link {
-  display: block;
   text-decoration: none;
   color: inherit;
+  flex: 1;
+  display: flex;
+}
+
+.clubCard-img {
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* 이미지 가운데 정렬을 위해 추가 */
+  margin-top: 10px; /* 위쪽 마진 추가 */
+  margin-left: 20px; /* 왼쪽 마진 추가 */
+  width: 130px;
+  height: 130px;
 }
 
 .clubCard-img img {
-  max-width: 100%;
-  vertical-align: middle;
+  width: 100%;
+  height: 100%;
 }
 
-.clubCardinfo {
-  padding: 20px;
+.clubCard-info {
+  padding: 15px;
+  margin-left: 20px;
 }
 
-.clubCardtag {
-  font-size: 14px;
+.clubCard-tag {
+  font-size: 16px;
   font-weight: bold;
   margin-bottom: 8px;
+  color: rgba(0, 131, 117, 1);
 }
 
-.clubCardtitle {
-  font-size: 18px;
+.clubCard-title {
+  font-size: 20px;
   margin-bottom: 8px;
+  color: #333;
+  font-weight: bold; 
 }
 
-.clubCarddescription {
-  font-size: 14px;
+.clubCard-description {
+  font-size: 16px;
   color: #666;
   margin-bottom: 8px;
 }
 
-.clubCardPeople {
+.clubCard-People {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .clubPeople {
-  font-size: 14px;
+  font-size: 16px;
   color: #333;
 }
 
 /* 미디어 쿼리 - 카드 레이아웃 반응형 조정 */
 @media (max-width: 768px) {
-  .club-card {
-    width: calc(50% - 20px);
+  .club-container {
+    grid-template-columns: 1fr; /* 한 개의 칼럼 */
+    grid-template-rows: auto; /* 자동 높이 */
+    height: auto; /* 컨테이너 높이 자동 설정 */
   }
-}
 
-@media (max-width: 480px) {
   .club-card {
     width: 100%;
+    border-radius: 8px;
+  }
+
+  .clubCard-img {
+    border-radius: 8px 8px 0 0;
   }
 }
 
 
+/* 커뮤니티 인기 */
 
 
+.table {
+  width: 100%;
+  margin-top: 30px;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.table th,
+.table td {
+  padding: 12px;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.table th {
+  background-color: #f9f9f9;
+  font-weight: bold;
+  text-align: left;
+}
+
+.table td {
+  vertical-align: middle;
+}
+
+.table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+.table a {
+  font-size: 20px !important;
+  color: rgba(0, 131, 117, 1);
+  text-decoration: none;
+}
+.club-rownum {
+ color: #f39c12 !important;	
+}
+
+#section4{
+ margin-bottom: 100px;
+}

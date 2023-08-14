@@ -9,10 +9,10 @@
     <![CDATA[
     SELECT cl_info.clno, cl_info.cltitle, cl_info.claddr,
         cl_info.climg, cl_info.cllevel, cl_info.clprice, cl_info.bcaname,
-        cl_info.scaname, cl_info.level_
+        cl_info.scaname, cl_info.cltype
     FROM (
         SELECT c.clno, c.cltitle, SUBSTR(c.claddr, 1, INSTR(c.claddr,' ', 1, 2) - 1)  AS claddr, 
-        c.climg, c.cllevel, c.clprice, a.level_, b.bcaname, s.scaname
+        c.climg, c.cllevel, c.clprice, c.cltype, b.bcaname, s.scaname
         from class c, account a, scategory s, bcategory b
         where c.aid = a.aid and c.scano = s.scano and b.bcano = s.bcano 
     ) cl_info
@@ -57,7 +57,7 @@
     <select id="findHotClass" resultType="MainPage">
        <![CDATA[ 
         SELECT c.clno, c.cltitle, SUBSTR(c.claddr, 1, INSTR(c.claddr, ' ', 1, 2) - 1),
-       	c.climg, c.cllevel, c.clprice, b.bcaname, s.scaname, a.level_
+       	c.climg, c.cllevel, c.clprice, b.bcaname, s.scaname, c.cltype
 		FROM class c
 		JOIN account a ON c.aid = a.aid
 		JOIN scategory s ON c.scano = s.scano
@@ -89,7 +89,7 @@
     <!-- 인기 Talk! Talk! 조회 -->
     <select id="findHotBoard" resultType="MainPage">
         <![CDATA[
-        SELECT * FROM (
+        SELECT ROWNUM, a.* FROM (
             SELECT b.bno, b.btitle, b.bcontent, TO_CHAR(b.bdate, 'MM/DD') AS bdate,
                 a.aid, a.nick, a.img
             FROM board b
@@ -97,8 +97,8 @@
             JOIN account a ON b.aid = a.aid
             GROUP BY b.bno, b.btitle, b.bcontent, b.bdate, a.aid, a.nick, a.img
             ORDER BY COUNT(c.cono) DESC
-        )
-        WHERE ROWNUM <= 4]]>
+        ) a
+        WHERE ROWNUM <= 10]]>
     </select>
 
 </mapper>

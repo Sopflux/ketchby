@@ -23,9 +23,10 @@ public class MainPage {
 	private String scaname;
 	private String bcaname;
 	private String aid;
-	private String level_;
+	private String cltype;
 	
 	//커뮤니티용
+	private int rownum;
 	private int bno;
 	private String btitle;
 	private String bcontent;
@@ -45,6 +46,19 @@ public class MainPage {
 	private int ap_cnt;
 	
 	
+	
+	public String getCltype() {
+		return cltype;
+	}
+	public void setCltype(String cltype) {
+		this.cltype = cltype;
+	}
+	public int getRownum() {
+		return rownum;
+	}
+	public void setRownum(int rownum) {
+		this.rownum = rownum;
+	}
 	public int getAp_cnt() {
 		return ap_cnt;
 	}
@@ -111,12 +125,7 @@ public class MainPage {
 	public void setAid(String aid) {
 		this.aid = aid;
 	}
-	public String getLevel_() {
-		return level_;
-	}
-	public void setLevel_(String level_) {
-		this.level_ = level_;
-	}
+	
 	public int getBno() {
 		return bno;
 	}

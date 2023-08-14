@@ -32,5 +32,6 @@
   	<mapper resource="com/example/demo/db/adminClassPendingMapper.xml"/>
   	<mapper resource="com/example/demo/db/adminDashBoardMapper.xml"/>
   	<mapper resource="com/example/demo/db/mainPageMapper.xml"/>
+  	<mapper resource="com/example/demo/db/classMainMapper.xml"/>
   </mappers>
 </configuration>
