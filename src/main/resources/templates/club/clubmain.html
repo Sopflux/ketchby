@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>소모임</title>
+	<link href="/style/clubmain.css" rel="stylesheet" />
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+		$(function () {
+
+			$(document).on("click", ".table-container", function () {
+				var cbno = $(this).attr("data-cbno");
+				var slocno = $(this).attr("data-slocno");
+				location.href = "/club/club_detail/" + cbno + "/" + slocno;
+			})
+
+			var keyword = $("#search").val();
+			var sortColum = $("#sortColum").val();
+			var moimlistDiv = $(".moimlist");
+
+			function list(keyword, sortColum) {
+				data = {
+					keyword: keyword,
+					sortColum: sortColum
+				};
+
+				console.log(data);
+
+				$.ajax({
+					url: "/club/clubmainajax",
+					data: data,
+					dataType: "json",
+					success: function (arr) {
+						$.each(arr, function () {
+							var imgSrc = this.cbimg ? "/club/" + this.cbimg : "/club/defaultclass.jpg"; // 이미지 주소 설정
+
+							var div = $("<div></div>").addClass("table-container").attr("data-cbno", this.cbno).attr("data-slocno", this.slocno);
+							var table = $("<table></table>").addClass("table-item");
+							var tr1 = $("<tr></tr>");
+							var tdimg = $("<td></td>").attr("rowspan", 4);
+
+							var img = $("<img />").attr("id", "cbimg").attr("alt", "classimg4561").attr("src", imgSrc); // 이미지 주소 설정
+
+							$(tdimg).append(img);
+							var tdcaname = $("<td></td>").attr("colspan", 2).attr("id", "cate").html(this.bcaname + ">" + this.scaname);
+
+							var tr2 = $("<tr></tr>");
+							var tdcbtitle = $("<td></td>").attr("colspan", 2).attr("name", "cbtitle").attr("id", "cbtitle").html(this.cbtitle);
+
+							var tr3 = $("<tr></tr>");
+							var tdnick = $("<td></td>").attr("colspan", 2).attr("id", "bang").html("방장:" + this.nick);
+
+							var tr4 = $("<tr></tr>");
+							var tdcbpeople = $("<td></td>").attr("id", "cntpeople").html(this.cnt + "/" + this.cbpeople);
+							var tdclose = $("<td></td>").attr("id", "close").html("모집 마감 " + this.cbclsdate);
+
+							$(tr1).append(tdimg, tdcaname);
+							$(tr2).append(tdcbtitle);
+							$(tr3).append(tdnick);
+							$(tr4).append(tdcbpeople, tdclose);
+
+							$(table).append(tr1, tr2, tr3, tr4);
+							$(div).append(table);
+
+							moimlistDiv.append(div);
+						});
+					}
+				});
+			}
+			list(keyword, sortColum);
+			$("#writeclub").click(function () {
+				location.href = "/club/club_open";
+			})
+
+			$("#searchBtn").click(function () {
+				$(".moimlist").empty();
+				var keyword = $("#search").val();
+				var sortColum = $(".sortColum").val();
+				list(keyword, sortColum);
+				$("#search").val("");
+			})
+			$(".sortColum").change(function () {
+				$(".moimlist").empty();
+				var keyword = $("#search").val();
+				var sortColum = $(".sortColum").val();
+				list(keyword, sortColum);
+				$(".sortColum").val("");
+				$(".sortColum option:first").prop("selected", true);
+			})
+
+		})
+	</script>
+</head>
+
+<body>
+	<div th:replace="menu :: head"></div>
+	<div class="maindiv">
+		<div class="top">
+			<select id="filter" class="sortColum" name="sortColum">
+				<option value="">선택하세요</option>
+				<option value="new">최신순</option>
+				<option value="detail">마감임박순</option>
+			</select>
+			<button class="writeclub" id="writeclub">모집하기</button>
+
+			<input type="text" id="search" name="keyword" placeholder="소모임명을 검색하세요" />
+			<button id="searchBtn">검색</button>
+
+		</div>
+		<div class="moimlist">
+			<!--for문 여기서부터 돌리면 됨-->
+
+		</div>
+	</div>
+</body>
+
+</html>

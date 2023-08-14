@@ -1,15 +1,19 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+body{ font-family:'Pretendard-Regular', 'sans-serif'}
 .maindiv {
-	gap: 2px;
-	top: 200px;
-	left: 50px;
-	width: 917px;
-	height: 942px;
+	position: relative;
+	width: 100vw;
+	height: 100vh;
 	display: flex;
-	padding: 10px 0 0;
-	position: absolute;
-	align-items: flex-start;
-	flex-shrink: 0;
-	flex-direction: column;
+	margin-left: 400px;
+	display: inline-block;
+	margin-top: 80px;
 }
 
 .gongzi {

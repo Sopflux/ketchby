@@ -21,4 +21,7 @@
 	<delete id="delete" parameterType="comments">
 		delete from comments where cono=#{cono} 
 	</delete>
+	<delete id="deletecommentsByboard" parameterType="comments">
+		delete comments where bno=#{bno}
+	</delete>
 </mapper>

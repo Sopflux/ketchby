@@ -7,5 +7,4 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class menuController {
 	@GetMapping("/menu")
 	public void list() {}
-	
 }

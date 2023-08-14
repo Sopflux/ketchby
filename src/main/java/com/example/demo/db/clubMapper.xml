@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="club">
+
+	<select id="getNextCbNo" resultType="java.lang.Integer">
+		select nvl(max(cbno),0)+1
+		from club
+	</select>
+
+	<insert id="insert" parameterType="club">
+		insert into club(cbno,
+		scano,cbtitle, cbimg, cbcontent,
+		slocno,cbpeople,cbopdate,cbclsdate,aid)
+		values(#{cbno},#{scano},#{cbtitle},#{cbimg},#{cbcontent},#{slocno},#{cbpeople},TO_char(sysdate,
+		'YYYY-MM-DD'),#{cbclsdate},#{aid})
+	</insert>
+	
+	<update id="update" parameterType="club">
+		update club set cbtitle=#{cbtitle}, scano=#{scano}, cbimg=#{cbimg}, cbcontent=#{cbcontent}, slocno=#{slocno}, 
+		cbpeople=#{cbpeople}, cbclsdate=#{cbclsdate} where cbno=#{cbno}
+	</update>
+	
+	<delete id="delete" parameterType="club">
+		delete from club where cbno=#{cbno}
+	</delete>
+</mapper>

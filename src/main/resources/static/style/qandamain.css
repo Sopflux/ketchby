@@ -1,20 +1,25 @@
 @charset "utf-8";
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
 
+body{ font-family:'Pretendard-Regular', 'sans-serif';
+height: 1800px;
+}
 body, h1, h2, h3, p, ul, li {
     margin: 0;
     padding: 0;
 }
 .main {
-    gap: 39.589996337890625px;
-    left: 50px;
-    width: 750px;
-    height: 1800px;
-    display: flex;
-    padding: 0 0 39.999969482421875px;
-    position: absolute;
-    align-items: flex-start;
-    flex-shrink: 0;
-    flex-direction: column;
+margin-left: 200px;
+    transform: scale(1.0);
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
 }
 
 .info_div {

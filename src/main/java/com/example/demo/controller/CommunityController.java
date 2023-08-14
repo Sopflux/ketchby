@@ -184,6 +184,7 @@ public class CommunityController {
 		String fname = boarddao.findByNo(bno).getBfname();
 		try {
 			int re = boarddao.delete(bno);
+			boarddao.deletecommentsByboard(bno);
 			if (re == 1) {
 				File file = new File(path + "/" + fname);
 				file.delete();

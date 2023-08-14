@@ -1,15 +1,19 @@
 @charset "EUC-KR";
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
 
+body{ font-family:'Pretendard-Regular', 'sans-serif'}
 .maindiv {
-	transform: scale(0.75);
-	top: 89px;
-	left: 160px;
-	width: 960px;
-	height: 1431px;
+	transform: scale(0.8);
+	position: relative;
+	width: 100vw;
+	height: 100vh;
 	display: flex;
-	position: absolute;
-	align-items: flex-start;
-	flex-shrink: 0;
+	margin-left: 200px;
 }
 
 .titlediv {
