@@ -37,7 +37,7 @@ public class AccountService implements UserDetailsService{
 	}
 	
 	public Account findByAid(String id) {
-		return dao.findByAid(id);
+		return dao_mb.findByAid(id);
 	
 	}
 	
@@ -53,12 +53,12 @@ public class AccountService implements UserDetailsService{
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		UserDetails user = null;
 		
-		System.out.println(dao.findByAid(username));
-		System.out.println("id"+username);
+		//System.out.println(dao.findByAid(username));
+		//System.out.println("id"+username);
 		
 		
 		
-		Account acc = dao.findByAid(username);
+		Account acc = dao_mb.findByAid(username);
 		if (acc == null) {
 			try {
 				throw new UsernameNotFoundException(username);
@@ -66,9 +66,11 @@ public class AccountService implements UserDetailsService{
 				System.out.println("예외발생 :"+e.getMessage());
 			}
 			}else {
+				System.out.println("존재하는 아이디이~~~");
 				user = User.builder().username(username) // id 설정
 						.password(acc.getPwd()) // 비밀번호 설정
 						.roles("user").build(); 
+				System.out.println("user role : "+user.getAuthorities());
 			}
 		
 		return user;
@@ -77,6 +79,10 @@ public class AccountService implements UserDetailsService{
 	public void save(Account a) {
 		dao.save(a);
 		
+	}
+	public int update(Account a) {
+		int r = dao_mb.update(a);
+		return r;
 	}
 
 }

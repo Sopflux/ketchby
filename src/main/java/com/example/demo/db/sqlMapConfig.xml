@@ -5,11 +5,25 @@
 <configuration>
   <properties resource="com/example/demo/db/db.properties"/>
   <typeAliases>
-  	<typeAlias type="com.example.demo.entity.Account" alias="account"/>
+  	<typeAlias alias="account" type="com.example.demo.entity.Account"/>
+	<typeAlias alias="image" type="com.example.demo.entity.Image"/>
+	<typeAlias alias="review" type="com.example.demo.entity.Review"/>
+	<typeAlias alias="accclub" type="com.example.demo.entity.Accclub"/>
+	<typeAlias alias="acclike" type="com.example.demo.entity.Acclike"/>
+	<typeAlias alias="reclass" type="com.example.demo.entity.Reclass"/>
+	<typeAlias alias="reservation" type="com.example.demo.entity.Reservation"/>
   	<typeAlias type="com.example.demo.entity.Feed" alias="feed"/>
   	<typeAlias type="com.example.demo.entity.Image" alias="image"/>
   	<typeAlias type="com.example.demo.entity.Likes" alias="likes"/>
   	<typeAlias type="com.example.demo.entity.Feedcommentary" alias="feedcommentary"/>
+  	<typeAlias type="com.example.demo.entity.Scategory" alias="scategory"/>
+  	<typeAlias type="com.example.demo.entity.Bcategory" alias="bcategory"/>
+  	<typeAlias type="com.example.demo.entity.Slocation" alias="slocation"/>
+  	<typeAlias type="com.example.demo.entity.Blocation" alias="blocation"/>
+  	<typeAlias type="com.example.demo.entity.Place" alias="place"/>
+  	<typeAlias type="com.example.demo.entity.Favorite" alias="favorite"/>
+  	<typeAlias type="com.example.demo.entity.Quit" alias="quit"/>
+  	<typeAlias type="com.example.demo.entity.Reason" alias="reason"/>
   </typeAliases>
   <environments default="development">
     <environment id="development">
@@ -25,6 +39,7 @@
   <mappers>
     <mapper resource="com/example/demo/db/accountMapper.xml"/>
     <mapper resource="com/example/demo/db/feedMapper.xml"/>
+    <mapper resource="com/example/demo/db/favorMapper.xml"/>
   </mappers>
   
 </configuration>

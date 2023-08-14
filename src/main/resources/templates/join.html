@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
@@ -13,8 +14,88 @@
 		#sp_pwd {color:red}
 	</style>
 	<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+	   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script>
 		$(function () {
+			
+			//장소1 선택
+			$("#bloc1").change(function(){
+			
+					let blocno=$(this).val();
+					let url="/join/slocation?blocno="+blocno;
+					$.ajax({
+						url:url,
+						success:function(arr){
+							var sloc1 = $("#sloc1");
+		                    sloc1.empty(); 
+		
+		                    $.each(arr, function(index, slocation) {
+		                        var option = $("<option></option>").attr("value", slocation.slocno).text(slocation.slocname);
+		                        sloc1.append(option);
+		                    });
+						}
+					})
+			})
+			//장소2 선택
+			$("#bloc2").change(function(){
+			
+					let blocno=$(this).val();
+					let url="/join/slocation?blocno="+blocno;
+					$.ajax({
+						url:url,
+						success:function(arr){
+							var sloc2 = $("#sloc2");
+		                    sloc2.empty(); 
+		
+		                    $.each(arr, function(index, slocation) {
+		                        var option = $("<option></option>").attr("value", slocation.slocno).text(slocation.slocname);
+		                        sloc2.append(option);
+		                    });
+						}
+					})
+			})
+			//취미1 선택
+			$("#bca1").change(function(){
+			
+					let bcano=$(this).val();
+					let url="/join/scategory?bcano="+bcano;
+					$.ajax({
+						url:url,
+						success:function(arr){
+							var sca1 = $("#sca1");
+		                    sca1.empty(); 
+		
+		                    $.each(arr, function(index, scategory) {
+		                        var option = $("<option></option>").attr("value", scategory.scano).text(scategory.scaname);
+		                        sca1.append(option);
+		                    });
+						}
+					})
+			})
+			//취미2 선택
+			$("#bca2").change(function(){
+			
+					let bcano=$(this).val();
+					let url="/join/scategory?bcano="+bcano;
+					$.ajax({
+						url:url,
+						success:function(arr){
+							var sca2 = $("#sca2");
+		                    sca2.empty(); 
+		
+		                    $.each(arr, function(index, scategory) {
+		                        var option = $("<option></option>").attr("value", scategory.scano).text(scategory.scaname);
+		                        sca2.append(option);
+		                    });
+						}
+					})
+			})
+			
+			
+			
+			
+			
+			
 			var authNum;
 			var auth = 1;
 
@@ -220,11 +301,100 @@
 									</div>
 								</div>
 								<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
+								
+			
+		</div>
+		</div>
+		<div class="card mb-4" id="favor">
+							<div class="card-header">Likes</div>
+							<div class="card-body">
+								<!-- Form Group (username)-->
+								<div class="mb-3">
+									<div class="row">
+                <div class="col">
+                    <div class="place">
+                        선호장소
+                        <div class="mt-3"></div>
+                        
+                            <!-- place 내용 -->
+                            <div class="mt-3"></div>
+                            <div class="row g-3">
+                                <div class="col">
+                                    <select class="form-select" aria-label="Default select example" id="bloc1">
+                                        <option selected>Open this select menu</option>
+                                        <option th:each="blocation : ${list_blocation}" th:value="${blocation.blocno}" th:text="${blocation.blocname}"></option>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <select class="form-select" aria-label="Default select example" id="sloc1" name="slocno1">
+                                        <option selected>Open this select menu</option>
+                                    </select>
+                                    
+                                </div>
+                            </div>
+                            <div class="mt-2"></div>
+                            <div class="row g-3">
+                                <div class="col">
+                                    <select class="form-select" aria-label="Default select example" id="bloc2">
+                                        <option selected>Open this select menu</option>
+                                        <option th:each="blocation : ${list_blocation}" th:value="${blocation.blocno}" th:text="${blocation.blocname}"></option>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <select class="form-select" aria-label="Default select example" id="sloc2" name="slocno2">
+                                        <option selected>Open this select menu</option>
+                                    </select>
+                                </div>
+                            </div>
+                        
+                    </div>
+                </div>
+                <div class="mt-4"></div>
+                <div class="col">
+                    <div class="hobby">
+                        선호분야
+                        <div class="mt-3"></div>
+                        <form class="user">
+                            <!-- hobby 내용 -->
+                            <div class="mt-3"></div>
+                            <div class="row g-3">
+                                <div class="col">
+                                    <select class="form-select" aria-label="Default select example" id="bca1">
+                                        <option selected>Open this select menu</option>
+                                        <option th:each="bcategory : ${list_bcategory}" th:value="${bcategory.bcano}" th:text="${bcategory.bcaname}"></option>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <select class="form-select" aria-label="Default select example" id="sca1" name="scano1">
+                                        <option selected>Open this select menu</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="mt-2"></div>
+                            <div class="row g-3">
+                                <div class="col">
+                                    <select class="form-select" aria-label="Default select example" id="bca2">
+                                        <option selected>Open this select menu</option>
+                                        <option th:each="bcategory : ${list_bcategory}" th:value="${bcategory.bcano}" th:text="${bcategory.bcaname}"></option>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <select class="form-select" aria-label="Default select example" id="sca2" name="scano2">
+                                        <option selected>Open this select menu</option>
+                                    </select>
+                                </div>
+                                
+                            </div>
+                        
+                    </div>
+                </div>
+            </div>
 								<!-- Save changes button-->
-								<button type="submit" class="btn btn-primary"
-									style="border-color: #008375; background-color: #008375;" id="btnJoin">Sign
+								
+								<button type="submit" class="btn btn-primary" style="border-color: #008375; background-color: #008375;" id="btnJoin">Sign
 									up</button>
-			</form>
+									</form>
+			
 		</div>
 		</div>
 		</div>

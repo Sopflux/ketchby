@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
 	<meta charset="UTF-8">
@@ -10,19 +10,39 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<title>Bootstrap Example</title>
+	<title>Ketchby</title>
+	<link rel="stylesheet" href="./style/mypage.css" />
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	<link rel="stylesheet" href="./style/style.css" />
+	<!--<link rel="stylesheet" href="./style/mypage.css" /> -->
+	<link href="style/my-page.css" rel="stylesheet" !important />
+	<link href="./style/review.css" rel="stylesheet" />
 	<style>
+		.p-3 m-0 border-1 bd-example m-0 border-0 {
+			position: inherit;
+			width: 100%;
+		}
+
 		.card {
-			position: absolute;
-			top: 50%;
+			position: inherit;
+			max-width: 100%;
+			padding: 10px;
+			/* top: 50%;
 			left: 50%;
 			transform: translate(-50%, -50%);
-			overflow: scroll;
+			overflow: scroll; */
 		}
 
 		.card-body {
-			width: 800px;
+			width: 100%;
+			height: 100%;
+		}
+
+		.mypage_body {
+			display: flex !important;
+			margin: 0 auto !important;
+			flex-direction: column;
+			padding: 6em 15em;
 		}
 
 		.btn {
@@ -30,149 +50,301 @@
 			color: white;
 		}
 
-		.table-bordered {
-			border: none;
+
+		.profile {
+			width: 100%;
+			border: none !important;
+			width: 100%;
+			margin-top: 30px;
 		}
 
-		.table-bordered td,
-		.table-bordered th {
-			border: none;
+		.profile tr,
+		td {
+			border: none !important;
+			text-align: center;
 		}
 
 		.tab-content {
-			position: relative;
+			text-align: center;
+			width: 100%;
+			height: 100%;
+		}
+
+		.nav-link {
+			color: #8C5AD2;
+		}
+
+		.nav-link:hover {
+			color: #8C5AD2 !important;
+		}
+
+		.nav-item active>.nav-link {
+			color: darkgray;
 		}
 
 		.nav-tabs {
 			position: relative;
-			/* 수정된 부분: position을 relative로 변경 */
+
 			margin-top: 10px;
-			/* 수정된 부분: margin-top 추가 */
+
+		}
+
+		.cards-list {
+			z-index: 0;
+			width: 100%;
+			display: flex;
+			justify-content: space-around;
+			flex-wrap: wrap;
+		}
+
+		.post .post_image {
+			width: inherit;
+			height: inherit;
+			border-radius: 40px;
+		}
+
+		.post .post_image img {
+			width: inherit;
+			height: inherit;
+			border-radius: 40px;
+			object-fit: cover;
+		}
+
+		#tab_body {
+			position: relative;
+
+		}
+
+		.post {
+			float: left;
+			margin: 21px;
+			width: 25rem;
+			height: 25rem;
+			border-radius: 40px;
+			box-shadow: 12px 1px 25px rgba(0, 0, 0, 0.25);
+			cursor: pointer;
+			transition: 0.4s;
 		}
 	</style>
+
 	<!-- Bootstrap JavaScript -->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 	<script>
-		// ul의 li 요소를 클릭하면 해당 탭이 나타나도록 처리
-		var tabLinks = document.querySelectorAll('.nav-link');
-		for (var i = 0; i < tabLinks.length; i++) {
-			tabLinks[i].addEventListener('click', function (event) {
-				event.preventDefault();
-				var tabTarget = event.target.getAttribute('data-target');
-				showTab(tabTarget);
-			});
-		}
+		$(function () {
+			//	showTab('.tab-content-1')
+			$(".follow").click(function () {
+				$("#follow").css("color", "white")
+				$("#follow").css("background-color", "#008375")
+				location.href = "/updateAccount";
+			})
 
-		function showTab(tabId) {
-			// 모든 탭 컨텐츠를 숨김
-			var tabContents = document.querySelectorAll('.tab-pane');
-			for (var i = 0; i < tabContents.length; i++) {
-				tabContents[i].classList.remove('show', 'active');
-			}
+		});
 
-			// 선택된 탭 컨텐츠를 보이도록 설정
-			var selectedTab = document.querySelector(tabId);
-			selectedTab.classList.add('show', 'active');
-		}
 	</script>
 </head>
 
 <body>
 	<div style="width: 100%; height: 100%;">
-		<div class="card">
+		<div class="mypage_body">
 			<div class="card-body">
-				<table class="table table-bordered" style="border-color: white; border: none; margin-top: 30px;">
-					<tr style="border: none;">
-						<td rowspan="4" style="text-align: center; border: none;"><img class="img-circle"
-								src="/image/ahyeon_change.png" style="width: 170px; height: 170px;" alt="" /></td>
-					</tr>
-					<tr style="border: none;">
-						<td colspan="4" style="text-align: center; border: none;">
-							<h4 class="card-title">오리는덕덕s</h4>
+				<table class="table table-bordered profile">
+					<tr>
+						<td>
+							<img class="img-circle" src="/image/ahyeon_change.png" style="width: 170px; height: 170px;"
+								alt="" />
 						</td>
 					</tr>
-					<tr style="border: none;">
-						<td style="text-align: center; border: none;">팔로우</td>
-						<td style="text-align: center; border: none;">119</td>
-						<td style="text-align: center; border: none;">팔로잉</td>
-						<td style="text-align: center; border: none;">1232</td>
+					<tr>
+						<td>
+							<h4 class="card-title" th:text="${session.a.nick}"></h4>
+						</td>
 					</tr>
-					<tr style="border: none;">
-						<td colspan="2" style="text-align: center; border: none;"><button class="btn">팔로우</button></td>
-						<td colspan="2" style="text-align: center; border: none;"><button class="btn">메일 문의</button>
+					<tr>
+						<td>
+							<h4 class="card-title" th:text="${session.a.email}"></h4>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<p>
+								<span>팔로우 </span><span th:text="${follow}"></span>
+							</p>
+							<p>
+								<span>팔로잉 </span><span th:text="${following}"></span>
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<button class="btn follow" id="follow">회원 정보 수정</button>
+							<button class="btn">메일 문의</button>
 						</td>
 					</tr>
 				</table>
 			</div>
-			<div class="p-3 m-0 border-1 bd-example m-0 border-0">
-				<div class="tab-content" style="position: relative;">
-					<ul class="nav nav-tabs">
-						<li class="nav-item">
-							<a class="nav-link " data-toggle="tab" data-target="#tab-content-1" href="#">탭 1</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" data-toggle="tab" data-target="#tab-content-2" href="#">탭 2</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" data-toggle="tab" data-target="#tab-content-3" href="#">탭 3</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" data-toggle="tab" data-target="#tab-content-4" href="#">Disabled</a>
-						</li>
-					</ul>
+
+			<div class="p-3 m-0 border-1 bd-example m-0 border-0" style="position: inherit; width: 100%;">
+
+				<div class="card-body 2">
+					<div class="tab-content" style="position: relative;">
+						<ul class="nav nav-tabs">
+							<li class="nav-item">
+								<a class="nav-link " data-toggle="tab" data-target="#tab-content-1" href="#">게시물</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" data-toggle="tab" data-target="#tab-content-2" href="#">수강내역</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" data-toggle="tab" data-target="#tab-content-3" href="#">후기</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" data-toggle="tab" data-target="#tab-content-4" href="#">좋아요</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" data-toggle="tab" data-target="#tab-content-5" href="#">소모임</a>
+							</li>
+						</ul>
+					</div>
 				</div>
-				
-			
+
+				<!-- 피드 게시물 -->
 				<div class="tab-content">
-					<div id="tab-content-1" class="tab-pane fade active in show">
-						<h2>탭 1 내용</h2>
-						<p>이곳에 탭 1의 내용을 작성합니다.</p>
-						<p>이곳에 탭 1의 내용을 작성합니다.</p>
-						<p>이곳에 탭 1의 내용을 작성합니다.</p>
-						<p>이곳에 탭 1의 내용을 작성합니다.</p>
-						<p>이곳에 탭 1의 내용을 작성합니다.</p>
-						<p>이곳에 탭 1의 내용을 작성합니다.</p>
-						<p>이곳에 탭 1의 내용을 작성합니다.</p>
-						<p>이곳에 탭 1의 내용을 작성합니다.</p>
-						<p>이곳에 탭 1의 내용을 작성합니다.</p>
-						<p>이곳에 탭 1의 내용을 작성합니다.</p>
-						<p>이곳에 탭 1의 내용을 작성합니다.</p>
-						<p>이곳에 탭 1의 내용을 작성합니다.</p>
-						<p>이곳에 탭 1의 내용을 작성합니다.</p>
-						<p>이곳에 탭 1의 내용을 작성합니다.</p>
-						<p>이곳에 탭 1의 내용을 작성합니다.</p>
-						<p>이곳에 탭 1의 내용을 작성합니다.</p>
-						<p>이곳에 탭 1의 내용을 작성합니다.</p>
-						<p>이곳에 탭 1의 내용을 작성합니다.</p>
-						<p>이곳에 탭 1의 내용을 작성합니다.</p>
-						<p>이곳에 탭 1의 내용을 작성합니다.</p>
-						<p>이곳에 탭 1의 내용을 작성합니다.</p>
-						<p>이곳에 탭 1의 내용을 작성합니다.</p>
-						<p>이곳에 탭 1의 내용을 작성합니다.</p>
-						<p>이곳에 탭 1의 내용을 작성합니다.</p>
-						<p>이곳에 탭 1의 내용을 작성합니다.</p>
-						<p>이곳에 탭 1의 내용을 작성합니다.</p>
-						<p>이곳에 탭 1의 내용을 작성합니다.</p>
-						<p>이곳에 탭 1의 내용을 작성합니다.</p>
+					<div id="tab-content-1" class="tab-pane fade">
+
+						<div class="post" th:each="image:${image}">
+							<div class="post_image">
+								<img alt="feedImage" th:src="'feed/'+${image.imgname}" />
+								<a href="#" th:text="${image.fno}"></a>
+							</div>
+						</div>
 					</div>
+
+
+
+
+					<!-- 수강내역 상세 -->
 					<div id="tab-content-2" class="tab-pane fade">
-						<h2>탭 2 내용</h2>
-						<p>이곳에 탭 2의 내용을 작성합니다.</p>
+						<div class="my-page-appliactionmain">
+							<div>
+								<div th:each="cd : ${cd}" class="table-item">
+									<table class="my-page-item4" id="btn_class" data-value="${cd.clno}">
+										<tr>
+											<td colspan="2"><span class="my-page-text34">수강완료</span></td>
+										</tr>
+										<tr>
+											<td rowspan="4"><img alt="classimg4561" th:src="'/class/'+${cd.climg}"
+													style="width: 121px; height: 121px;" />
+											</td>
+											<td class="my-page-text36" th:text="${cd.rsdate}"></td>
+										</tr>
+										<tr>
+											<td class="my-page-text40"><a href="#" th:text="${cd.cltitle}"></a></td>
+										</tr>
+										<tr>
+											<td class="my-page-text40" th:text="${cd.clprice} + '원'"></td>
+										</tr>
+										<tr>
+											<td><button class="my-page-item-button2"
+													th:onclick="'openReviewPopup('+${cd.clno}+')'">
+													<span class="my-page-text41">수강후기작성</span></button></td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</div>
 					</div>
+					<script>
+						function openReviewPopup(cl_no) {
+							// 팝업 창을 열고 review.do 페이지를 로드
+							window.open("review?clno=" + cl_no, "review", "width=600, height=800");
+						}
+
+					</script>
+
 					<div id="tab-content-3" class="tab-pane fade">
-						<h2>탭 3 내용</h2>
-						<p>이곳에 탭 3의 내용을 작성합니다.</p>
+						<div class="my-page-appliactionmain">
+							<div>
+								<div class="table-item" th:each="r : ${rlist}">
+									<table class="my-page-item4 btn_class" id="btn_class" data-value="${r.clno}">
+										<tr>
+											<td>
+												<span th:text="${r.rdate}"></span>
+												<span th:each="num : ${#numbers.sequence(1, r.rstar)}">⭐️</span>
+												<span th:text="${r.rstar}"></span>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<a href="#" th:text="${r.cltitle}"></a>
+											</td>
+										</tr>
+										<tr>
+											<td th:text="${r.rcontent}"></td>
+										</tr>
+										<tr>
+											<td></td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</div>
 					</div>
 					<div id="tab-content-4" class="tab-pane fade">
-						<h2>탭 4 내용</h2>
-						<p>이곳에 탭 4의 내용을 작성합니다.</p>
+						<div class="my-page-appliactionmain">
+							<div>
+								<div th:each="l : ${llist}" class="table-item">
+									<table class="my-page-item4" id="btn_class" data-value="${l.clno}">
+										<tr>
+											<td rowspan="4">
+												<img alt="classimg4561" th:src="'class/' + ${l.climg}"
+													style="width: 121px; height: 121px;" />
+											</td>
+											<td class="clubmain-text066">
+												<span th:text="${l.bcaname + ' > ' + l.scaname}"></span>
+											</td>
+										</tr>
+										<tr>
+											<td th:text="${l.cltitle}"></td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+
+					<div id="tab-content-5" class="tab-pane fade">
+						<div class="my-page-appliactionmain">
+							<div>
+								<div th:each="c : ${clist}" class="table-item">
+									<table class="my-page-item4" id="btn_class"
+										th:attr="data-value='&quot;cb_no&quot;: ${c.cbno}, &quot;sloc_no&quot;: ${c.slocno}'">
+										<tr>
+											<td rowspan="4">
+												<img alt="classimg4561" th:src="'club/' + ${c.cbimg}"
+													style="width: 121px; height: 121px;" />
+											</td>
+											<td class="clubmain-text066" th:text="${c.bcaname} + ' > ' + ${c.scaname}">
+											</td>
+										</tr>
+										<tr>
+											<td th:text="${c.cbtitle}"></td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</div>
+
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	</div>
+
 	</div>
 </body>
 

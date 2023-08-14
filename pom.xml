@@ -32,6 +32,15 @@
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.security.oauth</groupId>
+			<artifactId>spring-security-oauth2</artifactId>
+			<version>2.5.2.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-oauth2-client</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
@@ -69,7 +78,7 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
-			<scope>test</scope>
+
 		</dependency>
 
 
@@ -123,13 +132,13 @@
 			<artifactId>osdt_core</artifactId>
 			<version>21.10.0.0</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-context-support</artifactId>	
-			<version>5.3.24</version>		
+			<artifactId>spring-context-support</artifactId>
+			<version>5.3.24</version>
 		</dependency>
-		
+
 		<!-- Java Mail API -->
 		<dependency>
 			<groupId>javax.mail</groupId>
@@ -154,25 +163,18 @@
 			<artifactId>google-cloud-bigquery</artifactId>
 			<version>2.30.1</version>
 		</dependency>
-		
-		<!-- lombok -->
 		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.18.28</version>
-			<scope>provided</scope>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.10.1</version>
 		</dependency>
-
+		<!-- https://mvnrepository.com/artifact/com.auth0/java-jwt -->
 		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.18.28</version>
-			<scope>provided</scope>
+			<groupId>com.auth0</groupId>
+			<artifactId>java-jwt</artifactId>
+			<version>4.4.0</version>
 		</dependency>
-    </dependencies>
-
-
-
+	</dependencies>
 
 	<dependencyManagement>
 		<dependencies>
