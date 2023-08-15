@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Ketchby</title>
+<link href="/style/mainpage.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery.min.js"></script>
+<script>
+	
+	
+  	
+  $(document).ready(function() {
+	  
+	/*
+   		배너 슬라이드
+  	*/  
+    const $slider = $('.slider');
+    const $slides = $('.slide');
+    const $prevBtn = $('#prevBtn');
+    const $nextBtn = $('#nextBtn');
+    let isMoving = false;
+    let currentIndex = 0;
+
+    function moveSlide(index) {
+      if (isMoving) return;
+      isMoving = true;
+
+      $slider.css('transform', `translateX(-${index * 100}%)`);
+      currentIndex = index;
+
+      setTimeout(() => {
+        isMoving = false;
+      }, 500);
+    }
+
+    // 자동으로 배너 변경
+    function autoSlide() {
+      const nextIndex = (currentIndex + 1) % $slides.length;
+      moveSlide(nextIndex);
+    }
+
+    setInterval(autoSlide, 3000);
+
+    // 이전 버튼 클릭 시 이벤트
+    $prevBtn.click(function () {
+      currentIndex = (currentIndex - 1 + $slides.length) % $slides.length;
+      updateSlider();
+    });
+
+    // 다음 버튼 클릭 시 이벤트
+    $nextBtn.click(function () {
+      currentIndex = (currentIndex + 1) % $slides.length;
+      updateSlider();
+    });
+
+    // 슬라이더 업데이트 함수
+    function updateSlider() {
+      $slider.css('transform', `translateX(-${currentIndex * 100}%)`);
+    }
+    
+    
+    // 추천 클래스 버튼 이벤트
+    const recCardsWrapper = $("#recCardsWrapper");
+    const prevRecCardBtn = $("#prevRecCardBtn");
+    const nextRecCardBtn = $("#nextRecCardBtn");
+    let currentRecSlide = 0;
+    const recSlideWidth = recCardsWrapper.find(".card").outerWidth(true);
+
+    nextRecCardBtn.click(function () {
+        if (currentRecSlide < recCardsWrapper.children().length - 4) {
+            currentRecSlide++;
+            recCardsWrapper.css("transform", `translateX(-${recSlideWidth * currentRecSlide}px)`);
+        }
+    });
+
+    prevRecCardBtn.click(function () {
+        if (currentRecSlide > 0) {
+            currentRecSlide--;
+            recCardsWrapper.css("transform", `translateX(-${recSlideWidth * currentRecSlide}px)`);
+        }
+    });
+
+    // 인기 클래스 버튼 이벤트
+    const hotCardsWrapper = $("#hotCardsWrapper");
+    const prevHotCardBtn = $("#prevHotCardBtn");
+    const nextHotCardBtn = $("#nextHotCardBtn");
+    let currentHotSlide = 0;
+    const hotSlideWidth = hotCardsWrapper.find(".card").outerWidth(true);
+
+    nextHotCardBtn.click(function () {
+        if (currentHotSlide < hotCardsWrapper.children().length - 4) {
+            currentHotSlide++;
+            hotCardsWrapper.css("transform", `translateX(-${hotSlideWidth * currentHotSlide}px)`);
+        }
+    });
+
+    prevHotCardBtn.click(function () {
+        if (currentHotSlide > 0) {
+            currentHotSlide--;
+            hotCardsWrapper.css("transform", `translateX(-${hotSlideWidth * currentHotSlide}px)`);
+        }
+    });
+  });
+</script>
+
+</head>
+<body>
+<!-- 배너 -->
+<div class="slider-container">
+  <button id="prevBtn" class="slider-btn">
+  <img th:src="@{/class/prev.png}" alt="Previous" />
+  </button>
+  <div class="slider">
+    <div class="slide" style="background-image: url('class/banner1.jpg');"></div>
+	<div class="slide" style="background-image: url('class/banner2.jpg');"></div>
+	<div class="slide" style="background-image: url('class/banner3.jpg');"></div>
+	<div class="slide" style="background-image: url('class/banner4.jpg');"></div>
+  </div>
+  <button id="nextBtn" class="slider-btn">
+    <img th:src="@{/class/next.png}" alt="Next" />
+  </button>
+</div>
+
+
+<!-- 카테고리 -->
+<ul class="main-category">
+  <li class="category-item">
+    <a href="/classmain" class="category-link" data-category="all">
+      <div class="category-icon">
+        <img th:src="@{/class/hobbies.png}" />
+        <p>전체</p>
+      </div>
+    </a>
+  </li>
+  <li class="category-item">
+    <a href="/classmain?bcaname=요리/공예" class="category-link" data-category="cooking">
+      <div class="category-icon">
+        <img th:src="@{/class/cooking.png}" />
+        <p>요리/공예</p>
+      </div>
+    </a>
+  </li>
+  <li class="category-item">
+    <a href="/classmain?bcaname=외국어" class="category-link" data-category="languages">
+      <div class="category-icon">
+        <img th:src="@{/class/language.png}" />
+        <p>외국어</p>
+      </div>
+    </a>
+  </li>
+  <li class="category-item">
+    <a href="/classmain?bcaname=스포츠" class="category-link" data-category="sports">
+      <div class="category-icon">
+        <img th:src="@{/class/sports.png}" />
+        <p>스포츠</p>
+      </div>
+    </a>
+  </li>
+  <li class="category-item">
+    <a href="/classmain?bcaname=음악" class="category-link" data-category="music">
+      <div class="category-icon">
+        <img th:src="@{/class/music.png}" />
+        <p>음악</p>
+      </div>
+    </a>
+  </li>
+  <li class="category-item">
+    <a href="/classmain?bcaname=미술" class="category-link" data-category="art">
+      <div class="category-icon">
+        <img th:src="@{/class/art.png}" />
+        <p>미술</p>
+      </div>
+    </a>
+  </li>
+</ul>
+
+
+
+<!-- 추천 클래스 출력 -->
+<div class="container" id="section1">
+    <div class="title-container">
+        <h2 class="title">추천 클래스</h2>
+    </div>
+    <div class="cards-container">
+        <div class="cards-wrapper" id="recCardsWrapper">
+            <th:block th:each="m : ${recClassList}">
+                <div class="card">
+                    <div class="card-img">
+                       <img class="cardimg" th:src="@{'class/' + ${m.climg}}">
+					   <button class="clbtn" th:text="${m.cllevel}"></button>
+					   <button class="abtn" th:text="${m.cltype}"></button>
+                    </div>
+                    <div class="card-info">
+                        <h4 class="card-category" th:text="${m.bcaname + ' > ' + m.scaname}"></h4>
+                        <a th:href="@{'classdetail.do?cl_no='+${m.clno}}" class="card-title" th:text="${m.cltitle}"></a>
+                        <p class="card-addr" th:text="${m.claddr}"></p>
+                        <div class="card-price" th:text="${m.clprice}+'원'"></div>
+                    </div>
+                </div>
+            </th:block>
+        </div>
+        <div class="card-btn-wrapper">
+            <button id="prevRecCardBtn" class="card-btn">
+                <img th:src="@{/class/prev.png}" alt="Previous" />
+            </button>
+            <button id="nextRecCardBtn" class="card-btn">
+                <img th:src="@{/class/next.png}" alt="Next" />
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- 인기 클래스 출력 -->
+<div class="container" id="section2">
+     <div class="title-container">
+        <h2 class="title">인기 클래스</h2>
+    </div>
+    <div class="cards-container">
+        <div class="cards-wrapper" id="hotCardsWrapper">
+            <th:block th:each="h : ${hotClassList}">
+                <div class="card">
+                    <div class="card-img">
+                       <img class="cardimg" th:src="@{'class/' + ${h.climg}}">
+					   <button class="clbtn" th:text="${h.cllevel}"></button>
+					   <button class="abtn" th:text="${h.cltype}"></button>
+                    </div>
+                    <div class="card-info">
+                        <h4 class="card-category" th:text="${h.bcaname + ' > ' + h.scaname}"></h4>
+                        <a th:href="@{'classdetail.do?cl_no='+${h.clno}}" class="card-title" th:text="${h.cltitle}"></a>
+                        <p class="card-addr" th:text="${h.claddr}"></p>
+                        <div class="card-price" th:text="${h.clprice}+'원'"></div>
+                    </div>
+                </div>
+            </th:block>
+        </div>
+        <div class="card-btn-wrapper">
+            <button id="prevHotCardBtn" class="card-btn">
+                <img th:src="@{/class/prev.png}" alt="Previous" />
+            </button>
+            <button id="nextHotCardBtn" class="card-btn">
+                <img th:src="@{/class/next.png}" alt="Next" />
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<!-- 요즘 뜨는 소모임 출력 -->
+<div class="container" id="section3">
+  <div class="title-container">
+    <h2 class="title">요즘 뜨는 소모임</h2>
+  </div>
+  <div class="club-container">
+    <th:block th:each="c : ${hotClubList}">  
+		<div class="club-card">
+		    <a href="@{/club/club_detail/{cbno}/{slocno}}" class="club-link">
+		      <div class="clubCard-img">
+		          <img class="clubCardimg" th:src="@{'club/' + ${c.cbimg}}">
+		      </div>
+			  <div class="clubCard-info">
+			     <div class="clubCard-tag" th:text="${c.scaname}"></div>
+			     	<h2 class="clubCard-title" th:text="${c.cbtitle}"></h2>
+			      	<p class="clubCard-description" th:text="'📌마감일: '+${c.cbclsdate}"></p>
+			      	<div class="clubCard-People">
+			        <span class="clubPeople" th:text="'👤참여자: '+${c.ap_cnt}+'/'+${c.cbpeople}">+3</span>
+			      	</div>
+			  </div>
+			</a>
+	  </div>
+	</th:block>
+  </div>
+</div>
+
+<!-- 커뮤니티 인기 게시물 출력 -->
+<div class="container" id="section4">
+  <div class="title-container">
+    <h2 class="title">커뮤니티 인기 게시물</h2>
+  </div>
+  <table class="table table-hover">
+      <tbody>
+        <tr th:each="b : ${hotBoardList}">
+          <td class="club-rownum" th:text="${b.rownum}"></td>
+          <td>
+            <a href="@{/community/community_detail/{bno}}" class="cldetail" th:text="${b.btitle}"></a>
+          </td>
+          <td th:text="${b.aid}"></td>
+          <td th:text="${b.bdate}"></td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+</body>
+</html>
