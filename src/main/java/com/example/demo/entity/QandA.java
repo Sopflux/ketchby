@@ -9,11 +9,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
+@Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name="qanda")
 public class QandA {
+	@Id
 	private int qano;
-	private int qno;
+	private int ano;
 	private String qatitle;
 	private String qacontent;
+
 }

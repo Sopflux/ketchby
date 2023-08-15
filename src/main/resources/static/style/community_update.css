@@ -1,0 +1,189 @@
+@charset "EUC-KR";
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+body{ font-family:'Pretendard-Regular', 'sans-serif'}
+.maindiv{
+  position: relative;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	margin-left: 400px;
+  
+}
+#selectedImagePath{
+	margin: 10px 0px 0px 170px;
+}
+.titlediv{
+  width: 730px;
+    height: 83px;
+    display: flex;
+    position: absolute;
+    align-items: flex-start;
+    flex-shrink: 0;
+    flex-direction: column;
+}
+.form-floating{
+	margin-top: 50px;
+}
+.content{
+ top: 104px;
+    width: 730px;
+    height: 940px;
+    display: flex;
+    position: absolute;
+    align-items: flex-start;
+    flex-shrink: 0;
+}
+.jemok{
+  top: 0px;
+    width: 730px;
+    height: 41px;
+    display: flex;
+    position: absolute;
+    align-items: flex-start;
+    flex-shrink: 0;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.form-control{
+  width: 730px;
+  height: 42px;
+  border-color: rgba(229, 229, 229, 1);
+  border-style: solid;
+  border-width: 1px;
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.form-control::placeholder, .floatingInput, .bcontent::placeholder {
+  color: rgba(189, 189, 189, 1);
+}
+.neyongdiv{
+  top: 40px;
+    width: 730px;
+    height: 46px;
+    display: flex;
+    position: absolute;
+    align-items: flex-start;
+    flex-shrink: 0;
+    border-color: rgba(187, 187, 187, 1);
+    border-style: solid;
+    border-width: 0 0 1px;
+}
+
+.neyong{
+  color: rgba(34, 34, 34, 1);
+  width: 105px;
+  height: auto;
+  position: absolute;
+  font-size: 23px;
+  font-style: Bold;
+  text-align: left;
+  font-family: Droid Sans;
+  font-weight: 700;
+  line-height: normal;
+  font-stretch: normal;
+  text-decoration: none;
+}
+.tabdiv{
+  top: 110px;
+	left: 0px;
+	width: 730px;
+	height: 46px;
+	display: flex;
+	position: absolute;
+	align-items: flex-start;
+	flex-shrink: 0;
+	border-color: rgba(187, 187, 187, 1);
+	border-style: solid;
+	border-width: 0 0 1px;
+}
+.ipryuk{
+	  top: 0px;
+  left: 0px;
+  width: 163px;
+  height: 46px;
+  display: flex;
+  position: absolute;
+  align-items: flex-start;
+  flex-shrink: 0;
+  border-color: rgba(34, 34, 34, 1);
+  border-style: solid;
+  border-width: 1px 1px 0;
+  background-color: rgba(255, 255, 255, 1);
+}
+.iptyuktext{
+  top: 5px;
+  left: 50px;
+  width: 56px;
+  position: absolute;
+  font-size: 15px;
+  font-style: Bold;
+  text-align: center;
+  font-weight: 700;
+  line-height: 44px;
+}
+.btnImg {
+  left: 605.080078125px;
+  width: 125px;
+  position: absolute;
+  border: 1px solid rgba(187, 187, 187, 1);
+  line-height: 27px;
+  background-color: white;
+  cursor: pointer; 
+  padding: 5px 10px; 
+  text-align: center;
+  
+}
+
+.btnImg input[type="file"] {
+  display: none; 
+}
+
+.btnImg:hover {
+  background-color: #E4E4E4;
+}
+
+.content_text{
+  top: 175px;
+  width: 730px;
+  height: 679px;
+  display: flex;
+  position: relative;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+.bcontent {
+  width: 730px;
+  height: 679px;
+  resize: none;
+  border-color: rgba(248, 248, 248, 1);
+  background-color: rgba(248, 248, 248, 1);
+}
+.submitBtn{
+  top: 982px;
+  left: 308px;
+  width: 120px;
+  height: 44px;
+  display: flex;
+  position: absolute;
+  border-radius: 6px;
+  background-color: rgba(0, 131, 117, 1);
+  color: rgba(255, 255, 255, 1);
+  font-size: 20px;
+  line-height: 24px;
+  padding: 5px 0 0 36px;
+}
+.submitBtn:hover {
+  background-color: rgba(0, 102, 89, 1);
+}
+.filedelete{
+	position: absolute;
+	top:5px;
+	left:550px;
+}

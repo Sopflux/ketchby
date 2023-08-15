@@ -1,0 +1,110 @@
+/* 페이지 스타일 */
+.card-card{
+  width: 100%;
+  border-radius: 15px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  padding: 20px;
+}
+
+.card-content{
+  font-size: 12px;
+  padding: 0;
+  margin: 0;
+  color: #555555;
+}
+
+.td-title{
+  font-size: 25px;
+  margin: 0;
+}
+
+.label-ct{
+  border-radius: 10px;
+  width: 40px;
+  height: 20px;
+  font-size: 10px;
+  text-align: center;
+  padding: 4px;
+  color: white;
+  background-color: #8C5AD2;
+}
+
+.label-cl{
+  border-radius: 10px;
+  width: 40px;
+  height: 20px;
+  font-size: 10px;
+  text-align: center;
+  padding: 4px;
+  color: white;
+  background-color: #008375;
+  opacity: 0.8;
+}
+
+.btn-outline-primary{
+  font-size: 15px;
+  width: 100% !important;
+  margin: 0.5rem 0 0.5rem 0 !important;
+  color: #000000;
+  height: 50px;
+  --bs-btn-border-color: #9a9a9a;
+  border-radius: 2px !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  --bs-btn-hover-bg: #f0f0f0;
+  --bs-btn-hover-color: #000000;
+  --bs-btn-hover-border-color: #9a9a9a;
+  --bs-btn-active-bg: #9a9a9a;
+  --bs-btn-active-border-color: #9a9a9a;
+
+}
+
+.btn-primary{
+  font-size: 20px;
+  width: 100% !important;
+  margin: 0.5rem 0 0.5rem 0 !important;
+  color: #ffffff;
+  height: 60px;
+  --bs-btn-border-color: #008375;
+  --bs-btn-bg: #008375;
+  border-radius: 2px !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  --bs-btn-hover-bg: #00766a;
+  --bs-btn-hover-color: #ffffff;
+  --bs-btn-hover-border-color: #9a9a9a;
+  --bs-btn-active-bg: #016056;
+  --bs-btn-active-border-color: #016056;
+}
+
+.table-intro{
+  margin: 0.5rem 0 0.5rem 0;
+  width: 100%;
+  border-radius: 5px;
+  background-color: #F5F5F5;
+  text-align: center;
+  height: 100px;
+}
+
+.main-div{
+  margin: 0 10rem 5rem 10rem;
+}
+
+hr{
+  margin: 0;
+}
+
+.table-cal{
+  height: 60px;
+  width: 300px;
+  margin-left: 15px;
+  font-weight: bold;
+}
+
+.text-title{
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.review-star{
+	font-size: 12px;
+	color: rgb(110, 109, 110);
+}

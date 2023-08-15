@@ -6,11 +6,47 @@
   <properties resource="com/example/demo/db/db.properties"/>
   <typeAliases>
   	<typeAlias type="com.example.demo.entity.Account" alias="account"/>
-  	<typeAlias type="com.example.demo.entity.NoticeVO" alias="notice"/>
-  	<typeAlias type="com.example.demo.entity.Feed" alias="feed"/>
-  	<typeAlias type="com.example.demo.entity.AdminClass" alias="adminClass"/>
-  	<typeAlias type="com.example.demo.entity.AdminDashBoard" alias="adminDashBoard"/>
-  	<typeAlias type="com.example.demo.entity.MainPage" alias="mainPage"/>
+  	<typeAlias type="com.example.demo.entity.QandA" alias="qanda"/>
+  	<typeAlias type="com.example.demo.entity.BoardHot" alias="boardhot"/>
+  	<typeAlias type="com.example.demo.entity.Board" alias="board"/>
+  	<typeAlias type="com.example.demo.entity.Comments" alias="comments"/>
+  	<typeAlias type="com.example.demo.entity.ClubMain" alias="clubmain"/>
+  	<typeAlias type="com.example.demo.entity.Club" alias="club"/>
+  	<typeAlias type="com.example.demo.entity.Scategory" alias="scategory"/>
+  	<typeAlias type="com.example.demo.entity.Slocation" alias="slocation"/>
+  	<typeAlias type="com.example.demo.entity.ClubDetail" alias="clubdetail"/>
+  	<typeAlias type="com.example.demo.entity.Clubapplication" alias="clubapplication"/>
+  	<typeAlias type="com.example.demo.entity.Notice" alias="notice"/>
+  	<typeAlias type="com.example.demo.entity.QnainsertVO" alias="qnainsert"/>
+  	<typeAlias type="com.example.demo.entity.AdminQnainsertVO" alias="adminqnainsert"/>
+  	<typeAlias type="com.example.demo.entity.ClassDetailVO" alias="classDetail"/>
+  	<typeAlias type="com.example.demo.entity.Class" alias="class"/>
+  	<typeAlias type="com.example.demo.entity.Time" alias="time"/>
+  	<typeAlias alias="review" type="com.example.demo.entity.Review"/>
+  	<typeAlias type="com.example.demo.entity.ReviewInfoVO" alias="reviewinfo"/> 	
+  	<typeAlias type="com.example.demo.entity.Image" alias="image"/>
+   <typeAlias type="com.example.demo.entity.Accclub" alias="accclub" />
+   <typeAlias type="com.example.demo.entity.Acclike" alias="acclike" />
+   <typeAlias type="com.example.demo.entity.Reclass" alias="reclass" />
+   <typeAlias type="com.example.demo.entity.Reservation" alias="reservation" />
+     <typeAlias type="com.example.demo.entity.Feed" alias="feed"/>
+     <typeAlias type="com.example.demo.entity.Likes" alias="likes"/>
+     <typeAlias type="com.example.demo.entity.Feedcommentary" alias="feedcommentary"/>
+     <typeAlias type="com.example.demo.entity.Bcategory" alias="bcategory"/>
+     <typeAlias type="com.example.demo.entity.Blocation" alias="blocation"/>
+     <typeAlias type="com.example.demo.entity.Place" alias="place"/>
+     <typeAlias type="com.example.demo.entity.Favorite" alias="favorite"/>
+     <typeAlias type="com.example.demo.entity.Quit" alias="quit"/>
+     <typeAlias type="com.example.demo.entity.Reason" alias="reason"/> 
+  	<typeAlias type="com.example.demo.entity.Confirm" alias="confirm"/>
+  	<typeAlias type="com.example.demo.entity.ClDate" alias="cldate"/>
+  	<typeAlias type="com.example.demo.entity.PaymentInfo" alias="payment"/>
+  	<typeAlias type="com.example.demo.entity.Follow" alias="follow"/>
+     <typeAlias type="com.example.demo.entity.AdminClass" alias="adminClass"/>
+     <typeAlias type="com.example.demo.entity.AdminDashBoard" alias="adminDashBoard"/>
+     <typeAlias type="com.example.demo.entity.MainPage" alias="mainPage"/>
+  	
+  	
   	
   </typeAliases>
   <environments default="development">
@@ -23,15 +59,36 @@
         <property name="password" value="${password}"/>
       </dataSource>
     </environment>
+    
   </environments>
   <mappers>
     <mapper resource="com/example/demo/db/accountMapper.xml"/>
+    <mapper resource="com/example/demo/db/qandaMapper.xml"/>
+    <mapper resource="com/example/demo/db/boardhotMapper.xml"/>
+    <mapper resource="com/example/demo/db/boardMapper.xml"/>
+    <mapper resource="com/example/demo/db/commentsMapper.xml"/>
+    <mapper resource="com/example/demo/db/clubmainMapper.xml"/>
+    <mapper resource="com/example/demo/db/clubMapper.xml"/>
+    <mapper resource="com/example/demo/db/scategoryMapper.xml"/>
+    <mapper resource="com/example/demo/db/slocationMapper.xml"/>
+    <mapper resource="com/example/demo/db/clubdetailMapper.xml"/>
+    <mapper resource="com/example/demo/db/clubapplicationMapper.xml"/>
+    <mapper resource="com/example/demo/db/noticeMapper.xml"/>
+    <mapper resource="com/example/demo/db/qnainsertMapper.xml"/>
     <mapper resource="com/example/demo/db/AdminAccountMapper.xml"/>
     <mapper resource="com/example/demo/db/AdminNoticeMapper.xml"/>
+    <mapper resource="com/example/demo/db/AdminQnaMapper.xml"/>
+    <mapper resource="com/example/demo/db/ClassDetailMapper.xml"/>
+    <mapper resource="com/example/demo/db/ClassOpenMapper.xml"/>
+    <mapper resource="com/example/demo/db/feedMapper.xml"/>
+    <mapper resource="com/example/demo/db/favorMapper.xml"/>
+    <mapper resource="com/example/demo/db/reservationMapper.xml"/>  
     <mapper resource="com/example/demo/db/adminClassMapper.xml"/>
-  	<mapper resource="com/example/demo/db/adminClassPendingMapper.xml"/>
-  	<mapper resource="com/example/demo/db/adminDashBoardMapper.xml"/>
-  	<mapper resource="com/example/demo/db/mainPageMapper.xml"/>
-  	<mapper resource="com/example/demo/db/classMainMapper.xml"/>
+     <mapper resource="com/example/demo/db/adminClassPendingMapper.xml"/>
+     <mapper resource="com/example/demo/db/adminDashBoardMapper.xml"/>
+     <mapper resource="com/example/demo/db/mainPageMapper.xml"/>
+     <mapper resource="com/example/demo/db/classMainMapper.xml"/>
+    
   </mappers>
 </configuration>
+
