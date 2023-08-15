@@ -16,6 +16,91 @@
 	   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script>
 		$(function () {
+			//삭제 확인
+			$("#deleteAccountForm").submit(function(event) {
+            if (!confirm("정말로 탈퇴하시겠습니까?")) {
+                event.preventDefault(); // 폼 제출을 막습니다.
+            }
+        	});
+			
+			//삭제 이유
+			$("#reason").click(function() {
+		        $("#selectReason").show();
+		    });
+			//장소1 선택
+			$("#bloc1").change(function(){
+			
+					let blocno=$(this).val();
+					let url="/join/slocation?blocno="+blocno;
+					$.ajax({
+						url:url,
+						success:function(arr){
+							var sloc1 = $("#sloc1");
+		                    sloc1.empty(); 
+		
+		                    $.each(arr, function(index, slocation) {
+		                        var option = $("<option></option>").attr("value", slocation.slocno).text(slocation.slocname);
+		                        sloc1.append(option);
+		                    });
+						}
+					})
+			})
+			//장소2 선택
+			$("#bloc2").change(function(){
+			
+					let blocno=$(this).val();
+					let url="/join/slocation?blocno="+blocno;
+					$.ajax({
+						url:url,
+						success:function(arr){
+							var sloc2 = $("#sloc2");
+		                    sloc2.empty(); 
+		
+		                    $.each(arr, function(index, slocation) {
+		                        var option = $("<option></option>").attr("value", slocation.slocno).text(slocation.slocname);
+		                        sloc2.append(option);
+		                    });
+						}
+					})
+			})
+			//취미1 선택
+			$("#bca1").change(function(){
+			
+					let bcano=$(this).val();
+					let url="/join/scategory?bcano="+bcano;
+					$.ajax({
+						url:url,
+						success:function(arr){
+							var sca1 = $("#sca1");
+		                    sca1.empty(); 
+		
+		                    $.each(arr, function(index, scategory) {
+		                        var option = $("<option></option>").attr("value", scategory.scano).text(scategory.scaname);
+		                        sca1.append(option);
+		                    });
+						}
+					})
+			})
+			//취미2 선택
+			$("#bca2").change(function(){
+			
+					let bcano=$(this).val();
+					let url="/join/scategory?bcano="+bcano;
+					$.ajax({
+						url:url,
+						success:function(arr){
+							var sca2 = $("#sca2");
+		                    sca2.empty(); 
+		
+		                    $.each(arr, function(index, scategory) {
+		                        var option = $("<option></option>").attr("value", scategory.scano).text(scategory.scaname);
+		                        sca2.append(option);
+		                    });
+						}
+					})
+			})
+			
+			
 			var authNum;
 			var auth = 1;
 
@@ -131,23 +216,22 @@
 								<!-- Form Group (username)-->
 								<div class="mb-3">
 									<label class="small mb-1" for="inputUsername">ID</label>
-									<input class="form-control" name="aid" type="text" required autofocus
-										th:value="${session.a.aid != null ? session.a.aid : ''}"
-										placeholder="Enter your id" >
+									<input class="form-control" name="aid" type="text" required
+           									th:value="${session.a.aid}">
 								</div>
 								<!-- Form Row-->
 								<div class="row gx-3 mb-3">
 									<!-- Form Group (name)-->
 									<div class="col-md-6">
 										<label class="small mb-1" for="inputFirstName">Name</label>
-										<input class="form-control" name="name_" type="text" required th:value="${session.a.name_ != null ? session.a.name_ : ''}"
-											placeholder="Enter your name">
+										<input class="form-control" name="name_" type="text" required
+           									th:value="${session.a.name_}">
 									</div>
 									<!-- Form Group (nick name)-->
 									<div class="col-auto">
 										<label class="small mb-1" for="inputLastName">Nick name</label>
-										<input class="form-control" name="nick" type="text" id="nick" required
-											 placeholder="Enter your nick name" th:value="${session.a.nick != null ? session.a.nick : ''}">
+										<input class="form-control" name="nick" type="text" required
+           									th:value="${session.a.nick}">
 										<button class="btn btn-primary mb-3"
 											style=" border-color: #008375; background-color: #008375;" id="btn_check"
 											type="button">Check</button>
@@ -174,8 +258,8 @@
 								<!-- Form Group (email address)-->
 								<div class="mb-3">
 									<label class="small mb-1" for="inputEmailAddress">Email address</label>
-									<input class="form-control" type="email" name="email" id="email" required
-										th:value="${session.a.email}" placeholder="Enter your email address">
+									<input class="form-control" name="email" type="text" required
+           									th:value="${session.a.email}">
 									<button class="btn btn-primary"
 										style=" border-color: #008375; background-color: #008375;" id="btn_emailcheck"
 										type="button">Email Check</button>
@@ -187,15 +271,107 @@
 											id="btnCheckNUM">확인</button>
 									</div>
 								</div>
+			
+		</div>
+		
+		</div>
+		<div class="card mb-4" id="favor">
+							<div class="card-header">Likes</div>
+							<div class="card-body">
+								<!-- Form Group (username)-->
+								<div class="mb-3">
+									<div class="row">
+                <div class="col">
+                    <div class="place">
+                        선호장소
+                        <div class="mt-3"></div>
+                        
+                            <!-- place 내용 -->
+                            <div class="mt-3"></div>
+                            <div class="row g-3">
+                                <div class="col">
+                                    <select class="form-select" aria-label="Default select example" id="bloc1">
+                                        <option selected>Open this select menu</option>
+                                        <option th:each="blocation : ${list_blocation}" th:value="${blocation.blocno}" th:text="${blocation.blocname}"></option>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <select class="form-select" aria-label="Default select example" id="sloc1" name="slocno1">
+                                        <option selected>Open this select menu</option>
+                                    </select>
+                                    
+                                </div>
+                            </div>
+                            <div class="mt-2"></div>
+                            <div class="row g-3">
+                                <div class="col">
+                                    <select class="form-select" aria-label="Default select example" id="bloc2">
+                                        <option selected>Open this select menu</option>
+                                        <option th:each="blocation : ${list_blocation}" th:value="${blocation.blocno}" th:text="${blocation.blocname}"></option>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <select class="form-select" aria-label="Default select example" id="sloc2" name="slocno2">
+                                        <option selected>Open this select menu</option>
+                                    </select>
+                                </div>
+                            </div>
+                        
+                    </div>
+                </div>
+                <div class="mt-4"></div>
+                <div class="col">
+                   <div class="hobby">
+                        선호분야
+                        <div class="mt-3"></div>
+                        <form class="user">
+                            <!-- hobby 내용 -->
+                            <div class="mt-3"></div>
+                            <div class="row g-3">
+                                <div class="col">
+                                    <select class="form-select" aria-label="Default select example" id="bca1">
+                                        <option selected>Open this select menu</option>
+                                        <option th:each="bcategory : ${list_bcategory}" th:value="${bcategory.bcano}" th:text="${bcategory.bcaname}"></option>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <select class="form-select" aria-label="Default select example" id="sca1" name="scano1">
+                                        <option selected>Open this select menu</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="mt-2"></div>
+                            <div class="row g-3">
+                                <div class="col">
+                                    <select class="form-select" aria-label="Default select example" id="bca2">
+                                        <option selected>Open this select menu</option>
+                                        <option th:each="bcategory : ${list_bcategory}" th:value="${bcategory.bcano}" th:text="${bcategory.bcaname}"></option>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <select class="form-select" aria-label="Default select example" id="sca2" name="scano2">
+                                        <option selected>Open this select menu</option>
+                                    </select>
+                                </div>
+                                
+                            </div>
+                        
+                    </div>
+                </div>
+            </div>
 								<!-- Save changes button-->
-								<button type="submit" class="btn btn-primary"
-									style="border-color: #008375; background-color: #008375;" id="btnJoin">Sign
-									up</button>
-			</form>
+								
+								<button type="submit" class="btn btn-primary" style="border-color: #008375; background-color: #008375;" id="btnJoin">Update your Account</button>
+									</form>
+			
 		</div>
+		
 		</div>
+		
+		
 		</div>
-		</div>
+		
+		
 		</div>
 	</main>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

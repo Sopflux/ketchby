@@ -116,9 +116,10 @@ public class AccountController {
 	}
 
 	
+	
 	@PostMapping("/updateAccount")
 	public ModelAndView updateAccount(Account a,int scano1, int scano2, int slocno1, int slocno2,HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView("/updateKakaoAccount");
+		ModelAndView mav = new ModelAndView("/mypage2");
 		String path = request.getServletContext().getRealPath("/image");
 		System.out.println("path:" + path);
 		String fname = null;

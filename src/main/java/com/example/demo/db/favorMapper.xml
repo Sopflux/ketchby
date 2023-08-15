@@ -35,5 +35,11 @@
 	<insert id="insertPlace" parameterType="place">
 		insert into place (pno,slocno,aid) values(seq_place.nextval,#{slocno},#{aid})
 	</insert>
+	<delete id="deleteFavorite">
+		delete favorite where fno=#{fno}
+	</delete>
+	<delete id="deletePlace">
+		delete place where pno=#{pno}
+	</delete>
 	
 </mapper>

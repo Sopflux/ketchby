@@ -31,7 +31,7 @@ public class MypageMailController {
 		
 			
 			
-			mailMessage.setFrom("qlqlql8448@gmail.com");
+			mailMessage.setFrom("ketchby0821@gmail.com");
 			mailMessage.setTo(femail);
 			mailMessage.setSubject("Ketchby에서 발송된 문의 메일입니다.");
 			mailMessage.setText(data);
@@ -41,6 +41,7 @@ public class MypageMailController {
 			}catch (Exception e) {
 				System.out.println("예외발생:"+e.getMessage());
 			}
+			
 			
 			return "/feed/feed";
 		}

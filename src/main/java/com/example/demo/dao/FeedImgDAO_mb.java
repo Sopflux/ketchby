@@ -21,6 +21,7 @@ public class FeedImgDAO_mb {
         List<Feed> feed = feedDao.findAllFeed();
         
  
+        
         for (Feed f : feed) {
             FeedIMG fm = new FeedIMG();
             fm.setFno(f.getFno());

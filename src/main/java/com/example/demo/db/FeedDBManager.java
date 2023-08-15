@@ -173,7 +173,11 @@ public class FeedDBManager {
 		session.close();
 		return list;
 	}
-	
+	public static List findFeedImage(String aid) {
+		SqlSession session =  sqlSessionFactory.openSession();
+		List<Object> list = session.selectList("account.findFeedImage", aid);
+		return list;
+	}
 	public static List<String> imgFindByFno(int fno){
 		List<String> list = null;
 		SqlSession session= sqlSessionFactory.openSession();

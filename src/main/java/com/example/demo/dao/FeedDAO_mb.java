@@ -24,6 +24,7 @@ public class FeedDAO_mb {
 	public List<Feed> findFollowFeed(String aid){
 		return FeedDBManager.findFollowFeed(aid);
 	}
+	
 	public List<String> imgFindByFno(int fno){
 		return FeedDBManager.imgFindByFno(fno);
 	}

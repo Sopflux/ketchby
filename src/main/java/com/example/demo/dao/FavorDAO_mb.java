@@ -43,6 +43,7 @@ public class FavorDAO_mb {
 	public List<Favorite> findHobbyById(String aid){
 		return FavorDBManager.findHobbyById(aid);
 	}
+	
 	public List<Place> findPlaceById(String aid){
 		return FavorDBManager.findPlaceById(aid);
 	}	
@@ -52,4 +53,10 @@ public class FavorDAO_mb {
 	public int updatePlace(int slocno, int pno){
 		return FavorDBManager.updateFavorite(slocno, pno);
 	}	
+	public int deleteFavorite(int fno) {
+		return FavorDBManager.deleteFavorite(fno);
+	}
+	public int deletePlace(int pno) {
+		return FavorDBManager.deletePlace(pno);
+	}
 }

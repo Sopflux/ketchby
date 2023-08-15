@@ -6,6 +6,11 @@
     font-style: normal;
 }
 
+.nick{
+	font-family: 'Pretendard-Regular', sans-serif;
+    font-style: normal;
+}
+
 
 .fontfcontent{
 
@@ -34,10 +39,14 @@
     border: none;
   }
 
+.nick:hover{
+	color:rgb(140, 90, 210);
+}
+
 .file-list {
     height: 200px;
     overflow: auto;
-    border: 1px solid #989898;
+    border: var(--bs-border-width) solid var(--bs-border-color);
     padding: 10px;
 }
 .file-list .filebox p {
@@ -72,7 +81,15 @@
 .b {
 	border: solid 1px black;
 }
-
+a{
+	text-decoration: none;
+    color: black;
+    font-weight: bolder;
+}
+td.delete:hover {
+    background-color: #F0F3F4; /* 원하는 배경색으로 변경하세요 */
+    /* 필요한 다른 스타일을 추가하세요 */
+}
 .file-label {
 	margin-top: 20px;
 	background-color: #5b975b;

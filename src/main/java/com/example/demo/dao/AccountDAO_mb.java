@@ -29,6 +29,7 @@ public class AccountDAO_mb {
 	public int findFollowing(String email) {
 		return DBManager.findFollowing(email);
 	}
+	
 	public int update(Account a) {
 		return DBManager.update(a);
 	}

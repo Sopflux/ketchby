@@ -38,6 +38,7 @@ import lombok.Setter;
 
 @Setter
 @Controller
+
 public class FeedController {
 	
 	@Autowired

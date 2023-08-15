@@ -121,6 +121,22 @@ public class FavorDBManager {
 		session.close();
 		return n;
 	}
+	public static int deleteFavorite(int fno) {
+		int re= -1;
+		SqlSession session= sqlSessionFactory.openSession();
+		re = session.delete("favor.deleteFavorite",fno);
+		session.commit();
+		session.close();
+		return re;
+	}
+	public static int deletePlace(int pno) {
+		int re= -1;
+		SqlSession session= sqlSessionFactory.openSession();
+		re = session.delete("favor.deletePlace",pno);
+		session.commit();
+		session.close();
+		return re;
+	}
 
 	
 }
