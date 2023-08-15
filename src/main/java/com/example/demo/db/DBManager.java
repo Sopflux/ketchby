@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -13,9 +14,16 @@ import org.springframework.boot.autoconfigure.web.WebProperties.Resources;
 import com.example.demo.entity.Accclub;
 import com.example.demo.entity.Acclike;
 import com.example.demo.entity.Account;
+import com.example.demo.entity.ClDate;
+import com.example.demo.entity.Class;
+import com.example.demo.entity.Confirm;
+import com.example.demo.entity.Follow;
+import com.example.demo.entity.Payment;
+import com.example.demo.entity.PaymentInfo;
 import com.example.demo.entity.Reclass;
 import com.example.demo.entity.Reservation;
 import com.example.demo.entity.Review;
+import com.example.demo.entity.Time;
 
 
 
@@ -36,13 +44,14 @@ public class DBManager {
 		SqlSession session =  sqlSessionFactory.openSession();
 		Account a = null;
 		a = session.selectOne("account.findByNick", nick);
+		session.close();
 		return a;
 	}
-	public static int findFollow(String email) {
+	public static List<Follow> findFollow(String email) {
 		SqlSession session =  sqlSessionFactory.openSession();
-		int follow = 0;
-		follow = session.selectOne("account.findFollow", email);
-		return follow;
+		List<Follow> list= session.selectList("account.findFollow", email);
+		session.close();
+		return list;
 	}
 	
 	public static Account emailCheckWithEmail(String email, String id) {
@@ -54,6 +63,7 @@ public class DBManager {
 	    System.out.println("DBManager id:"+id);
 	    System.out.println("DBManager email:"+email);
 		a = session.selectOne("account.emailCheckWithEmail",params);
+		session.close();
 		return a;
 	}
 	
@@ -61,6 +71,7 @@ public class DBManager {
 		SqlSession session =  sqlSessionFactory.openSession();
 		Account a = null;
 		a = session.selectOne("account.findByEmail", email);
+		session.close();
 		return a;
 	}
 
@@ -68,13 +79,14 @@ public class DBManager {
 		SqlSession session =  sqlSessionFactory.openSession();
 		Account a = null;
 		a = session.selectOne("account.findByAid", id);
+		session.close();
 		return a;
 	}
-	public static int findFollowing(String email) {
+	public static List<Follow> findFollowing(String email) {	
 		SqlSession session =  sqlSessionFactory.openSession();
-		int follow = 0;
-		follow = session.selectOne("account.findFollowing", email);
-		return follow;
+		List<Follow> list = session.selectList("account.findFollowing", email);
+		session.close();
+		return list;
 	
 	}
 	public static int update(Account a) {
@@ -82,44 +94,142 @@ public class DBManager {
 		int result = 0;
 		result = session.update("account.update", a);
 		session.commit();
+		session.close();
 		return result;
 	}
 	public static List findFeedImage(String aid) {
 		SqlSession session =  sqlSessionFactory.openSession();
 		List<Object> list = session.selectList("account.findFeedImage", aid);
+		session.close();
 		return list;
 	}
 	public static List<Reservation> findReservation(String aid) {
 		SqlSession session =  sqlSessionFactory.openSession();
 		List<Reservation> list = session.selectList("account.findReservation", aid);
+		session.close();
 		return list;
 	}
 	public static List<Review> findReview(String aid) {
 		SqlSession session =  sqlSessionFactory.openSession();
 		List<Review> list = session.selectList("account.findReview", aid);
+		session.close();
 		return list;
 	}
 	public static List<Accclub> findClub(String aid) {
 		SqlSession session =  sqlSessionFactory.openSession();
 		List<Accclub> list = session.selectList("account.findClub", aid);
+		session.close();
 		return list;
 	}
 	public static List<Acclike> findLike(String aid) {
 		SqlSession session =  sqlSessionFactory.openSession();
 		List<Acclike> list = session.selectList("account.findLike", aid);
+		session.close();
 		return list;
 	}
 	public static int insertReview(Review r) {
 		SqlSession session =  sqlSessionFactory.openSession();
 		int result = session.insert("account.insertReview", r);
 		session.commit();
+		session.close();
 		return result;
 	}
 	public static Reclass findClassInfo(int clno) {
 		SqlSession session =  sqlSessionFactory.openSession();
 		Reclass rc = session.selectOne("account.findClassInfo", clno);
+		session.close();
 		return rc;
 	}
-
+	public static List<Confirm> findConfirm(String aid) {
+		SqlSession session =  sqlSessionFactory.openSession();
+		List<Confirm> c = session.selectList("account.findConfirm", aid);
+		session.close();
+		return c;
+	}
+	public static List<Time> findClTime(int clno) {
+		SqlSession session =  sqlSessionFactory.openSession();
+		List<Time> list= session.selectList("reservation.findClTime", clno);
+		session.close();
+		return list;
+	}
+	public static ClDate findClDate(int clno) {
+		SqlSession session =  sqlSessionFactory.openSession();
+		ClDate c= session.selectOne("reservation.findClDate", clno);
+		session.close();
+		return c;
+	}
+	public static PaymentInfo findPaymentInfo(int clno) {
+		SqlSession session =  sqlSessionFactory.openSession();
+		PaymentInfo p = session.selectOne("reservation.findPaymentInfo", clno);
+		session.close();
+		return p;
+	}
+	public static int findClPeople(Map<String, Object> param) {
+		SqlSession session =  sqlSessionFactory.openSession();
+		int re = session.selectOne("reservation.findClPeople",param);
+		session.close();
+		return re;
+	}
+	public static int findRePeople(Map<String, Object> param) {
+		SqlSession session =  sqlSessionFactory.openSession();
+		int re = session.selectOne("reservation.findRePeople", param);
+		session.close();
+		return re;
+	}
+	public static Class findByClno(int clno) {
+		SqlSession session =  sqlSessionFactory.openSession();
+		Class c = session.selectOne("reservation.findByClno", clno);
+		session.close();
+		return c;
+	}
+	public static void insertReservation(Payment p) {
+		SqlSession session =  sqlSessionFactory.openSession();
+		int result = session.insert("reservation.insertReservation", p);
+		session.commit();
+		session.close();
+		
+		
+	}
+	public static boolean checkFollow(HashMap<String, String> map) {
+		SqlSession session =  sqlSessionFactory.openSession();
+		int r= session.selectOne("account.checkFollow", map);
+		session.close();
+		if(r != 0) {
+			return true;
+		}
+		return false;
+		
+	}
+	public static List<Class> findOpenClass(String aid) {
+		SqlSession session =  sqlSessionFactory.openSession();
+		List<Class> list= session.selectList("account.findOpenClass", aid);
+		session.close();
+		return list;
+	}
+	public static void unfollow(HashMap<String, String> map) {
+		SqlSession session =  sqlSessionFactory.openSession();
+		int result = session.insert("account.unfollow", map);
+		session.commit();
+		session.close();
+	}
+	public static void follow(HashMap<String, String> map) {
+		SqlSession session =  sqlSessionFactory.openSession();
+		int result = session.delete("account.follow", map);
+		session.commit();
+		session.close();
+		
+	}
+	public static List<Accclub> findOpenClub(String aid) {
+		SqlSession session =  sqlSessionFactory.openSession();
+		List<Accclub> list= session.selectList("account.findOpenClub", aid);
+		session.close();
+		return list;
+	}
+	public static List<Review> findAReview(String aid) {
+		SqlSession session =  sqlSessionFactory.openSession();
+		List<Review> list= session.selectList("account.findAReview", aid);
+		session.close();
+		return list;
+	}
 	
 }

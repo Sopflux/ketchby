@@ -26,7 +26,7 @@ public class HtmlMailController {
 	@Autowired
 	private JavaMailSender sender;
 	
-	@GetMapping("/emailCheck")
+	@GetMapping("/ajax/emailCheck")
 	@ResponseBody
 	public String send(String email) {
 

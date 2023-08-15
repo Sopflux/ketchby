@@ -11,7 +11,13 @@
   	<typeAlias type="com.example.demo.entity.Accclub" alias="accclub"/>
   	<typeAlias type="com.example.demo.entity.Acclike" alias="acclike"/>
   	<typeAlias type="com.example.demo.entity.Reclass" alias="reclass"/>
+  	<typeAlias type="com.example.demo.entity.Confirm" alias="confirm"/>
   	<typeAlias type="com.example.demo.entity.Reservation" alias="reservation"/>
+  	<typeAlias type="com.example.demo.entity.Time" alias="time"/>
+  	<typeAlias type="com.example.demo.entity.ClDate" alias="cldate"/>
+  	<typeAlias type="com.example.demo.entity.Class" alias="class"/>
+  	<typeAlias type="com.example.demo.entity.PaymentInfo" alias="payment"/>
+  	<typeAlias type="com.example.demo.entity.Follow" alias="follow"/>
   </typeAliases>
   <environments default="development">
     <environment id="development">
@@ -26,5 +32,6 @@
   </environments>
   <mappers>
     <mapper resource="com/example/demo/db/accountMapper.xml"/>
+    <mapper resource="com/example/demo/db/reservationMapper.xml"/>
   </mappers>
 </configuration>

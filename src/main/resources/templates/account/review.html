@@ -11,10 +11,13 @@
 	$(document).ready(function () {
 		$("#btnReg").click(function () {
 			var content = $("#content").val();
-			console.log(content);
 			var star = $("#star").val();
 			var clno = $("#clno").val();
-			var ano = $("#aid").val();
+			var aid = $("#aid").val();
+			console.log("content", content);
+			console.log("star", star);
+			console.log("clno", clno);
+			console.log("aid", aid);
 			var data = {
 				star: star,
 				content: content,
@@ -23,28 +26,25 @@
 			};
 
 			$.ajax({
-				url: "/reviewOK",
+				url: "/ajax/reviewOK",
 				data: data,
-				success: function (re) {
-					if (re > -1) {
-						alert("리뷰가 등록되었습니다!");
-						window.close(this);
-					} else {
-						alert("실패!@");
-					}
+				success: function () {
+					alert("리뷰가 등록되었습니다!");
+					window.close(this);
 				}
 			});
 		});
 		$("#cancel").click(function () {
 			window.close(this);
 		})
-
-		$("#btnReg").click(function () {
-			const starRating = $("#star").val();
-			const reviewContent = $("#content").val();
-			console.log("별점:", starRating);
-			console.log("후기 내용:", reviewContent);
-		});
+		/*
+				$("#btnReg").click(function () {
+					const starRating = $("#star").val();
+					const reviewContent = $("#content").val();
+					console.log("별점:", starRating);
+					console.log("후기 내용:", reviewContent);
+				});
+				*/
 	});
 </script>
 
@@ -65,7 +65,7 @@
 					<td th:text="${rc.name_ }"></td>
 				</tr>
 				<tr>
-					<td th:text"${rc.cltitle }"></td>
+					<td th:text="${rc.cltitle }"></td>
 				</tr>
 				<tr>
 					<td th:text="${rc.clsdate }"></td>
@@ -160,8 +160,9 @@
 		<form>
 			<textarea class="review-content" id="content" oninput="updateCharacterCount(this)"
 				maxlength="5000"></textarea>
-			<input type="hidden" id="star"> <input type="hidden" id="clno" th:value="${rc.clno }">
-			<input type="hidden" id="aid" th:value="${aid}">
+			<input type="hidden" id="star">
+			<input type="hidden" id="clno" th:value="${rc.clno }">
+			<input type="hidden" id="aid" th:value="${session.a.aid}">
 		</form>
 
 

@@ -1,7 +1,5 @@
 package com.example.demo.entity;
 
-import java.util.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,12 +7,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Review {
+public class ClDate {
 	private int clno;
-	private String rcontent;
-	private String aid;
-	private double rstar;
-	private String rdate;
-	private String cltitle;
-	private String nick;
+	private String clsdate;
+	private String cledate;
+	private int clprice;
+	private int clpeople;
+
 }

@@ -12,5 +12,8 @@ public class Acclike {
 	private String climg;
 	private String bcaname;
 	private String scaname;
+	private String blocname;
+	private String slocname;
+	private String nick;
 	private int clno;
 }

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Ketchby</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<title>Ketchby</title>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	<link rel="stylesheet" href="./style/style.css" />
+	<!--<link rel="stylesheet" href="./style/mypage.css" /> -->
+	<link href="../../style/userpage.css" rel="stylesheet" />
+	<style>
+
+	</style>
+
+	<!-- Bootstrap JavaScript -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<style>
+		#follow {}
+
+		#following {}
+	</style>
+	<script th:inline="javascript">
+		$(function () {
+			$("#tab-content-1").addClass("show");
+			// 팔로워 눌렸을 때
+			$("#follower").click(function() {
+				$("#follower_list").modal("show");
+
+			});
+
+			// 팔로잉 눌렸을 때
+			$("#following").click(function() {
+				$("#following_list").modal("show");
+
+			})
+			
+			
+			var follow_id = $(".follow").attr("id")
+			var userid = $(".aid").attr("id")
+			console.log("userid", userid)
+			if (follow_id === "notfollow") {
+				$(".follow").text("팔로우")
+			} else {
+				$(".follow").text("팔로잉")
+			}
+
+
+			//	showTab('.tab-content-1')
+			$(".follow").click(function () {
+				$("#follow").css("color", "white")
+				$("#follow").css("background-color", "#008375")
+				var fol_con = $(".follow").attr("id")
+				$.ajax({
+					url: "/ajax/follow",
+					data: {userid: userid, condition: fol_con},
+					success: function (data) {
+						var fol_con = $(".follow").attr("id")
+						if (fol_con === ("following")) {
+							$(".follow").attr("id", "notfollow")
+							$("#follower").text(data)
+							$(".follow").text("팔로우")
+						} else {
+							$(".follow").attr("id", "following")
+							$("#follower").text(data)
+							$(".follow").text("팔로잉")
+						}
+					}
+				})
+			})
+
+		});
+
+	</script>
+</head>
+
+<body>
+	<div style="width: 100%; height: 100%;">
+		<div class="mypage_body">
+			<div class="card-body">
+				<table class="table table-bordered profile">
+					<tr>
+						<td>
+							<img class="img-circle" th:src="'/image/'+${user.img}" style="width: 170px; height: 170px;"
+								alt="" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h4 class="card-title aid" th:text="${user.nick}" th:id="${user.aid}"></h4>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h4 class="card-title" th:text="${user.email}"></h4>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<p id="follower">
+								<span>팔로워 </span><span id="follower" th:text="${follower_cnt}"></span>
+							</p>
+							<p id="following">
+								<span>팔로잉 </span><span th:text="${following_cnt}"></span>
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<button class="btn follow" th:id="${follow_con}">팔로우</button>
+							<button class="btn">메일 문의</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+
+			<div class="p-3 m-0 border-1 bd-example m-0 border-0" style="position: inherit; width: 100%;">
+
+				<div class="card-body 2">
+					<div class="tab-content" style="position: relative;">
+						<ul class="nav nav-tabs">
+							<li class="nav-item active">
+								<a class="nav-link active" data-toggle="tab" data-target="#tab-content-1" href="#">게시물</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" data-toggle="tab" data-target="#tab-content-2" href="#">클래스</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" data-toggle="tab" data-target="#tab-content-3" href="#">소모임</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" data-toggle="tab" data-target="#tab-content-4" href="#">후기</a>
+							</li>
+
+						</ul>
+					</div>
+				</div>
+
+				<!-- 피드 게시물 -->
+				<div class="tab-content">
+					<div id="tab-content-1" class="tab-pane fade active in show">
+
+						<div class="post" th:each="image:${image}">
+							<div class="post_image">
+								<img alt="feedImage" th:src="'../../feed/'+${image.imgname}" />
+								<a href="#" th:text="${image.fno}"></a>
+							</div>
+						</div>
+					</div>
+					<!-- 피드 게시물 끝  -->
+
+
+
+					<!-- 개설 클래스 상세 -->
+					<div id="tab-content-2" class="tab-pane fade">
+
+						<div>
+							<div th:each="cl : ${cl}" class="table-item">
+								<table class="my-page-item4" id="btn_class" data-value="${cl.clno}">
+								
+									<tr>
+										<td rowspan="4"><img alt="classimg4561" th:src="'/class/'+${cl.climg}"
+												style="width: 121px; height: 121px;" />
+										</td>
+										<td class="reserv-text" th:text="${cl.bcaname}+' > '+${cl.scaname}"></td>
+									</tr>
+									<tr>
+										<td class="reserv-text" th:text="${cl.cltitle}"></td>
+									</tr>
+									<tr>
+										<td class="reserv-text2" th:text="'⭐ ️'+${cl.avg}+'('+${cl.cnt}+')'"></td>
+									</tr>
+									<tr>
+										<td><button class="my-page-item-button2"
+												th:onclick="'openClassDetail('+${cl.clno}+')'">
+												상세보기</button></td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+					<script>
+						function openClassDetail(cl_no) {
+							// 팝업 창을 열고 review.do 페이지를 로드
+							window.open("review?clno=" + cl_no, "review", "width=600, height=800");
+						}
+
+					</script>
+					<!-- 개설 소모임 -->
+					<div id="tab-content-3" class="tab-pane fade">
+						<div>
+							<div th:each="c : ${clist}" class="table-item">
+								<table class="club-item" id="btn_class"
+									th:attr="data-value='&quot;cb_no&quot;: ${c.cbno}, &quot;sloc_no&quot;: ${c.slocno}'">
+									<tr>
+										<td rowspan="4">
+											<img th:src="'/club/' + ${c.cbimg}" class="clubimg" />
+										</td>
+										<td class="clubCard-tag" th:text="${c.scaname}">
+										</td>
+									</tr>
+									<tr>
+										<td class="clubCard-title" th:text="${c.cbtitle}"></td>
+									</tr>
+									<tr>
+										<td class="my-page-text40" th:text="${c.blocname} + '  ' + ${c.slocname}">
+									</tr>
+									<tr>
+										<td class="my-page-text40" th:text="${c.nick}"></td>
+									</tr>
+								</table>
+							</div>
+
+						</div>
+					</div>
+					<!-- 받은 후기 -->
+					<div id="tab-content-4" class="tab-pane fade">
+						<div>
+							<div class="table-item" th:each="r : ${rlist}">
+								<table class="review" id="btn_class" data-value="${r.clno}">
+									<tr>
+										<td class="reviewTitle" th:text="${r.cltitle}"></td>
+									</tr>
+									<tr>
+										<td><span th:each="num:${#numbers.sequence(1, r.rstar)}">⭐</span>️</td></tr>
+									<tr>	<td  ><span class="reviewWriter" th:text="${r.nick}"></span> | <span th:text="${r.rdate}"></span></td></tr>	
+										<tr><td class="my-page-text40" th:text="${r.rcontent}"> </td></tr>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 팔로잉 목록 모달 시작 -->
+	<div class="modal" tabindex="-1" id="following_list">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">팔로잉</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+
+				<div class="modal-body">
+					<div class="mb-3">
+						<table class="table table-borderless">
+							<tr th:each="fing : ${following}">
+								<td> <img class="img-circle" style ="width: 50px;height: 50px;" th:src="'../../image/'+${fing.img}" /></td>
+								<td><span th:text="${fing.aid}"></span><br />
+								<span th:text="${fing.nick}"></span></td>
+								
+								</tr> 
+							 
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 팔로잉 목록 모달 끝  -->
+	<!-- 팔로워 목록 모달 시작 -->
+	<div class="modal" tabindex="-1" id="follower_list">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">팔로워</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+
+				<div class="modal-body">
+					<div class="mb-3">
+						 <table class="table table-borderless">
+							<tr th:each="fer : ${follower}">
+								<td> <img  class="img-circle" style ="width:50px;height: 50px;" th:src="'../../image/'+${fer.img}" /></td>
+								<td><span th:text="${fer.aid}"></span><br />
+								<span th:text="${fer.nick}"></span></td>
+							
+								</tr> 
+							 
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 팔로워 목록 모달 끝 -->
+
+</body>
+
+</html>

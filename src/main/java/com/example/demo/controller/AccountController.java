@@ -1,30 +1,25 @@
 package com.example.demo.controller;
 
 import java.io.FileOutputStream;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -33,11 +28,10 @@ import com.example.demo.dao.AccountDAO_mb;
 import com.example.demo.dao.ImageDAO_mb;
 import com.example.demo.dao.MypageDAO_mb;
 import com.example.demo.entity.Account;
+import com.example.demo.entity.Follow;
 import com.example.demo.entity.Review;
 import com.example.demo.entity.Role;
 import com.example.demo.service.AccountService;
-import com.example.demo.service.KakaoService;
-import com.google.api.client.http.HttpRequest;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -47,6 +41,8 @@ import lombok.Setter;
 @Controller
 
 public class AccountController {
+	@Autowired
+	private AccountDAO dao;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	@Autowired
@@ -78,18 +74,61 @@ public class AccountController {
 		*/
 	}
 	
-	@GetMapping("/updateAccount")
-	public ModelAndView updateAccount(HttpSession session) {
-		ModelAndView mav = new ModelAndView("/updateAccount");
+	
+	@GetMapping("/account/userpage")
+	public ModelAndView userpage(String aid,HttpSession session) {
+		ModelAndView mav = new ModelAndView("/account/userpage");
 		Account a = (Account)session.getAttribute("a");
-		System.out.println("updateAccount : "+a.toString());
+		String userid = a.getAid(); // 로그인한 회원의 아이디
+		if(userid.equals(aid)) {
+			mav.setViewName("/account/mypage");
+			return mav;
+		}
+		HashMap<String, String> map = new HashMap<>();
+		map.put("aid", userid);
+		map.put("afollowaid", aid);
+		
+		// 팔로우 하고 있는 상태면 true, 아니면 false 반환 
+		boolean follow = dao_mb.checkFollow(map);
+		
+		// 기본적으로 팔로우 안했다고 가정하고 팔로우한 상태면 following 반환
+		mav.addObject("follow_con","notfollow");
+		
+		if (follow) {
+			mav.addObject("follow_con","following");
+		}
+		
+		
+		
+		// 페이지 주인 정보 불러오기 
+		mav.addObject("user", dao.findByAid(aid));
+		mav.addObject("image", image_mb.findFeedImage(aid)); // 피드 게시물 
+		mav.addObject("cl", dao_mb.findOpenClass(aid));
+		mav.addObject("clist", dao_mb.findOpenClub(aid));
+		mav.addObject("rlist", dao_mb.findAReview(aid));
+		List<Follow> follower_list = dao_mb.findFollow(aid);
+		List<Follow> following_list = dao_mb.findFollowing(aid);
+		mav.addObject("following_cnt", following_list.size());
+		mav.addObject("follower_cnt", follower_list.size());
+		mav.addObject("following",  following_list);
+		mav.addObject("follower",  follower_list);
+		
+		return mav;
+	}
+	
+	
+	@GetMapping("/account/updateAccount")
+	public ModelAndView updateAccount(HttpSession session) {
+		ModelAndView mav = new ModelAndView("/account/updateAccount");
+		Account a = (Account)session.getAttribute("a");
+		// System.out.println("updateAccount : "+a.toString());
 		return mav;
 	}
 
 	
-	@PostMapping("/updateAccount")
+	@PostMapping("/account/updateAccount")
 	public ModelAndView updateAccount(Account a,HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView("/updateKakaoAccount");
+		ModelAndView mav = new ModelAndView("/account/updateKakaoAccount");
 		String path = request.getServletContext().getRealPath("/image");
 		System.out.println("path:" + path);
 		String fname = null;
@@ -108,29 +147,30 @@ public class AccountController {
 			fname = "";
 		}
 		a.setImg(fname);
+		
 		a.setPwd(passwordEncoder.encode(a.getPwd()));
 		a.setRole(Role.USER);
-		System.out.println("controller A : "+a.toString());
+	//	System.out.println("controller A : "+a.toString());
 		int r = as.update(a);
-		System.out.println("update email : "+a.getEmail());
+	//	System.out.println("update email : "+a.getEmail());
 		return mav;
 	}
 	
-	@GetMapping("/login")
+	@GetMapping("/account/login")
 	public ModelAndView loginform() {
-		ModelAndView mav = new ModelAndView("/login");
+		ModelAndView mav = new ModelAndView("/account/login");
 		
 		return mav;
 	}
 	
-	@GetMapping("/join")
+	@GetMapping("/account/join")
 	public ModelAndView join() {
-		ModelAndView mav = new ModelAndView("/join");
+		ModelAndView mav = new ModelAndView("/account/join");
 
 		return mav;
 	}
 
-	@RequestMapping("/joinOK")
+	@RequestMapping("/account/joinOK")
 	@ResponseBody
 	public String joinOK() {
 		return "OK";
@@ -140,20 +180,21 @@ public class AccountController {
 	private UserDetails createUserDetails(String id) {
 	    List<GrantedAuthority> authorities = new ArrayList<>();
 	    authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-	    System.out.println("롤부여했니 ?");
+	   //  System.out.println("롤부여했니 ?");
 	    return new User(id, as.findByAid(id).getPwd(), authorities);
 	}
 
-	@PostMapping("/join")
+	@PostMapping("/account/join")
 
 	public ModelAndView join(Account a, HttpServletRequest request) {
 //			System.out.println(a.getAid());
 //			return a.getAid();
 
-		ModelAndView mav = new ModelAndView("redirect:/join");
-		String path = request.getServletContext().getRealPath("/images");
+		ModelAndView mav = new ModelAndView("redirect:/account/join");
+		String path = request.getServletContext().getRealPath("/image");
 		System.out.println("path:" + path);
 		String fname = null;
+		
 		MultipartFile uploadFile = a.getUploadFile();
 		fname = uploadFile.getOriginalFilename();
 
@@ -168,46 +209,51 @@ public class AccountController {
 		} else {
 			fname = "";
 		}
+		LocalDate today = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy/MM/dd");
+        String regdate = today.format(formatter);
+		a.setRole(Role.USER);
+		a.setRegdate(regdate);
+		a.setLevel_("Lv.1");
 		a.setImg(fname);
 		a.setPwd(passwordEncoder.encode(a.getPwd()));
 		as.save(a);
-		mav.setViewName("redirect:/login");
+		mav.setViewName("redirect:/account/login");
 		return mav;
 
 	}
-	@GetMapping("/review")
+	@GetMapping("/account/review")
 	public void review(int clno, Model model) {
 		model.addAttribute("rc", my_mb.findClassInfo(clno));
+		System.out.println(my_mb.findClassInfo(clno));
+		System.out.println("cltitle:"+my_mb.findClassInfo(clno).getCltitle());
+		System.out.println("cltitle:"+my_mb.findClassInfo(clno).getCltitle());
 	}
-	@PostMapping("/review")
+	@PostMapping("/account/review")
 	public ModelAndView insertReview(Review r) {
-		ModelAndView mav = new ModelAndView("redirect:/mypage");
+		ModelAndView mav = new ModelAndView("redirect:/account/mypage");
 		my_mb.insertReview(r);
 		return mav;
 				
 	}
 	
-	@GetMapping("/reviewOK")
-	public int reviewOK(int star, String content, int clno, String aid) {
-		int result = 0;
-		System.out.println("여기왔다@! ");
-		Review r = new Review(clno, content, aid, star, null, aid);
-		result = my_mb.insertReview(r);
-		return result;
-	}
 
-	@GetMapping("/mypage2")
+	@GetMapping("/account/mypage")
 	public void mypage(HttpSession session,Model model) {
 		Account a = (Account)session.getAttribute("a");
-		String email = a.getEmail();
 		String aid = a.getAid();
-		model.addAttribute("following",  dao_mb.findFollowing(email));
-		model.addAttribute("follow",  dao_mb.findFollow(email));
+		List<Follow> follower_list = dao_mb.findFollow(aid);
+		List<Follow> following_list = dao_mb.findFollowing(aid);
+		model.addAttribute("following_cnt", following_list.size());
+		model.addAttribute("follower_cnt", follower_list.size());
+		model.addAttribute("following",  following_list);
+		model.addAttribute("follower",  follower_list);
 		model.addAttribute("image", image_mb.findFeedImage(aid));
 		model.addAttribute("cd",my_mb.findReservation(aid));
 		model.addAttribute("rlist",my_mb.findReview(aid));
 		model.addAttribute("clist",my_mb.findClub(aid));
 		model.addAttribute("llist",my_mb.findLike(aid));
+		model.addAttribute("confirm",my_mb.findConfirm(aid));
 		
 		
 	}

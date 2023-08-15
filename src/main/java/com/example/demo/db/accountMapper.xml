@@ -4,36 +4,107 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="account">
-	<insert id="insertReview" parameterType="Review">
-		insert into review (rno,clno,rcontent,rstar,rdate,aid)
+	
+	<delete id="unfollow">
+		delete follow where aid = #{aid} and afollowaid = #{afollowaid}
+	</delete>
+	<insert id="follow">
+		insert into follow (folno, aid, afollowaid) values(seq_folno.nextval
+		,#{aid},#{afollowaid})
+	</insert>
+	<select id="findOpenClass" resultType="class">
+		select cl.clno, clTitle,
+		bcaname, scaname, climg, nvl(avg(rstar), 0) as avg
+		, nvl(count(rstar),
+		0) as cnt
+		from class cl
+		join scategory sca on cl.scano = sca.scano
+		join
+		bcategory bca on bca.bcano = sca.bcano
+		left join review r on cl.clno =
+		r.clno
+		where cl.aid = #{aid}
+		group by cl.clno, cltitle, bcaname,
+		scaname, climg
+
+	</select>
+
+	<select id="checkFollow" resultType="int">
+		select count(afollowaid)
+		from follow f where aid
+		= #{aid} and afollowaid = #{afollowaid} 
+	</select>
+	<insert id="insertReview" parameterType="review">
+		insert into review
+		(rno,clno,rcontent,rstar,rdate,aid)
 		values(seq_review.nextval,
 		#{clno},#{rcontent},#{rstar},sysdate,#{aid})
 	</insert>
 	<select id="findClassInfo" resultType="reclass">
-		select a.name_, cltitle, to_char(clsdate,'YYYY-MM-DD'), climg,clno 
-		from class cl, account a 
+		select a.name_, cltitle,
+		to_char(clsdate,'YYYY-MM-DD'), climg,clno
+		from class cl, account a
 		where a.aid = cl.aid and cl.clno = #{clno}
 	</select>
+	<select id="findConfirm" resultType="confirm">
+		select cltitle,
+		to_char(cldate,'YYYY-MM-DD'), cfcd from class cl, confirm cf
+		where
+		cl.clno = cf.clno and cl.aid = #{aid}
+	</select>
 	<select id="findLike" resultType="accLike">
-		select cl.cltitle,
-		cl.climg,b.bcaname, scaname ,cl.clno
-		from likes l , class cl, bcategory b, scategory s
+		select cl.cltitle, blocname, slocname,
+		cl.climg,b.bcaname, scaname ,cl.clno, nick
+		from likes l , class cl, bcategory
+		b, scategory s, account a , blocation bl, slocation sl 
 		where l.clno = cl.clno and l.aid = #{aid} and
-		cl.scano = s.scano and b.bcano = s.bcano
+		cl.scano =
+		s.scano and b.bcano = s.bcano and a.aid = cl.aid 
+		and bl.blocno = sl.blocno
 	</select>
 	<select id="findClub" resultType="accclub">
 		select cb.cbno , cb.cbtitle,
-		cb.cbimg, bcaname, scaname,cb.slocno
-		from club cb, scategory sca,
-		bcategory bca, club_application cbap
-		where cb.scano = sca.scano and
-		cbap.cbno = cb.cbno and sca.bcano = bca.bcano and cbap.aid= #{aid}
-		order by cb.cbno
+		to_char(cbclsdate,'yyyy-mm-dd') as cbclsdate, nick,
+		cb.cbimg, bcaname,
+		scaname,cb.slocno, blocname,slocname
+		from club
+		cb, scategory sca,
+		account a, slocation sloc, blocation bloc ,
+		bcategory bca,
+		club_application cbap
+		where cb.scano = sca.scano and sloc.blocno =
+		bloc.blocno and sloc.slocno =
+		cb.slocno and
+		cbap.cbno = cb.cbno and
+		sca.bcano = bca.bcano and a.aid =
+		cb.aid and cbap.aid= #{aid}
+		order by
+		cb.cbno
+	</select>
+	<select id="findOpenClub" resultType="accclub">
+		select cb.cbno , cb.cbtitle,
+		to_char(cbclsdate,'yyyy-mm-dd') as cbclsdate, nick,
+		cb.cbimg, bcaname,
+		scaname,cb.slocno, blocname,slocname
+		from club
+		cb, scategory sca,
+		account a, slocation sloc, blocation bloc ,
+		bcategory bca
+		where cb.scano = sca.scano and sloc.blocno =
+		bloc.blocno and sloc.slocno =
+		cb.slocno and
+		sca.bcano = bca.bcano and a.aid =
+		cb.aid and cb.aid= #{aid}
+		order by
+		cb.cbno
 	</select>
 	<select id="findReservation" resultType="reservation">
-		select cl.clno, to_char(rsdate,'YYYY-MM-DD'),
+		select cl.clno,
+		to_char(rsdate,'YYYY-MM-DD') as rsdate,
 		cltitle, climg, clprice
-		from reservation rs , class cl
+		from
+		reservation
+		rs , class cl
 		where rs.clno =
 		cl.clno and rs.aid = #{aid}
 	</select>
@@ -43,11 +114,19 @@
 		in (select fno , min(imgno) from image where
 		aid = #{aid} group by fno)
 	</select>
+	<select id="findAReview" resultType="review">
+	select cltitle, r.clno, rcontent,nick,
+		r.rstar, to_char(r.rdate,'YYYY-MM-DD') as rdate
+		from review r ,account a,
+		class cl
+		where cl.clno = r.clno and cl.aid = #{aid} and a.aid = r.aid
+	</select>
 	<select id="findReview" resultType="review">
 		select r.clno, rcontent,
-		r.rstar, to_char(r.rdate,'YYYY-MM-DD'), cl.cltitle
-		from review r , class cl
-		where r.aid =
+		r.rstar, to_char(r.rdate,'YYYY-MM-DD') as rdate, cl.cltitle
+		from review r ,
+		class cl
+		where cl.aid =
 		#{aid} and cl.clno = r.clno
 	</select>
 	<select id="findByNick" resultType="account">
@@ -75,12 +154,12 @@
 		select * from account where
 		aid = #{aid}
 	</select>
-	<select id="findFollow" resultType="int">
-		select count(*) from follow
-		f, account a where a.aid = f.aid and email = #{email}
+	<select id="findFollow" resultType="follow">
+		select nick , a.aid, img from follow
+		f, account a where a.aid = f.aid and f.afollowaid = #{aid} 
 	</select>
-	<select id="findFollowing" resultType="int">
-		select count(*) from
-		follow f, account a where a.aid = f.afollowaid and email = #{email}
+	<select id="findFollowing" resultType="follow">
+		select nick, a.aid, img from 
+		follow f, account a where a.aid = f.afollowaid and f.aid = #{aid} 
 	</select>
 </mapper>

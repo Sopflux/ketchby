@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Ketchby</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta charset="utf-8" />
+	<meta property="twitter:card" content="summary_large_image" />
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&amp;display=swap"
+		data-tag="font" />
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700;900&amp;display=swap"
+		data-tag="font" />
+	<link href="./classreservation.css" rel="stylesheet" />
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+		data-tag="font" />
+	<link rel="stylesheet" href="../../style.css" />
+	<link rel="stylesheet" href="../../style/classpayment.css" />
+	<script src=" https://code.jquery.com/jquery-3.7.0.min.js"></script>
+	<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+	<script>
+
+		$(function () {
+		
+			$("#btn_pay").click(function (event) {
+				var paymentmethod = $("input[name='paymentmethod']:checked").val();
+				var cltitle = $("#cltitle").val();
+				var clpeople = $("#clpeople").val();
+				var name = $("#resrvname").val();
+				var phone = $("#aphone").val();
+				var email = $("#email").val();
+				var amount = $("#rsprice").val();
+				if(paymethod === 'card'){
+				IMP.init("imp33232773");
+				IMP.request_pay({
+					pg: "kcp",
+					pay_method: "card",
+					merchant_uid: "class_" + new Date().getTime(),
+					name: cltitle,
+					amount: amount,
+					buyer_email: email,
+					buyer_name: name,
+					buyer_tel: phone, 
+
+				}, function (res) {
+					if (res.success) {
+
+						$("#f").submit();
+						alert("결제가 완료되었습니다!")
+					} else {
+						console.log("결제실패");
+						console.log('에러내용' + res.error_msg);
+					}
+				});
+				}else{
+				
+					$("#f").submit();
+					alert("결제는 현장에서 해주시기바랍니다!")
+				}
+			}); // 수정: 여기서 잘 닫혀야 합니다.
+		});
+
+	</script>
+</head>
+
+<body>
+	<div>
+
+
+		<div class="classreservation-container">
+			<div class="classreservation-classreservation">
+				<button id="btn_pay" class="classreservation-btnconfirm button">결제하기</button>
+				<form method="post" id="f" action="/pay/classpayment">
+					<input type="hidden" th:value="${i.clprice}" id="rsprice" name="rsprice"/>
+					<input type="hidden" th:value="${rsdate}" name="rsdate" />
+					<input type="hidden" th:value="${clpeople}" name="clpeople" />
+					<input type="hidden" th:value="${i.clno}" name = "clno"id="clno" />
+					<input type="hidden" th:value="${session.a.aid}" name="aid" />
+					
+					<input type="hidden" id="payresultnum" />
+					<input type="hidden" th:value="${i.cltitle}" id="cltitle" />
+					<div class="classreservation-div-main">
+						<div class="classreservation-divstep3">
+							<div class="classreservation-price">
+								<div class="classreservation-frame">
+									<span class="classreservation-text02">
+										<span id="formattedPrice"></span>
+
+									</span>
+								</div>
+							</div>
+							<div class="classreservation-notice">
+								<div>
+									<span class="classreservation-text04">
+										<span>
+											<span>‣ 제공받는 자 : <span th:text="${i.nick}"></span></span>
+											<br />
+											<span>
+												‣ 목적 : 판매자와 구매자 사이의 원활한 거래 진행,
+												고객상담 및 불만처리 등
+											</span>
+											<br />
+											<span>‣ 정보 : 주문자 정보(성명, 연락처)</span>
+											<br />
+											<span>‣ 보유기간 : 발송완료 후 15일</span>
+											<br />
+											<span>
+												캐치비는 통신판매중개자이며 통신판매의 당사자가
+												아닙니다. 따라서 캐치비는 상품 거래정보 및 거래에 대하여
+												책임을 지지 않습니다.고객님께서는 개인정보 제공에 대하여
+												동의를 거부하실 수 있으나, 거부 시 상품 구매가
+												어렵습니다.
+											</span>
+										</span>
+									</span>
+									<span class="classreservation-text15">
+										<span>결제 시 개인 정보 제공에 동의합니다.</span>
+									</span>
+								</div>
+							</div>
+							<div class="classreservation-heading2">
+								<span class="classreservation-text17">
+									<span>최종 결제 금액</span>
+								</span>
+							</div>
+						</div>
+						<div class="classreservation-divstep2">
+							<div class="classreservation-pay">
+								<div class="classreservation-toss">
+									<label>
+										<input type="radio" id="paymethod" name="paymethod" required
+											value="card">
+										<span> 카드결제</span>
+									</label>
+								</div>
+								<div class="classreservation-naver">
+									<label>
+										<input type="radio" name="paymethod" id="paymethod" required
+											value="bank">
+										<span> 현장결제</span>
+									</label>
+								</div>
+							</div>
+
+							<div class="classreservation-heading21">
+								<span class="classreservation-text21">
+									<span>결제수단</span>
+								</span>
+							</div>
+						</div>
+						<div class="classreservation-divstep1">
+							<div class="classreservation-name">
+								<div class="classreservation-nametxt">
+									<span class="classreservation-text23">이름 *</span>
+									</span>
+								</div>
+
+								<input name="resrvname" type="text" autofocus required placeholder="     이름"
+									class="classreservation-input" th:value="${session.a.name_}">
+								</input>
+							</div>
+							<div class="classreservation-phone">
+								<div class="classreservation-phonetxt">
+									<span class="classreservation-text27">
+										전화번호 *
+									</span>
+								</div>
+								<input type="tel" class="classreservation-input" required placeholder="    전화번호"
+									id="aphone" name="aphone"></input>
+							</div>
+							<div class="classreservation-people">
+								<div class="classreservation-peopletxt">
+									<span class="classreservation-text55">
+										이메일 *
+									</span>
+								</div>
+								<input class="classreservation-input" type="text" name="email" id="email" required placeholder="    이메일" />
+							</div>
+							<div class="classreservation-heading2">
+								<span class="classreservation-text31">
+									<span>예약자 정보</span>
+								</span>
+							</div>
+						</div>
+						<script th:inline="javascript">
+							var clprice = /*[[${i.clprice}]]*/ ''
+			var formattedPrice = new Intl.NumberFormat('en-US').format(clprice); // 숫자 포맷
+
+							document.getElementById('formattedPrice').textContent = formattedPrice + '원'; // 출력
+						</script>
+				</form>
+				<div class="classreservation-divtitle">
+					<div class="classreservation-frame10">
+						<span class="classreservation-text36"><span th:text="${i.bcaname}"></span></span>
+						<span class="classreservation-text35">&gt;</span>
+						<span class="classreservation-text38">
+							<span th:text="${i.scaname}"></span>
+						</span>
+					</div>
+					<span class="classreservation-text33" th:text="${i.cltitle}"></span>
+					<span class="classNick" th:text="${i.nick}"></span>
+				</div>
+
+				<img alt="image" th:src="'/class/'+${i.climg}" class="classreservation-image" />
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

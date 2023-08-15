@@ -24,6 +24,6 @@ public class KetchbyApplication {
 			//return new BCryptPasswordEncoder(); // 단방향 인코더
 			return PasswordEncoderFactories.createDelegatingPasswordEncoder();
 		}
-
+ 
 	}
 }

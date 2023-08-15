@@ -21,14 +21,12 @@
 
 			$("#f").submit(function (event) {
 				if (auth === 1) {
-					alert("회원가입하러 간다 !!! ")
 					// 인증이 성공한 경우 폼을 제출합니다.
 					// 이때, 서버로 데이터가 전송됩니다.
 					return true; // 기본 동작 실행 (폼 제출)
 				} else {
 					// 인증이 실패한 경우 폼 제출을 막습니다.
-					event.preventDefault(); // 폼 전송 막기
-					alert("인증이 필요합니다.");
+					
 					return false; // 폼 제출 취소
 				}
 			});
@@ -37,7 +35,7 @@
 			$("#btn_check").click(function () {
 				var nick = $("#nick").val()
 				$.ajax({
-					url: '/nickCheck',
+					url: '/ajax/nickCheck',
 					method: 'GET',
 					data: {nick: nick},
 					success: function (data) {
@@ -60,38 +58,6 @@
 					$("#sp_pwd").text("비밀번호가 다릅니다.");
 				}
 			});
-
-			$("#btn_emailcheck").click(function () {
-				var email = $("#email").val()
-				$.ajax({
-					url: '/duplicateEmail',
-					data: {email: email},
-					success: function (email2) {
-						console.log("email:", email2)
-						if (email2 === "") {
-							$("#box_check").css("display", "block")
-							console.log("email check 동작함!")
-							$.ajax({
-								url: '/emailCheck',
-								method: 'GET',
-								data: {email: email},
-								success: function (data) {
-									authNum = data
-								},
-								error: function (error) {
-									// 오류 처리
-									console.error('Error:', error);
-								}
-							});
-						} else {
-							alert("중복된 이메일 입니다!")
-						}
-
-					}
-				})
-
-			})
-
 
 			$("#btnCheckNUM").click(function (event) {
 				var userNum = $("#checkNUM").val()
@@ -124,7 +90,7 @@
 									<circle cx="12" cy="7" r="4"></circle>
 									</svg>
 								</div>
-								Sign up
+								Update Information
 							</h1>
 						</div>
 					</div>
@@ -134,7 +100,7 @@
 
 		<!-- Main page content-->
 		<div class="container-xl px-4 mt-4">
-			<form action="/join" method="post" id="f" enctype="multipart/form-data">
+			<form action="/updateAccount" method="post" id="f" enctype="multipart/form-data">
 				<div class="row">
 					<div class="col-xl-4">
 						<!-- Profile picture card-->
@@ -166,7 +132,7 @@
 								<div class="mb-3">
 									<label class="small mb-1" for="inputUsername">ID</label>
 									<input class="form-control" name="aid" type="text" required autofocus
-										placeholder="Enter your id">
+										placeholder="Enter your id" >
 								</div>
 								<!-- Form Row-->
 								<div class="row gx-3 mb-3">
@@ -177,11 +143,11 @@
 											placeholder="Enter your name">
 									</div>
 									<!-- Form Group (nick name)-->
-									<div class="col-md-6">
+									<div class="col-auto">
 										<label class="small mb-1" for="inputLastName">Nick name</label>
 										<input class="form-control" name="nick" type="text" id="nick" required
-											th:value="${session.name}" placeholder="Enter your nick name">
-										<button class="btn btn-primary"
+											 placeholder="Enter your nick name" th:value="${session.a.nick}">
+										<button class="btn btn-primary mb-3"
 											style=" border-color: #008375; background-color: #008375;" id="btn_check"
 											type="button">Check</button>
 									</div>
@@ -199,7 +165,7 @@
 										<label class="small mb-1" for="inputPasswordcheck">Password check
 											<span id="sp_pwd"></span>
 										</label>
-										<input class="form-control" required type="password" id="pwd_check"
+										<input class="form-control mb-3" required type="password" id="pwd_check"
 											placeholder="Check your password">
 
 									</div>
@@ -208,7 +174,7 @@
 								<div class="mb-3">
 									<label class="small mb-1" for="inputEmailAddress">Email address</label>
 									<input class="form-control" type="email" name="email" id="email" required
-										th:value="${session.email}" placeholder="Enter your email address">
+										th:value="${session.a.email}" placeholder="Enter your email address">
 									<button class="btn btn-primary"
 										style=" border-color: #008375; background-color: #008375;" id="btn_emailcheck"
 										type="button">Email Check</button>
@@ -220,7 +186,6 @@
 											id="btnCheckNUM">확인</button>
 									</div>
 								</div>
-								<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
 								<!-- Save changes button-->
 								<button type="submit" class="btn btn-primary"
 									style="border-color: #008375; background-color: #008375;" id="btnJoin">Sign

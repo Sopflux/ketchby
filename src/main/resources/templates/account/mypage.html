@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Ketchby</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<title>Ketchby</title>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	<link rel="stylesheet" href="./style/style.css" />
+	<!--<link rel="stylesheet" href="./style/mypage.css" /> -->
+	<link href="../../style/mypage.css" rel="stylesheet" !important />
+	<link href="../../style/my-page.css" rel="stylesheet" />
+	<link href="../../style/review.css" rel="stylesheet" />
+	<style>
+
+	</style>
+
+	<!-- Bootstrap JavaScript -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+	<script>
+		$(function () {
+
+			//	showTab('.tab-content-1')
+			$(".follow").click(function () {
+				$("#follow").css("color", "white")
+				$("#follow").css("background-color", "#008375")
+				location.href = "/updateAccount";
+			})
+			console.log($("#follower").val)
+			console.log($("#following").val)
+			// 팔로워 눌렸을 때
+			$("#follower").click(function () {
+
+				$("#follower_list").modal("show");
+
+			});
+
+			// 팔로잉 눌렸을 때
+			$("#following").click(function () {
+				$("#following_list").modal("show");
+
+			})
+
+			// 팔로워 목록에 있는 회원 삭제 
+			$("#del_follower").click(function() {
+				const result = confirm("정말로 팔로워를 삭제하시겠습니까?");
+				event.preventDefault();
+
+				if (result) {
+					// 나를 팔로우 한거 삭제 = user = aid
+					var user = $(".follower_body").attr("id")
+					var condition = 'follower'
+					$.ajax({
+						url: "/ajax/unfollow",
+						data: {user: user, condition: condition},
+						success: function () {
+							$("#del_follower").text("삭제됨.")
+						}
+					})
+				}
+			})
+
+			$("#del_following").click(function(){
+
+				const result = confirm("정말로 팔로잉을 취소하시겠습니까?");
+
+				// 사용자가 확인을 선택한 경우에만 동작 수행
+				if (result) {
+					event.preventDefault();
+
+					var user = $(".following_body").attr("id");
+					var condition = 'following';
+
+					$.ajax({
+						url: "/ajax/unfollow",
+						data: {user: user, condition: condition},
+						success: function () {
+							$("#del_following").text("삭제됨.");
+						}
+					});
+				}
+			});
+
+
+		});
+
+	</script>
+</head>
+
+<body>
+	<div style="width: 100%; height: 100%;">
+		<div class="mypage_body">
+			<div class="card-body">
+				<table class="table table-bordered profile">
+					<tr>
+						<td>
+							<img class="img-circle" src="../image/ahyeon_change.png"
+								style="width: 170px; height: 170px;" alt="" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h4 class="card-title" th:text="${session.a.nick}"></h4>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h4 class="card-title" th:text="${session.a.email}"></h4>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<p id="follower">
+								<span>팔로워 </span><span th:text="${follower_cnt}"></span>
+							</p>
+							<p id="following">
+								<span>팔로잉 </span><span th:text="${following_cnt}"></span>
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<button class="btn follow" id="follow">회원 정보 수정</button>
+							<button class="btn">메일 문의</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+
+			<div class="p-3 m-0 border-1 bd-example m-0 border-0" style="position: inherit; width: 100%;">
+
+				<div class="card-body 2">
+					<div class="tab-content" style="position: relative;">
+						<ul class="nav nav-tabs">
+							<li class="nav-item">
+								<a class="nav-link " data-toggle="tab" data-target="#tab-content-1" href="#">게시물</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" data-toggle="tab" data-target="#tab-content-2" href="#">수강내역</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" data-toggle="tab" data-target="#tab-content-3" href="#">후기</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" data-toggle="tab" data-target="#tab-content-4" href="#">좋아요</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" data-toggle="tab" data-target="#tab-content-5" href="#">소모임</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<!-- 피드 게시물 -->
+				<div class="tab-content">
+					<div id="tab-content-1" class="tab-pane fade active in show">
+
+						<div class="post" th:each="image:${image}">
+							<div class="post_image">
+								<img alt="feedImage" th:src="'../feed/'+${image.imgname}" />
+								<a href="#" th:text="${image.fno}"></a>
+							</div>
+						</div>
+					</div>
+
+
+
+
+					<!-- 수강내역 상세 -->
+					<div id="tab-content-2" class="tab-pane fade">
+
+						<div>
+							<div th:each="cd : ${cd}" class="table-item">
+								<table class="my-page-item4" id="btn_class" data-value="${cd.clno}">
+									<tr>
+										<td colspan="2"><span class="my-page-text34">수강완료</span></td>
+									</tr>
+									<tr>
+										<td rowspan="4"><img alt="classimg4561" th:src="'../class/'+${cd.climg}"
+												style="width: 121px; height: 121px;" />
+										</td>
+										<td class="my-page-text36" th:text="${cd.rsdate}"></td>
+									</tr>
+									<tr>
+										<td class="clubCard-title"><a href="#" th:text="${cd.cltitle}"></a></td>
+									</tr>
+									<tr>
+										<td class="reserv-text" th:text="${cd.clprice} + '원'"></td>
+									</tr>
+									<tr>
+										<td><button class="my-page-item-button2"
+												th:onclick="'openReviewPopup('+${cd.clno}+')'">
+												수강후기작성</button></td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+					<script>
+						function openReviewPopup(cl_no) {
+							// 팝업 창을 열고 review.do 페이지를 로드
+							window.open("review?clno=" + cl_no, "review", "width=600, height=800");
+						}
+
+					</script>
+
+					<div id="tab-content-3" class="tab-pane fade">
+
+						<div>
+							<div class="table-item" th:each="r : ${rlist}">
+								<table class="review btn_class" id="btn_class" data-value="${r.clno}">
+									<tr>
+										<td>
+											<span th:text="${r.rdate}"></span>
+											<span th:each="num : ${#numbers.sequence(1, r.rstar)}">⭐️</span>
+											<span th:text="${r.rstar}"></span>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<a href="#" th:text="${r.cltitle}"></a>
+										</td>
+									</tr>
+									<tr>
+										<td th:text="${r.rcontent}"></td>
+									</tr>
+									<tr>
+										<td></td>
+									</tr>
+								</table>
+							</div>
+						</div>
+
+					</div>
+					<div id="tab-content-4" class="tab-pane fade">
+
+						<div>
+							<div th:each="l : ${llist}" class="table-item">
+								<table class="like_body" id="btn_class" data-value="${l.clno}">
+									<tr>
+										<td rowspan="4">
+											<img alt="classimg4561" th:src="'../class/' + ${l.climg}"
+												class="likeimg" />
+										</td>
+										<td class="clubCard-tag">
+											<span th:text="${l.scaname}"></span>
+										</td>
+									</tr>
+									<tr>
+										<td class = "likeCard-title" th:text="${l.cltitle}"></td>
+									</tr>
+									<tr>	<td class="my-page-text40" th:text="${l.blocname} + '  ' + ${l.slocname}"></tr>
+									<tr>
+										<td class="my-page-text40" th:text="${l.nick}"></td>
+									</tr>
+								</table>
+							</div>
+						</div>
+
+
+					</div>
+
+
+					<div id="tab-content-5" class="tab-pane fade">
+						<!-- 내가 만든 클럽  -->
+						<div>
+							<div th:each="c : ${clist}" class="table-item">
+								<table class="club-item" id="btn_class"
+									th:attr="data-value='&quot;cb_no&quot;: ${c.cbno}, &quot;sloc_no&quot;: ${c.slocno}'">
+									<tr>
+										<td rowspan="4">
+											<img th:src="'/club/' + ${c.cbimg}" class="clubimg" />
+										</td>
+										<td class="clubCard-tag" th:text="${c.scaname}">
+										</td>
+									</tr>
+									<tr>
+										<td class="clubCard-title" th:text="${c.cbtitle}"></td>
+									</tr>
+									<tr>
+										<td class="my-page-text40" th:text="${c.blocname} + '  ' + ${c.slocname}">
+									</tr>
+									<tr>
+										<td class="my-page-text40" th:text="${c.nick}"></td>
+									</tr>
+								</table>
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 팔로잉 목록 모달 시작 -->
+	<div class="modal" tabindex="-1" id="following_list">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">팔로잉</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+
+				<div class="modal-body">
+					<div class="mb-3">
+						<table class="table table-borderless ">
+							<tr th:each="fing : ${following}" th:id="${fing.afollowaid}" class="following_body">
+								<td> <img class="img-circle" style="width: 50px;height: 50px;"
+										th:src="'../../image/'+${fing.img}" /></td>
+								<td><span th:text="${fing.aid}"></span><br />
+									<span th:text="${fing.nick}"></span>
+								</td>
+								<td> <button class="btn" id="del_following">삭제</button></td>
+							</tr>
+
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 팔로잉 목록 모달 끝  -->
+	<!-- 팔로워 목록 모달 시작 -->
+	<div class="modal" tabindex="-1" id="follower_list">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">팔로워</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+
+				<div class="modal-body">
+					<div class="mb-3">
+						<table class="table table-borderless ">
+							<tr th:each="fer : ${follower}" th:id="${fer.aid}" class="follower_body">
+								<td> <img class="img-circle" style="width:50px;height: 50px;"
+										th:src="'../../image/'+${fer.img}" /></td>
+								<td><span th:text="${fer.aid}"></span><br />
+									<span th:text="${fer.nick}"></span>
+								</td>
+								<td> <button class="btn" id="del_follower">삭제</button></td>
+							</tr>
+
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 팔로워 목록 모달 끝 -->
+
+</body>
+
+</html>

@@ -35,7 +35,7 @@
 			$("#btn_check").click(function () {
 				var nick = $("#nick").val()
 				$.ajax({
-					url: '/nickCheck',
+					url: '/ajax/nickCheck',
 					method: 'GET',
 					data: {nick: nick},
 					success: function (data) {
@@ -132,6 +132,7 @@
 								<div class="mb-3">
 									<label class="small mb-1" for="inputUsername">ID</label>
 									<input class="form-control" name="aid" type="text" required autofocus
+										th:value="${session.a.aid != null ? session.a.aid : ''}"
 										placeholder="Enter your id" >
 								</div>
 								<!-- Form Row-->
@@ -139,14 +140,14 @@
 									<!-- Form Group (name)-->
 									<div class="col-md-6">
 										<label class="small mb-1" for="inputFirstName">Name</label>
-										<input class="form-control" name="name_" type="text" required
+										<input class="form-control" name="name_" type="text" required th:value="${session.a.name_ != null ? session.a.name_ : ''}"
 											placeholder="Enter your name">
 									</div>
 									<!-- Form Group (nick name)-->
 									<div class="col-auto">
 										<label class="small mb-1" for="inputLastName">Nick name</label>
 										<input class="form-control" name="nick" type="text" id="nick" required
-											 placeholder="Enter your nick name" th:value="${session.a.nick}">
+											 placeholder="Enter your nick name" th:value="${session.a.nick != null ? session.a.nick : ''}">
 										<button class="btn btn-primary mb-3"
 											style=" border-color: #008375; background-color: #008375;" id="btn_check"
 											type="button">Check</button>

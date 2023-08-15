@@ -17,7 +17,7 @@ public class MailController {
 	private MailSender mailSender;
 	
 	// 4자리 난수를 발행하여 메일로 전송 해 봅니다.
-		@GetMapping("/emailCheck2")
+		@GetMapping("/ajax/emailCheck2")
 		public String emailCheck(String email) {
 
 			SimpleMailMessage mailMessage = 

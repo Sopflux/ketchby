@@ -1,7 +1,5 @@
 package com.example.demo.entity;
 
-import java.util.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,12 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Review {
+public class Time {
 	private int clno;
-	private String rcontent;
-	private String aid;
-	private double rstar;
-	private String rdate;
-	private String cltitle;
-	private String nick;
+	private String tday;
+	private String tstime;
+	private String tetime;
 }

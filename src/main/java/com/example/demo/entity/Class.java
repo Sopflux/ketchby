@@ -15,21 +15,23 @@ import lombok.Data;
 public class Class {
 	
 	@Id
-	private int clNo;
+	private int clno;
 	
-	private int scaNo;
-	private int aNo;
-	private String clTitle;
-	private String clImg;
-	private String clContent;
-	private String clLevel;
-	private int clPeople;
-	private int clPrice;
-	private String clAddr;
-	private String clDate;
-	private String clSDate;
-	private String clEDate;
-	private String clType;
-	private String bcaName;
-	private String scaName;
+	private int scano;
+	private int ano;
+	private String cltitle;
+	private String climg;
+	private String clcontent;
+	private String cllevel;
+	private int clpeople;
+	private int clprice;
+	private String claddr;
+	private String cldate;
+	private String clsdate;
+	private String cledate;
+	private String cltype;
+	private String bcaname;
+	private String scaname;
+	private int cnt;
+	private int avg;
 }

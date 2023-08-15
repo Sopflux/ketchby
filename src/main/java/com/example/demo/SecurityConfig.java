@@ -49,27 +49,27 @@ public class SecurityConfig {
 		
 	
 	http.oauth2Login()
-	.loginPage("/login")
+	.loginPage("/account/login")
 	.successHandler(handler)
          .userInfoEndpoint()
 
 		.userService(customOAuth2UserService); // 커스텀한 서비스에서 정보 처리
 		
 		
-		http.authorizeHttpRequests().requestMatchers("/join","/login","/","/nickCheck","/emailCheck","/joinOK","/kakaologin","/join2","/list","/duplicateEmail/**","/getID/**","/idCheck/**","/emailCheckWithEmail/**","/image/**").permitAll()
+		http.authorizeHttpRequests().requestMatchers("/account/join","/account/login","/","/ajax/**","/image/**").permitAll()
 		.requestMatchers("/admin/**").hasRole("ADMIN")
 		.anyRequest().authenticated()
-		.and().csrf().ignoringRequestMatchers("/join");
+		.and().csrf().ignoringRequestMatchers("/account/join");
 		
 		
  		
-		http.formLogin().loginPage("/login").permitAll()
+		http.formLogin().loginPage("/account/login").permitAll()
 		.successHandler(successHandler);
 		
 		http.logout()
-		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+		.logoutRequestMatcher(new AntPathRequestMatcher("/account/logout"))
 		.invalidateHttpSession(true)
-		.logoutSuccessUrl("/login");
+		.logoutSuccessUrl("/account/login");
 		
 		http.httpBasic();
 		
@@ -90,7 +90,7 @@ public class SecurityConfig {
 			
 			session.setAttribute("a", as.findByAid(loginId));
 		
-			response.sendRedirect("/mypage2");
+			response.sendRedirect("/account/mypage");
 			
 		}
 	};

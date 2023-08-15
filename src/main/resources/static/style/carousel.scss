@@ -1,0 +1,247 @@
+@charset "UTF-8";
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  background: red;
+}
+
+@mixin breakpoint($point) {
+  @if $point==xxs {
+    @media (max-width: 480px) {
+      @content;
+    }
+  } @else if $point==xs {
+    @media (max-width: 767px) {
+      @content;
+    }
+  } @else if $point==sm {
+    @media (min-width: 768px) and (max-width: 991px) {
+      @content;
+    }
+  } @else if $point==md {
+    @media (min-width: 768px) and (max-width: 1199px) {
+      @content;
+    }
+  } @else if $point==md-d {
+    @media (min-width: 1200px) and (max-width: 1299px) {
+      @content;
+    }
+  } //md-d is of Medium Desktop
+  @else if $point==lg {
+    @media (max-width: 1440px) {
+      @content;
+    }
+  } @else {
+    @warn "Breakpoint mixin supports: xxs, xs, sm, md, lg";
+  }
+}
+
+#wrap {
+  padding: 30px 0;
+}
+
+.review-title {
+  margin-bottom: 30px;
+}
+
+.review-card {
+  &--option-1 {
+    border: 1px solid #d8d8d8;
+    padding: 25px;
+  }
+  &--option-2 {
+    padding: 0 15px;
+  }
+  &--option-3 {
+    padding: 0 200px;
+  }
+  &--option-4 {
+    padding: 30px;
+  }
+  .review-card-img {
+    border: 1px solid #eee;
+    width: 100px;
+    height: 70px;
+    background-image: url("https://unsplash.it/200");
+    background-repeat: no-repeat;
+    background-position: center center;
+    margin: 0 auto 15px;
+  }
+  .review-author {
+    .ra-author {
+      font-size: 18px;
+      display: block;
+      margin-bottom: 10px;
+    }
+    .ra-rating-star {
+      margin: 0 0 15px;
+      padding: 0;
+      list-style-type: none;
+      li {
+        display: inline-block;
+        margin: 0 -2px;
+      }
+    }
+  }
+  .review-content {
+  }
+}
+
+.review-card--option-4 {
+  border: 1px solid #d8d8d8;
+}
+
+.carousel-wrap {
+  width: 635px;
+  height: 323px;
+  margin: 0 auto;
+  position: relative;
+  @include breakpoint(sm) {
+    width: 400px;
+  }
+  @include breakpoint(xs) {
+    width: 350px;
+    height: 345px;
+  }
+  @include breakpoint(xxs) {
+    width: 240px;
+    height: 408px;
+  }
+}
+
+.carousel {
+}
+
+.carousel > li {
+  width: 500px;
+  height: 325px;
+  background: #fff;
+  display: inline-block;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out; // overflow: hidden;
+  @include breakpoint(sm) {
+    width: 400px;
+  }
+  @include breakpoint(xs) {
+    width: 350px;
+    height: 345px;
+  }
+  @include breakpoint(xxs) {
+    width: 240px;
+    height: 408px;
+  }
+}
+
+.items {
+  position: absolute;
+}
+
+.main-pos {
+  margin-left: 2em !important;
+  z-index: 3000;
+  @include breakpoint(sm) {
+    margin-left: -40px !important;
+  }
+  @include breakpoint(xs) {
+    margin-left: -40px !important;
+  }
+}
+
+.left-pos {
+  background: #ccc;
+  opacity: 0.5;
+  margin-left: -17em !important;
+  z-index: 1000;
+  -webkit-transform: scale(0.75);
+  -moz-transform: scale(0.75);
+  transform: scale(0.75);
+  .review-card--option-4 {
+    background: rgba(0, 0, 0, 0.2);
+  }
+  @include breakpoint(sm) {
+    margin-left: -220px !important;
+  }
+  @include breakpoint(xs) {
+    margin-left: -113px !important;
+  }
+  @include breakpoint(xxs) {
+    margin-left: -145px !important;
+  }
+}
+
+.back-pos {
+  opacity: 0.05;
+  -webkit-transform: scale(0.5);
+  -moz-transform: scale(0.5);
+  transform: scale(0.5);
+}
+
+.right-pos {
+  opacity: 0.5;
+  margin-left: 21em !important;
+  z-index: 1000;
+  -webkit-transform: scale(0.75);
+  -moz-transform: scale(0.75);
+  transform: scale(0.75);
+  .review-card--option-4 {
+    background: rgba(0, 0, 0, 0.2);
+  }
+  @include breakpoint(sm) {
+    margin-left: 140px !important;
+  }
+  @include breakpoint(xs) {
+    margin-left: 30px !important;
+  }
+  @include breakpoint(xxs) {
+    margin-left: 62px !important;
+  }
+}
+
+.slider {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  text-align: center;
+  a {
+    color: #999;
+  }
+  i {
+    font-size: 45px;
+  }
+  #prev,
+  #next {
+    position: absolute;
+  }
+  #prev {
+    left: -214px;
+    @include breakpoint(md) {
+      left: -180px;
+    }
+    @include breakpoint(xs) {
+      left: -70px;
+    }
+  }
+  #next {
+    right: -214px;
+    @include breakpoint(md) {
+      right: -180px;
+    }
+    @include breakpoint(xs) {
+      right: -70px;
+    }
+  }
+  @include breakpoint(xxs) {
+    display: none;
+  }
+}

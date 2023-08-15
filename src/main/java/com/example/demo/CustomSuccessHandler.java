@@ -38,18 +38,18 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
 		 System.out.println("kakao success handler");
          try {
-            System.out.println("id : "+authentication.getName());
+            System.out.println("id : "+authentication.getDetails());
             String aid = authentication.getName();
             HttpSession session = request.getSession();
             Account a = as.findByAid(aid);
             if (a.getNick() == null) {
             	a.setNick("");
             	session.setAttribute("a", a);
-            	response.sendRedirect("/updateAccount");
+            	response.sendRedirect("/account/updateAccount");
             }else {
             	a.setPwd(null);
             	session.setAttribute("a", a);
-            	response.sendRedirect("/mypage2");
+            	response.sendRedirect("/account/mypage");
             	
             }
          } catch (Exception e) {

@@ -7,6 +7,253 @@
 	flex-direction: column;
 }
 
+/* 클럽 카드 스타일 */
+
+
+.container {
+	width: 1520px;
+	margin: auto;
+	position: relative;
+	margin-bottom: 80px;
+}
+
+.club-container {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	/* 두 개의 칼럼 */
+	grid-template-rows: repeat(2, auto);
+	/* 자동 높이 */
+	gap: 24px;
+	height: 350px;
+}
+
+.club-card {
+	background-color: #f5f5f5;
+	border-radius: 8px;
+	overflow: hidden;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	border-color: rgba(0, 131, 117, 1);
+	border: 1px;
+}
+
+.club-link {
+	text-decoration: none;
+	color: inherit;
+	flex: 1;
+	display: flex;
+}
+
+.clubCard-img {
+	border-radius: 8px;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	/* 이미지 가운데 정렬을 위해 추가 */
+	margin-top: 10px;
+	/* 위쪽 마진 추가 */
+	margin-left: 20px;
+	/* 왼쪽 마진 추가 */
+	width: 130px;
+	height: 130px;
+}
+
+.clubCard-img img {
+	width: 100%;
+	height: 100%;
+}
+
+.clubCard-info {
+	padding: 15px;
+	margin-left: 20px;
+}
+
+.clubCard-tag {
+	font-size: 13px;
+	text-align: left;
+	font-weight: bold;
+	margin-bottom: 8px;
+	color: rgba(0, 131, 117, 1);
+}
+
+.likeCard-title {
+	font-size: 15px;
+	padding-top:8px;
+	text-align: left;
+	margin-bottom: 8px;
+	color: #333;
+	font-weight: bold;
+}
+.clubCard-title {
+	font-size: 15px;
+	padding-top:8px;
+	text-align: left;
+	margin-bottom: 8px;
+	color: #333;
+	font-weight: bold;
+}
+
+
+.clubCard-description {
+	font-size: 16px;
+	color: #666;
+	margin-bottom: 8px;
+}
+
+.clubCard-People {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.clubPeople {
+	font-size: 16px;
+	color: #333;
+}
+
+/* 미디어 쿼리 - 카드 레이아웃 반응형 조정 */
+@media (max-width: 768px) {
+	.club-container {
+		grid-template-columns: 1fr;
+		/* 한 개의 칼럼 */
+		grid-template-rows: auto;
+		/* 자동 높이 */
+		height: auto;
+		/* 컨테이너 높이 자동 설정 */
+	}
+
+	.club-card {
+		width: 100%;
+		border-radius: 8px;
+	}
+
+	.clubCard-img {
+		border-radius: 8px 8px 0 0;
+	}
+}
+
+.p-3 m-0 border-1 bd-example m-0 border-0 {
+	position: inherit;
+	width: 100%;
+}
+
+.card {
+	position: inherit;
+	max-width: 100%;
+	padding: 10px;
+	/* top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			overflow: scroll; */
+}
+
+.card-body {
+	width: 100%;
+	height: 100%;
+}
+
+.mypage_body {
+	display: flex !important;
+	margin: 0 auto !important;
+	flex-direction: column;
+	padding: 6em 15em;
+}
+
+.btn {
+	background-color: #008375;
+	color: white;
+}
+
+
+.profile {
+	width: 100%;
+	border: none !important;
+	width: 100%;
+	margin-top: 30px;
+}
+
+.profile tr,
+td {
+	border: none !important;
+	text-align: center;
+}
+
+.tab-content {
+	text-align: center;
+	width: 100%;
+	height: 100%;
+}
+
+.nav-link {
+	color: #8C5AD2;
+}
+
+.nav-link:hover {
+	color: #8C5AD2 !important;
+}
+
+.nav-item active>.nav-link {
+	color: darkgray;
+}
+
+.nav-tabs {
+	position: relative;
+
+	margin-top: 10px;
+
+}
+
+.cards-list {
+	z-index: 0;
+	width: 100%;
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+
+
+#tab_body {
+	position: relative;
+
+}
+
+.post {
+	float: left;
+	margin: 5px;
+	width: calc(25% - 10px);
+	height: 28rem;
+	border-radius: 40px;
+	box-shadow: 12px 1px 25px rgba(0, 0, 0, 0.25);
+	cursor: pointer;
+	transition: 0.4s;
+	position: relative;
+}
+
+.post::after {
+	content: "";
+	padding-bottom: 100%;
+}
+
+.post .post_image {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	border-radius: 40px;
+	object-fit: cover;
+	top: 0;
+	left: 0;
+}
+
+.post .post_image img {
+	width: 100%;
+	height: 100%;
+	border-radius: 40px;
+	object-fit: cover;
+}
+
 a {
 	color: inherit;
 	text-decoration: none;
@@ -14,10 +261,7 @@ a {
 }
 
 .clubmain-text066 {
-	top: 7px;
-	left: 4px;
 	color: rgba(102, 96, 96, 1);
-
 	text-align: left;
 	position: relative;
 	font-size: 15px;
@@ -28,6 +272,25 @@ a {
 	line-height: 18px;
 	font-stretch: normal;
 	text-decoration: none;
+}
+
+.clubimg {
+	width: 121px;
+	height: 121px;
+	margin-right: 12px;
+}
+
+.club-item {
+	width: 350px;
+	height: 155px;
+	display: flex;
+	position: relative;
+	padding: 20px;
+	box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.05000000074505806);
+	align-items: flex-start;
+	flex-shrink: 0;
+	border-radius: 16px;
+	background-color: rgba(255, 255, 255, 1);
 }
 
 .my-page-my-page {
@@ -359,8 +622,9 @@ a {
 
 
 .table-item {
+
 	flex-basis: calc(50% - 10px);
-	padding: 10px;
+	padding: 4px;
 	box-sizing: border-box;
 	float: left;
 	margin-left: 10.5px;
@@ -392,6 +656,37 @@ a {
 	border-radius: 16px;
 	background-color: rgba(255, 255, 255, 1);
 }
+.likeimg{
+	    border-radius: 13px;
+    padding-right: 10px;
+    width: 110px;
+    height: 110px;
+}
+.like_body {
+	width: 350px;
+	height: 171px;
+	display: flex;
+	position: relative;
+	padding: 20px;
+	box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.05000000074505806);
+	align-items: flex-start;
+	flex-shrink: 0;
+	border-radius: 16px;
+	background-color: rgba(255, 255, 255, 1);
+}
+
+.review {
+	width: 200px;
+	height: 199px;
+	display: flex;
+	position: relative;
+	padding: 20px;
+	box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.05000000074505806);
+	align-items: flex-start;
+	flex-shrink: 0;
+	border-radius: 16px;
+	background-color: rgba(255, 255, 255, 1);
+}
 
 .my-page-item4 img {
 	margin: 5px;
@@ -399,6 +694,7 @@ a {
 	left: 0;
 	width: 121px;
 	height: 121px;
+	border-radius: 10px;
 }
 
 
@@ -990,6 +1286,26 @@ a {
 	text-decoration: none;
 }
 
+.reserv-text {
+	
+	color: rgb(45, 42, 38);
+	width: 197px;
+	height: 15px;
+	z-index: 3;
+	position: relative;
+	font-size: 13px;
+	font-style: Regular;
+	text-align: left;
+	font-family: Inter;
+	font-weight: 400;
+	line-height: 15px;
+	font-stretch: normal;
+	text-decoration: none;
+}
+.reserv-text a{
+font-weight: 400;
+}
+
 .my-page-btn2 {
 	right: 13px;
 	width: 136px;
@@ -1007,6 +1323,7 @@ a {
 	height: 34px;
 	display: flex;
 	overflow: hidden;
+	padding: 6px;
 	position: relative;
 	align-items: flex-start;
 	flex-shrink: 0;

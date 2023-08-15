@@ -31,7 +31,7 @@
 				id = $("#id_pwd").val();
 				console.log("id :", id);
 				$.ajax({
-					url: '/idCheck',
+					url: '/ajax/idCheck',
 					method: 'GET',
 					data: {id: id},
 					success: function (data) {
@@ -56,7 +56,7 @@
 				email = $("#email").val()
 				console.log(email);
 				$.ajax({
-					url: '/duplicateEmail',
+					url: '/ajax/duplicateEmail',
 					data: {email: email},
 					success: function (email2) {
 						console.log("email:", email2)
@@ -66,7 +66,7 @@
 							$("#box_check").css("display", "block")
 							console.log("email check 동작함!")
 							$.ajax({
-								url: '/emailCheck',
+								url: '/ajax/emailCheck',
 								method: 'GET',
 								data: {email: email},
 								success: function (data) {
@@ -89,7 +89,7 @@
 				var id_pwd = $("#id_pwd").val();
 				console.log(id);
 				$.ajax({
-					url: '/emailCheckWithEmail',
+					url: '/ajax/emailCheckWithEmail',
 					data: {email: email},
 					success: function (email2) {
 						console.log("email:", email2)
@@ -99,7 +99,7 @@
 							$("#box_check").css("display", "block")
 							console.log("email check 동작함!")
 							$.ajax({
-								url: '/emailCheck',
+								url: '/ajax/emailCheck',
 								method: 'GET',
 								data: {email: email, id: id_pwd},
 								success: function (data) {
@@ -126,7 +126,7 @@
 					auth += 1;
 					event.preventDefault();
 					$.ajax({
-						url: '/getID',
+						url: '/ajax/getID',
 						method: 'GET',
 						data: {email: email},
 						success: function (id) {
@@ -150,7 +150,7 @@
 					auth += 1;
 					event.preventDefault();
 					$.ajax({
-						url: '/getID',
+						url: '/ajax/getID',
 						method: 'GET',
 						data: {email: email},
 						success: function (id) {
@@ -197,7 +197,7 @@
 <body class="p-3 m-0 border-0 bd-example m-0 border-0">
 	<div class="loginBody">
 		<img src="/image/ketchbyLogo.png" alt="" style="left: 10px;" />
-		<form action="/login" method="post">
+		<form action="/account/login" method="post">
 			<div class="mb-3">
 				<label class="form-label">ID</label>
 				<input type="text" class="form-control" name="username" placeholder="ID">

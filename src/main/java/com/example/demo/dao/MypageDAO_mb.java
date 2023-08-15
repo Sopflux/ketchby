@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.db.DBManager;
 import com.example.demo.entity.Accclub;
 import com.example.demo.entity.Acclike;
+import com.example.demo.entity.Confirm;
 import com.example.demo.entity.Reclass;
 import com.example.demo.entity.Reservation;
 import com.example.demo.entity.Review;
@@ -29,13 +30,17 @@ public class MypageDAO_mb {
 		return DBManager.findLike(aid);
 	}
 
-	public int insertReview(Review r) {
-		return DBManager.insertReview(r);
+	public void insertReview(Review r) {
+		 DBManager.insertReview(r);
 		
 	}
 
 	public Reclass findClassInfo(int clno) {
 		return DBManager.findClassInfo(clno);
+	}
+
+	public List<Confirm> findConfirm(String aid) {
+		return DBManager.findConfirm(aid);
 	}
 	
 }
