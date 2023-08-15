@@ -42,6 +42,9 @@
   	<typeAlias type="com.example.demo.entity.ClDate" alias="cldate"/>
   	<typeAlias type="com.example.demo.entity.PaymentInfo" alias="payment"/>
   	<typeAlias type="com.example.demo.entity.Follow" alias="follow"/>
+     <typeAlias type="com.example.demo.entity.AdminClass" alias="adminClass"/>
+     <typeAlias type="com.example.demo.entity.AdminDashBoard" alias="adminDashBoard"/>
+     <typeAlias type="com.example.demo.entity.MainPage" alias="mainPage"/>
   	
   	
   	
@@ -79,6 +82,12 @@
     <mapper resource="com/example/demo/db/ClassOpenMapper.xml"/>
     <mapper resource="com/example/demo/db/feedMapper.xml"/>
     <mapper resource="com/example/demo/db/favorMapper.xml"/>
-    <mapper resource="com/example/demo/db/reservationMapper.xml"/>
+    <mapper resource="com/example/demo/db/reservationMapper.xml"/>  
+    <mapper resource="com/example/demo/db/adminClassMapper.xml"/>
+     <mapper resource="com/example/demo/db/adminClassPendingMapper.xml"/>
+     <mapper resource="com/example/demo/db/adminDashBoardMapper.xml"/>
+     <mapper resource="com/example/demo/db/mainPageMapper.xml"/>
+     <mapper resource="com/example/demo/db/classMainMapper.xml"/>
+    
   </mappers>
 </configuration>
