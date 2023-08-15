@@ -1,0 +1,60 @@
+@charset "EUC-KR";
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+body{ font-family:'Pretendard-Regular', 'sans-serif'}
+.maindiv {
+	transform: scale(0.8);
+	position: relative;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	margin-left: 200px;
+}
+
+.titlediv {
+	top: 36px;
+	left: 9px;
+	width: 941px;
+	height: 140px;
+	display: flex;
+	position: absolute;
+	align-items: flex-start;
+	flex-shrink: 0;
+}
+
+.noticetitle {
+	width: 941px;
+	font-size: 34px;
+	font-weight: 700;
+}
+
+
+.noticewriter {
+	top: 85px;
+	height: auto;
+	position: absolute;
+	font-size: 20px;
+	font-weight: 700;
+}
+
+.noticedate {
+	top: 113px;
+	color: rgba(101, 110, 117, 1);
+	height: auto;
+	position: absolute;
+	font-size: 20px;
+	font-weight: 400;
+}
+
+.noticecontent {
+	top: 150px;
+	width: 941px;
+	position: absolute;
+	font-size: 28px;
+	line-height: 42px;
+}

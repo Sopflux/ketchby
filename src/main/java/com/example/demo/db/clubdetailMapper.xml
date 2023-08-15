@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="clubdetail">
+	<select id="findClubInfo" resultType="clubdetail">
+		 SELECT
+            a.img,
+            cbtitle,
+            cbcontent,
+            cbpeople,
+            to_char(cbclsdate, 'yyyy-mm-dd') cbclsdate,
+            blocname,
+            slocname,
+            nick,
+            bcaname,
+            scaname,
+            cbimg,
+            sloc.slocno,
+            (
+                SELECT COUNT(ca.cbno)
+                FROM club_application ca
+                WHERE ca.cbno = cb.cbno
+            ) cnt,
+            sca.scano,
+            bca.bcano,
+            bloc.blocno
+        FROM
+            account a,
+            club cb,
+            bcategory bca,
+            scategory sca,
+            slocation sloc,
+            blocation bloc
+        WHERE
+            a.aid = cb.aid
+            AND bca.bcano = sca.bcano
+            AND sloc.slocno = cb.slocno
+            AND sloc.blocno = bloc.blocno
+            AND cb.scano = sca.scano
+            AND cb.cbno = #{cbno}
+	</select>
+	
+	<select id="findRecommandClub" resultType="clubdetail">
+	<![CDATA[
+		  SELECT
+            c.cbno,
+            c.cbtitle,
+            c.cbimg,
+            bca.bcaname,
+            sca.scaname,
+            c.cbpeople,
+            to_char(c.cbclsdate, 'mm/dd') cbclsdate,
+            sloc.slocno,
+            (
+                SELECT COUNT(ca.cbno)
+                FROM club_application ca
+                WHERE ca.cbno = c.cbno
+            ) cnt
+        FROM
+            club c,
+            scategory sca,
+            bcategory bca,
+            slocation sloc,
+            blocation bloc
+        WHERE
+            bca.bcano = sca.bcano
+            AND sloc.slocno = c.slocno
+            AND sloc.blocno = bloc.blocno
+            AND c.scano = sca.scano
+            AND c.slocno = #{slocno}
+            AND c.cbno <> #{cbno}
+        AND ROWNUM <= 3
+      ]]>
+	</select>
+</mapper>

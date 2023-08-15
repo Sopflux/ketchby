@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boardhot">
+	<select id="findHotAll" resultType="boardhot">
+<![CDATA[
+	SELECT bno, btitle, bcontent, bdate, bfname, nick, comment_count
+	FROM (
+	  SELECT b.bno, b.btitle, b.bcontent, to_char(b.bdate,'mm/dd') bdate, b.bfname, a.nick, c_count.comment_count,
+	         RANK() OVER (ORDER BY COALESCE(c_count.comment_count, 0) DESC) as rnk
+	  FROM board b
+	  LEFT JOIN (
+	    SELECT bno, COUNT(*) as comment_count
+	    FROM comments
+	    GROUP BY bno
+	  ) c_count ON b.bno = c_count.bno
+	  LEFT JOIN account a ON b.aid = a.aid
+	)
+	WHERE rnk <= 5
+
+]]>
+	</select>
+</mapper>

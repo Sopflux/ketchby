@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="comments">
+	<select id="findByComments" resultType="comments">
+		select
+		cono, bno,cocontent,to_char(codate,'mm/dd') codate,coref,colevel,costep,
+		c.aid, nick, img from comments c, account a where c.aid=a.aid and
+		bno=#{bno} ORDER BY codate DESC
+	</select>
+	<select id="getNextCommentsNo" resultType="java.lang.Integer">
+		select
+		nvl(max(cono),0)+1 from
+		comments
+	</select>
+	<insert id="insert" parameterType="comments">
+		insert into comments(cono, bno,cocontent,codate,aid)
+		values(#{cono},#{bno},#{cocontent},sysdate,#{aid})
+	</insert>
+	<delete id="delete" parameterType="comments">
+		delete from comments where cono=#{cono} 
+	</delete>
+	<delete id="deletecommentsByboard" parameterType="comments">
+		delete comments where bno=#{bno}
+	</delete>
+</mapper>

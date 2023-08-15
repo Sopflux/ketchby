@@ -4,18 +4,17 @@ body, h1, h2, h3, p, ul, li {
     margin: 0;
     padding: 0;
 }
-.main{
-  gap: 39.589996337890625px;
-  top: 347px;
-  left: 298px;
-  width: 750px;
-  display: flex;
-  padding: 0 0 39.999969482421875px;
-  position: absolute;
-  align-items: flex-start;
-  flex-shrink: 0;
-  flex-direction: column;
-  justify-content: center;
+.main {
+    gap: 39.589996337890625px;
+    left: 50px;
+    width: 750px;
+    height: 1800px;
+    display: flex;
+    padding: 0 0 39.999969482421875px;
+    position: absolute;
+    align-items: flex-start;
+    flex-shrink: 0;
+    flex-direction: column;
 }
 
 .info_div {

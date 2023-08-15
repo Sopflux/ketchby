@@ -13,6 +13,11 @@ public class Accclub {
 	private String cbimg;
 	private String bcaname;
 	private String scaname;
+	private String blocname;
+	private String slocname;
+	private String cbclsdate;
+	private int cbpeople;
 	private int slocno;
+	private String nick;
 	
 }

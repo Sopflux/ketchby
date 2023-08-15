@@ -19,7 +19,7 @@ public class MypageMailController {
 	
 	
 		@PostMapping("/mypage/mail")
-		public String MailCommunication(String femail, String name, String email, String subject, String message) {
+		public String MailCommunication(String femail, String faid, String name, String email, String subject, String message) {
 
 			SimpleMailMessage mailMessage = 
 					new SimpleMailMessage();
@@ -30,7 +30,9 @@ public class MypageMailController {
 		            + "답변하시고자 한다면 " + email + "로 연락주십시오";
 		
 			
-			
+			System.out.println("feamil:"+femail);
+			System.out.println("faid:"+faid);
+			System.out.println("name"+name);
 			mailMessage.setFrom("ketchby0821@gmail.com");
 			mailMessage.setTo(femail);
 			mailMessage.setSubject("Ketchby에서 발송된 문의 메일입니다.");
@@ -43,7 +45,7 @@ public class MypageMailController {
 			}
 			
 			
-			return "/feed/feed";
+			return "/account/mypage";
 		}
 	
 	    @GetMapping("/mypage/mail")

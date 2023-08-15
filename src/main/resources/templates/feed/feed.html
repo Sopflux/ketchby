@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -287,11 +288,11 @@ function deleteFile(num) {
                <!-- Avatar -->
                <div>
                <div class="avatar avatar-story me-2">
-                  <a href="#!"> <img class="avatar-img rounded-circle"
+                  <a href="/account/mypage"> <img class="avatar-img rounded-circle"
                            th:src="@{'/profile/' + ${session.a.img}}" alt="" style="width: 70px; height: 70px;">
                         </a>
                    <span style="margin: 0 10px;"></span>
-                   <a href="#!"><span class="nick" style="font-size: 18px;" th:text="${session.a.nick}"></span></a>
+                   <a href="/account/mypage"><span class="nick" style="font-size: 18px;" th:text="${session.a.nick}"></span></a>
                         
                    
                </div>
@@ -364,7 +365,7 @@ function deleteFile(num) {
                   <div class="d-flex align-items-center">
                      <!-- Avatar -->
                      <div class="avatar avatar-story me-2">
-                        <a href="#!"> <img class="avatar-img rounded-circle"
+                        <a th:href="@{/account/userpage(aid=${f.aid})}"> <img class="avatar-img rounded-circle"
                            th:src="@{'/profile/' + ${f.img}}" alt="" style="width: 70px; height: 70px;">
                         </a>
                      </div>
@@ -372,7 +373,7 @@ function deleteFile(num) {
                      <div>
                         <div class="nav nav-divider">
                            <h6 class="nav-item card-title mb-0">
-                              <a class="nick" href="#!" th:text="${f.nick}"> </a>
+                              <a class="nick" th:href="@{/account/userpage(aid=${f.aid})}" th:text="${f.nick}"> </a>
                            </h6>
                         </div>
                      </div>
@@ -491,7 +492,7 @@ function deleteFile(num) {
                               <div class="d-flex align-items-center">
                                  <!-- Avatar -->
                                  <div class="avatar avatar-story me-2">
-                                    <a href="#!"> <img class="avatar-img rounded-circle"
+                                    <a th:href="@{/account/userpage(aid=${f.aid})}"> <img class="avatar-img rounded-circle"
                            th:src="@{'/profile/' + ${f.img}}" alt="" style="width: 70px; height: 70px;">
                         </a>
                                  </div>
@@ -499,7 +500,7 @@ function deleteFile(num) {
                                  <div>
                                     <div class="nav nav-divider">
                                        <h6 class="nav-item card-title mb-0">
-                                          <a class="nick" href="#!" th:text="${f.nick}"> </a>
+                                          <a class="nick" th:href="@{/account/userpage(aid=${f.aid})}" th:text="${f.nick}"> </a>
                                        </h6>
                                        
                                     </div>

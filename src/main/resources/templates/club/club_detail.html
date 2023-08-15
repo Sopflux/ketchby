@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="EUC-KR">
+	<title>소모임</title>
+	<link href="/style/club_detail.css" rel="stylesheet" />
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+		$(function () {
+
+			$(document).on("click", ".rec", function () {
+				var cbno = $("#rcbno").val();
+				var slocno = $("#rslocno").val();
+				location.href = "/club/club_detail/" + cbno + "/" + slocno;
+			});
+
+			$("#applyButton").click(function () {
+				$.post("/club/club_detail", $("#applicationForm").serialize(), function (response) {
+					if (response === "success") {
+						alert("신청되었습니다");
+						location.href = "/club/clubmain";
+					} else {
+						alert("이미 신청한 소모임입니다");
+					}
+				});
+			});
+			
+			function isSameUser() {
+
+				var sessionId = $("#anick").val(); // 세션에 저장된 닉네임
+				var writerId = $("#nick").text(); // 해당 글의 작성자 닉네임
+
+				return sessionId === writerId;
+			}
+			if (isSameUser()) {
+				$("#editDiv, #deleteDiv").show();
+				$("#applyButton").prop("disabled", true).addClass("disabled-button");
+			} else {
+				$("#editDiv, #deleteDiv").hide();
+			}
+
+			$("#delete").click(function () {
+				var isConfirmed = confirm("정말로 삭제하시겠습니까?");
+				if (isConfirmed) {
+					var deleteLink = $(this).attr("href");
+					window.location.href = deleteLink;
+				} else {
+					return false;
+				}
+			})
+		})
+	</script>
+</head>
+
+<body>
+	<div class="maindiv">
+		<img id="cbimg" name="cbimg" th:src="@{${c.cbimg != null} ? '/club/'+${c.cbimg} : '/club/defaultclass.jpg'}"
+			alt="" />
+		<div class="maincontentdiv">
+			<div class="top">
+				<img th:src="@{'/image/'+${c.img}}" name="img" class="img" />
+				<span name="cbtitle" class="cbtitle" th:text="${c.cbtitle}"></span>
+				<span id="bangjang">방장</span>
+				<span name="nick" class="nick" id="nick" th:text="${c.nick}"></span> <!--글 작성자-->
+				<span name="category" class="category" th:text="${c.bcaname + ' > ' + c.scaname}"></span>
+				<span name="cnt" class="cnt" th:text="${c.cnt}"></span>
+				<span name="cbpeople" class="cbpeople" th:text="${'/'+c.cbpeople}"></span>
+			</div>
+
+			<div class="content">
+				<span class="cbcontent" th:text="${c.cbcontent}"></span>
+				<span class="jangso">장소</span>
+				<span class="blocname" name="blocname" th:text="${c.blocname}"></span>
+				<span class="mozip">모집 마감일</span>
+				<span name="cbclsdate" class="cbclsdate" th:text="${c.cbclsdate}"></span>
+
+				<div class="edde">
+					<div id="editDiv" style="display: none;">
+						<a id="update" th:href="@{'/club/club_update/'+${cbno}}">수정</a>
+					</div>
+
+					<div id="deleteDiv" style="display: none;">
+						<a id="delete" th:href="@{'/club/delete/'+${cbno}}">삭제</a>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="recommandclub">
+				<span class="somoim">이 지역의 다른 소모임</span>
+				<div class="clubreccomand">
+					<div class="rec" th:each="r:${list}">
+						<img th:src="@{${r.cbimg != null} ? '/club/'+${r.cbimg} : '/club/defaultclass.jpg'}"
+							class="recimg" name="recimg" />
+						<div class="reccategory" th:text="${r.bcaname + ' > ' + r.scaname}"></div>
+						<span class="rectitle" th:text="${r.cbtitle}"></span>
+						<span class="recpeople" th:text="'인원수: '+${r.cnt}+'/'+${r.cbpeople}"></span>
+						<span class="recbclsdate" th:text="'모집 마감 '+${r.cbclsdate}"></span>
+						<input type="hidden" id="rcbno" th:value="${r.cbno}" />
+						<input type="hidden" id="rslocno" th:value="${r.slocno}" />
+					</div>
+				</div>
+			</div>
+			<form id="applicationForm" action="/club/club_detail" method="post">
+				<input type="hidden" name="cbapno" th:value="${cbapno}" />
+				<input type="hidden" name="cbno" th:value="${cbno}" />
+				<input type="hidden" id="aid" name="aid" th:value="${session.a.aid}" />
+				<input type="hidden" id="anick" name="anick" th:value="${session.a.nick}" /> <!--세션에 저장된 닉네임-->
+			</form>
+			<button id="applyButton" class="Btn">신청</button>
+
+		</div>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="notice">
+	<select id="findAll" resultType="notice">
+		select *
+		from (
+			select
+			noticeno,
+			TO_CHAR(noticedate,'mm/dd') as noticedate,
+			noticewriter,
+			noticetitle,
+			noticecontent,
+			row_number() over (order by noticedate desc) as n
+			from
+			notice
+		)
+		where n between #{start} AND #{end}
+	</select>
+	
+	<select id="getTotalRecord" resultType="java.lang.Integer">
+		select count(*) from
+		notice
+	</select>
+	
+	<select id="findByNo" resultType="notice">
+		select 
+			noticeno,
+			TO_CHAR(noticedate,'mm/dd') as noticedate,
+			noticewriter,
+			noticetitle,
+			noticecontent
+		from notice where noticeno=#{noticeno}
+	</select>
+</mapper>

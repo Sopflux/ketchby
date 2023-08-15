@@ -1,125 +1,127 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Bootstrap JavaScript -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="qandamain.css">
+	<meta charset="UTF-8">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Bootstrap JavaScript -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="/style/qandamain.css">
+	<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+	<script>
+		$(function () {
+			
+			console.log("          ___   .--.    \n" +
+            "    .--.-\"   \"-' .- |   \n" +
+            "   / .-,`          .'   \n" +
+            "   \\   `           \\    \n" +
+            "    '.            ! \\   \n" +
+            "      |     !  .--.  |  \n" +
+            "      \\        '--'  /.____ \n" +
+            "     /`-.     \\__,'.'      `\\ \n" +
+            "  __/   `\\-.__.-' `\\      /  \n" +
+            "  | `---`'-. _/-`     \\----'    _ \n" +
+            "  |,-'`  /             |    _.-' `\\ \n" +
+            " .'     /              |--'`     / | \n" +
+            "/      /\\              `         | |\n" +
+            "|   .\\/  \\      .--. __          \\ |\n" +
+            "'-'      '._       /  `\\         /\n" +
+            "             `\\    '     |------'`\n" +
+            "               \\  |      |\n" +
+            "                \\        /\n" +
+            "                 '._  _.'");
 
-<script>
-  function showContent(contentIndex) {
-    const buttons = document.getElementsByClassName('qanda_button');
-    for (let i = 0; i < buttons.length; i++) {
-      if (i === contentIndex - 1) {
-        buttons[i].classList.add('active');
-      } else {
-        buttons[i].classList.remove('active');
-      }
-      
-    }
+			
+			function loadAccordionData(qno) {
+				$.ajax({
+					url: "/qanda/qandamain/ajax",
+					data: {qno: qno},
+					success: function (data) {
+						$("#accordionPanelsStayOpenExample").empty();
+						$.each(data, function (index, value) {
+							var accordion_item = $("<div class='accordion-item'></div>");
+							var accordion_header = $("<h2 class='accordion-header' id='panelsStayOpen-heading" + (index + 1) + "'>");
+							var accordion_button = $("<button class='accordion-button collapsed' type='button' data-bs-toggle='collapse' data-bs-target='#panelsStayOpen-collapse" + (index + 1) + "' aria-expanded='true' aria-controls='panelsStayOpen-collapse" + (index + 1) + "'></button>").html(this.qatitle);
+							var accordion_collapse = $("<div id='panelsStayOpen-collapse" + (index + 1) + "' class='accordion-collapse collapse' aria-labelledby='panelsStayOpen-heading" + (index + 1) + "'></div>");
+							var accordion_body = $("<div class='accordion-body'></div>").html(this.qacontent);
 
+							var a = $(accordion_header).append(accordion_button);
+							var b = $(accordion_collapse).append(accordion_body);
 
-    // 스프링과 AJAX 통신으로 데이터를 가져와서 contentDiv 내용을 변경하는 부분
-    // 여기서는 예시로 간단히 내용을 설정하였습니다. 실제로는 AJAX로 서버와 통신하여 데이터를 가져와야 합니다.
-    const contentDiv = document.getElementById('content_div');
-    switch (contentIndex) {
-      case 1:
-        contentDiv.innerHTML = `
-  <div class="accordion" id="accordionExample">
-    <!-- 첫 번째 아코디언 아이템 -->
-    <div class="accordion-item">
-      <h2 class="accordion-header" id="headingOne">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-          예약 취소는 어떻게 하나요?
-        </button>
-      </h2>
-      <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne">
-        <div class="accordion-body">
-          클래스 개설자가 예약을 확인해 준비 중이라면, 직접 취소가 어렵습니다. 클래스 개설자 또는 캐치비 고객센터로 문의 부탁드립니다.
-        </div>
-      </div>
-    </div>
-	<br />
-    <!-- 두 번째 아코디언 아이템 -->
-    <div class="accordion-item">
-      <h2 class="accordion-header" id="headingTwo">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-          취소 후 환불은 언제 되나요?
-        </button>
-      </h2>
-      <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo">
-        <div class="accordion-body">
-          신용카드 및 체크카드의 경우 카드사에서 확인 절차를 거치는 관계로 평균 3~7일 영업일 이내 환불처리가 완료됩니다. 무통장 입금의 경우 평균 3영업일 이내 요청 하신 계좌로 환불됩니다. 휴대폰 소액결제의 경우 평균 3영업일 이내 환불 또는 취소 처리가 완료됩니다.
-        </div>
-      </div>
-    </div>
-	<br />
-	
-    <!-- 세 번째 아코디언 아이템 -->
-    <div class="accordion-item">
-      <h2 class="accordion-header" id="headingThree">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-         클래스 취소가 불가능한 이유가 무엇인가요? 
-        </button>
-      </h2>
-      <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree">
-        <div class="accordion-body">
-         - 입금대기 및 결제완료 단계: 즉시취소 가능합니다. - 클래스 준비 중: 클래스 개설자 또는 캐치비 고객센터로 취소 가능 여부 문의 부탁드립니다. - 클래스 시작 : 예약 취소가 불가능합니다.
-        </div>
-      </div>
-    </div>
-  </div>
-        `;
-        break;
-      case 2:
-        contentDiv.innerHTML = "취소/환불 내용을 출력합니다.";
-        break;
-      case 3:
-        contentDiv.innerHTML = "예약/결제 내용을 출력합니다.";
-        break;
-      case 4:
-        contentDiv.innerHTML = "클래스관련 내용을 출력합니다.";
-        break;
-      case 5:
-        contentDiv.innerHTML = "로그인/회원정보 내용을 출력합니다.";
-        break;
-      case 6:
-        contentDiv.innerHTML = "서비스/기타 내용을 출력합니다.";
-        break;
-      default:
-        contentDiv.innerHTML = "여기에 내용이 출력됩니다.";
-        break;
-    }
-  }
-</script>
-<title>Insert title here</title>
+							$(accordion_item).append(a, b);
+
+							$("#accordionPanelsStayOpenExample").append(accordion_item);
+						});
+					}
+				});
+			}
+
+			$(".qanda_button").click(function () {
+				var qno = $(this).attr("qno");
+				$(".qanda_button").removeClass("active"); // 모든 버튼의 active 클래스 제거
+				$(this).addClass("active"); // 클릭한 버튼에 active 클래스 추가
+				loadAccordionData(qno);
+			});
+
+			// 처음 로드될 때 "전체" 버튼에 active 클래스 추가하고 데이터베이스 내용 로드
+			$(".qanda_button[qno='0']").addClass("active");
+			loadAccordionData(0);
+
+			$(".qanda_emailcopy").click(function () {
+				var email = "ketchby0821@gmail.com";
+				var tempInput = document.createElement("input");
+				tempInput.setAttribute("type", "text");
+				tempInput.setAttribute("value", email);
+				document.body.appendChild(tempInput);
+				tempInput.select();
+				document.execCommand("copy");
+				document.body.removeChild(tempInput);
+				alert("이메일이 복사되었습니다");
+			});
+			$("#qanda_email").click(function(){
+				location.href = "/qanda/qanda_open";
+			})
+
+		})
+	</script>
+
+	<title>Q&amp;A</title>
 </head>
+
 <body>
-<div class="main">
-<div class="info_div">
-  <span class="time">고객센터 09:00 ~ 18:00</span>
-  <span class="weekday">평일 : 전체 문의 상담 가능</span>
-  <span class="weekend">주말/공휴일 : 클래스 개설/취소 문의에 한해 전화 상담 가능</span>
-  <span class="phone">1670-0876</span>
-  <br />
-  <div class="button_row">
-    <button class="qanda_email">이메일 문의하기</button>
-    <button class="qanda_emailcopy">이메일 복사하기</button>
-  </div>
-</div>
-<div class="line_div"></div>
-<div class="button_wrapper">
-  <button class="qanda_button" onclick="showContent(1)">전체</button>
-  <button class="qanda_button" onclick="showContent(2)">취소/환불</button>
-  <button class="qanda_button" onclick="showContent(3)">예약/결제</button>
-  <button class="qanda_button" onclick="showContent(4)">클래스관련</button>
-  <button class="qanda_button" onclick="showContent(5)">로그인/회원정보</button>
-  <button class="qanda_button" onclick="showContent(6)">서비스/기타</button>
-</div>
-<div class="content_div" id="content_div">
-  여기에 내용이 출력됩니다.
-</div>
-</div>
+	<div th:replace="menu :: head"></div>
+	<div class="main">
+		<div class="info_div">
+			<span class="time">고객센터 09:00 ~ 18:00</span>
+			<span class="weekday">평일 : 전체 문의 상담 가능</span>
+			<span class="weekend">주말/공휴일 : 클래스 개설/취소 문의에 한해 전화 상담 가능</span>
+			<span class="phone">2023-0818</span>
+			<br />
+			<div class="button_row">
+				<button class="qanda_email" id="qanda_email">이메일 문의하기</button>
+				<button class="qanda_emailcopy">이메일 복사하기</button>
+			</div>
+		</div>
+		<div class="line_div"></div>
+		<div class="button_wrapper">
+			<button class="qanda_button" qno="0">전체</button>
+			<button class="qanda_button" qno="101">취소/환불</button>
+			<button class="qanda_button" qno="102">예약/결제</button>
+			<button class="qanda_button" qno="103">클래스관련</button>
+			<button class="qanda_button" qno="104">로그인/회원정보</button>
+			<button class="qanda_button" qno="105">서비스/기타</button>
+		</div>
+		<div class="content_div" id="content_div">
+
+			<!--부트스트랩 시작-->
+			<div class="accordion" id="accordionPanelsStayOpenExample">
+
+			</div>
+			<!--끝-->
+
+
+		</div>
+	</div>
 </body>
+
 </html>

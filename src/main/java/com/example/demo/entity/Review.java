@@ -14,6 +14,7 @@ public class Review {
 	private String rcontent;
 	private String aid;
 	private double rstar;
-	private Date rdate;
+	private String rdate;
 	private String cltitle;
+	private String nick;
 }
