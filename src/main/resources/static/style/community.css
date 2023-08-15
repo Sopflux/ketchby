@@ -16,13 +16,14 @@ button {
 	border: none;
 }
 
+
 .search_keyword::placeholder {
 	color: rgba(189, 189, 189, 1);
 }
 
 .maindiv {
-margin-left: 200px;
-    transform: scale(1.0);
+margin-left: 100px;
+    transform: scale(0.9);
     position: relative;
     width: 100vw;
     height: 100vh;
