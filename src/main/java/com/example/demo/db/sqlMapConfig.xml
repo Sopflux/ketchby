@@ -24,11 +24,11 @@
   	<typeAlias type="com.example.demo.entity.Time" alias="time"/>
   	<typeAlias alias="review" type="com.example.demo.entity.Review"/>
   	<typeAlias type="com.example.demo.entity.ReviewInfoVO" alias="reviewinfo"/> 	
-  	<typeAlias alias="image" type="com.example.demo.entity.Image"/>
-   <typeAlias alias="accclub" type="com.example.demo.entity.Accclub"/>
-   <typeAlias alias="acclike" type="com.example.demo.entity.Acclike"/>
-   <typeAlias alias="reclass" type="com.example.demo.entity.Reclass"/>
-   <typeAlias alias="reservation" type="com.example.demo.entity.Reservation"/>
+  	<typeAlias type="com.example.demo.entity.Image" alias="image"/>
+   <typeAlias type="com.example.demo.entity.Accclub" alias="accclub" />
+   <typeAlias type="com.example.demo.entity.Acclike" alias="acclike" />
+   <typeAlias type="com.example.demo.entity.Reclass" alias="reclass" />
+   <typeAlias type="com.example.demo.entity.Reservation" alias="reservation" />
      <typeAlias type="com.example.demo.entity.Feed" alias="feed"/>
      <typeAlias type="com.example.demo.entity.Likes" alias="likes"/>
      <typeAlias type="com.example.demo.entity.Feedcommentary" alias="feedcommentary"/>
@@ -37,7 +37,12 @@
      <typeAlias type="com.example.demo.entity.Place" alias="place"/>
      <typeAlias type="com.example.demo.entity.Favorite" alias="favorite"/>
      <typeAlias type="com.example.demo.entity.Quit" alias="quit"/>
-     <typeAlias type="com.example.demo.entity.Reason" alias="reason"/>
+     <typeAlias type="com.example.demo.entity.Reason" alias="reason"/> 
+  	<typeAlias type="com.example.demo.entity.Confirm" alias="confirm"/>
+  	<typeAlias type="com.example.demo.entity.ClDate" alias="cldate"/>
+  	<typeAlias type="com.example.demo.entity.PaymentInfo" alias="payment"/>
+  	<typeAlias type="com.example.demo.entity.Follow" alias="follow"/>
+  	
   	
   	
   </typeAliases>
@@ -74,5 +79,6 @@
     <mapper resource="com/example/demo/db/ClassOpenMapper.xml"/>
     <mapper resource="com/example/demo/db/feedMapper.xml"/>
     <mapper resource="com/example/demo/db/favorMapper.xml"/>
+    <mapper resource="com/example/demo/db/reservationMapper.xml"/>
   </mappers>
 </configuration>
