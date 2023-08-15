@@ -169,13 +169,6 @@
          <version>1.18.28</version>
          <scope>provided</scope>
       </dependency>
-      
-      <dependency>
-		 <groupId>com.google.analytics</groupId>
-		 <artifactId>google-analytics-data</artifactId>
-		 <version>0.16.0</version>
-	  </dependency>
-
     </dependencies>
 
 
