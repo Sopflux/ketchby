@@ -77,14 +77,6 @@ section::after {
     <article>
     <div class="card-card">
 		
-		
-		
-		
-		
-		
-		
-		
-		
 		<!-- 마이페이지로 이동 -->
 		
     	<p class="card-content" th:text="${cl_list.bcaname } + '>' + ${cl_list.scaname}"></p>
@@ -190,13 +182,14 @@ section::after {
             </tr>
         </table>
         
-        <p class="text-title">제가 이번에 소개할 클래스는 </p><br>
-		<p id="content" th:utext="${cl_list.clcontent}"></p>
+        <p class="text-title">제가 이번에 소개할 클래스는 </p>
+        <div id="clcontent" th:text="${clcontent}" style="margin-bottomm:20px;"></div>
 
         <p class="text-title">장소 및 편의시설</p>
 		<span th:text="${cl_list.claddr }" id="addr"></span>
+		
         <div id="map" style="width: 400px; height: 300px; margin-bottom: 15px;">
-			<script>
+			<script type="text/javascript">
 				var addr = $("#addr").text();
 				var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 				mapOption = {

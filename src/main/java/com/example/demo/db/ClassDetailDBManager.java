@@ -10,7 +10,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import com.example.demo.entity.Account;
 import com.example.demo.entity.ClassDetailVO;
-import com.example.demo.entity.ClassTimeVO;
+import com.example.demo.entity.TimeVO;
 import com.example.demo.entity.ReviewInfoVO;
 
 public class ClassDetailDBManager {
@@ -52,9 +52,9 @@ public class ClassDetailDBManager {
 			return c;
 		}
 		
-		public static List<ClassTimeVO> findClassTime(int clno) {
+		public static List<TimeVO> findClassTime(int clno) {
 			SqlSession session = sqlSessionFactory.openSession();
-			List<ClassTimeVO> c = null;
+			List<TimeVO> c = null;
 			c = session.selectList("classDetail.findClassTime", clno);
 			session.close();
 			return c;

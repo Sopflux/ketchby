@@ -10,9 +10,11 @@
   	<typeAlias type="com.example.demo.entity.QnainsertVO" alias="qnainsert"/>
   	<typeAlias type="com.example.demo.entity.AdminQnainsertVO" alias="adminqnainsert"/>
   	<typeAlias type="com.example.demo.entity.ClassDetailVO" alias="classDetail"/>
-  	<typeAlias type="com.example.demo.entity.ClassTimeVO" alias="classtime"/>
+  	<typeAlias type="com.example.demo.entity.TimeVO" alias="time"/>
+  	<typeAlias type="com.example.demo.entity.ClassVO" alias="class"/>
   	<typeAlias type="com.example.demo.entity.ReviewVO" alias="review"/>
   	<typeAlias type="com.example.demo.entity.ReviewInfoVO" alias="reviewinfo"/>
+  	<typeAlias type="com.example.demo.entity.ScategoryVO" alias="scategory"/>
   </typeAliases>
   <environments default="development">
     <environment id="development">
@@ -31,5 +33,6 @@
     <mapper resource="com/example/demo/db/AdminNoticeMapper.xml"/>
     <mapper resource="com/example/demo/db/AdminQnaMapper.xml"/>
     <mapper resource="com/example/demo/db/ClassDetailMapper.xml"/>
+    <mapper resource="com/example/demo/db/ClassOpenMapper.xml"/>
   </mappers>
 </configuration>

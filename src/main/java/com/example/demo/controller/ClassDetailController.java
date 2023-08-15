@@ -38,6 +38,9 @@ public class ClassDetailController {
 		double times = dao.totalClassTime(clno);
 		int check = dao.checkLike(map);
 		
+		String clcontent = dao.findAllClass(clno).getClcontent();
+		
+		model.addAttribute("clcontent", clcontent);		
 		model.addAttribute("check", check);
 		model.addAttribute("r_list", dao.findReview(clno));
 		model.addAttribute("cl_list", dao.findAllClass(clno));
@@ -48,7 +51,6 @@ public class ClassDetailController {
 		model.addAttribute("avg", avg);
 		model.addAttribute("times", times);
 		model.addAttribute("aid", aid);
-		
 		return "/classdetail";
 	}
 	

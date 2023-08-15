@@ -65,7 +65,6 @@ public class AdminAccountController {
 			String fname2 = img.substring(img.lastIndexOf("."));
 			
 			img = fname1 + n + fname2;
-			System.out.println("변환 후 img: "+img);
 		}
 		
 		a.setImg(img);

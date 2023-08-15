@@ -334,7 +334,6 @@
 			
 			$("#btnUpdate").click(function(){
 				let data = new FormData(document.getElementById("uploadAccount"));
-				console.log('before update data: '+ data);
 				$.ajax({
 					url: "/admin/update",
 					type: 'post',

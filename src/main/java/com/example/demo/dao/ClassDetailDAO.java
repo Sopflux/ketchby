@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.db.ClassDetailDBManager;
 import com.example.demo.entity.Account;
 import com.example.demo.entity.ClassDetailVO;
-import com.example.demo.entity.ClassTimeVO;
+import com.example.demo.entity.TimeVO;
 import com.example.demo.entity.ReviewInfoVO;
 
 @Repository
@@ -25,7 +25,7 @@ public class ClassDetailDAO {
 		return ClassDetailDBManager.totalClassTime(clno);
 	}
 	
-	public List<ClassTimeVO> findClassTime(int clno) {
+	public List<TimeVO> findClassTime(int clno) {
 		return ClassDetailDBManager.findClassTime(clno);
 	}
 	

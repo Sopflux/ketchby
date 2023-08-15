@@ -1,6 +1,7 @@
 package com.example.demo.db;
 
 import java.io.InputStream;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -8,6 +9,9 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.springframework.boot.autoconfigure.web.WebProperties.Resources;
 
 import com.example.demo.entity.Account;
+import com.example.demo.entity.TimeVO;
+import com.example.demo.entity.ClassVO;
+import com.example.demo.entity.ScategoryVO;
 
 public class DBManager {
 	
@@ -36,5 +40,38 @@ public class DBManager {
 		a = session.selectOne("account.findByEmail", email);
 		session.close();
 		return a;
+	}
+	
+	//class
+	public static int insertClass(ClassVO c) {
+		SqlSession session = sqlSessionFactory.openSession(true);
+		int re = -1;
+		re = session.insert("classOpen.insertClass", c);
+		session.close();
+		return re;
+	}
+	
+	public static int insertClassTime(TimeVO c) {
+		SqlSession session = sqlSessionFactory.openSession(true);
+		int re = -1;
+		re = session.insert("classOpen.insertClassTime", c);
+		session.close();
+		return re;
+	}
+	
+	public static List<ScategoryVO> findScaName(String bcaname){
+		SqlSession session = sqlSessionFactory.openSession();
+		List<ScategoryVO> list = null;
+		list = session.selectList("classOpen.findScaName", bcaname);
+		session.close();
+		return list;
+	}
+
+	public static int findScaNo(String scaname) {
+		// TODO Auto-generated method stub
+		SqlSession session = sqlSessionFactory.openSession();
+		int re = -1;
+		re = session.selectOne("classOpen.findScaNo", scaname);
+		return re;
 	}
 }

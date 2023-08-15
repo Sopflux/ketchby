@@ -1,0 +1,215 @@
+@charset "UTF-8";
+
+.title {
+	font-weight: bold; 
+	font-size: 35px;
+}
+
+.input-title {
+  width: 100%;
+  height: 42px;
+  padding: 10px;
+  margin: 10px 0 2rem 0;
+  border-color: rgba(229, 229, 229, 1);
+  border-style: solid;
+  border-width: 1px;
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 5px;
+}
+
+.select-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.category {
+  padding: 8px;
+  align-items: flex-start;
+  border-color: rgba(232, 232, 232, 1);
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 4px;
+  background-color: rgba(248, 248, 248, 1);
+  color: rgba(45, 42, 38, 1);
+  margin: 10px 10px 2rem 0;
+}
+
+.rec {
+  height: 2px;
+  width: 100%;
+  background-color: black;
+  margin: 0 0 15px 0;
+}
+
+.content-total {
+  display: flex;
+  justify-content: space-between;
+}
+
+.class-box {
+  width: 163px;
+  height: 46px;
+  border-color: rgba(34, 34, 34, 1);
+  border-style: solid;
+  border-width: 1px 1px 0;
+  background-color: rgba(255, 255, 255, 1);
+  text-align: center;
+  padding: 10px;
+  display: inline-block;
+}
+
+.filebox{
+  display: inline-block;
+  margin: 5px;
+}
+
+.class-box {
+  width: 163px;
+  height: 46px;
+  border-color: rgba(34, 34, 34, 1);
+  border-style: solid;
+  border-width: 1px 1px 0;
+  background-color: rgba(255, 255, 255, 1);
+  text-align: center;
+  padding: 10px;
+  display: inline-block;
+}
+
+.title-sub{
+  font-size: 20px;
+}
+
+.filebox input[type="file"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip:rect(0,0,0,0);
+  border: 0;
+}
+
+.filebox label {
+  display: inline-block;
+  padding: .5em .75em;
+  font-size: inherit;
+  line-height: normal;
+  vertical-align: middle;
+  background-color: #fdfdfd;
+  cursor: pointer;
+  border: 1px solid #d1cfcf;
+  border-radius: .25em;
+}
+
+/* named upload */
+.filebox .upload-name {
+  display: inline-block;
+  padding: .5em .75em;  /* label의 패딩값과 일치 */
+  font-size: inherit;
+  font-family: inherit;
+  line-height: normal;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 0;
+}
+
+.clcontent {
+  width: 100%;
+  height: 470px;
+  padding: 10px;
+  color: #999999;
+  resize: none;
+  border-color: rgba(248, 248, 248, 1);
+  border-style: solid;
+  border-width: 1px;
+  background-color: rgba(248,248,248,1);
+  margin-bottom: 2rem;
+}
+
+.btnLocation {
+  width: 80px;
+  height: 38px;
+  align-items: center;
+  border-color: rgba(153, 153, 153, 1);
+  border-style: solid;
+  border-width: 1px;
+  background-color: rgba(255, 255, 255, 1);
+  color: rgba(34, 34, 34, 1);
+  justify-content: center;
+}
+
+.input-location {
+  width: calc(100% - 90px);
+  height: 42px;
+  padding: 10px;
+  border-color: rgba(229, 229, 229, 1);
+  border-style: solid;
+  border-width: 1px;
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 5px;
+}
+
+.map {
+  width: 560px;
+  height: 416.5px;
+}
+
+.table_day {
+  width: 100%;
+  margin: 15px 0 20px 0;
+}
+
+.time {
+  height: 35px;
+  border-radius: 5px;
+  border: solid;
+  border-width: 1px;
+  border-color: rgba(153, 153, 153, 1);
+  padding: 0 10px;
+}
+
+.clpeople {
+  width: 60px;
+  height: 30px;
+  border-radius: 5px;
+  border: solid;
+  border-width: 1px;
+  border-color: rgba(153, 153, 153, 1);
+  padding-left: 10px;
+  margin: 15px 0 20px 0;
+}
+
+.text-alert {
+  font-size: 12px;
+  color: #578CE1;
+}
+
+.form-check-label {
+  font-size: 17px;
+  margin: 0 30px 0 5px;
+}
+
+.clprice {
+  width: 120px;
+  height: 30px;
+  border-radius: 3px;
+  border: solid;
+  border-width: 1px;
+  border-color: rgba(153, 153, 153, 1);
+}
+
+.form-check-input[type=checkbox] {
+  border-radius: 0.25em;
+  margin-top: 4px;
+}
+
+.btnInsert {
+	width: 300px;
+    height: 70px;
+    color: white;
+    background-color: #008375;
+    border: none;
+    font-size: 25px;
+    margin: 40px calc(50% - 150px) 0 calc(50% - 150px);
+}
