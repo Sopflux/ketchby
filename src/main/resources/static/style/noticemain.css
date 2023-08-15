@@ -1,0 +1,117 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+body{ font-family:'Pretendard-Regular', 'sans-serif'}
+.maindiv {
+	position: relative;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	margin-left: 400px;
+	display: inline-block;
+	margin-top: 80px;
+}
+
+.gongzi {
+	font-size: 30px;
+	color: rgba(140, 90, 210, 1);
+}
+
+a {
+	text-decoration: none;
+	color: black;
+	font-weight: bolder;
+}
+
+a:hover {
+	color: rgba(140, 90, 210, 1);
+}
+
+.write {
+	width: 70px;
+	height: 41.63px;
+	border-radius: 7px;
+	background-color: rgba(0, 199, 174, 1);
+	color: white;
+	font-size: 15px;
+}
+
+.write:hover {
+	background-color: rgba(0, 153, 133, 1);
+}
+
+.notice {
+	width: 889px;
+	height: 1000px;
+	display: flex;
+	position: relative;
+	align-items: flex-start;
+	flex-shrink: 0;
+	flex-direction: column;
+}
+
+.pagenum {
+	margin: 0 auto;
+}
+
+.page-number {
+	color: rgba(154, 154, 154, 1);
+	text-decoration: none;
+	transition: color 0.2s, font-weight 0.2s;
+	margin: 5px 10px;
+}
+
+.page-number:hover {
+	color: rgba(140, 90, 210, 1);
+	font-weight: bold;
+}
+
+.td-number {
+	width: 40px;
+}
+
+.td-title {
+	width: 600px;
+}
+
+.td-date {
+	width: 90px;
+}
+
+.td-author {
+	width: 200px;
+}
+
+.notice-td-title {
+	width: 639px;
+}
+
+
+.notice_td tr:not(:last-child) {
+	border-bottom: 1px solid #E6E6E6;
+}
+
+.line {
+	width: 800px;
+	height: 5px;
+	overflow: hidden;
+	margin: 20px 10px;
+	background-color: rgba(247, 249, 250, 1);
+}
+
+.notice_td {
+	width: 888px;
+	height: 830px;
+	display: flex;
+	position: relative;
+	align-items: flex-start;
+	flex-shrink: 0;
+}
+
+.notice_td td {
+	padding: 8px 0;
+}

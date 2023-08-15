@@ -1,39 +1,26 @@
 package com.example.demo.controller;
 
-import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
-import com.example.demo.dao.QandADAO;
-import com.example.demo.entity.QandA;
+import com.example.demo.ApiBigQueryAuthentication;
+import com.example.demo.service.QandAService;
 
-import autovalue.shaded.com.google.common.base.Optional;
 import lombok.Setter;
 
 @Controller
 @Setter
 public class QandAController {
 	@Autowired
-	private QandADAO dao;
-
+	private QandAService qs;
 	
 	@GetMapping("/qanda/qandamain")
-	public void list() {}
-	
-	@GetMapping("/qanda/qandamain/ajax")
-	@ResponseBody
-	public List<QandA> findList(int qno) {
-	    List<QandA> list = null;
-	    if (qno == 0) {
-	        list = dao.findAll();
-	    } else {
-	        list = dao.findByQno(qno);
-	    }
-	    return list;
+	public void list(Model model, int qno) {
+		model.addAttribute("list",qs.findByQno(qno));
 	}
 }

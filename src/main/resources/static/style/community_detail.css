@@ -1,0 +1,275 @@
+@charset "EUC-KR";
+
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+body{ font-family:'Pretendard-Regular', 'sans-serif';
+height: 1800px;}
+.maindiv {
+	transform: scale(0.8);
+	position: relative;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	margin-left: 200px;
+}
+
+.titlediv {
+	top: 36px;
+	left: 9px;
+	width: 941px;
+	height: 140px;
+	display: flex;
+	position: absolute;
+	align-items: flex-start;
+	flex-shrink: 0;
+}
+
+.btitle {
+	width: 941px;
+	font-size: 34px;
+	font-weight: 700;
+}
+
+.img {
+	top: 85px;
+	width: 50px;
+	height: 50px;
+	overflow: hidden;
+	position: absolute;
+	align-items: flex-start;
+	border-radius: 50px;
+	background-color: rgba(245, 245, 245, 1);
+}
+
+.nick {
+	top: 85px;
+	left: 64px;
+	height: auto;
+	position: absolute;
+	font-size: 20px;
+	font-weight: 700;
+}
+
+.bdate {
+	top: 113px;
+	left: 68px;
+	color: rgba(101, 110, 117, 1);
+	height: auto;
+	position: absolute;
+	font-size: 20px;
+	font-weight: 400;
+}
+
+.boardcontent {
+	top: 200px;
+	left: 9px;
+	width: 941px;
+	height: auto;
+	display: flex;
+	position: absolute;
+	align-items: flex-start;
+	flex-shrink: 0;
+}
+
+.boardimage {
+	background-color: white;
+	width: 421px;
+	height: 332px;
+	overflow: hidden;
+}
+
+.boardimage img {
+	width: 421px;
+	height: 332px;
+	object-fit: contain;
+}
+
+.bcontent {
+	top: 351px;
+	position: absolute;
+	font-size: 28px;
+	line-height: 42px;
+}
+
+.comment_top {
+	top: 798px;
+	left: 0px;
+	width: 1000px;
+	height: 140px;
+	display: flex;
+	position: absolute;
+	align-items: flex-start;
+	flex-shrink: 0;
+}
+
+.detguel {
+	height: auto;
+	font-size: 30px;
+	font-weight: 700;
+}
+
+
+.comment_count {
+	left: 66px;
+	color: rgba(140, 90, 210, 1);
+	height: auto;
+	position: absolute;
+	font-size: 30px;
+	font-weight: 700;
+}
+
+.cocontent {
+	font-size: 20px;
+	gap: 7px;
+	top: 61px;
+	left: 4px;
+	width: 763px;
+	height: 50px;
+	display: flex;
+	padding: 10px 31px 10px 17px;
+	position: absolute;
+	align-items: center;
+	flex-shrink: 0;
+	border-color: rgba(218, 221, 224, 1);
+	border-style: solid;
+	border-width: 1px;
+	border-radius: 4px;
+}
+
+.commentBtn {
+	top: 61px;
+	left: 830px;
+	width: 120px;
+	height: 70px;
+	position: absolute;
+	border-radius: 6px;
+	background-color: rgba(140, 90, 210, 1);
+	color: white;
+	font-size: 25px;
+	font-weight: 700;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+
+}
+
+.commentBtn:hover {
+	background-color: rgba(110, 70, 190, 1);
+}
+
+.comment_content_div {
+	top: 970px;
+	width: 767px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	position: absolute;
+	align-items: flex-start;
+	flex-shrink: 0;
+	height: auto;
+}
+
+.comment_content_li {
+	border-collapse: collapse;
+	width: 767px;
+	height: 80px;
+	position: absolute;
+}
+
+.comment_img {
+	width: 30px;
+	height: 30px;
+	border-radius: 30px;
+	background-color: rgba(110, 70, 190, 1);
+}
+
+.comment_nick {
+	left: 42px;
+	position: absolute;
+	font-size: 22px;
+	font-weight: 700;
+	line-height: 20px;
+}
+
+.comment_comment {
+	left: 250px;
+	height: auto;
+	position: absolute;
+	font-size: 23px;
+	line-height: 24px;
+}
+
+.comment_date {
+	left: 750px;
+	color: rgba(130, 140, 148, 1);
+	height: auto;
+	position: absolute;
+	font-size: 12px;
+	line-height: 20px;
+}
+
+.sacje {
+	left: 604px;
+	color: rgba(130, 140, 148, 1);
+	height: auto;
+	position: absolute;
+	line-height: 20px;
+}
+
+td,
+th {
+	padding: 15px;
+	/* 원하는 여백 크기로 설정하세요 */
+}
+
+
+.edde {
+	display: flex;
+	margin-left: 100px;
+	font-size: 20px;
+}
+#update{
+	margin-right: 20px;
+}
+.edde a {
+	text-decoration: none;
+	color: inherit;
+}
+.edde a:hover {
+	color: rgba(110, 70, 190, 1);
+
+}
+/*.edde {
+	margin-left: 800px;
+}
+
+.edde a {
+	text-decoration: none;
+	
+	color: inherit;
+	font-size: 20px;
+	
+}
+
+
+.edde a:hover {
+	color: rgba(110, 70, 190, 1);
+
+}
+
+#editDiv {
+	position: absolute;
+	left: 750px;
+	float: left;
+}
+
+#deleteDiv {
+	float: left;
+	position: absolute;
+}*/

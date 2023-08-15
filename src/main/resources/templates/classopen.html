@@ -1,0 +1,382 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<head>
+<title>클래스 개설</title>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=27c65e2ff9ae6db35e5dc3fa427c77d9&libraries=services"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=27c65e2ff9ae6db35e5dc3fa427c77d9&libraries=services"></script>
+<script src="//code.jquery.com/jquery.min.js"></script>
+
+<link rel="stylesheet" href="./style/classopen.css" />
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+section {
+	padding: 5rem 10rem 5rem 10rem;
+}
+
+</style>
+<script type="text/javascript">
+	
+</script>
+</head>
+<body>
+	<section>
+	<form id="ClassInfo" role="form" enctype="multipart/form-data">
+		<span class="title">제목</span><br>
+		<input class="input-title" type="text" placeholder="클래스 제목 입력 (최대 25자)" name="cltitle">
+
+    <span class="title">Category</span><br>
+    
+    <select class="category" id="bcaname" name="bcaname" th:value="${bcaname}">
+		<option>대분류 선택</option>
+	    <option th:selected="${bcaname}=='요리/공예'">요리/공예</option>
+	    <option th:selected="${bcaname}=='외국어'">외국어</option>
+	    <option th:selected="${bcaname}=='스포츠'">스포츠</option>
+	    <option th:selected="${bcaname}=='음악'">음악</option>
+	    <option th:selected="${bcaname}=='미술'">미술</option>
+    </select> 
+    
+		<select class="category" id="scaname" name="scaname">
+			<option>소분류 선택</option>
+			<option th:each="item : ${arr}" th:value="${item.scaname}" th:selected="${item.scaname == scaname}" th:text="${item.scaname}"></option>
+		</select><br>
+		
+		<script type="text/javascript">
+		    $(function() {
+		        $("#bcaname").change(function() {
+		            let bcaname = $("#bcaname").val();
+		            $.ajax({
+		                url: "/classopen/findSca",
+		                data: { bcaname: bcaname },
+		                success: function (arr) {
+		                    $("#scaname").empty();
+		                    $.each(arr, function () {
+		                        var option = $("<option></option>").attr("value", this.scaname).text(this.scaname);
+		                        if (this.scaname === scaname) {
+		                            option.attr("selected", "selected");
+		                        }
+		                        $("#scaname").append(option);
+		                    });
+		                }
+		            });
+		        });
+		    });
+		</script>
+   
+    <span class="title">내용</span>
+    <div class="rec"></div>
+
+    <div class="content-total">
+      <div class="class-box">
+        <span class="title-sub">입력</span>
+      </div>
+
+      <div class="filebox bs3-primary" style="display:inline-block; margin: 5px;">
+        <input class="upload-name" id="climg" name="climg" value="파일선택" disabled="disabled">
+        <label for="input_file">이미지 등록</label> 
+        <input type="file" id="input_file" name="input_file" accept="image/*" class="upload-hidden"> 
+      </div>
+    </div>
+
+	<script type="text/javascript">
+   	 $(document).ready(function() {
+	    // 파일 선택 시 라벨과 이미지 태그 업데이트
+	    $('#input_file').on('change', function() {
+	      var file = this.files[0];
+	      var fileLabel = $('#climg');
+	
+	      if (file) {
+	        // 선택한 파일 이름을 라벨에 표시
+	        fileLabel.val(file.name);
+	
+	        // FileReader를 사용하여 이미지 미리보기 생성
+	        var reader = new FileReader();
+	        reader.readAsDataURL(file);
+	      } else {
+	        // 파일을 선택하지 않았을 때 라벨을 초기화하고 이미지 미리보기 리셋
+	        fileLabel.val('파일 선택');
+	      }
+	    });
+	  });
+	</script>
+    <textarea class="clcontent" name="clcontent" 
+    placeholder="내가 알려주고 싶은 취미에 대해 소개해보세요! &#10;예시) 수업 설명, 수업 내용"></textarea>
+    
+    <span class="title">희망 조건</span>
+    <div class="rec"></div>
+    <p class="select-title">장소</p>
+    <hr />
+    <input type="text" class="input-location" placeholder="옆의 버튼을 눌러 도로명 주소를 검색해주세요. (없으면 기입X)" id="claddr1" name="claddr1">
+    <input type="button" onclick="sample5_execDaumPostcode()" class="btnLocation" value="검색">
+    <input type="text" class="input-title" placeholder="상세 주소 입력" name="claddr2">
+
+    <!-- 지도보이는 창 -->
+    <div class="map" id="map"></div>
+
+    <!-- 도로명 주소 검색 -->
+    <script type="text/javascript">
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+		mapOption = {
+			center : new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
+        	level : 5
+			// 지도의 확대 레벨
+		};
+
+		//지도를 미리 생성
+		var map = new daum.maps.Map(mapContainer, mapOption);
+		//주소-좌표 변환 객체를 생성
+		var geocoder = new daum.maps.services.Geocoder();
+		//마커를 미리 생성
+		var marker = new daum.maps.Marker({
+			position : new daum.maps.LatLng(37.537187, 127.005476),
+        	map : map
+		});
+
+		function sample5_execDaumPostcode() {
+        new daum.Postcode({
+          	oncomplete : function(data) {
+            	var addr = data.address; // 최종 주소 변수
+            	// 주소 정보를 해당 필드에 넣는다.
+            	document.getElementById("claddr1").value = addr;
+            	// 주소로 상세 정보를 검색
+            	geocoder.addressSearch(
+              		data.address,
+              	function(results, status) {
+                	// 정상적으로 검색이 완료됐으면
+                	if (status === daum.maps.services.Status.OK) {
+             		var result = results[0]; //첫번째 결과의 값을 활용
+	
+	                // 해당 주소에 대한 좌표를 받아서
+	                var coords = new daum.maps.LatLng(
+	                	result.y,
+	                    result.x);
+	                  	// 지도를 보여준다.
+	                  	mapContainer.style.display = "block";
+	                  	map.relayout();
+	                  	// 지도 중심을 변경한다.
+	                  	map.setCenter(coords);
+	                  	// 마커를 결과값으로 받은 위치로 옮긴다.
+	                  	marker.setPosition(coords)
+	                }
+            	});
+        	}
+        }).open();
+      }
+    </script>
+
+    <span class="select-title">요일</span><br>
+    <div class="table_day">
+      <input type="checkbox" name="clday_mon" class="form-check-input" id="clday_mon" value="월">
+      <label class="form-check-label" for="clday_mon">월요일</label>
+      <input type="checkbox" name="clday_tue" class="form-check-input" id="clday_tue" value="화">
+      <label class="form-check-label" for="clday_tue">화요일</label>
+      <input type="checkbox" name="clday_wed" class="form-check-input" id="clday_wed" value="수">
+      <label class="form-check-label" for="clday_wed">수요일</label>
+      <input type="checkbox" name="clday_thu" class="form-check-input" id="clday_thu" value="목">
+      <label class="form-check-label" for="clday_thu">목요일</label>
+      <input type="checkbox" name="clday_fri" class="form-check-input" id="clday_fri" value="금">
+      <label class="form-check-label" for="clday_fri">금요일</label>
+      <input type="checkbox" name="clday_sat" class="form-check-input" id="clday_sat" value="토">
+      <label class="form-check-label" for="clday_sat">토요일</label>
+      <input type="checkbox" name="clday_sun" class="form-check-input" id="clday_sun" value="일">
+      <label class="form-check-label" for="clday_sun">일요일</label>
+    </div>
+    <hr>
+    
+    <script type="text/javascript">
+		$(function() {
+			if ($("#clday_mon").is("checked") == true) {
+				$("#clday_mon").val("월");
+			} else {
+				$("#clday_mon").val();
+			}
+
+			if ($("#clday_tue").is("checked") == true) {
+				$("#clday_tue").val("화");
+			} else {
+				$("#clday_tue").val();
+			}
+
+			if ($("#clday_wed").is("checked") == true) {
+				$("#clday_wed").val("수");
+			} else {
+				$("#clday_wed").val();
+			}
+
+			if ($("#clday_thu").is("checked") == true) {
+				$("#clday_thu").val("목");
+			} else {
+				$("#clday_thu").val();
+			}
+
+			if ($("#clday_fri").is("checked") == true) {
+				$("#clday_fri").val("금");
+			} else {
+				$("#clday_fri").val();
+			}
+
+			if ($("#clday_sat").is("checked") == true) {
+				$("#clday_sat").val("토");
+			} else {
+				$("#clday_sat").val();
+			}
+
+			if ($("#clday_sun").is("checked") == true) {
+				$("#clday_sun").val("일");
+			} else {
+				$("#clday_sun").val();
+			}
+		})
+	</script>
+
+    <span class="select-title">시간</span>
+    <div class="table_day">
+      <input type="time" timeStyle="short" id="tstime" name="tstime" class="time" onchange="updateEndTimeMin()">
+      <span>~</span>
+      <input type="time" timeStyle="short" id="tetime" name="tetime" class="time">
+    </div>
+
+    <script type="text/javascript">
+      function updateEndTimeMin() {
+        var startTimeInput = document.getElementById("tstime");
+        var endTimeInput = document.getElementById("tetime");
+      
+        var today = new Date();
+        var currentHour = today.getHours();
+        var currentMinute = today.getMinutes();
+      
+        var selectedHour = parseInt(startTimeInput.value.split(":")[0], 10);
+        var selectedMinute = parseInt(startTimeInput.value.split(":")[1], 10);
+      
+        // 시작 시간과 현재 시간 비교
+        if (selectedHour > currentHour || (selectedHour === currentHour && selectedMinute > currentMinute)) {
+          endTimeInput.min = startTimeInput.value;
+          endTimeInput.value = startTimeInput.value; // 최소값과 선택값을 동일하게 설정
+        } else {
+          endTimeInput.min = ""; // 최소 시간 제한을 없애기 위해 빈 값으로 설정
+          endTimeInput.value = ""; // 선택 시간 초기화
+        }
+      }
+      </script>
+      
+      <hr>
+	  <span class="select-title">기간</span>
+	  
+	<div class="table_day">
+      <input type="date" id="clsdate" name="clsdate" class="time" onchange="updateEndDateMin()">
+      <span>~</span>
+      <input type="date" id="cledate" name="cledate" class="time">
+      <input type="checkbox" name="onedayCheck" id="onedayCheck" style="margin-left: 15px">
+      <span> 원데이</span>
+	</div>
+
+    <script type="text/javascript">
+		
+		if ($("#onedayCheck").is("checked") == true) {
+			$("#onedayCheck").value="원데이";
+		} else {
+			$("#onedayCheck").value="정규";
+		}
+			
+	    var startDateInput = document.getElementById("clsdate");
+	    var endDateInput = document.getElementById("cledate");
+	
+	    var today = new Date();
+	    var today_t = today.toISOString().split("T")[0];
+	    startDateInput.min = today_t;
+	    startDateInput.val = today_t;
+	      
+	    function updateEndDateMin() {
+	    	if (startDateInput.value) {
+	        	endDateInput.min = startDateInput.value;
+	          	endDateInput.value = startDateInput.value; // 최소값과 선택값을 동일하게 설정
+	        } else {
+	          	endDateInput.min = ""; // 최소 날짜 제한을 없애기 위해 빈 값으로 설정
+	          	endDateInput.value = ""; // 선택 날짜를 초기화
+	        }
+	   	}
+    </script>
+
+    <hr>
+    <span class="select-title">수강 인원</span><br>
+    <input type="number" name="clpeople" class="clpeople"> 명
+    <br>
+    <span class="select-title">추정 레벨</span><br>
+    <div style="margin: 15px 0 20px 0;">
+		<input class="form-check-input" type="radio" id="cllevel1" value="입문" onchange="inputdisable()">
+		<label class="form-check-label" for="cllelvel">입문</label>
+		<input class="form-check-input" type="radio" id="cllevel2" value="초급" onchange="inputdisable()">
+		<label class="form-check-label" for="cllelvel">초급</label>
+		<input class="form-check-input" type="radio" id="cllevel3" value="중급" onchange="inputdisable()">
+		<label class="form-check-label" for="cllelvel">중급</label>
+		<input class="form-check-input" type="radio" id="cllevel4" value="고급" onchange="inputdisable()">
+		<label class="form-check-label" for="cllelvel">고급</label>      
+		<input type="hidden" name="cllevel" id="cllevel">
+    </div>
+
+    <hr>
+    <span class="select-title">가격</span><br>
+    <input type="number" class="clprice" id="clprice" name="clprice">
+    <span style="margin-right:10px">원</span>
+    <img src="https://aheioqhobo.cloudimg.io/v7/_playground-bucket-v2.teleporthq.io_/76b9c27b-18d0-4658-87c6-f1319ca14338/f8326386-37fb-4ee5-adea-b6ecac94b9f7?org_if_sml=1463">
+    <span class="text-alert">  중급 이상만 가능합니다.</span>
+    </form>
+   	<input type="button" value="개설 신청" id="insertClass" class="btnInsert">
+	</section>
+	<script type="text/javascript">
+		let cllevel1 = document.getElementById("cllevel1");
+		let cllevel2 = document.getElementById("cllevel2");
+		let cllevel3 = document.getElementById("cllevel3");
+		let cllevel4 = document.getElementById("cllevel4");
+		let clprice = document.getElementById("clprice");
+		
+		
+		function inputdisable(){
+			if(cllevel1.checked){
+				$("#cllevel").val(cllevel1.value);
+			}else if(cllevel2.checked){
+				$("#cllevel").val(cllevel2.value);
+			}else if(cllevel3.checked){
+				$("#cllevel").val(cllevel3.value);
+			}else if(cllevel4.checked){
+				$("#cllevel").val(cllevel4.value);
+			}
+			
+			if (cllevel1.checked || cllevel2.checked) {
+	            clprice.disabled = true; 	// 라디오 버튼이 선택되면 input 비활성화
+	        } else {
+	            clprice.disabled = false; 	// 다른 라디오 버튼이 선택되면 input 활성화
+	        }
+		};
+		
+		$("#insertClass").click(function(){
+			let data = new FormData(document.getElementById("ClassInfo"));
+			$.ajax({
+				url: '/classopen/insert',
+				type: 'post',
+				processData: false,
+				contentType: false,
+				data: data,
+				success: function(a){
+					alert(a);
+					location.href = "";
+				}, error: function(a){
+					alert(a);				
+				}
+			})
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="clubmain">
+	<sql id="selectColumns">
+		cb.cbno, cbimg, cbtitle, nick, bcaname, scaname,
+		TO_CHAR(cbclsdate, 'mm/dd') as
+		cbclsdate, cbpeople, sloc.slocno,
+		(
+		SELECT COUNT(ca.cbno)
+		FROM
+		club_application ca
+		WHERE ca.cbno = cb.cbno
+		)
+		as cnt
+	</sql>
+
+	<select id="getClubList" resultType="clubmain">
+		SELECT
+		<include refid="selectColumns" />
+		FROM club cb, bcategory bca, scategory sca, account a, slocation sloc,
+		blocation bloc
+		WHERE cb.scano = sca.scano AND sca.bcano = bca.bcano AND
+		cb.aid = a.aid AND
+		cb.slocno = sloc.slocno AND sloc.blocno =
+		bloc.blocno and (SELECT COUNT(ca.cbno) FROM club_application ca WHERE ca.cbno = cb.cbno) &lt; cbpeople 
+		and cbclsdate &gt;= sysdate
+		<if test="keyword != null and keyword != ''">
+			AND cbtitle LIKE '%'||#{keyword}||'%'
+		</if>
+		<if test="sortColum != null and sortColum == 'new'">
+			ORDER BY cb.cbopdate DESC
+		</if>
+		<if test="sortColum != null and sortColum == 'detail'">
+			ORDER BY (cbpeople - cnt) ASC
+		</if>
+	</select>
+</mapper>

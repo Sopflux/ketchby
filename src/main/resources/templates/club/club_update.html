@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+	<meta charset="EUC-KR">
+	<title>소모임 수정</title>
+	<link href="/style/club_update.css" rel="stylesheet" />
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+		$(function () {
+
+			/*function category(){
+				var blocno=$("#hblocno").val();
+				var slocno=$("#hslocno").val();
+				var scano=$("#hscano").val();
+				var bcano=$("#hbcano").val();
+				
+				$("#blocno").val(blocno);
+				$("#slocno").val(slocno);
+				$("#bcano").val(bcano);
+				$("#scano").val(scano);
+			}
+			category();*/
+
+			$(".submit").click(function (event) {
+				var cbtitle = $("input[name='cbtitle']").val();
+				var cbcontent = $("textarea[name='cbcontent']").val();
+				var cbpeople = $("input[name='cbpeople']").val();
+				var cbclsdate = $("input[name='cbclsdate']").val();
+				var bcano = $("#bcano").val();
+				var scano = $("#scano").val();
+				var blocno = $("#blocno").val();
+				var slocno = $("#slocno").val();
+
+				if (
+					cbtitle === "" ||
+					cbcontent === "" ||
+					cbpeople === "" ||
+					cbclsdate === "" ||
+					bcano === "" ||
+					scano === "" ||
+					blocno === "" ||
+					slocno === ""
+				) {
+					alert("필수 입력 항목 및 선택 항목을 모두 선택해주세요.");
+					event.preventDefault();
+				}
+			});
+
+
+			$("#uploadFile").change(function () {
+				var filePath = $(this).val();
+				$("#selectedImagePath").text(filePath);
+			})
+			function filename() {
+				var cbimg = $("#cbimg").val();
+				$("#selectedImagePath").text(cbimg);
+			}
+			filename();
+
+			$(".filedelete").click(function () {
+				$("#selectedImagePath").text("");
+				$("#cbimg").val("null");
+				$("#uploadFile").val("")
+			})
+
+			$("#bcano").change(function () {
+				var bcano = $("#bcano").val();
+				console.log(bcano);
+				$.ajax({
+					url: "/club/findscano",
+					data: {bcano: bcano},
+					success: function (arr) {
+						$("#scano").empty();
+						$.each(arr, function () {
+							var option = $("<option></option>").html(this.scaname);
+							$(option)
+								.attr("name", this.scano)
+								.attr("value", this.scano)
+								.attr("id", this.scano);
+							$("#scano").append(option);
+						});
+
+						var scanoValue = $("#scano").val();
+						$("#scano option").each(function () {
+							if ($(this).val() == scanoValue) {
+								$(this).prop("selected", true);
+							}
+						});
+					}
+				});
+			});
+
+
+			$("#blocno").change(function () {
+				var blocno = $("#blocno").val();
+				console.log(blocno);
+				$.ajax({
+					url: "/club/findslocno",
+					data: {blocno: blocno},
+					success: function (arr) {
+						$("#slocno").empty();
+						$.each(arr, function () {
+							var option = $("<option></option>").html(this.slocname);
+							$(option).attr("name", this.slocno).attr("value", this.slocno).attr("id", this.slocno);
+							$("#slocno").append(option);
+						})
+					}
+				})
+			})
+		})	
+	</script>
+</head>
+
+<body>
+	<div th:replace="menu :: head"></div>
+	<div class="maindiv">
+		<form action="/club/club_update" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="cbno" th:value="${cbno}" />
+			<input type="hidden" name="aid" th:value="${session.a.aid}" />
+			<span id="jemok">제목</span>
+			<input type="text" class="cbtitle" name="cbtitle" th:value="${c.cbtitle }" />
+			<span id="category">Category</span>
+			<div class="categorydiv">
+				<input type="hidden" id="hbcano" th:value="${c.bcano}" />
+				<select name="bcano" id="bcano" class="bcano">
+					<option value="1001" th:selected="${c.bcano == 1001}">요리/공예</option>
+					<option value="1002" th:selected="${c.bcano == 1002}">외국어</option>
+					<option value="1003" th:selected="${c.bcano == 1003}">스포츠</option>
+					<option value="1004" th:selected="${c.bcano == 1004}">음악</option>
+					<option value="1005" th:selected="${c.bcano == 1005}">미술</option>
+				</select>
+				<input type="hidden" id="hscano" th:value="${c.scano}" />
+				<select class="scano" id="scano" name="scano"></select>
+			</div>
+
+			<span class="neyong">내용</span>
+			<div class="tabdiv">
+				<div class="ipryuk">
+					<span class="iptyuktext">입력</span>
+				</div>
+				<label class="btnImg">
+					<input type="hidden" name="cbimg" id="cbimg" th:value="${c.cbimg}">
+					<input type="hidden" name="cbimg2" id="cbimg2" th:value="${c.cbimg}">
+					<input type="file" name="uploadFile" id="uploadFile" style="display: none;">
+					이미지등록
+				</label>
+				<span class="filedelete">x삭제</span>
+				<div id="selectedImagePath"></div>
+			</div>
+
+			<div class="content_text">
+				<textarea class="cbcontent" name="cbcontent" th:text="${c.cbcontent}"></textarea>
+			</div>
+			<span class="hmang">희망 조건</span>
+			<input type="hidden" id="hblocno" th:value="${c.blocno}" />
+			<select class="bloca" id="blocno" name="blocno">
+				<option value="20001" th:selected="${c.blocno == 20001}">서울</option>
+				<option value="20002" th:selected="${c.blocno == 20002}">경기</option>
+				<option value="20003" th:selected="${c.blocno == 20003}">인천</option>
+				<option value="20004" th:selected="${c.blocno == 20004}">대전</option>
+				<option value="20005" th:selected="${c.blocno == 20005}">세종</option>
+				<option value="20006" th:selected="${c.blocno == 20006}">충남</option>
+				<option value="20007" th:selected="${c.blocno == 20007}">충북</option>
+				<option value="20008" th:selected="${c.blocno == 20008}">광주</option>
+				<option value="20009" th:selected="${c.blocno == 20009}">전남</option>
+				<option value="20010" th:selected="${c.blocno == 20010}">전북</option>
+				<option value="20011" th:selected="${c.blocno == 20011}">대구</option>
+				<option value="20012" th:selected="${c.blocno == 20012}">경북</option>
+				<option value="20013" th:selected="${c.blocno == 20013}">부산</option>
+				<option value="20014" th:selected="${c.blocno == 20014}">울산</option>
+				<option value="20015" th:selected="${c.blocno == 20015}">경남</option>
+				<option value="20016" th:selected="${c.blocno == 20016}">강원</option>
+				<option value="20017" th:selected="${c.blocno == 20017}">제주</option>
+			</select>
+
+			<input type="hidden" id="hslocno" th:value="${c.slocno}" />
+			<select class="sloca" id="slocno" name="slocno"></select>
+			<div class="membercount">
+				<span class="inoyun">희망 인원</span>
+				<input type="number" name="cbpeople" id="cbpeople" th:value="${c.cbpeople}" />
+			</div>
+			<div class="closeaccount">
+				<span class="mozip">모집 마감일</span>
+				<input type="date" class="cbclsdate" id="cbclsdate" name="cbclsdate" th:value="${c.cbclsdate}">
+				<script type="text/javascript">
+					var startDateInput = document.getElementById("cbclsdate");
+					var today = new Date();
+					var today_t = today.toISOString().split("T")[0];
+					startDateInput.min = today_t;
+					startDateInput.val = today_t;
+					console.log(today_t);
+				</script>
+			</div>
+			<input type="submit" value="소모임 작성 완료" class="submit" />
+		</form>
+	</div>
+</body>
+
+</html>

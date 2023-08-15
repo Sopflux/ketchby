@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="clubapplication">
+  	<select id="getNextCbapno" resultType="java.lang.Integer">
+  		select nvl(max(cbapno),0)+1 from club_application
+  	</select>
+  	
+  	<insert id="insert" parameterType="clubapplication">
+  		insert into club_application(cbapno,cbno,aid) values (#{cbapno},#{cbno},#{aid})
+  	</insert>
+  	
+  	<select id="findApplyCount" resultType="java.lang.Integer">
+  		select count(*) from club_application where cbno=#{cbno} and aid=#{aid}
+  	</select>
+  	
+  	
+  </mapper>
