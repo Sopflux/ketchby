@@ -255,7 +255,7 @@
   <div class="club-container">
     <th:block th:each="c : ${hotClubList}">  
 		<div class="club-card">
-		    <a href="#" class="club-link">
+		    <a href="@{/club/club_detail/{cbno}/{slocno}}" class="club-link">
 		      <div class="clubCard-img">
 		          <img class="clubCardimg" th:src="@{'club/' + ${c.cbimg}}">
 		      </div>
@@ -283,7 +283,7 @@
         <tr th:each="b : ${hotBoardList}">
           <td class="club-rownum" th:text="${b.rownum}"></td>
           <td>
-            <a href="#" class="cldetail" th:text="${b.btitle}"></a>
+            <a href="@{/community/community_detail/{bno}}" class="cldetail" th:text="${b.btitle}"></a>
           </td>
           <td th:text="${b.aid}"></td>
           <td th:text="${b.bdate}"></td>

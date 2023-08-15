@@ -46,7 +46,17 @@ public class MainPage {
 	private int ap_cnt;
 	
 	
+	//검색용
+	private String keyword;
 	
+	
+	
+	public String getKeyword() {
+		return keyword;
+	}
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
 	public String getCltype() {
 		return cltype;
 	}

@@ -1,6 +1,7 @@
 package com.example.demo.db;
 
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -23,13 +24,14 @@ public class ClassMainDBManager {
 		}
 	}
 
-	public static List<MainPage> findAllClass(String bcaname) {
+	public static List<MainPage> findAllClass(HashMap<String, Object> map) {
 		SqlSession session = sqlSessionFactory.openSession();
 		List<MainPage> list = null;
-		list = session.selectList("classMain.findAllClass",bcaname);
+		list = session.selectList("classMain.findAllClass",map);
 		session.close();
 		return list;
 	}
+
 
 
 }

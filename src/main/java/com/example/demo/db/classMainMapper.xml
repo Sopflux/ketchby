@@ -12,6 +12,9 @@
 		JOIN scategory s ON c.scano = s.scano
 		JOIN bcategory b ON s.bcano = b.bcano
 		WHERE bcaname like '%'||#{bcaname, jdbcType=VARCHAR}||'%'
+        AND c.cllevel like '%'|| #{cllevel, jdbcType=VARCHAR} ||'%'
+        AND c.cltype like '%'|| #{cltype, jdbcType=VARCHAR}||'%'
+        AND c.cltitle like '%' || #{keyword, jdbcType=VARCHAR} || '%'
    </select>
    
 </mapper>
