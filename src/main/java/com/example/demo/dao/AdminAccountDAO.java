@@ -49,4 +49,3 @@ public class AdminAccountDAO {
 		return AdminDBManager.insertAccount(a);
 	}
 }
-

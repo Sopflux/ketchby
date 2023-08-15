@@ -28,7 +28,7 @@ public class AdminAccountController {
 	@Autowired
 	public AdminAccountDAO a_dao;
 	
-	@PostMapping("/admin/user/insert")
+	@PostMapping("/admin/insert")
 	@ResponseBody
 	public String insertAccount(HttpServletRequest request) {
 		String aid = request.getParameter("aid");
@@ -65,7 +65,6 @@ public class AdminAccountController {
 			String fname2 = img.substring(img.lastIndexOf("."));
 			
 			img = fname1 + n + fname2;
-			System.out.println("변환 후 img: "+img);
 		}
 		
 		a.setImg(img);
@@ -105,7 +104,7 @@ public class AdminAccountController {
 		return "추가에 성공하였습니다.";
 	}
 	
-	@PostMapping("/admin/user/update")
+	@PostMapping("/admin/update")
 	@ResponseBody
 	public String updateAccount(HttpServletRequest request) {
 		
@@ -189,7 +188,7 @@ public class AdminAccountController {
 		return str;
 	}
 	
-	@PostMapping("admin/user/delete")
+	@PostMapping("admin/delete")
 	@ResponseBody
 	public String deleteAccount(@RequestParam(value="aid")String aid, HttpServletRequest request) {
 		String str = "삭제 성공했습니다.";
@@ -213,7 +212,7 @@ public class AdminAccountController {
 		return str;
 	}
 	
-	@RequestMapping("/admin/user/detail")
+	@RequestMapping("/admin/detail")
 	@ResponseBody
 	public Account detailAccount(String aid) {
 		Account a = a_dao.findByAid(aid);
@@ -235,11 +234,16 @@ public class AdminAccountController {
 		map.put("keyword", keyword);
 		map.put("pageNum", pageNum);
 		
+		int totalPage = a_dao.userTotalPage;
+		if(totalPage == 0) {
+			totalPage = 1;
+		}
+		
 		//검색어, 검색 칼럼 상태 유지
 		model.addAttribute("column", column);
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("list", a_dao.findAll(map));
-		model.addAttribute("totalPage", a_dao.userTotalPage);
+		model.addAttribute("totalPage", totalPage);
 		model.addAttribute("member", a_dao.userTotalRecord);
 		return "/admin/user";
 	}

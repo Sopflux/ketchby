@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html xmln:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+	<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="//code.jquery.com/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="/style/qna.css" />
+	<script type="text/javascript">
+	     $(function(){
+			 
+	        $(".search-bar input")
+	        .focus(function () {
+	        $(".header").addClass("wide");
+	        })
+	        .blur(function () {
+	        $(".header").removeClass("wide");
+	        });
+	    
+            $('.open-modal').click(function(e){
+                e.preventDefault();
+                $('.main-modal').modal("show");
+                $(".modal-mail").css('display', 'none');
+                $(".modal-detail").css('display', 'inline-block');
+            });
+            
+            $(document).ready(function() {
+			        $('.pagingName').click(function(e) {
+			            e.preventDefault();
+			            var pageNum = $(this).text();
+			            var column = $("#searchColumn").val();
+			            var keyword = $('#search5').val();
+			            var condition = document.getElementById("condition").value;
+			            location.href = 'qna?pageNum=' + pageNum + '&column=' + column + '&keyword=' + keyword + '&condition='+condition;
+			        });
+			   	 });
+				
+		        function searching(e){
+		           var keyword = document.getElementById("search5").value;
+		           var column = document.getElementById("searchColumn").value;
+		           var condition = document.getElementById("condition").value;
+		           var pageNum = getParameterByName('pageNum');
+		           
+		           if (pageNum === null) {
+			            pageNum = 1;
+			        }
+		           const code = e.code;
+				   location.href='qna?pageNum=1'+'&column='+column+'&keyword='+keyword+'&condition='+condition;
+		        }
+		        
+		        $('#condition').change(function(e){
+					e.preventDefault();
+	                searching(e);
+				});
+				
+		        $('#search5').keydown(function (e) {
+		            if (e.keyCode == 13) {
+						console.log('enter press');
+		                e.preventDefault();
+		                searching(e);
+		            }
+		        });
+		        
+				
+				 // URL에서 파라미터 값을 추출하는 함수
+		        function getParameterByName(name) {
+		            var url = window.location.href;
+		            name = name.replace(/[\[\]]/g, '\\$&');
+		            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+		                results = regex.exec(url);
+		            if (!results) return null;
+		            if (!results[2]) return '';
+		            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+		        }
+		        
+        })
+    </script> 
+</head>
+<body style="background-color:black" >
+
+<div class="container-scroller">
+    <!-- 사이드바 -->
+    <nav id="sidebar-all">
+        <ul class="sidebar">
+            <li class="sidebar-user">Ketchby</li>
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="/admin/user">사용자 관리</a></li>
+            <li><a href="#">문의 관리</a></li>
+            <li><a href="#">공지사항 관리</a></li>
+            <li><a href="#">클래스 관리</a></li>
+            <li><a href="#">게시판 관리</a></li>
+        </ul>
+    </nav>
+    <div id="page" class="page">
+
+        <!-- 본문 헤더-->
+        <div id="page-header">
+
+        </div>
+        <div class="main-wrapper">
+        <div class="main-table" id="main-table">
+            <h2>문의사항</h2>
+            <p th:text="'총 문의사항: '+${qnainsert}"></p>
+          	<div class="app">
+                <div id="search5back">
+					
+					<!-- 칼럼, 검색어로 검색 -->
+					<select id="searchColumn" name="column" th:value="${column}" class="selectbox">
+						<option th:selected="${column}=='qititle'">qititle</option>
+						<option th:selected="${column}=='qiemail'">qiemail</option>
+						<option th:selected="${column}=='qiname'">qiname</option>
+						<option th:selected="${column}=='qca'">qca</option>
+					</select>
+                	<input th:if="${keyword != null}" th:value="${keyword}" id="search5" name="keyword" type="text" size="40" placeholder="Search"/>
+                </div>
+				<select id="condition" name="condition" th:value="${condition}" class="selectbox">
+					<option th:selected="${condition}=='all'">all</option>
+					<option th:selected="${condition}=='보냄'">보냄</option>
+					<option th:selected="${condition}=='none'">none</option>
+				</select>
+				
+                 <!-- 테이블 출력 -->
+                <table class="table table-dark table-hover">
+                	<thead>
+                    <tr>
+                        <th>카테고리</th>
+                        <th>이메일</th>
+                        <th>제목</th>
+                        <th>날짜</th>
+                        <th>답장 여부</th>
+                        <th>상세보기</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="q:${qlist}">
+						<td th:text="${q.qca}"></td>
+                        <td th:text="${q.qiemail}"></td>
+                        <td th:text="${q.qititle}"></td>
+                        <td th:text="${q.qidate}"></td>
+                        <td th:text="${q.qicondition}"></td>
+                        <td class="open-modal" data-bs-toggle="modal" data-bs-target="#myModal" th:data-value="${q.qino}">
+                        	자세히 보기
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="pagingNumber">
+	            <th:block th:each="i:${#numbers.sequence(1, totalPage)}">
+					<a th:href="@{/admin/qna(pageNum=${pageNum}, column=${column}, keyword=${keyword}, condition=${condition})}" 
+					th:text = "${i }" name="pageNum" id="pageNum" class="pagingName"></a>&nbsp;&nbsp;
+				</th:block>
+			</div>
+        </div>
+    </div>
+</div>
+
+<!-- The Modal 문의내용 확인 -->
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-xl modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-detail">
+	        <!-- Modal Header -->
+	        <div class="modal-header">
+	          <h4 class="modal-title" id="qcategory"></h4>
+	          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+	        </div>
+	        <!-- Modal body -->
+	        <div class="modal-body">
+				<h5>문의번호</h5>
+                <p class="modal-input1" name="qino" id="qino"></p>
+                <h5>이름</h5>
+                <p class="modal-input1" name="qiname" id="qiname"></p>
+                <h5>이메일</h5>
+                <p class="modal-input1" name="qiemail" id="qiemail"></p>
+                <h5>제목</h5>
+                <p class="modal-input1" name="qititle" id="qititle"></p>
+                <h5>문의내용</h5>
+                <textarea class="textarea-input" name="qicontent" id="qicontent" readonly="readonly"></textarea>
+                <h5>문의일시</h5>
+                <p class="modal-input1" name="qidate" id="qidate"></p>
+	        </div>
+	        <!-- Modal footer -->
+	        <div class="modal-footer">
+		        <button type="button" class="btn btn-danger" id="btnReply" name="btnReply">답장</button>
+	        </div>
+		</div>
+		
+		
+		<div class="modal-mail">
+	        <!-- Modal Header -->
+	        <div class="modal-header">
+	          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+	        </div>
+	        <div class="modal-body">
+				<h5>제목</h5>
+				<input type="text" class="modal-input" name="mailtitle" id="mailtitle">
+				<h5>내용</h5>
+				<textarea class="textarea-input" name="mailcontent" id="mailcontent"></textarea>
+			</div>
+	        <!-- Modal footer -->
+	        <div class="modal-footer">
+		        <button type="button" class="btn btn-danger" id="btnMail" name="btnMail" data-bs-dismiss="modal">보내기</button>
+	        </div>
+		</div>	        
+      </div>
+    </div>
+  </div>
+  		<script type="text/javascript">
+			$(".open-modal").click(function(){
+				var qino = $(this).data('value');
+				
+				$.ajax({
+					url: '/admin/qna/detail',
+					data: {
+						qino:qino
+					},
+					success: function(q){
+						console.log(q.qino);
+						console.log(q);
+						$("#qcategory").html(q.qca);
+						$("#qiname").html(q.qiname);
+						$("#qiemail").html(q.qiemail);
+						$("#qiemail").val(q.qiemail);
+						$("#qititle").html(q.qititle);
+						$("#qicontent").html(q.qicontent);
+						$("#qidate").html(q.qidate);
+						$("#qino").val(q.qino);
+						$("#qino").html(q.qino);
+					}
+				})
+			})
+			
+			$("#btnReply").click(function(){
+				$(".modal-mail").css('display', 'inline-block');
+                $(".modal-detail").css('display', 'none');
+                $("#mailcontent").html("\n\n--- 문의 내용 ---\n"+$("#qicontent").val());
+                $("#mailtitle").val("[Ketchby] ");
+			})
+			
+			$("#btnMail").click(function(){
+				let mailtitle = $("#mailtitle").val();
+				let mailcontent = $("#mailcontent").val();
+				let email = $("#qiemail").val();
+				let qino = $("#qino").val();
+				
+				console.log("mailtitle: "+mailtitle);
+				console.log("mailcontent: " +mailcontent);
+				console.log("email: " +email);
+				console.log("qino: "+qino);
+				$.ajax({
+					url: '/admin/qna/mail',
+					data: {
+						qino: qino,
+						email: email,
+						mailtitle: mailtitle, 
+						mailcontent: mailcontent
+					},
+					success: function(a){
+						alert(a);
+						location.href('/admin/qna');
+					}
+				})
+			})
+		</script>
+
+</body>
+</html>

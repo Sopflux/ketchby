@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="classOpen">	
+	<!-- 클래스 개설 -->
+	<insert id="insertClass" parameterType="class">
+		insert into class (clno, aid, scano, cltitle, climg, clcontent, cllevel
+		, clpeople, clprice, claddr, cldate, clsdate, cledate, cltype) 
+		values((select nvl(max(clno), 5000)+1 from class), #{aid, jdbcType=VARCHAR}, #{scano}, #{cltitle}, 
+		#{climg}, #{clcontent}, #{cllevel}, #{clpeople}, #{clprice}, #{claddr}, sysdate
+		, to_date(#{clsdate},'yyyy-mm-dd'), to_date(#{cledate},'yyyy-mm-dd'), #{cltype})
+	</insert>	
+	
+	<select id="findScaNo" resultType="java.lang.Integer">
+		select scano from scategory where scaname=#{scaname}
+	</select>
+	
+	<!-- 클래스 시간 입력 -->
+	<insert id="insertClassTime" parameterType="time">
+		insert into time(tno, clno, tday, tstime, tetime)
+		values((select nvl(max(tno), 0)+1 from time), (select max(clno) from class), 
+		#{tday}, #{tstime}, #{tetime})
+	</insert> 
+	
+	<!-- 소분류 카테고리 조회 -->
+	<select id="findScaName" resultType="scategory">
+		select scano, s.bcano, scaname from scategory s, bcategory b 
+		where s.bcano=b.bcano and bcaname=#{bcaname}
+	</select>
+</mapper>

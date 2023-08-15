@@ -1,157 +1,37 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-
-
+<html>
 <head>
-	<meta charset="UTF-8">
-	<title>Community</title>
-	<link href="/style/community_detail.css" rel="stylesheet" />
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script>
-		$(function () {
-
-
-			function listComments(bno) {
-				$("#comment_content_li").empty();
-
-				var data = {bno: bno};
-				url = "/community/community_detail/listcomment";
-				$.ajax({
-					url: url,
-					data: data,
-					success: function (arr) {
-						$.each(arr, function () {
-							var tr = $("<tr></tr>");
-							var img = $("<img></img>").attr("src", "/image/" + this.img).addClass("comment_img")
-							var td1 = $("<td></td>");
-							$(td1).append(img);
-							var td2 = $("<td></td>").html(this.nick).addClass("comment_nick");
-							var td3 = $("<td></td>").html(this.cocontent).addClass("comment_comment");
-							var td4 = $("<td></td>").html(this.codate).addClass("comment_date");
-							var td5 = $("<td></td>").addClass("sacje").attr("value", this.cono);
-
-							if (isSameCommentsUser(this.nick)) {
-								td5.html("삭제").addClass("clickable");
-								td5.click(function () {
-									var cono = $(this).attr("value");
-									var isConfirmed = confirm("정말로 삭제하시겠습니까?");
-
-									if (isConfirmed) {
-										$.ajax({
-											url: "/community/community_detail/deleteComments",
-											data: {cono:cono},
-											success: function (msg) {
-												alert(msg+"하였습니다");
-												listComments(bno);
-											}
-										})
-									}
-								});
-							}
-							$(tr).append(td1, td2, td3, td4, td5);
-							$("#comment_content_li").append(tr);
-						});
-					}
-				});
-			}
-
-			function isSameCommentsUser(commentAuthorNick) {
-				var sessionId = $("#snick").val(); // 세션에 저장된 닉네임
-				var commentsId = commentAuthorNick; // 댓글 작성자의 닉네임
-
-				return sessionId === commentsId;
-			}
-
-			$("#commentBtn").click(function () {
-				var bno = $("#bno").val();
-				var cocontent = $("#cocontent").val();
-				var cono = $("#cono").val();
-				var aid = $("#aid").val();
-				data = {bno: bno, cocontent: cocontent, cono: cono, aid: aid};
-				$.ajax({
-					url: "/community/community_detail/ajax",
-					data: data,
-					success: function (re) {
-						listComments(bno);
-						location.reload();
-					}
-				})
-			})
-			var bno = $("#bno").val();
-			listComments(bno);
-
-			function isSameUser() {
-				var sessionId = $("#snick").val(); // 세션에 저장된 닉네임
-				var writerId = $("#boardnick").text(); // 해당 글의 작성자 닉네임
-
-				return sessionId === writerId;
-			}
-			if (isSameUser()) {
-				$("#editDiv, #deleteDiv").show();
-			} else {
-				$("#editDiv, #deleteDiv").hide();
-			}
-
-			$("#delete").click(function () {
-				var isConfirmed = confirm("정말로 삭제하시겠습니까?");
-				if (isConfirmed) {
-					var deleteLink = $(this).attr("href");
-					window.location.href = deleteLink;
-				} else {
-					return false;
-				}
-			})
-		})
-	</script>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link href="./community_detail.css" rel="stylesheet" />
 </head>
-
 <body>
-	<div th:replace="menu :: head"></div>
-	<div class="maindiv">
-		<div class="titlediv">
-			<span class="btitle" th:text="${b.btitle}"></span>
-			<img th:src="@{'/image/'+${b.img}}" class="img" />
-			<span class="nick" th:text="${b.nick}" id="boardnick"></span> <!--작성자 닉네임 -->
-			<span class="bdate" th:text="${b.bdate}"></span>
-		</div>
-		<div class="boardcontent">
-			<div class="boardimage" th:if="${b.bfname} != null">
-				<div
-					th:if="${#strings.endsWith(b.bfname, '.jpg')} or ${#strings.endsWith(b.bfname, '.gif')} or ${#strings.endsWith(b.bfname, '.png')}">
-					<img th:src="@{'/board/'+${b.bfname}}" />
-				</div>
-
-			</div>
-			<span class="bcontent" th:text="${b.bcontent}"></span>
-
-			<div class="edde">
-				<div id="editDiv" style="display: none;">
-					<a id="update" th:href="@{'/community/community_update/'+${bno}}">수정</a>
-				</div>
-
-				<div id="deleteDiv" style="display: none;">
-					<a id="delete" th:href="@{'/community/delete/'+${bno}}">삭제</a>
-				</div>
-			</div>
-
-		</div>
-		<div class="comment_top">
-			<span class="detguel">댓글</span>
-			<span class="comment_count"></span>
-			<input type="text" id="cocontent" name="cocontent" class="cocontent" />
-			<input type="hidden" id="cono" name="cono" th:value="${cono}" />
-			<input type="hidden" id="aid" name="aid" th:value="${session.a.aid}" />
-			<input type="hidden" id="snick" name="snick" th:value="${session.a.nick}" /> <!--세션에 저장된 닉네임 -->
-			<input type="hidden" id="bno" name="bno" th:value="${bno}" />
-			<button class="commentBtn" id="commentBtn">등록</button>
-		</div>
-
-
-		<div class="comment_content_div">
-			<table class="comment_content_li" id="comment_content_li">
-			</table>
+<div class="maindiv">
+	<div class="titlediv">
+		<span class="title">님들 저 이정도면 실력 만이 늘었나요</span>
+		<div class="aimage"></div>
+		<span class="nick">여매원</span>
+		<span class="bdate">07/07</span>
+	</div>
+	<div class="boardcontent">
+		<div class="boardimage"></div>
+		<span class="bcontent">어때용??ㅎㅎㅎ 제가 만들었어요 여기서 들은 오프라인 수업으로 실력이 많이 향상되었습니당!!!</span>
+	</div>
+	<div class="comment_top">
+		<span class="detguel">댓글</span>
+		<span class="comment_count">31</span>
+		<input type="text" name="cocontent" class="cocontent"/>
+		<button class="commentBtn">등록</button>
+	</div>
+	<div class="comment_content_div">
+		<div class="comment_content_li">
+			<div class="comment_img"></div>
+			<div class="comment_nick">박박디라라</div>
+			<div class="comment_comment">우와 수업만 들으신 건가요?? 전문가라고 해도 믿겠어요</div>
+			<span class="comment_date">07/07</span>
+			<span class="dapguel">답글달기</span>
 		</div>
 	</div>
+</div>
 </body>
-
 </html>
