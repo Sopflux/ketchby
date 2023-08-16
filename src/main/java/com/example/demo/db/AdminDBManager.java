@@ -11,7 +11,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import com.example.demo.entity.Account;
 import com.example.demo.entity.AdminQnainsertVO;
-import com.example.demo.entity.NoticeVO;
+import com.example.demo.entity.Notice;
 import com.example.demo.entity.QnainsertVO;
 
 public class AdminDBManager {
@@ -110,7 +110,7 @@ public class AdminDBManager {
 		return re;
 	}
 	
-	public static int updateNotice(NoticeVO n) {
+	public static int updateNotice(Notice n) {
 		SqlSession session = sqlSessionFactory.openSession(true);
 		int re = -1;
 		re = session.update("adminNotice.updateNotice", n);
@@ -118,7 +118,7 @@ public class AdminDBManager {
 		return re;
 	}
 	
-	public static int insertNotice(NoticeVO n) {
+	public static int insertNotice(Notice n) {
 		SqlSession session = sqlSessionFactory.openSession(true);
 		int re = -1;
 		re = session.insert("adminNotice.insertNotice", n);
@@ -126,17 +126,17 @@ public class AdminDBManager {
 		return re;
 	}
 	
-	public static List<NoticeVO> findAllNotice(HashMap<String, Object> map){
+	public static List<Notice> findAllNotice(HashMap<String, Object> map){
 		SqlSession session = sqlSessionFactory.openSession();
-		List<NoticeVO> list = null;
+		List<Notice> list = null;
 		list = session.selectList("adminNotice.findAll", map);
 		session.close();
 		return list;
 	}
 	
-	public static NoticeVO findNotice(int noticeno) {
+	public static Notice findNotice(int noticeno) {
 		SqlSession session = sqlSessionFactory.openSession();
-		NoticeVO n = null;
+		Notice n = null;
 		n = session.selectOne("adminNotice.findNotice", noticeno);
 		session.close();
 		return n;

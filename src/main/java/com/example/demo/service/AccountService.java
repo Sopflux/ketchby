@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import java.util.List;
 
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,6 +32,16 @@ public class AccountService implements UserDetailsService{
 		return a;
 	}
 	
+	public Account emailCheckWithEmail(String email, String id) {
+		Account a = dao_mb.emailCheckWithEmail(email, id);
+		return a;
+	}
+	
+	public Account findByAid(String id) {
+		return dao_mb.findByAid(id);
+	
+	}
+	
 	public String findByNick(String nick) {
 		Account a =  dao.findByNick(nick);
 		if(a == null) {
@@ -43,12 +54,12 @@ public class AccountService implements UserDetailsService{
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		UserDetails user = null;
 		
-		System.out.println(dao.findByAid(username));
-		System.out.println("id"+username);
+		//System.out.println(dao.findByAid(username));
+		//System.out.println("id"+username);
 		
 		
 		
-		Account acc = dao.findByAid(username);
+		Account acc = dao_mb.findByAid(username);
 		if (acc == null) {
 			try {
 				throw new UsernameNotFoundException(username);
@@ -56,9 +67,12 @@ public class AccountService implements UserDetailsService{
 				System.out.println("예외발생 :"+e.getMessage());
 			}
 			}else {
+				System.out.println("존재하는 아이디이~~~");
+				
 				user = User.builder().username(username) // id 설정
 						.password(acc.getPwd()) // 비밀번호 설정
-						.roles("user").build(); 
+						.roles(acc.getRole()+"").build(); 
+				System.out.println("user role : "+user.getAuthorities());
 			}
 		
 		return user;
@@ -68,4 +82,9 @@ public class AccountService implements UserDetailsService{
 		dao.save(a);
 		
 	}
+	public int update(Account a) {
+		int r = dao_mb.update(a);
+		return r;
+	}
+
 }

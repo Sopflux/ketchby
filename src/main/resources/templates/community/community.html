@@ -1,84 +1,108 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<!-- Bootstrap JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<link rel="stylesheet" type="text/css" href="community.css">
+<html xmlns:th="http://www.thymeleaf.org">
 
+<head>
+	<meta charset="UTF-8">
+	<title>Community</title>
+	<link rel="stylesheet" th:href="@{/style/footer.css}" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+	<link rel="stylesheet" th:href="@{/style/header.css}" />
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Bootstrap JavaScript -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="/style/community.css">
+	<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+	<script>
+		$(function(){
+
+			$(".search_btn").click(function(){
+				var searchColumn=$("#searchColumn").val();
+				var keyword=$("#keyword").val();
+				url="/community/community/1/"+searchColumn+"/"+keyword;
+				location.href=url;
+			})
+			$("#write").click(function(){
+				location.href="/community/community_open";
+			})
+			$("#1").click(function(){
+				location.href="/club/clubmain";
+			})
+			$("#2").click(function(){
+				location.href="/community/community/1";
+			})
+			$("#3").click(function(){
+				location.href="/notice/noticemain/1";
+			})
+			$("#4").click(function(){
+				location.href="/qanda/qandamain";
+			})
+			
+		})
+	</script>	
 </head>
+
 <body>
-<div class="maindiv">
-	<div class="main_search">
-		<select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-		  <option selected>선택</option>
-		  <option value="1">제목</option>
-		  <option value="2">글쓴이</option>
-		</select>
-		<input type="text" name="keyword" class="search_keyword" placeholder="   글쓴이와 제목을 검색할 수 있습니다"/>
-		<button class="search_btn">검색</button>
-	</div>
+	<header th:replace="~{fragments/header :: headerFragment}"></header>
+	<div class="maindiv">
+		
+		<div class="top-category">
+			<p id="1" class="category-text">#소모임</p>
+			<p id="2" class="category-text">#커뮤니티</p>
+			<p id="3" class="category-text">#공지사항</p>
+			<p id="4" class="category-text">#Q&A</p>
+		</div>
+		
+		<div class="main-community">
+			<div class="main_search">
+				<div class="selecandwrite">
+				<select name="searchColumn" id="searchColumn" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+					<option value="btitle">제목</option>
+					<option value="nick">글쓴이</option>
+				</select>
+				<button id="write" class="write">글쓰기</button>
+				</div>
+				<div>
+				<input type="search" id="keyword" name="keyword" class="search_keyword" placeholder="   글쓴이와 제목을 검색할 수 있습니다" />
+				<button class="search_btn">검색</button>
+				</div>
+			</div>
 	
-	<div class="main_content">
-		<span class="hotingi">HOT 인기글</span>
-		<br />
-		<div class="hot_board">
-			<table class="hot_td">
-				<tr>
-					<td class="hot_other td-number">1</td>
-					<td class="hot_title td-title">운동 소모임 시작하고 나서 15키로 뺐어요 [150]</td>
-					<td class="hot_other td-date">07/07</td>
-					<td class="hot_other td-author">유리심장</td>
-				</tr>
-				<tr>
-					<td class="hot_other td-number">2</td class="hot_other">
-					<td class="hot_title td-title">지금까지 수강한 수업들 후기 [100]</td>
-					<td class="hot_other td-date">07/08</td>
-					<td class="hot_other td-author">박박디라라</td>
-				</tr>
-				<tr>
-					<td class="hot_other td-number">3</td>
-					<td class="hot_title td-title">따봉 캐치비야 고마워 [80]</td>
-					<td class="hot_other td-date">07/09</td>
-					<td class="hot_other td-author">여매원</td>
-				</tr>
-				<tr>
-					<td class="hot_other td-number">4</td>
-					<td class="hot_title td-title">벌써 일년의 반이나 갔네요...시간이 너무 빠른듯 ㅠㅠ [70]</td>
-					<td class="hot_other td-date">07/10</td>
-					<td class="hot_other td-author">오리는덕덕</td>
-				</tr>
-				<tr>
-					<td class="hot_other td-number">5</td>
-					<td class="hot_title td-title">응원하는 야구팀이 자꾸 져서 [60]</td>
-					<td class="hot_other td-date">07/11</td>
-					<td class="hot_other td-author">원더걸스소희</td>
-				</tr>
-			</table>
-		</div>
-		<div class="line"></div>
-		<div class="board">
-			<table class="board_td">
-				<tr>
-					<td class="board-td-title">회사 면접 vs 소모임 정모 뭐가 더 중요함?? 답정너임 면접 가기 싫어서</td>
-					<td class="td-date">07/12</td>
-					<td class="td-author">유리공주</td>
-				</tr>
-				<tr>
-					<td class="board-td-title">소모임 단톡방에 답을 항상 늦게 하는 사람이 있는데요 ㅠㅠㅠ</td>
-					<td class="td-date">07/13</td>
-					<td class="td-author">아현공주</td>
-				</tr>
-				<tr>
-					<td class="board-td-title">아니 인간적으로 더운날엔 실내에서 만납시다!!!!</td>
-					<td class="td-date">07/14</td>
-					<td class="td-author">소희공주</td>
-				</tr>
-			</table>
+			<div class="main_content">
+				<span class="hotingi">HOT 인기글</span>
+				<br />
+				<div class="hot_board">
+					<table class="hot_td" style="width: 100%;">
+						<tr th:each="b, i:${hotlist}">
+							<td class="hot_other td-number" th:text="${i.count}"></td>
+							<td class="hot_title td-title">
+								<a class="a_hottitle" th:href="@{'/community/community_detail/'+${b.bno}}" th:text="${b.btitle + ' [' + b.comment_count + ']'}"></a>
+							</td>
+							<td class="hot_other td-date" th:text="${b.bdate}"></td>
+							<td class="hot_other td-author" th:text="${b.nick}"></td>
+						</tr>
+					</table>
+				</div>
+				<div class="line"></div>
+				<div class="board">
+					<table class="board_td">
+						<tr th:each="c:${list}">
+							<td class="board-td-title">
+								<a class="a_title" th:href="@{'/community/community_detail/'+${c.bno}}" th:text="${c.btitle + ' [' + c.comment_count + ']'}"></a>
+							</td>
+							<td class="td-date" th:text="${c.bdate}"></td>
+							<td class="td-author" th:text="${c.nick}"></td>
+						</tr>
+					</table>
+					<div class="pagenum">
+						<th:block th:each="i:${#numbers.sequence(1, totalPage)}">
+							<a th:href="@{'/community/community/'+${i}}" th:text="${i}" class="page-number"></a>
+						</th:block>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
-</div>
+<footer th:replace="~{fragments/footer :: footerFragment}"></footer>
 </body>
+
 </html>

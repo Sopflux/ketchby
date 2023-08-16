@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="reservation">
+ 	<insert id="insertReservation" parameterType="payment">
+		insert into reservation (rsno, clno, rsdate, clpeople, aid, aphone,
+		resrvname, email,rsprice, paymethod)
+		values (seq_reserv.nextval, #{clno}, #{rsdate}, #{clpeople}, #{aid},
+		#{aphone}, #{resrvname},#{email},#{rsprice},#{paymethod})
+	</insert>
+
+	<select id="findByClno" resultType="class">
+		select * from class where clno = #{clno}
+	</select>
+
+	<select id="findClPeople" resultType="int">
+		select clpeople from class
+		where clno = #{clno} 
+	</select>
+	<select id="findRePeople" resultType="int">
+		select nvl(sum(clpeople),0) from
+		reservation where clno = #{clno} and rsdate = #{rsdate}
+	</select>
+
+	<select id="findClTime" resultType="time">
+		select clno,tday, tstime,
+		tetime from time t
+		where t.clno = #{clno}
+	</select>
+	<select id="findClDate" resultType="cldate">
+		SELECT clno, TO_CHAR(clsdate,
+		'YYYY-MM-DD') AS clsdate, TO_CHAR(cledate, 'YYYY-MM-DD') AS cledate,
+		clprice, clpeople 
+		FROM class 	WHERE clno = #{clno}
+	</select>
+	<select id="findPaymentInfo" resultType="payment">
+		select cl.cltitle,nick,	cl.climg, b.bcaname, scaname ,cl.clno,cl.clprice
+		from class cl, bcategory b, scategory s, account a
+		where a.aid = cl.aid and cl.scano = s.scano and b.bcano = s.bcano 
+		and cl.clno = #{clno}
+	</select>
+</mapper>

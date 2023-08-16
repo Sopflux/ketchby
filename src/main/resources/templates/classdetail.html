@@ -1,14 +1,17 @@
-<html xmlns:th="http://www.thymeleaf.org">
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>클래스 상세</title>
 <meta charset="utf-8">
+<link rel="stylesheet" th:href="@{/style/footer.css}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+<link rel="stylesheet" th:href="@{/style/header.css}" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=27c65e2ff9ae6db35e5dc3fa427c77d9&libraries=services"></script>
 <script src="//code.jquery.com/jquery.min.js"></script>
-<link rel="stylesheet" href="./style/classdetail.css" />
+<link rel="stylesheet" th:href="@{/style/classdetail.css}" />
 <style>
 * {
   box-sizing: border-box;
@@ -54,8 +57,11 @@ section::after {
   }
 }
 </style>
-<script type="text/javascript">
+<script th:inline="javascript" >
 	$(function(){
+		 var type = /*${cl_list.cltype }*/ ''
+		 console.log("type:"+type)
+		
 		var check = $("#checkLike").val();
 		if(check == 0){
 			$("#like").attr('style', 'display:none');
@@ -68,7 +74,8 @@ section::after {
 </script>
 </head>
 <body>
-<section style="padding: 5rem 15rem 0 15rem">
+<header th:replace="~{fragments/header :: headerFragment}"></header>
+<section style="padding: 5rem 20rem 0 20rem">
 	<input type="hidden" th:value="${check }" id="checkLike">
     <nav>
         <img th:src="'./class/'+${cl_list.climg}" style="width:100%; height:600px">
@@ -106,7 +113,7 @@ section::after {
 	</button>
 	
 	<input type="hidden" id="clno" th:value="${cl_list.clno }">
-	<input type="hidden" id="aid" th:value="${aid }">
+	<input type="hidden" id="aid" th:value="${session.a.aid}">
 	<input type="hidden" id="likes" th:value="${likes }">
 	<script type="text/javascript">
 		let clno = $("#clno").val();
@@ -153,8 +160,23 @@ section::after {
             <td th:text="${avg }"></td>
         </tr>
     </table>
-    <button class="btn btn-primary" type="button">수강신청</button>    
-  
+    <button class="btn btn-primary" type="button" id="btn_reserv">수강신청</button>    
+  <script th:inline="javascript">
+	  $("#btn_reserv").click(function(){
+		  var clno = /*[[${clno}]]*/''
+		  var type = $(".label-ct").text()
+		  var rsdate = /*[[${cl_list.clsdate }]]*/''
+		  if(type == '원데이'){
+			  alert(type)
+			  location.href="/pay/reservation_popup?clno="+clno;
+		  }else{
+			  alert(type)
+			 location.href="/pay/classpayment?clno="+clno+"&rsdate="+rsdate+"&clpeople=1";
+		  }
+		  
+	  });
+	  
+  </script>
   </article>
 </section>
 <div class="main-div">
@@ -183,7 +205,7 @@ section::after {
         </table>
         
         <p class="text-title">제가 이번에 소개할 클래스는 </p>
-        <div id="clcontent" th:text="${clcontent}" style="margin-bottomm:20px;"></div>
+        <div id="clcontent" th:utext="${clcontent}" style="margin-bottom:20px;"></div>
 
         <p class="text-title">장소 및 편의시설</p>
 		<span th:text="${cl_list.claddr }" id="addr"></span>
@@ -241,7 +263,6 @@ section::after {
 		</div>
     </div>
 </div>
-
+	<footer th:replace="~{fragments/footer :: footerFragment}"></footer>
 </body>
 </html>
-

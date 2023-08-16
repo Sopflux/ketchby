@@ -4,7 +4,11 @@
 <head>
 	<meta charset="EUC-KR">
 	<title>소모임</title>
-	<link href="/style/club_detail.css" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+	<link rel="stylesheet" th:href="@{/style/footer.css}" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+	<link rel="stylesheet" th:href="@{/style/header.css}" />
+	<link th:href="@{/style/club_detail.css}" rel="stylesheet" />
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
 		$(function () {
@@ -54,6 +58,7 @@
 </head>
 
 <body>
+	<header th:replace="~{fragments/header :: headerFragment}"></header>
 	<div class="maindiv">
 		<img id="cbimg" name="cbimg" th:src="@{${c.cbimg != null} ? '/club/'+${c.cbimg} : '/club/defaultclass.jpg'}"
 			alt="" />
@@ -112,6 +117,7 @@
 
 		</div>
 	</div>
+	<footer th:replace="~{fragments/footer :: footerFragment}"></footer>
 </body>
 
 </html>

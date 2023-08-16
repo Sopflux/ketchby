@@ -54,4 +54,3 @@ public class QandAMailController {
         return mav;
     }
 }
-

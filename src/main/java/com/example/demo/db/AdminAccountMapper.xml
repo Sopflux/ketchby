@@ -6,8 +6,8 @@
 
 	<!-- 사용자 정보 등록 -->
 	<insert id="insertAccount" parameterType="account">
-		insert into account(aid, pwd, email, name_, nick, img, level_, regdate) 
-		values(#{aid}, #{pwd}, #{email}, #{name_}, #{nick}, #{img}, #{level_}, sysdate)
+		insert into account(aid, pwd, email, name_, nick, img, level_, regdate, role) 
+		values(#{aid}, #{pwd}, #{email}, #{name_}, #{nick}, #{img}, #{level_}, sysdate, 'USER')
 	</insert>
 	
 	<!-- 사용자 정보 수정 -->

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.dao.AdminNoticeDAO;
-import com.example.demo.entity.NoticeVO;
+import com.example.demo.entity.Notice;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.Setter;
@@ -30,7 +30,7 @@ public class AdminNoticeController {
 		
 		String noticetitle = request.getParameter("noticetitle");
 		String noticecontent = request.getParameter("noticecontent");
-		NoticeVO n = new NoticeVO();
+		Notice n = new Notice();
 		
 		n.setNoticetitle(noticetitle);
 		n.setNoticecontent(noticecontent);
@@ -47,7 +47,7 @@ public class AdminNoticeController {
 	public String updateNotice(HttpServletRequest request) {
 		String str = "수정 성공했습니다.";
 		
-		NoticeVO n = dao.findNotice(Integer.parseInt(request.getParameter("noticeno")));
+		Notice n = dao.findNotice(Integer.parseInt(request.getParameter("noticeno")));
 		String noticetitle = request.getParameter("noticetitle");
 		String noticecontent = request.getParameter("noticecontent");
 		
@@ -75,8 +75,8 @@ public class AdminNoticeController {
 	
 	@RequestMapping("/admin/notice/detail")
 	@ResponseBody
-	public NoticeVO detailNotice(@RequestParam(value = "noticeno")int noticeno) {
-		NoticeVO n = dao.findNotice(noticeno);
+	public Notice detailNotice(@RequestParam(value = "noticeno")int noticeno) {
+		Notice n = dao.findNotice(noticeno);
 		System.out.println(n);
 		return n;
 	}
@@ -93,14 +93,9 @@ public class AdminNoticeController {
 		map.put("keyword", keyword);
 		map.put("pageNum", pageNum);
 		
-		int totalPage = dao.noticeTotalPage;
-		if(totalPage == 0) {
-			totalPage = 1;
-		}
-		
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("list", dao.findAll(map));
-		model.addAttribute("totalPage", totalPage);
+		model.addAttribute("totalPage", dao.noticeTotalPage);
 		model.addAttribute("notice", dao.noticeTotalRecord);
 		return "/admin/notice";
 	}

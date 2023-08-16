@@ -84,11 +84,10 @@
     <mapper resource="com/example/demo/db/favorMapper.xml"/>
     <mapper resource="com/example/demo/db/reservationMapper.xml"/>  
     <mapper resource="com/example/demo/db/adminClassMapper.xml"/>
-     <mapper resource="com/example/demo/db/adminClassPendingMapper.xml"/>
-     <mapper resource="com/example/demo/db/adminDashBoardMapper.xml"/>
-     <mapper resource="com/example/demo/db/mainPageMapper.xml"/>
-     <mapper resource="com/example/demo/db/classMainMapper.xml"/>
+    <mapper resource="com/example/demo/db/adminClassPendingMapper.xml"/>
+    <mapper resource="com/example/demo/db/adminDashBoardMapper.xml"/>
+    <mapper resource="com/example/demo/db/mainPageMapper.xml"/>
+    <mapper resource="com/example/demo/db/classMainMapper.xml"/>
     
   </mappers>
 </configuration>
-

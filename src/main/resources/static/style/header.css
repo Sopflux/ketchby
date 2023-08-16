@@ -1,0 +1,212 @@
+@charset "UTF-8";
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+a{color: inherit;text-decoration: none;}
+.header-container {
+    max-width: 1200px;
+    width: calc(100% - 40px);
+    margin: 0 0 0 25px;
+}
+
+#header-header {
+    background: #fff;
+    margin: 0;
+}
+
+#header-header .logo {
+    font-size: 25px;
+    box-sizing: border-box;
+}
+
+#header-header .header-container {
+    display: flex;
+    align-items: center;
+}
+
+#header-header .gnb {
+    text-align: right;
+}
+
+#header-header .nav .logo {
+    display:flex;
+    width:200px;
+    flex-wrap:wrap;
+    justify-content: center;
+    align-items: center;
+    text-transform:uppercase;
+    cursor:pointer;
+}
+
+#header-header .nav ul.gnb {
+    margin-bottom:0px;
+    padding-left:0px;
+    display: flex;
+}
+
+#header-header .nav ul.gnb li {
+    margin-bottom:0px;
+    color:#000;
+    text-align: center;
+    position: relative;
+}
+
+#header-header .nav ul.gnb li a {
+    box-sizing: border-box;
+    /*display:block;*/
+    transition:.8s ease;
+    text-transform:uppercase;
+}
+
+#header-header .nav ul.gnb > li > a {
+    padding: 25px 40px;
+}
+
+#header-header .nav ul.gnb li ul.sub {
+    position:absolute;
+    padding-left:0px;
+    opacity:0;
+    visibility: hidden;
+    padding-top:10px;
+    z-index: 3;
+    width: 100%;
+}
+
+#header-header .nav ul.gnb li ul.sub li {
+    display: block;
+    position: relative;
+    font-size: 17px;
+    margin-top: 15px;
+}
+
+#header-header .nav ul.gnb li ul.sub li a {
+    padding:10px;
+}
+
+@media(min-width:1024px){
+    #header-header .nav ul.gnb:hover li ul.sub {
+        visibility:visible;
+        opacity:0.8;
+        transform:translateY(0px);
+        background-color: white;
+    } 
+
+    #header-header .nav ul.gnb li:hover {
+        display:inline-block;
+        margin-bottom:0px;
+    }
+    #header-header .open .hd_bg {
+        position: absolute;
+        width: 100%;
+        background: #fff;
+        z-index: 1;
+        transition: all .3s;
+        border-top: 1px solid #dcdcdc
+    }
+    #header-header .nav ul.gnb li ul.sub li a {
+        text-align: center
+    }
+    #header-header .nav .active {
+        position: relative
+    }
+    #header-header .nav .active:hover:after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 2px;
+        background: #000;
+        position: absolute;
+        left: 0;bottom: 0
+    }
+}
+   
+@media(max-width:1024px){
+    #header-header {
+    position: relative;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    }
+    #header-header .menu_btn { 
+        display:block;
+        top:50%;
+        transform: translateY(-50%)
+    }
+    #header-header .menu_btn.lijo {
+        top: 30%
+    }
+    #header-header .nav ul.gnb{
+        position: absolute;
+        top: 65px;
+        transform: translateX(100%);
+        left: 0;
+        transition:.8s ease;
+        width:100%; 
+        height: calc(100vh - 65px);
+        background: #fff;
+        overflow-y: auto;
+        display: block
+    }
+    #header-header .nav ul.gnb li a{
+        text-align: left;
+    }
+    #header-header .nav ul.gnb.surya {
+        transform: translateX(0%);
+    }
+    #header-header .nav ul.gnb li ul.sub{
+        opacity: 1;
+        visibility: visible;
+        display:none;
+        position:relative;
+        padding-top:0px;
+        width:100%;
+        transition:0s;
+        transform: translateY(0px);
+    }
+    #header-header .nav ul.gnb li ul.sub:after{
+        display:none;
+    }
+   .hd_bg{
+    display: none !important
+    }
+}
+
+body{
+    margin: 0;
+}
+
+header {
+    width:100%;
+}
+
+a {
+    text-decoration: none !important;
+    color: black !important;
+}
+
+.title-bar {
+    height: 50px;
+    background-color: #008375;
+    margin-bottom: 15px;
+}
+
+.header-top {
+    text-align: right;
+}
+
+.account-header {
+    color: #999999 !important;
+    text-decoration: none !important;
+    margin-right: 30px;
+}
+
+.middle {
+    display: inline-block;
+    margin-bottom: 10px;
+    margin-left: 20px;
+}
+
+.header-text-top {
+    font-size: 18px;
+    font-family: serif;
+    margin-top: 10px;
+}

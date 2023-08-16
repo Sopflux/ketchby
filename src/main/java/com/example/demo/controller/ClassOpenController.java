@@ -13,8 +13,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.example.demo.dao.ClassOpenDAO;
-import com.example.demo.entity.TimeVO;
-import com.example.demo.entity.ClassVO;
+import com.example.demo.entity.Time;
+import com.example.demo.entity.Account;
+import com.example.demo.entity.Class;
 import com.example.demo.entity.ScategoryVO;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -43,9 +44,10 @@ public class ClassOpenController {
 	@ResponseBody
 	public String open(HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		//String aid = (String) session.getAttribute("aid");
+		Account a = (Account)session.getAttribute("a");
+		String aid = a.getAid();
 		String str = "클래스 개설 신청되었습니다.";
-		String aid = "gr033";
+		
 		
 		String cltitle = request.getParameter("cltitle");
 		String cllevel = request.getParameter("cllevel");
@@ -74,8 +76,8 @@ public class ClassOpenController {
 		String tetime = request.getParameter("tetime");
 		String tstime = request.getParameter("tstime");
 		
-		ClassVO c = new ClassVO();
-		TimeVO ct = new TimeVO();
+		Class c = new Class();
+		Time ct = new Time();
 		
 		List<String> list = new ArrayList();
 		list.add(request.getParameter("clday_mon"));
@@ -109,7 +111,7 @@ public class ClassOpenController {
 		img = uploadFile.getOriginalFilename();
 		
 		System.out.println(img);
-		if(img != null && img.equals("")) {
+		if(img != null && !img.equals("")) {
 			
 			long n = System.currentTimeMillis();
 			String fname1 = img.substring(0, img.lastIndexOf("."));
@@ -117,6 +119,8 @@ public class ClassOpenController {
 			img = fname1 + n + fname2;
 			
 			System.out.println("img: "+img);
+		}else {
+			img = "Classdefault.png";
 		}
 		c.setClimg(img);
 		

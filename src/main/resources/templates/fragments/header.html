@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Header</title>
+<meta charset="utf-8">
+<link rel="stylesheet" th:href="@{/style/footer.css}" />
+<link rel="stylesheet" th:href="@{/style/header.css}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script th:inline="javascript">
+$(document).ready(function(){
+    var max_h=0;
+    $(".sub").each(function () {
+        var h = parseInt($(this).css("height"));
+        if (max_h < h) {
+            max_h = h;
+        }
+    });
+
+    // 마우스 over 시
+    $('.gnb').mouseenter(function () {
+        // menu bg
+        var menuHeight = $('#header-header').outerHeight();
+        $('.hd_bg').css({
+            'top': menuHeight + 'px',
+            height: max_h + 30 + 'px',
+        });
+        $('#header-header').addClass('open');
+    });
+    
+    $('.gnb').mouseleave(function () {
+        $('.hd_bg').css('height', '0');
+        $('#header-header').removeClass('open');
+    });
+        
+    $('.gnb > li').mouseenter(function () {
+        $(this).addClass('active');
+        $(this).siblings().removeClass('active')
+    });
+    $('.gnb > li').mouseleave(function () {
+        $(this).removeClass('active');
+    });
+
+});
+</script>
+</head>
+<body>
+	<header id="header-header" th:fragment="headerFragment">
+        <div class="title-bar"></div>
+        <div class="header-top">
+            <a sec:authorize="!isAuthenticated()" href="/account/login" class="account-header"id="notlogin">로그인</a>
+            <a sec:authorize="!isAuthenticated()" href="/account/join" class="account-header" id="notlogin">회원가입</a>
+            <a sec:authorize="isAuthenticated()" href="/account/mypage" class="account-header" id="login">마이페이지</a>
+        </div>
+        <div class="header-container">
+            <a href="/mainpage">
+                <img class="logo" th:src="@{/image/ketchby.002.png}" style="width:200px; margin-right:30px;"/>
+            </a>
+            <nav class="nav">
+            <ul class="gnb">
+                <li><a href="#" class="header-text-top">Class</a>
+                    <ul class="sub">
+                        <li><a href="/classmain" class = "header-text-drop">전체 보기</a></li>
+                        <li><a href="/classmain?bcaname='요리/공예'" class = "header-text-drop">요리/공예</a></li>
+                        <li><a href="/classmain?bcaname='외국어'" class = "header-text-drop">외국어</a></li>
+                        <li><a href="/classmain?bcaname='스포츠'" class = "header-text-drop">스포츠</a></li>
+                        <li><a href="/classmain?bcaname='음악'" class = "header-text-drop">음악</a></li>
+                        <li><a href="/classmain?bcaname='미술'" class = "header-text-drop">미술</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" class="header-text-top">Community</a>
+                     <ul class="sub">
+                        <li><a href="/community/community/1" class="header-text-drop" >게시판</a></li>
+                        <li><a href="/club/clubmain" class="header-text-drop">소모임</a></li>
+                        <li><a href="/notice/noticemain/1" class="header-text-drop">공지사항</a></li>
+                        <li><a href="/qanda/qandamain" class="header-text-drop">QnA</a></li>
+                        <li><a style="opacity: 0;">없는태그</a></li>
+                        <li><a style="opacity: 0;">없는태그</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" class="header-text-top">Feed</a>
+                    <ul class="sub">
+                        <li><a href="/feed/feed" class="header-text-drop" >Feed</a></li>
+                        <li><a style="opacity: 0;">없는태그</a></li>
+                        <li><a style="opacity: 0;">없는태그</a></li>
+                        <li><a style="opacity: 0;">없는태그</a></li>
+                        <li><a style="opacity: 0;">없는태그</a></li>
+                        <li><a style="opacity: 0;">없는태그</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" class="header-text-top">MyPage</a>
+                    <ul class="sub">
+                        <li><a href="/account/mypage" class="header-text-drop" >MyPage</a></li>
+                        <li><a style="opacity: 0;">없는태그</a></li>
+                        <li><a style="opacity: 0;">없는태그</a></li>
+                        <li><a style="opacity: 0;">없는태그</a></li>
+                        <li><a style="opacity: 0;">없는태그</a></li>
+                        <li><a style="opacity: 0;">없는태그</a></li>
+                    </ul>
+                </li>
+            </ul>
+            </nav>
+        </div>
+        <div class="hd_bg"></div>
+    </header>
+</body>
+</html>

@@ -3,8 +3,10 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>소모임</title>
-	<link href="/style/clubmain.css" rel="stylesheet" />
+	<title>소모임</title>	<link rel="stylesheet" th:href="@{/style/footer.css}" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+	<link rel="stylesheet" th:href="@{/style/header.css}" />
+	<link th:href="@{/style/clubmain.css}" rel="stylesheet" />
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
 		$(function () {
@@ -88,31 +90,49 @@
 				$(".sortColum").val("");
 				$(".sortColum option:first").prop("selected", true);
 			})
-
+			$("#1").click(function(){
+				location.href="/club/clubmain";
+			})
+			$("#2").click(function(){
+				location.href="/community/community/1";
+			})
+			$("#3").click(function(){
+				location.href="/notice/noticemain/1";
+			})
+			$("#4").click(function(){
+				location.href="/qanda/qandamain";
+			})
 		})
 	</script>
 </head>
 
 <body>
-	<div th:replace="menu :: head"></div>
+	<header th:replace="~{fragments/header :: headerFragment}"></header>
 	<div class="maindiv">
-		<div class="top">
+		<div class="top-category">
+			<p id="1" class="category-text">#소모임</p>
+			<p id="2" class="category-text">#커뮤니티</p>
+			<p id="3" class="category-text">#공지사항</p>
+			<p id="4" class="category-text">#Q&A</p>
+		</div>
+		<div class="clubmain-content">
+			<div class="top">
 			<select id="filter" class="sortColum" name="sortColum">
 				<option value="">선택하세요</option>
 				<option value="new">최신순</option>
 				<option value="detail">마감임박순</option>
 			</select>
 			<button class="writeclub" id="writeclub">모집하기</button>
-
+			<br />
 			<input type="text" id="search" name="keyword" placeholder="소모임명을 검색하세요" />
 			<button id="searchBtn">검색</button>
-
-		</div>
-		<div class="moimlist">
-			<!--for문 여기서부터 돌리면 됨-->
-
+			</div>
+			<div class="moimlist">
+				<!--for문 여기서부터 돌리면 됨-->
+			</div>
 		</div>
 	</div>
+	<footer th:replace="~{fragments/footer :: footerFragment}"></footer>
 </body>
 
 </html>

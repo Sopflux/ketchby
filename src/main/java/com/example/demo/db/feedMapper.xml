@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="feed">	
+	<select id="findAll" resultType="feed">
+		select * from feed order by fdate desc
+	</select>	
+	
+	<select id="findMyFeed" resultType="feed">
+		select * from feed where aid=#{aid} order by fdate desc
+	</select>
+	
+	<select id="findFollowFeed" resultType="feed">
+		select * from feed f, account a, follow fo where f.aid=a.aid and fo.aid=a.aid and fo.afollowaid=#{aid}
+	</select>
+	
+	
+	
+	<select id="imgFindByFno" resultType="String">
+		select imgname from image where fno = #{fno}
+	</select>	
+	
+	<select id="findAccount" resultType="account">
+		select * from account where aid = #{aid}	
+	</select>
+	
+	<select id="maxFeedNo" resultType="integer">
+		select nvl(max(fno),0)+1 from feed
+	</select>
+	
+	<select id="cntLike" resultType="integer">
+		select count(*) from likes where fno=#{fno}
+	</select>
+	
+	<select id="userCntLike" resultType="integer">
+		select count(*) from likes where fno=#{fno} and aid=#{aid}
+	</select>
+	
+	<insert id="insertLike" parameterType="likes">
+		insert into likes (lno,aid,fno) values(seq_likes.nextval,#{aid},#{fno})
+	</insert>
+	
+	<delete id="deleteLike">
+		delete likes where fno=#{fno} and aid=#{aid}
+	</delete>
+	
+	<select id="cntComment" resultType="integer">
+		select count(*) from feedcommentary where fno=#{fno}
+	</select>
+	
+	<select id="findComment" resultType="feedcommentary">
+		select fcono, fno, f.aid, fcocomment,to_char(fcodate, 'yy/mm/dd')as fcodate ,nick, img from feedcommentary f , account a where a.aid=f.aid and f.fno=#{fno} order by fcono desc 
+	</select>
+	
+	<insert id="insertComment" parameterType="feedcommentary">
+		insert into feedcommentary (fcono,fno,aid,fcocomment,fcodate) values(seq_feedcommentary.nextval,#{fno},#{aid},#{fcocomment},sysdate)
+	</insert>
+
+	
+	<insert id="insertFeed" parameterType="feed">
+		insert into feed (fno,aid,fcontent,fdate) values(#{fno},#{aid},#{fcontent},sysdate)
+	</insert>
+	
+	<insert id="insertFeedImg" parameterType="image">
+		insert into image (imgno,fno,aid,imgname) values(seq_image.nextval,#{fno},#{aid},#{imgname})
+	</insert>
+	
+	<update id="updateFeed" parameterType="feed">
+		update feed set aid=#{aid},fcontent=#{fcontent} where fno=#{fno}
+	</update>
+	
+	<delete id="deleteFeed">
+		delete feed where fno=#{fno}
+	</delete>
+	
+	<delete id="deleteFeedImg">
+		delete image where fno=#{fno}
+	</delete>
+	
+	
+</mapper>

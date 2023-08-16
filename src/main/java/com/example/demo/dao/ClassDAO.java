@@ -7,14 +7,14 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.entity.ClassVO;
+import com.example.demo.entity.Class;
 
 @Repository
-public interface ClassDAO extends JpaRepository<ClassVO, Integer> {
+public interface ClassDAO extends JpaRepository<Class, Integer> {
 	
 	@Modifying
 	@Query(value = "select * from Class c", nativeQuery = true)
 	
-	public List<ClassVO> selectAll();
+	public List<Class> selectAll();
 	
 }

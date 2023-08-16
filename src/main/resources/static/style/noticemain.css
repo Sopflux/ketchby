@@ -7,13 +7,10 @@
 
 body{ font-family:'Pretendard-Regular', 'sans-serif'}
 .maindiv {
-	position: relative;
-	width: 100vw;
-	height: 100vh;
-	display: flex;
-	margin-left: 400px;
-	display: inline-block;
-	margin-top: 80px;
+	width: 100%;
+    padding: 5rem 10rem 3rem 15rem;
+    display: inline-flex;
+    justify-content: center;
 }
 
 .gongzi {
@@ -102,16 +99,34 @@ a:hover {
 	margin: 20px 10px;
 	background-color: rgba(247, 249, 250, 1);
 }
+.main-community {
+    width: 80%;
+    margin: 0 !important;
+    padding: 0 !important;
+
+}
 
 .notice_td {
-	width: 888px;
-	height: 830px;
-	display: flex;
-	position: relative;
-	align-items: flex-start;
-	flex-shrink: 0;
+	width: 100%;
 }
 
 .notice_td td {
 	padding: 8px 0;
+}
+.category-text {
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.category-text:hover{
+	color: rgba(154, 154, 154, 1);
+}
+p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+.top-category {
+	width: 20%;
+    margin: 0 !important;
+    padding: 3.6rem 0 0 0 !important;
 }

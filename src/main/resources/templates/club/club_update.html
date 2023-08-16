@@ -4,7 +4,10 @@
 <head>
 	<meta charset="EUC-KR">
 	<title>소모임 수정</title>
-	<link href="/style/club_update.css" rel="stylesheet" />
+	<link rel="stylesheet" th:href="@{/style/footer.css}" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+	<link rel="stylesheet" th:href="@{/style/header.css}" />
+	<link th:href="@{/style/club_update.css}" rel="stylesheet" />
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
 		$(function () {
@@ -113,6 +116,7 @@
 </head>
 
 <body>
+	<header th:replace="~{fragments/header :: headerFragment}"></header>
 	<div th:replace="menu :: head"></div>
 	<div class="maindiv">
 		<form action="/club/club_update" method="post" enctype="multipart/form-data">
@@ -195,6 +199,7 @@
 			<input type="submit" value="소모임 작성 완료" class="submit" />
 		</form>
 	</div>
+	<footer th:replace="~{fragments/footer :: footerFragment}"></footer>
 </body>
 
 </html>

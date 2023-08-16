@@ -1,10 +1,13 @@
-<html xmlns:th="http://www.thymeleaf.org">
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>클래스 개설</title>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=27c65e2ff9ae6db35e5dc3fa427c77d9&libraries=services"></script>
 <meta charset="utf-8">
+<link rel="stylesheet" th:href="@{/style/footer.css}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+<link rel="stylesheet" th:href="@{/style/header.css}" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
@@ -13,7 +16,7 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=27c65e2ff9ae6db35e5dc3fa427c77d9&libraries=services"></script>
 <script src="//code.jquery.com/jquery.min.js"></script>
 
-<link rel="stylesheet" href="./style/classopen.css" />
+<link rel="stylesheet" th:href="@{/style/classopen.css}" />
 <style>
 * {
   box-sizing: border-box;
@@ -23,7 +26,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 section {
-	padding: 5rem 10rem 5rem 10rem;
+	padding: 5rem 25rem 5rem 25rem;
 }
 
 </style>
@@ -32,6 +35,7 @@ section {
 </script>
 </head>
 <body>
+	<header th:replace="~{fragments/header :: headerFragment}"></header>
 	<section>
 	<form id="ClassInfo" role="form" enctype="multipart/form-data">
 		<span class="title">제목</span><br>
@@ -311,19 +315,18 @@ section {
 
     <hr>
     <span class="select-title">수강 인원</span><br>
-    <input type="number" name="clpeople" class="clpeople"> 명
+    <input type="number" min="1" id="clpeople" class="clpeople"> 명
     <br>
     <span class="select-title">추정 레벨</span><br>
     <div style="margin: 15px 0 20px 0;">
-		<input class="form-check-input" type="radio" id="cllevel1" value="입문" onchange="inputdisable()">
-		<label class="form-check-label" for="cllelvel">입문</label>
-		<input class="form-check-input" type="radio" id="cllevel2" value="초급" onchange="inputdisable()">
-		<label class="form-check-label" for="cllelvel">초급</label>
-		<input class="form-check-input" type="radio" id="cllevel3" value="중급" onchange="inputdisable()">
-		<label class="form-check-label" for="cllelvel">중급</label>
-		<input class="form-check-input" type="radio" id="cllevel4" value="고급" onchange="inputdisable()">
-		<label class="form-check-label" for="cllelvel">고급</label>      
-		<input type="hidden" name="cllevel" id="cllevel">
+		<input class="form-check-input" type="radio" name="cllevel" id="cllevel" value="입문" onchange="inputdisable()">
+		<label class="form-check-label" for="cllevel">입문</label>
+		<input class="form-check-input" type="radio" name="cllevel" id="cllevel" value="초급" onchange="inputdisable()">
+		<label class="form-check-label" for="cllevel">초급</label>
+		<input class="form-check-input" type="radio" name="cllevel" id="cllevel" value="중급" onchange="inputdisable()">
+		<label class="form-check-label" for="cllevel">중급</label>
+		<input class="form-check-input" type="radio" name="cllevel" id="cllevel" value="고급" onchange="inputdisable()">
+		<label class="form-check-label" for="cllevel">고급</label>      
     </div>
 
     <hr>
@@ -336,29 +339,14 @@ section {
    	<input type="button" value="개설 신청" id="insertClass" class="btnInsert">
 	</section>
 	<script type="text/javascript">
-		let cllevel1 = document.getElementById("cllevel1");
-		let cllevel2 = document.getElementById("cllevel2");
-		let cllevel3 = document.getElementById("cllevel3");
-		let cllevel4 = document.getElementById("cllevel4");
-		let clprice = document.getElementById("clprice");
-		
-		
 		function inputdisable(){
-			if(cllevel1.checked){
-				$("#cllevel").val(cllevel1.value);
-			}else if(cllevel2.checked){
-				$("#cllevel").val(cllevel2.value);
-			}else if(cllevel3.checked){
-				$("#cllevel").val(cllevel3.value);
-			}else if(cllevel4.checked){
-				$("#cllevel").val(cllevel4.value);
+			let cllevel = $("input[name='cllevel']:checked").val();
+			console.log(cllevel);			
+			if(cllevel == "초급" || cllevel == "입문"){
+				clprice.disabled = true; 	// 라디오 버튼이 선택되면 input 비활성화
+			}else{
+				clprice.disabled = false; 	// 다른 라디오 버튼이 선택되면 input 활성화
 			}
-			
-			if (cllevel1.checked || cllevel2.checked) {
-	            clprice.disabled = true; 	// 라디오 버튼이 선택되면 input 비활성화
-	        } else {
-	            clprice.disabled = false; 	// 다른 라디오 버튼이 선택되면 input 활성화
-	        }
 		};
 		
 		$("#insertClass").click(function(){
@@ -378,5 +366,6 @@ section {
 			})
 		})
 	</script>
+	<footer th:replace="~{fragments/footer :: footerFragment}"></footer>
 </body>
 </html>

@@ -2,13 +2,181 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="account">	
+
+<mapper namespace="account">
+	<select id="findClassCondition" resultType="confirm">
+		select to_char(cldate,'yyyy-mm-dd')as cldate , cfcd, cltitle ,cl.clno from confirm c, class cl
+where cl.clno = c.clno and cl.aid = #{aid}
+	</select>
+	<delete id="unfollow">
+		delete follow where aid = #{aid} and afollowaid = #{afollowaid}
+	</delete>
+	<insert id="follow">
+		insert into follow (folno, aid, afollowaid) values(seq_folno.nextval
+		,#{aid},#{afollowaid})
+	</insert>
+	<select id="findOpenClass" resultType="class">
+		select cl.clno, clTitle,
+		bcaname, scaname, climg, nvl(avg(rstar), 0) as avg
+		, nvl(count(rstar),
+		0) as cnt
+		from class cl
+		join scategory sca on cl.scano = sca.scano
+		join
+		bcategory bca on bca.bcano = sca.bcano
+		left join review r on cl.clno =
+		r.clno
+		where cl.aid = #{aid}
+		group by cl.clno, cltitle, bcaname,
+		scaname, climg
+
+	</select>
+
+	<select id="checkFollow" resultType="int">
+		select count(afollowaid)
+		from follow f where aid
+		= #{aid} and afollowaid = #{afollowaid} 
+	</select>
+	<insert id="insertReview" parameterType="review">
+		insert into review
+		(rno,clno,rcontent,rstar,rdate,aid)
+		values(seq_review.nextval,
+		#{clno},#{rcontent},#{rstar},sysdate,#{aid})
+	</insert>
+	<select id="findClassInfo" resultType="reclass">
+		select a.name_, cltitle,
+		to_char(clsdate,'YYYY-MM-DD'), climg,clno
+		from class cl, account a
+		where a.aid = cl.aid and cl.clno = #{clno}
+	</select>
+	<select id="findConfirm" resultType="confirm">
+		select cltitle,
+		to_char(cldate,'YYYY-MM-DD'), cfcd from class cl, confirm cf
+		where
+		cl.clno = cf.clno and cl.aid = #{aid}
+	</select>
+	<select id="findLike" resultType="accLike">
+		select cl.cltitle, claddr,
+		cl.climg,b.bcaname, scaname ,cl.clno, nick
+		from likes l , class cl, bcategory
+		b, scategory s, account a 
+		where l.clno = cl.clno and l.aid = #{aid} and
+		cl.scano = s.scano and b.bcano = s.bcano and l.aid = a.aid
+		
+	</select>
+	<select id="findClub" resultType="accclub">
+		select cb.cbno , cb.cbtitle,cb.slocno,
+		to_char(cbclsdate,'yyyy-mm-dd') as cbclsdate, nick,
+		cb.cbimg, bcaname,
+		scaname,cb.slocno, blocname,slocname
+		from club
+		cb, scategory sca,
+		account a, slocation sloc, blocation bloc ,
+		bcategory bca,
+		club_application cbap
+		where cb.scano = sca.scano and sloc.blocno =
+		bloc.blocno and sloc.slocno =
+		cb.slocno and
+		cbap.cbno = cb.cbno and
+		sca.bcano = bca.bcano and a.aid =
+		cb.aid and cbap.aid= #{aid}
+		order by
+		cb.cbno
+	</select>
+	<select id="findOpenClub" resultType="accclub">
+		select cb.cbno , cb.cbtitle,
+		to_char(cbclsdate,'yyyy-mm-dd') as cbclsdate, nick,
+		cb.cbimg, bcaname,
+		scaname,cb.slocno, blocname,slocname
+		from club
+		cb, scategory sca,
+		account a, slocation sloc, blocation bloc ,
+		bcategory bca
+		where cb.scano = sca.scano and sloc.blocno =
+		bloc.blocno and sloc.slocno =
+		cb.slocno and
+		sca.bcano = bca.bcano and a.aid =
+		cb.aid and cb.aid= #{aid}
+		order by
+		cb.cbno
+	</select>
+	<select id="findReservation" resultType="reservation">
+		select cl.clno,
+		to_char(rsdate,'YYYY-MM-DD') as rsdate,
+		cltitle, climg, clprice
+		from
+		reservation
+		rs , class cl
+		where rs.clno =
+		cl.clno and rs.aid = #{aid}
+	</select>
+	<select id="findFeedImage" resultType="image">
+		select fno,imgname from
+		image where (fno, imgno)
+		in (select fno , min(imgno) from image where
+		aid = #{aid} group by fno)
+	</select>
+	<select id="findAReview" resultType="review">
+	select cltitle, r.clno, rcontent,nick,
+		r.rstar, to_char(r.rdate,'YYYY-MM-DD') as rdate
+		from review r ,account a,
+		class cl
+		where cl.clno = r.clno and cl.aid = #{aid} and a.aid = r.aid
+	</select>
+	<select id="findReview" resultType="review">
+		select r.clno, rcontent, nick,
+		r.rstar, to_char(r.rdate,'YYYY-MM-DD') as rdate, cl.cltitle
+		from review r , account a,
+		class cl
+		where cl.aid =
+		#{aid} and cl.clno = r.clno and cl.aid =a.aid
+	</select>
 	<select id="findByNick" resultType="account">
-		select * from account where nick = #{nick}
-	</select>	
+		select * from account where
+		nick = #{nick}
+	</select>
+	<update id="update" parameterType="account">
+		update account set aid =#{aid}
+		, pwd = #{pwd}, name_ = #{name_}, nick =
+		#{nick},img = #{img},level_
+		='Lv.1',role=#{role},regdate = sysdate
+		where email = #{email}
+	</update>
+
 	
-	<select id="findByEmail" resultType="account">
+	<select id="findByEmail" resultType="account" parameterType="String">
+
 		select * from account where email = #{email}
-	</select>	
-	
+	</select>
+
+
+	<select id="emailCheckWithEmail" resultType="account">
+		select * from
+		account where email = #{email} and aid = #{id}
+	</select>
+
+	<select id="findByAid" resultType="account">
+		select * from account where
+		aid = #{aid}
+	</select>
+	<select id="findFollow" resultType="follow">
+		select nick , a.aid, img from follow
+		f, account a where a.aid = f.aid and f.afollowaid = #{aid} 
+	</select>
+	<select id="findFollowing" resultType="follow">
+		select nick, a.aid, img from 
+		follow f, account a where a.aid = f.afollowaid and f.aid = #{aid} 
+	</select>
+
+
+
+<select id="findReason" resultType="reason">
+	select * from reason
+</select>
+
+<insert id="insertQuit" parameterType="quit">
+	insert into quit (qno,reno,qdate) values(seq_quit.nextval,#{reno},sysdate) 
+</insert>
+
+<delete id="deleteAccount">delete account where aid=#{aid}</delete>
 </mapper>

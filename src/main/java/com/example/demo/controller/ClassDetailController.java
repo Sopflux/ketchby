@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.dao.ClassDetailDAO;
+import com.example.demo.entity.Account;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -20,13 +21,14 @@ public class ClassDetailController {
 	public ClassDetailDAO dao;
 	
 	@GetMapping("/classdetail")
-	public String list (Model model, HttpServletRequest request) {
+	public String list (Model model, int clno, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		//int clno = (int)session.getAttribute("clno");
 		//String aid = (String)session.getAttribute("aid");
 		
-		int clno = 5001;
-		String aid = "qlqlql8448";
+		
+		Account a = (Account)session.getAttribute("a");
+		String aid = a.getAid();
 		
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("aid", aid);
@@ -56,9 +58,12 @@ public class ClassDetailController {
 	
 	@GetMapping("/classdetail/checklike")
 	@ResponseBody
-	public int checklikes(HttpServletRequest request) {
+	public int checklikes(HttpServletRequest request, HttpSession session) {
 		int clno = Integer.parseInt(request.getParameter("clno"));
-		String aid = (String)request.getParameter("aid");
+		
+		Account a = (Account)session.getAttribute("a");
+		String aid = a.getAid();
+	
 		System.out.println("clno: " +clno);
 		System.out.println("aid: "+aid);
 		HashMap<String, Object> map = new HashMap<>();

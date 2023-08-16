@@ -88,7 +88,7 @@
                 </li>
                 <li><a href="/admin/dashboard" id="dashboard">📊 Dashboard</a></li>
                 <li><a href="/admin/user" id="user">👤 사용자 관리</a></li>
-                <li><a href="/admin/qanda" id="qanda">📧 문의 관리</a></li>
+                <li><a href="/admin/qna" id="qanda">📧 문의 관리</a></li>
                 <li><a href="/admin/notification" id="notification">📢 공지사항 관리</a></li>
 				<li class="has-submenu">
 				    <a href="#" id="class">📑 클래스 관리</a>
@@ -97,7 +97,6 @@
 				        <li><a href="/admin/classPending">승인 요청된 클래스</a></li>
 				    </ul>
 				</li>                
-				<li><a href="/admin/community" id="community">🧾 커뮤니티 관리</a></li>
             </ul>
         </nav>        
         
@@ -145,7 +144,7 @@
                                     <td th:text="${c.aid}"></td>
                                     <td>
 									  <!--고쳐야 할 부분-->
-									  <a href="#" th:onclick="'updateClassPending('+${c.clno}+', \'승인\')'">승인 |</a>
+									  <a href="#" th:onclick="'updateClassPending('+${c.clno}+', \'승인\')'">승인 </a>
                 					  <a href="#" th:onclick="'updateClassPending('+${c.clno}+', \'비승인\')'"> 비승인</a>
                                     </td>
                                 </tr>

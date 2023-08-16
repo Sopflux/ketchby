@@ -10,27 +10,19 @@
 body{ font-family:'Pretendard-Regular', 'sans-serif';
 height: 1800px;}
 .maindiv {
-	transform: scale(0.8);
-	position: relative;
-	width: 100vw;
-	height: 100vh;
-	display: flex;
-	margin-left: 200px;
+width: 100%;
+    padding: 5rem 10rem 3rem 15rem;
+    display: inline-flex;
+    justify-content: center;
 }
 
 .titlediv {
-	top: 36px;
-	left: 9px;
-	width: 941px;
-	height: 140px;
-	display: flex;
-	position: absolute;
-	align-items: flex-start;
-	flex-shrink: 0;
+	display: block;
 }
-
+.nickdate{
+	margin-top: 20px;
+}
 .btitle {
-	width: 941px;
 	font-size: 34px;
 	font-weight: 700;
 }
@@ -40,38 +32,28 @@ height: 1800px;}
 	width: 50px;
 	height: 50px;
 	overflow: hidden;
-	position: absolute;
-	align-items: flex-start;
 	border-radius: 50px;
 	background-color: rgba(245, 245, 245, 1);
 }
 
 .nick {
-	top: 85px;
-	left: 64px;
 	height: auto;
-	position: absolute;
 	font-size: 20px;
 	font-weight: 700;
 }
 
 .bdate {
-	top: 113px;
-	left: 68px;
 	color: rgba(101, 110, 117, 1);
 	height: auto;
-	position: absolute;
 	font-size: 20px;
 	font-weight: 400;
 }
 
 .boardcontent {
-	top: 200px;
-	left: 9px;
+	margin-top: 40px;
 	width: 941px;
 	height: auto;
-	display: flex;
-	position: absolute;
+	display:block;
 	align-items: flex-start;
 	flex-shrink: 0;
 }
@@ -90,10 +72,10 @@ height: 1800px;}
 }
 
 .bcontent {
-	top: 351px;
-	position: absolute;
-	font-size: 28px;
-	line-height: 42px;
+top: 351px;
+    padding: 50px 0px;
+    font-size: 28px;
+    line-height: 42px;
 }
 
 .comment_top {
@@ -227,8 +209,31 @@ th {
 	padding: 15px;
 	/* 원하는 여백 크기로 설정하세요 */
 }
+.top-category {
+	width: 20%;
+    margin: 0 !important;
+    padding: 3.6rem 0 0 0 !important;
+}
 
+.category-text {
+    font-size: 30px;
+    margin-bottom: 20px;
+}
 
+.category-text:hover{
+	color: rgba(154, 154, 154, 1);
+}
+p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.main-community {
+	width: 70%;
+    margin: 0 !important;
+    padding: 0 !important;
+	
+}
 .edde {
 	display: flex;
 	margin-left: 100px;
@@ -245,6 +250,8 @@ th {
 	color: rgba(110, 70, 190, 1);
 
 }
+
+
 /*.edde {
 	margin-left: 800px;
 }

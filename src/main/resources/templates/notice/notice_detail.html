@@ -4,11 +4,15 @@
 <head>
 	<meta charset="UTF-8">
 	<title>공지사항</title>
-	<link href="/style/notice_detail.css" rel="stylesheet" />
+	<link rel="stylesheet" th:href="@{/style/footer.css}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+<link rel="stylesheet" th:href="@{/style/header.css}" />
+	<link th:href="@{/style/notice_detail.css}" rel="stylesheet" />
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
+	<header th:replace="~{fragments/header :: headerFragment}"></header>
 	<div th:replace="menu :: head"></div>
 	<div class="maindiv">
 		<div class="titlediv">
@@ -21,6 +25,7 @@
 
 		</div>
 	</div>
+	<footer th:replace="~{fragments/footer :: footerFragment}"></footer>
 </body>
 
 </html>

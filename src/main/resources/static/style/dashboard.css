@@ -186,9 +186,9 @@ body, html {
 /* 차트 스타일 */
 
 .chart-row {
-	display: flex;
-	margin-bottom: 20px;
-	height:400px;
+   display: flex;
+   margin-bottom: 20px;
+   height:400px;
 }
 
 .chart-row .chart-wrapper {
@@ -217,7 +217,7 @@ body, html {
 
 .chart-wrapper2 {
     flex: 1 0 calc(33.3333% - 10px); 
-   	max-width: 500px;
+      max-width: 500px;
     max-height: 400px;
     align-items: center;
     gap: 20px;
@@ -245,11 +245,11 @@ body, html {
     display: flex;
     gap: 10px;
     margin-bottom: 20px;
-    margin-left: 140px;	
+    margin-left: 140px;   
 }
 
-.chart-title, .chart-title2, .chart-title3 {		
-	
+.chart-title, .chart-title2, .chart-title3 {      
+   
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -259,7 +259,7 @@ body, html {
 }
 
 .chart-controls input[type="date"] {
-  	padding: 10px;
+     padding: 10px;
     background-color: #131519;
     border: 3px;
     color: white;
@@ -317,7 +317,7 @@ body, html {
 
 
 .chart-controls2 input[type="date"] {
-  	padding: 10px;
+     padding: 10px;
     background-color: #131519;
     border: 3px;
     color: white;
@@ -335,16 +335,16 @@ body, html {
 }
 
 #dropdownBtn{
-	background-color: black;
-	font-size: 10px;
-	height: 30px;
+   background-color: black;
+   font-size: 10px;
+   height: 30px;
 }
 
 
 
 .chart-wrapper3 {
     flex: 1 0 calc(33.3333% - 10px); 
-   	max-width: 500px;
+      max-width: 500px;
     max-height: 400px;
     align-items: center;
     gap: 20px;
@@ -370,11 +370,11 @@ body, html {
 }
 
 #dailyPaymentChart {
-	height: 250px
+   height: 250px
 }
 
 #quitReasonChart  {
-	height: 335px !important;
+   height: 335px !important;
     width: 335px !important;
     margin-left: 50px;
 }

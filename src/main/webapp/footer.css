@@ -1,0 +1,158 @@
+@charset "UTF-8";
+@font-face {
+			font-family: 'Pretendard-Regular';
+			src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+			font-weight: 400;
+			font-style: normal;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+			font-family: 'Pretendard-Regular', 'sans-serif';
+		}
+
+		.dummy_page {
+			height: 200px;
+			width: 100%;
+			background-color: #f0f0f0;
+			text-align: center;
+			box-sizing: border-box;
+			padding: 60px 0px;
+		}
+
+		/* STYLES SPECIFIC TO FOOTER  */
+		.footer-footer {
+			width: 100%;
+			position: relative;
+			height: auto;
+			background-color: rgb(247, 249, 250);
+		}
+
+		.footer-footer .col {
+			width: 190px;
+			height: auto;
+			float: left;
+			box-sizing: border-box;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			padding: 0px 20px 20px 20px;
+		}
+
+		.footer-footer .col h1 {
+			margin: 0;
+			padding: 0;
+			font-family: inherit;
+			font-size: 12px;
+			line-height: 17px;
+			padding: 20px 0px 5px 0px;
+			font-weight: normal;
+			text-transform: uppercase;
+			letter-spacing: 0.250em;
+		}
+
+		.footer-footer .col ul {
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+			margin-top: 10px;
+		}
+
+		.footer-footer .col ul li {
+			color: #999999;
+			font-size: 14px;
+			font-family: inherit;
+			padding: 5px 0px 5px 0px;
+			cursor: pointer;
+			transition: .2s;
+			-webkit-transition: .2s;
+			-moz-transition: .2s;
+		}
+
+		.social ul li {
+			display: inline-block;
+			padding-right: 5px !important;
+		}
+
+		.footer-footer .col ul li:hover {
+			color: #ffffff;
+			transition: .1s;
+			-webkit-transition: .1s;
+			-moz-transition: .1s;
+		}
+
+		.footer-clearfix {
+			clear: both;
+		}
+
+		@media only screen and (min-width: 1280px) {
+			.footer-contain {
+				width: 1200px;
+				margin: 0 auto;
+			}
+		}
+
+		@media only screen and (max-width: 1139px) {
+			.footer-contain .social {
+				width: 1000px;
+				display: block;
+			}
+
+			.social h1 {
+				margin: 0px;
+			}
+		}
+
+		@media only screen and (max-width: 950px) {
+			.footer-footer .col {
+				width: 33%;
+			}
+
+			.footer-footer .col h1 {
+				font-size: 14px;
+			}
+
+			.footer-footer .col ul li {
+				font-size: 13px;
+			}
+		}
+
+		@media only screen and (max-width: 500px) {
+			.footer-footer .col {
+				width: 50%;
+			}
+
+			.footer-footer .col h1 {
+				font-size: 14px;
+			}
+
+			.footer-footer .col ul li {
+				font-size: 13px;
+			}
+		}
+
+		@media only screen and (max-width: 340px) {
+			.footer-footer .col {
+				width: 100%;
+			}
+		}
+
+		#footer-title {
+			font-weight: 900;
+			letter-spacing: -0.5px;
+			font-size: 15px;
+		}
+		.qanda:hover{
+			color: #6A32A2;
+		}
+
+		a {
+			text-decoration: none;
+			color: inherit;
+		}
+
+		.email:hover {
+			transition: color 0.3s;
+			color: #6A32A2;
+		}
