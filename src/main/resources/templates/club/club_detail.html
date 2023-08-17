@@ -65,12 +65,18 @@
 		<div class="maincontentdiv">
 			<div class="top">
 				<img th:src="@{'/image/'+${c.img}}" name="img" class="img" />
-				<span name="cbtitle" class="cbtitle" th:text="${c.cbtitle}"></span>
-				<span id="bangjang">방장</span>
-				<span name="nick" class="nick" id="nick" th:text="${c.nick}"></span> <!--글 작성자-->
-				<span name="category" class="category" th:text="${c.bcaname + ' > ' + c.scaname}"></span>
-				<span name="cnt" class="cnt" th:text="${c.cnt}"></span>
-				<span name="cbpeople" class="cbpeople" th:text="${'/'+c.cbpeople}"></span>
+				<div class="top-right">
+					<span name="cbtitle" class="cbtitle" th:text="${c.cbtitle}"></span>
+					<div class="top-right-text">
+						<span id="bangjang">방장</span>
+						<span name="nick" class="nick" id="nick" th:text="${c.nick}"></span> <!--글 작성자-->
+						<div class="cntcppeople">
+							<span name="cnt" class="cnt" th:text="${c.cnt}"></span>
+							<span name="cbpeople" class="cbpeople" th:text="${'/'+c.cbpeople}"></span>
+						</div>
+						<span name="category" class="category" th:text="${c.bcaname + ' > ' + c.scaname}"></span>
+					</div>
+				</div>
 			</div>
 
 			<div class="content">

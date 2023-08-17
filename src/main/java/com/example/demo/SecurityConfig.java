@@ -21,6 +21,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.example.demo.entity.Account;
+import com.example.demo.entity.Role;
 import com.example.demo.service.AccountService;
 
 import jakarta.servlet.ServletException;
@@ -56,7 +57,7 @@ public class SecurityConfig {
 		.userService(customOAuth2UserService); // 커스텀한 서비스에서 정보 처리
 		
 		
-		http.authorizeHttpRequests().requestMatchers("/join/**","/feed/**","/account/join","/account/login","/","/ajax/**","/image/**","/style/**").permitAll()
+		http.authorizeHttpRequests().requestMatchers("/join/**","/feed/**","/account/join","/class/**","/account/login","/","/ajax/emailCheck/**","/ajax/**","/image/**","/style/**","/classmain","/mainpage").permitAll()
 		.requestMatchers("/admin/**").hasRole("ADMIN")
 		.anyRequest().authenticated()
 		.and().csrf().ignoringRequestMatchers("/account/join");
@@ -69,7 +70,7 @@ public class SecurityConfig {
 		http.logout()
 		.logoutRequestMatcher(new AntPathRequestMatcher("/account/logout"))
 		.invalidateHttpSession(true)
-		.logoutSuccessUrl("/account/login");
+		.logoutSuccessUrl("/mainpage");
 		
 		http.httpBasic();
 		
@@ -83,16 +84,19 @@ public class SecurityConfig {
 		public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 				Authentication authentication) throws IOException, ServletException {
 			HttpSession session = request.getSession();
-			System.out.println("이거 동작!");
 			String loginId = authentication.getName();
-			System.out.println("로그인 아이디 : "+loginId);
-			System.out.println("findByAid : "+as.findByAid(loginId));
+			Account a =as.findByAid(loginId);
+			session.setAttribute("a",a);
 			
-			session.setAttribute("a", as.findByAid(loginId));
-		
-			response.sendRedirect("/account/mypage");
+			Role role = a.getRole();
+			if (role == Role.ADMIN) {
+				response.sendRedirect("/admin/dashboard");
+			   
+			} else  {
+				response.sendRedirect("/classmain");
+			}
 			
 		}
 	};
 	
-}
+} 

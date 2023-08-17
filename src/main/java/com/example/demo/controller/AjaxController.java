@@ -9,11 +9,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import com.example.demo.dao.AccountDAO_mb;
 import com.example.demo.dao.MypageDAO_mb;
 import com.example.demo.dao.ReservationDAO_mb;
 import com.example.demo.entity.Account;
 import com.example.demo.entity.Review;
+
+import com.example.demo.entity.Account;
+
 import com.example.demo.service.AccountService;
 
 import jakarta.servlet.http.HttpSession;
@@ -53,7 +57,14 @@ public class AjaxController {
 		}
 		
 	}
-	
+@GetMapping("/ajax/resetpwd")
+public void resetpwd(String pwd, String aid) {
+	HashMap< String, Object> map = new HashMap<>();
+	pwd = passwordEncoder.encode(pwd);
+	map.put("aid", aid);
+	map.put("pwd", pwd);
+	dao_mb.resetpwd(map);
+}
 	@GetMapping("/ajax/follow")
 	public int follow(String userid,String condition ,HttpSession session) {
 		// 세션에 저장된 로그인한 회원정보 가져오기
@@ -95,8 +106,8 @@ public class AjaxController {
 	}
 
 	@GetMapping("/ajax/emailCheckWithEmail")
-	public String emailCheckWithEmail(String email, String id) {
-		Account a = as.emailCheckWithEmail(email, id);
+	public String emailCheckWithEmail(String email, String aid) {
+		Account a = as.emailCheckWithEmail(email, aid);
 		if (a == null) {
 			return "";
 		}
@@ -111,6 +122,7 @@ public class AjaxController {
 		return "";
 	}
 	
+
 	@GetMapping("/ajax/confirmCheck")
 	public String confirmCheck(HttpSession session) {
 		Account a = (Account)session.getAttribute("a");

@@ -6,164 +6,128 @@
 	font-weight: 400;
 	font-style: normal;
 }
-
+.cntcppeople{
+	margin-top: -5px;
+}
 body {
 	font-family: 'Pretendard-Regular', 'sans-serif'
 }
 
 .maindiv {
-	margin-left: 50px;
-	margin-top: 100px;
-	transform: scale(1.1);
-	position: relative;
-	width: 100vw;
-	height: 100vh;
-	display: flex;
+	width: 100%;
+	padding: 1rem;
+	display: block;
+	justify-content: flex-start
 }
 
 #cbimg {
 	width: 100%;
-	height: 500px;
-	position: absolute;
+	height: 300px;
 }
 
 .maincontentdiv {
-	transform: scale(0.5);
-	top: 267px;
-	left: -250px;
-	width: 1213px;
-	height: 1008px;
-	display: flex;
-	position: absolute;
-	align-items: flex-start;
-	flex-shrink: 0;
+	transform: scale(0.9);
+	width: 100%;
 }
 
 .top {
-	top: 0px;
-	left: 0px;
-	width: 3000px;
-	height: 175px;
+	width: 100%;
 	display: flex;
-	position: absolute;
 	align-items: flex-start;
-	flex-shrink: 0;
+	margin-top: 15px;
+}
+
+.top-right {
+	display: block;
+	margin-top: 15px;
+	margin-left: 15px;
+}
+
+.top-right-text {
+	margin-top: 30px;
+	display: flex;
+	gap: 15px;
 }
 
 .img {
-	top: 5px;
-	left: 7px;
-	width: 128px;
-	height: 111px;
-	position: absolute;
+	width: 80px;
+	height: 80px;
 	border-radius: 33.84000015258789px;
 }
 
 .cbtitle {
-	top: 24px;
-	left: 161px;
-	position: absolute;
-	font-size: 40px;
+	font-size: 30px;
 	font-weight: 700;
 	line-height: 26px;
 }
 
 #bangjang {
-	top: 80px;
-	left: 166px;
 	color: rgba(153, 153, 153, 1);
-	position: absolute;
 	font-size: 24px;
 	line-height: 12px;
 }
 
 .nick {
-	top: 81px;
-	left: 225px;
 	height: auto;
-	position: absolute;
 	font-size: 24px;
 	line-height: 12px;
+	margin-right: 10px;
 }
 
 .category {
-	top: 36px;
-	left: 993px;
 	color: rgba(153, 153, 153, 1);
 	height: auto;
-	position: absolute;
-	font-size: 28px;
+	font-size: 20px;
 	line-height: 12px;
+	margin-left: 400px;
 }
 
 .cnt {
-	top: 138px;
-	left: 179px;
-	position: absolute;
-	font-size: 30px;
-	line-height: 24px;
+	font-size: 25px;
 }
 
 .cbpeople {
-	top: 138px;
-	left: 202.880859375px;
-	position: absolute;
 	color: rgba(153, 150, 150, 1);
-	font-size: 30px;
-	text-align: left;
-	line-height: 24px;
+	font-size: 25px;
 }
 
 .content {
-	top: 175px;
-	left: 166px;
-	width: 873px;
-	height: 507px;
+	width: 100%;
 	display: flex;
-	position: absolute;
 	align-items: flex-start;
-	flex-shrink: 0;
+	flex-direction: column;
 }
 
 .cbcontent {
-	top: 10px;
-	width: 900px;
-	position: absolute;
-	font-size: 30px;
+    width: 40%;
+	margin-top: 30px;
+	font-size: 20px;
 }
 
 .jangso {
-	top: 281px;
-	position: absolute;
-	font-size: 30px;
-	font-style: Bold;
-	font-weight: 700;
+	margin-top: 30px;
+	font-size: 25px;
+	font-weight: bold;
 }
 
 .blocname {
-	top: 330px;
-	position: absolute;
-	font-size: 29px;
+	font-size: 20px;
+	margin-top: 10px;
 }
 
 .mozip {
-	top: 400px;
-	position: absolute;
-	font-size: 30px;
-	font-style: Bold;
-	font-weight: 700;
+	font-size: 25px;
+	font-weight: bold;
+	margin-top: 25px;
 }
 
 .cbclsdate {
-	top: 445px;
-	position: absolute;
-	font-size: 29px;
+	font-size: 20px;
+	margin-top: 15px;
 }
 
 .somoim {
-	top: 790px;
-	left: 33px;
-	position: absolute;
+	margin-top: 40px;
 	font-size: 25px;
 	font-style: Bold;
 	font-weight: 700;
@@ -173,11 +137,9 @@ body {
 .clubreccomand {
 	width: 1181px;
 	height: 167px;
-	display: flex;
 	justify-content: space-between;
 	display: flex;
-	margin-top: 870px;
-	margin-left: 30px;
+	margin: 15px;
 }
 
 .rec {
@@ -192,19 +154,19 @@ body {
 
 
 .Btn {
-	top: 1100px;
-	font-size: 25px;
-	left: 490px;
+	font-size: 20px;
 	width: 300px;
-	height: 60px;
+	height: 50px;
 	color: white;
 	display: flex;
 	padding: 13px 40px;
-	position: absolute;
 	align-items: center;
 	border-radius: 8px;
 	justify-content: center;
 	background-color: rgba(0, 131, 117, 1);
+	margin-top: 50px;
+	margin-left: 400px;
+	margin-bottom: 100px;
 }
 
 .disabled-button {
@@ -262,7 +224,7 @@ body {
 }
 
 .edde {
-	margin-top: 530px;
+	margin-top: 20px;
 	display: flex;
 	margin-left: 0px;
 	font-size: 25px;
@@ -276,6 +238,11 @@ body {
 .edde a:hover {
 	color: rgba(110, 70, 190, 1);
 
+}
+
+.recommandclub {
+	display: flex;
+	flex-direction: column;
 }
 
 #update {

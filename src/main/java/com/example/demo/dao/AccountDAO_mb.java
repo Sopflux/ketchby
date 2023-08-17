@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.db.DBManager;
 import com.example.demo.entity.Accclub;
 import com.example.demo.entity.Account;
+import com.example.demo.entity.Confirm;
 import com.example.demo.entity.Follow;
 import com.example.demo.entity.Quit;
 import com.example.demo.entity.Reason;
@@ -21,8 +22,8 @@ public class AccountDAO_mb {
 	public Account findByEmail(String email) {
 		return DBManager.findByEmail(email);
 	}
-	public Account emailCheckWithEmail(String email,String id) {
-		return DBManager.emailCheckWithEmail(email, id);
+	public Account emailCheckWithEmail(String email,String aid) {
+		return DBManager.emailCheckWithEmail(email, aid);
 	}
 	public Account findByAid(String id) {
 		return DBManager.findByAid(id);
@@ -56,6 +57,9 @@ public class AccountDAO_mb {
 	public List<Review> findAReview(String aid) {
 		return DBManager.findAReview(aid);
 	}
+	public List<Confirm> findClassCondition(String aid) {
+		return DBManager.findClassCondition(aid);
+	}
 	
 	public int delete(String aid) {
 		return DBManager.deleteAccount(aid);
@@ -65,5 +69,9 @@ public class AccountDAO_mb {
 	}
 	public int insert(Quit q) {
 		return DBManager.insertQuit(q);
+	}
+	public void resetpwd(HashMap<String, Object> map) {
+		DBManager.resetpwd(map);
+		
 	}
 }

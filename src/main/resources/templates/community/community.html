@@ -14,10 +14,12 @@
 	<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 	<script>
 		$(function(){
-
 			$(".search_btn").click(function(){
 				var searchColumn=$("#searchColumn").val();
 				var keyword=$("#keyword").val();
+				if(keyword==""){
+					keyword="all";
+				}
 				url="/community/community/1/"+searchColumn+"/"+keyword;
 				location.href=url;
 			})

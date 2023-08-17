@@ -2,19 +2,24 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="classMain">	
+<mapper namespace="classMain">   
 
-	<select id="findAllClass" resultType="MainPage">
-        SELECT c.clno, c.cltitle, SUBSTR(c.claddr, 1, INSTR(c.claddr, ' ', 1, 2) - 1),
-       	c.climg, c.cllevel, c.clprice, b.bcaname, s.scaname, c.cltype
-		FROM class c
-		JOIN account a ON c.aid = a.aid
-		JOIN scategory s ON c.scano = s.scano
-		JOIN bcategory b ON s.bcano = b.bcano
-		WHERE bcaname like '%'||#{bcaname, jdbcType=VARCHAR}||'%'
-        AND c.cllevel like '%'|| #{cllevel, jdbcType=VARCHAR} ||'%'
-        AND c.cltype like '%'|| #{cltype, jdbcType=VARCHAR}||'%'
-        AND c.cltitle like '%' || #{keyword, jdbcType=VARCHAR} || '%'
+   <select id="findAllClass" resultType="MainPage">
+        SELECT c.clno, c.cltitle, SUBSTR(c.claddr, 1, INSTR(c.claddr, ' ', 1, 2) - 1) claddr,
+          c.climg, c.cllevel, c.clprice, b.bcaname, s.scaname, c.cltype, AVG(r.rstar) AS avgRstar, COUNT(r.rno) AS cntRno
+      FROM class c
+      JOIN account a ON c.aid = a.aid
+      JOIN scategory s ON c.scano = s.scano
+      JOIN bcategory b ON s.bcano = b.bcano
+      JOIN review r ON r.clno = c.clno
+      WHERE bcaname LIKE '%'||#{bcaname, jdbcType=VARCHAR}||'%'
+      AND c.cllevel LIKE '%'|| #{cllevel, jdbcType=VARCHAR} ||'%'
+      AND c.cltype LIKE '%'|| #{cltype, jdbcType=VARCHAR}||'%'
+      AND c.claddr LIKE '%'|| #{claddr, jdbcType=VARCHAR}||'%'
+      AND c.cltitle LIKE '%' || #{keyword, jdbcType=VARCHAR} || '%'
+      GROUP BY c.clno, c.cltitle, SUBSTR(c.claddr, 1, INSTR(c.claddr, ' ', 1, 2) - 1),
+        c.climg, c.cllevel, c.clprice, b.bcaname, s.scaname, c.cltype
+
    </select>
    
 </mapper>

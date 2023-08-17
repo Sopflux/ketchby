@@ -4,6 +4,9 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="account">
+	<update id="resetpwd">
+		update account set pwd=#{pwd} where aid=#{aid}
+	</update>
 	<select id="findClassCondition" resultType="confirm">
 		select to_char(cldate,'yyyy-mm-dd')as cldate , cfcd, cltitle ,cl.clno from confirm c, class cl
 where cl.clno = c.clno and cl.aid = #{aid}
@@ -152,7 +155,7 @@ where cl.clno = c.clno and cl.aid = #{aid}
 
 	<select id="emailCheckWithEmail" resultType="account">
 		select * from
-		account where email = #{email} and aid = #{id}
+		account where email = #{email} and aid = #{aid}
 	</select>
 
 	<select id="findByAid" resultType="account">

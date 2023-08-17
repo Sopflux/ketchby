@@ -40,29 +40,31 @@
 							var div = $("<div></div>").addClass("table-container").attr("data-cbno", this.cbno).attr("data-slocno", this.slocno);
 							var table = $("<table></table>").addClass("table-item");
 							var tr1 = $("<tr></tr>");
-							var tdimg = $("<td></td>").attr("rowspan", 4);
+							var tdimg = $("<td></td>");
 
 							var img = $("<img />").attr("id", "cbimg").attr("alt", "classimg4561").attr("src", imgSrc); // 이미지 주소 설정
 
 							$(tdimg).append(img);
-							var tdcaname = $("<td></td>").attr("colspan", 2).attr("id", "cate").html(this.bcaname + ">" + this.scaname);
-
-							var tr2 = $("<tr></tr>");
-							var tdcbtitle = $("<td></td>").attr("colspan", 2).attr("name", "cbtitle").attr("id", "cbtitle").html(this.cbtitle);
-
-							var tr3 = $("<tr></tr>");
-							var tdnick = $("<td></td>").attr("colspan", 2).attr("id", "bang").html("방장:" + this.nick);
-
-							var tr4 = $("<tr></tr>");
-							var tdcbpeople = $("<td></td>").attr("id", "cntpeople").html(this.cnt + "/" + this.cbpeople);
-							var tdclose = $("<td></td>").attr("id", "close").html("모집 마감 " + this.cbclsdate);
-
-							$(tr1).append(tdimg, tdcaname);
-							$(tr2).append(tdcbtitle);
-							$(tr3).append(tdnick);
-							$(tr4).append(tdcbpeople, tdclose);
-
-							$(table).append(tr1, tr2, tr3, tr4);
+							var spancaname = $("<span></span>").attr("id", "cate").html(this.bcaname + ">" + this.scaname);
+	
+							var td2 = $("<td></td>");
+							var spancbtitle = $("<span></span>").attr("name", "cbtitle").attr("id", "cbtitle").html(this.cbtitle);
+							var spannick = $("<span></span>").attr("id", "bang").html("방장:" + this.nick);
+							var spancbpeople = $("<span></span>").attr("id", "cntpeople").html(this.cnt + "/" + this.cbpeople+"     ");
+							var spanclose = $("<span></span>").attr("id", "close").html("모집 마감 " + this.cbclsdate);
+							
+							var br1 = $("<br></br>");
+							var br2 = $("<br></br>");
+							var br3 = $("<br></br>");
+							
+							$(td2).append(spancaname, br1, spancbtitle, br2, spannick, br3, spancbpeople, spanclose);
+							
+							$(spancbtitle).css("font-weight", "bold");
+							$(tdimg).css("width", "130px");
+							$(td2).css("line-height", "23px");
+							$(td2).css("vertical-align", "middle");
+							$(tr1).append(tdimg, td2);
+							$(table).append(tr1);
 							$(div).append(table);
 
 							moimlistDiv.append(div);

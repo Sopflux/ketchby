@@ -82,14 +82,33 @@
 					}
 				});
 			});
+			$("#1").click(function () {
+				location.href = "/club/clubmain";
+			})
+			$("#2").click(function () {
+				location.href = "/community/community/1";
+			})
+			$("#3").click(function () {
+				location.href = "/notice/noticemain/1";
+			})
+			$("#4").click(function () {
+				location.href = "/qanda/qandamain";
+			})
 		});
 	</script>
 </head>
 
 <body>
 	<header th:replace="~{fragments/header :: headerFragment}"></header>
-	<div th:replace="menu :: head"></div>
 	<div class="main">
+		<div class="top-category">
+			<p id="1" class="category-text">#소모임</p>
+			<p id="2" class="category-text">#커뮤니티</p>
+			<p id="3" class="category-text">#공지사항</p>
+			<p id="4" class="category-text">#Q&A</p>
+		</div>
+		
+		<div class="main-community">
 		<div class="main_top">
 			<span class="qititle">이메일 문의하기</span>
 			<div class="additional-space-top"></div>
@@ -133,6 +152,8 @@
 			<div class="additional-space"></div>
 		</form>
 		<input type="button" value="제출하기" class="form_submit disabled"></input>
+		</div>
+		
 	</div>
 	<footer th:replace="~{fragments/footer :: footerFragment}"></footer>
 </body>

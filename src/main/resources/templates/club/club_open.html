@@ -15,7 +15,7 @@
 				$("#selectedImagePath").text("");
 				$("#uploadFile").val("")
 			})
-			
+
 			$(".submit").click(function (event) {
 				var cbtitle = $("input[name='cbtitle']").val();
 				var cbcontent = $("textarea[name='cbcontent']").val();
@@ -37,7 +37,7 @@
 					slocno === ""
 				) {
 					alert("필수 입력 항목 및 선택 항목을 모두 선택해주세요.");
-					event.preventDefault(); 
+					event.preventDefault();
 				}
 			});
 
@@ -79,85 +79,116 @@
 					}
 				})
 			})
+			$("#1").click(function () {
+				location.href = "/club/clubmain";
+			})
+			$("#2").click(function () {
+				location.href = "/community/community/1";
+			})
+			$("#3").click(function () {
+				location.href = "/notice/noticemain/1";
+			})
+			$("#4").click(function () {
+				location.href = "/qanda/qandamain";
+			})
 		})	
 	</script>
 </head>
 
 <body>
 	<header th:replace="~{fragments/header :: headerFragment}"></header>
-	<div th:replace="menu :: head"></div>
 	<div class="maindiv">
-		<form action="/club/club_open" method="post" enctype="multipart/form-data">
-			<input type="hidden" name="cbno" th:value="${cbno}" />
-			<input type="hidden" name="aid" th:value="${session.a.aid}" />
-			<span id="jemok">제목</span>
-			<input type="text" class="cbtitle" name="cbtitle" placeholder="제목을 작성해 보세요" />
-			<span id="category">Category</span>
-			<div class="categorydiv">
-				<select name="bcano" id="bcano">
-					<option value=1001>요리/공예</option>
-					<option value=1002>외국어</option>
-					<option value=1003>스포츠</option>
-					<option value=1004>음악</option>
-					<option value=1005>미술</option>
-				</select>
-				<select class="scano" id="scano" name="scano"></select>
-			</div>
+		<div class="top-category">
+			<p id="1" class="category-text">#소모임</p>
+			<p id="2" class="category-text">#커뮤니티</p>
+			<p id="3" class="category-text">#공지사항</p>
+			<p id="4" class="category-text">#Q&A</p>
+		</div>
 
-			<span class="neyong">내용</span>
-			<div class="tabdiv">
-				<div class="ipryuk">
-					<span class="iptyuktext">입력</span>
+		<div class="main-community">
+			<form action="/club/club_open" method="post" enctype="multipart/form-data">
+				<input type="hidden" name="cbno" th:value="${cbno}" />
+				<input type="hidden" name="aid" th:value="${session.a.aid}" />
+
+				<div class="toptitle">
+					<span id="jemok">제목</span>
+					<input type="text" class="cbtitle" name="cbtitle" placeholder="제목을 작성해 보세요" />
 				</div>
-				<label class="btnImg">
-					<input type="file" name="uploadFile" id="uploadFile" style="display: none;">
-					이미지등록
-				</label>
-				<span class="filedelete">x삭제</span>
-				<div id="selectedImagePath"></div>
-			</div>
-			<div class="content_text">
-				<textarea class="cbcontent" name="cbcontent" placeholder="내용을 입력해 주세요"></textarea>
-			</div>
-			<span class="hmang">희망 조건</span>
-			<select class="bloca" id="blocno" name="blocno">
-				<option value=20001>서울</option>
-				<option value=20002>경기</option>
-				<option value=20003>인천</option>
-				<option value=20004>대전</option>
-				<option value=20005>세종</option>
-				<option value=20006>충남</option>
-				<option value=20007>충북</option>
-				<option value=20008>광주</option>
-				<option value=20009>전남</option>
-				<option value=20010>전북</option>
-				<option value=20011>대구</option>
-				<option value=20012>경북</option>
-				<option value=20013>부산</option>
-				<option value=20014>울산</option>
-				<option value=20015>경남</option>
-				<option value=20016>강원</option>
-				<option value=20017>제주</option>
-			</select>
-			<select class="sloca" id="slocno" name="slocno"></select>
-			<div class="membercount">
-				<span class="inoyun">희망 인원</span>
-				<input type="number" name="cbpeople" id="cbpeople" />
-			</div>
-			<div class="closeaccount">
-				<span class="mozip">모집 마감일</span>
-				<input type="date" class="cbclsdate" id="cbclsdate" name="cbclsdate">
-				<script type="text/javascript">
-					var startDateInput = document.getElementById("cbclsdate");
-					var today = new Date();
-					var today_t = today.toISOString().split("T")[0];
-					startDateInput.min = today_t;
-					startDateInput.val = today_t;
-					console.log(today_t);
-				</script>
-			</div>
-			<input type="submit" value="소모임 작성 완료" class="submit" />
-		</form>
+				<span id="category">Category</span>
+				<div class="categorydiv">
+					<select name="bcano" id="bcano">
+						<option value=1001>요리/공예</option>
+						<option value=1002>외국어</option>
+						<option value=1003>스포츠</option>
+						<option value=1004>음악</option>
+						<option value=1005>미술</option>
+					</select>
+					<select class="scano" id="scano" name="scano"></select>
+				</div>
+
+				<span class="neyong">내용</span>
+				<div class="tabdiv">
+					<div class="ipryuk">
+						<span class="iptyuktext">입력</span>
+					</div>
+					<div id="selectedImagePath"></div>
+
+					<div clss="deleteandfilebtn" style="margin-left: 230px;margin-left: 380px;display: flex;">
+						<span class="filedelete">x삭제</span>
+						<label class="btnImg">
+							<input type="file" name="uploadFile" id="uploadFile" style="display: none;">
+							이미지등록
+						</label>
+					</div>
+				</div>
+				<div class="content_text">
+					<textarea class="cbcontent" name="cbcontent" placeholder="내용을 입력해 주세요"></textarea>
+				</div>
+				<span class="hmang">희망 조건</span>
+
+				<div class="loccategory">
+					<select class="bloca" id="blocno" name="blocno">
+						<option value=20001>서울</option>
+						<option value=20002>경기</option>
+						<option value=20003>인천</option>
+						<option value=20004>대전</option>
+						<option value=20005>세종</option>
+						<option value=20006>충남</option>
+						<option value=20007>충북</option>
+						<option value=20008>광주</option>
+						<option value=20009>전남</option>
+						<option value=20010>전북</option>
+						<option value=20011>대구</option>
+						<option value=20012>경북</option>
+						<option value=20013>부산</option>
+						<option value=20014>울산</option>
+						<option value=20015>경남</option>
+						<option value=20016>강원</option>
+						<option value=20017>제주</option>
+					</select>
+					<select class="sloca" id="slocno" name="slocno"></select>
+				</div>
+				<div class="membercount">
+					<span class="inoyun">희망 인원</span>
+					<input type="number" name="cbpeople" id="cbpeople" />
+				</div>
+				<div class="closeaccount">
+					<span class="mozip">모집 마감일</span>
+					<input type="date" class="cbclsdate" id="cbclsdate" name="cbclsdate">
+					<script type="text/javascript">
+						var startDateInput = document.getElementById("cbclsdate");
+						var today = new Date();
+						var today_t = today.toISOString().split("T")[0];
+						startDateInput.min = today_t;
+						startDateInput.val = today_t;
+						console.log(today_t);
+					</script>
+				</div>
+				<input type="submit" value="소모임 작성 완료" class="submit" />
+			</form>
+		</div>
+
+
 	</div>
 	<footer th:replace="~{fragments/footer :: footerFragment}"></footer>
 </body>

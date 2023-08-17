@@ -23,9 +23,6 @@ public class ClassDetailController {
 	@GetMapping("/classdetail")
 	public String list (Model model, int clno, HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		//int clno = (int)session.getAttribute("clno");
-		//String aid = (String)session.getAttribute("aid");
-		
 		
 		Account a = (Account)session.getAttribute("a");
 		String aid = a.getAid();

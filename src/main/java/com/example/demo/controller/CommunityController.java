@@ -52,14 +52,25 @@ public class CommunityController {
 			@PathVariable(required = false) String searchColumn, @PathVariable(required = false) String keyword,
 			HttpSession session, HttpServletRequest request)
 	{
+		System.out.println("검색어 |"+keyword+"|");
+		
+		
 		if (keyword == null && session.getAttribute("keyword") != null) {
 			keyword = (String) session.getAttribute("keyword");
 			searchColumn = (String) session.getAttribute("searchColumn");
 		}
+		
 		if (keyword == null) {
+			System.out.println("모두 출력합니다. 1");
 			keyword = "";
 			searchColumn = "btitle";
 		}
+		
+		if(keyword!=null&&keyword.equals("all")) {
+			keyword = "";
+			searchColumn = "btitle";
+		}
+		
 		HashMap<String, Object> map = new HashMap<>();
 
 		map.put("searchColumn", searchColumn);

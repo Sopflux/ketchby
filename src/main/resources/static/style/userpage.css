@@ -10,7 +10,7 @@
 /* 클럽 카드 스타일 */
 
 .btn_detail {
-    justify-content: center;
+	justify-content: center;
 	width: 136px;
 	height: 34px;
 	display: flex;
@@ -182,7 +182,8 @@
 	margin-top: 30px;
 }
 
-.profile tr,td {
+.profile tr,
+td {
 	border: none !important;
 	text-align: center;
 }
@@ -662,17 +663,19 @@ a {
 	border-radius: 16px;
 	background-color: rgba(255, 255, 255, 1);
 }
+
 .reviewTitle {
+	text-align: left;
 	font-weight: 600;
 	font-size: 14px;
 }
 
 .review {
 	width: 250px;
-	height: 120px;
+	height: 150px;
 	display: flex;
 	position: relative;
-	text-align: left !important ;
+	text-align: left !important;
 	padding: 10px;
 	box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.05000000074505806);
 	align-items: flex-start;
@@ -1263,7 +1266,7 @@ a {
 }
 
 .reviewWriter {
-	
+
 	color: rgb(68, 65, 60);
 	width: 197px;
 	height: auto;
@@ -1279,13 +1282,27 @@ a {
 	text-decoration: none;
 }
 
+.reserv_title {
+	font-size: 14px;
+	font-weight: bold;
+	color: rgb(0, 131, 117);
+	text-align: left;
+
+}
+.review-content{
+	color: rgb(45, 42, 38);
+    height: auto;
+    position: relative;
+    font-size: 13px;
+    font-style: Regular;
+    text-align: left !important;
+    line-height: 15px;
+    
+}
 .reserv-text {
 
-	color: rgb(45, 42, 38);
 	width: 197px;
 	height: auto;
-	z-index: 3;
-	position: relative;
 	font-size: 13px;
 	font-style: Regular;
 	text-align: left !important;
@@ -1295,6 +1312,7 @@ a {
 	font-stretch: normal;
 	text-decoration: none;
 }
+
 .reserv-text2 {
 
 	color: rgb(45, 42, 38);
@@ -1321,6 +1339,23 @@ a {
 	position: absolute;
 	align-items: flex-start;
 	flex-shrink: 0;
+}
+
+.btn_detail {
+	justify-content: center;
+	width: 136px;
+	height: 34px;
+	display: flex;
+	position: relative;
+	align-items: flex-start;
+	flex-shrink: 0;
+	background-color: rgb(255, 255, 255);
+	overflow: hidden;
+	padding: 6px;
+	border-color: rgb(220, 222, 224);
+	border-style: solid;
+	border-width: 1px;
+	border-radius: 4px;
 }
 
 .my-page-item-button2 {

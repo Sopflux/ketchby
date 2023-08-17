@@ -6,8 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Feed</title>
 <link rel="stylesheet" th:href="@{/style/footer.css}" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 <link rel="stylesheet" th:href="@{/style/header.css}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" th:href="@{/style/feed.css}" />
 <script
@@ -17,89 +17,89 @@
    
    var modal2;
     $(document).ready(function() {
-        // 버튼과 모달 요소
-        var plus = $("#insertfeed");
-        modal2 = $("#myModal2");
-        var modal3 = $("#myModal3");
-
-        function showModal2() {
-            modal2.css("display", "block");
-        }
-        function showModal3() {
-            modal3.css("display", "block");
-        }
-        plus.click(showModal2);
-        $(".update").click(showModal3);
-        
-       
-  
-  $("#myFeed").on('click',function(){
-    location.href="/feed/myFeed";
-
-  });
-  $("#followFeed").on('click',function(){
-    location.href="/feed/followFeed";
-   
-  });
-  $("#allFeed").on('click',function(){
-    location.href="/feed/feed";
-   
-  });
-        
-$(".delete").on('click', function() {
-    var fno = $(this).attr('id').split('-')[1];
-    var shouldDelete = confirm("정말로 삭제하시겠습니까?");
-    
-    if (shouldDelete) {
-        $.ajax({
-            url: "/feed/delete", 
-            type: "POST", 
-            data: { fno: fno }, 
-            success: function(response) {
-				  location.href="/feed/feed";
-                console.log("Success:", response);
-                // 삭제 후 추가적인 처리나 갱신 작업을 여기에 추가할 수 있습니다.
-            },
-            error: function(xhr, status, error) {
-                console.error("Error:", error);
-            }
-        });
-    }
-}); 
-        
+	        // 버튼과 모달 요소
+	        var plus = $("#insertfeed");
+	        modal2 = $("#myModal2");
+	        var modal3 = $("#myModal3");
+	
+	        function showModal2() {
+	            modal2.css("display", "block");
+	        }
+	        function showModal3() {
+	            modal3.css("display", "block");
+	        }
+	        plus.click(showModal2);
+	        $(".update").click(showModal3);
+	        
+		       
+		  
+		  $("#myFeed").on('click',function(){
+		    location.href="/feed/myFeed";
+		
+		  });
+		  $("#followFeed").on('click',function(){
+		    location.href="/feed/followFeed";
+		   
+		  });
+		  $("#allFeed").on('click',function(){
+		    location.href="/feed/feed";
+		   
+		  });
+		        
+		$(".delete").on('click', function() {
+		    var fno = $(this).attr('id').split('-')[1];
+		    var shouldDelete = confirm("정말로 삭제하시겠습니까?");
+		    
+		    if (shouldDelete) {
+		        $.ajax({
+		            url: "/feed/delete", 
+		            type: "POST", 
+		            data: { fno: fno }, 
+		            success: function(response) {
+						  location.href="/feed/feed";
+		                console.log("Success:", response);
+		                // 삭제 후 추가적인 처리나 갱신 작업을 여기에 추가할 수 있습니다.
+		            },
+		            error: function(xhr, status, error) {
+		                console.error("Error:", error);
+		            }
+		        });
+		    }
+		}); 
+		        
         
          $(".commentBtn").on('click', function() {
-          var fno = $(this).attr('id').split('-')[1];
-var formData = $('#commentForm-' + fno).serialize();
-    $.ajax({
-      url: "/feed/insertComment",
-      type: "POST", 
-      data: formData,
-      success: function(response) {
-        var cntCommentValue = response.cntComment;
-        var list = response.list;
-        var commentTable = $("#commentTable-"+fno);
-        var commentHtml = "";
-        
-        commentTable.empty();
-        list.forEach(function(comment) {
-            commentHtml += "<tr><td><div class=\"avatar avatar-story me-2\">" +
-                "<a href=\"#!\"><img class=\"avatar-img rounded-circle\"" +
-                "src=\"/profile/" + comment.img + "\" alt=\"\" style=\"width: 55px; height: 55px;\"></a>" +
-                "</div></td><td>" + comment.nick + "</td><td>" + comment.fcocomment +
-                "</td><td>" + comment.fcodate + "</td></tr>";
-        });
-
-            commentTable.html(commentHtml);
-        alert("댓글달기성공");
-        console.log(response); 
-      },
-      error: function(error) {
-        
-        console.log("댓글달기실패");
-        
-      }
-    });
+          	var fno = $(this).attr('id').split('-')[1];
+			var formData = $('#commentForm-' + fno).serialize();
+			    $.ajax({
+			      url: "/feed/insertComment",
+			      type: "POST", 
+			      data: formData,
+			      success: function(response) {
+			        var cntCommentValue = response.cntComment;
+			        var list = response.list;
+			        var commentTable = $("#commentTable-"+fno);
+			        var commentHtml = "";
+			        
+			        commentTable.empty();
+			        list.forEach(function(comment) {
+			            commentHtml += "<tr><td><div class=\"avatar avatar-story me-2\">" +
+			                "<a href=\"#!\"><img class=\"avatar-img rounded-circle\"" +
+			                "src=\"/profile/" + comment.img + "\" alt=\"\" style=\"width: 55px; height: 55px;\"></a>" +
+			                "</div></td><td>" + comment.nick + "</td><td>" + comment.fcocomment +
+			                "</td><td>" + comment.fcodate + "</td></tr>";
+			        });
+			
+			            commentTable.html(commentHtml);
+			        alert("댓글달기성공");
+			        console.log(response); 
+			      },
+			      error: function(error) {
+			        
+			        console.log("댓글달기실패");
+			        
+			      }
+			    });
     
     });
         
@@ -125,7 +125,6 @@ var formData = $('#commentForm-' + fno).serialize();
                 $('#userLike-' + fno).val(userLike);
                 $('#likeCount-' + fno).text(cntLikeValue);
                 $this.attr("userLike", userLike); 
-                alert("좋아요 성공");
                 var svg = $('#likeIcon-'+fno);
                svg.find('path').attr('d', 'M14 20.408c-.492.308-.903.546-1.192.709-.153.086-.308.17-.463.252h-.002a.75.75 0 0 1-.686 0 16.709 16.709 0 0 1-.465-.252 31.147 31.147 0 0 1-4.803-3.34C3.8 15.572 1 12.331 1 8.513 1 5.052 3.829 2.5 6.736 2.5 9.03 2.5 10.881 3.726 12 5.605 13.12 3.726 14.97 2.5 17.264 2.5 20.17 2.5 23 5.052 23 8.514c0 3.818-2.801 7.06-5.389 9.262A31.146 31.146 0 0 1 14 20.408Z'); 
                 
@@ -146,7 +145,6 @@ var formData = $('#commentForm-' + fno).serialize();
                 $('#userLike-' + fno).val(userLike);
                 $('#likeCount-' + fno).text(cntLikeValue);
                 $this.attr("userLike", userLike); 
-                alert("좋아요 취소 성공");
                 var svg = $('#likeIcon-'+fno);
                svg.find('path').attr('d', 'm12 20.703.343.667a.748.748 0 0 1-.686 0l-.003-.002-.007-.003-.025-.013a31.138 31.138 0 0 1-5.233-3.576C3.8 15.573 1 12.332 1 8.514v-.001C1 5.053 3.829 2.5 6.736 2.5 9.03 2.5 10.881 3.726 12 5.605 13.12 3.726 14.97 2.5 17.264 2.5 20.17 2.5 23 5.052 23 8.514c0 3.818-2.801 7.06-5.389 9.262a31.148 31.148 0 0 1-5.233 3.576l-.025.013-.007.003-.002.001ZM6.736 4C4.657 4 2.5 5.88 2.5 8.514c0 3.107 2.324 5.96 4.861 8.12a29.655 29.655 0 0 0 4.566 3.175l.073.041.073-.04c.271-.153.661-.38 1.13-.674.94-.588 2.19-1.441 3.436-2.502 2.537-2.16 4.861-5.013 4.861-8.12C21.5 5.88 19.343 4 17.264 4c-2.106 0-3.801 1.389-4.553 3.643a.751.751 0 0 1-1.422 0C10.537 5.389 8.841 4 6.736 4Z'); 
             },
@@ -163,113 +161,116 @@ var formData = $('#commentForm-' + fno).serialize();
     
     
     
-    var fileNo = 0;
-var filesArr = new Array();
+	var fileNo = 0;
+	var filesArr = new Array();
 
-/* 첨부파일 추가 */
-function addFile(obj){
-    var maxFileCnt = 3;   // 첨부파일 최대 개수
-    var attFileCnt = document.querySelectorAll('.filebox').length;    // 기존 추가된 첨부파일 개수
-    var remainFileCnt = maxFileCnt - attFileCnt;    // 추가로 첨부가능한 개수
-    var curFileCnt = obj.files.length;  // 현재 선택된 첨부파일 개수
+	/* 첨부파일 추가 */
+	function addFile(obj) {
+		var maxFileCnt = 3; // 첨부파일 최대 개수
+		var attFileCnt = document.querySelectorAll('.filebox').length; // 기존 추가된 첨부파일 개수
+		var remainFileCnt = maxFileCnt - attFileCnt; // 추가로 첨부가능한 개수
+		var curFileCnt = obj.files.length; // 현재 선택된 첨부파일 개수
 
-    // 첨부파일 개수 확인
-    if (curFileCnt > remainFileCnt) {
-        alert("첨부파일은 최대 " + maxFileCnt + "개 까지 첨부 가능합니다.");
-    }
+		// 첨부파일 개수 확인
+		if (curFileCnt > remainFileCnt) {
+			alert("첨부파일은 최대 " + maxFileCnt + "개 까지 첨부 가능합니다.");
+		}
 
-    for (var i = 0; i < Math.min(curFileCnt, remainFileCnt); i++) {
+		for (var i = 0; i < Math.min(curFileCnt, remainFileCnt); i++) {
 
-        const file = obj.files[i];
+			const file = obj.files[i];
 
-        // 첨부파일 검증
-        if (validation(file)) {
-            // 파일 배열에 담기
-            var reader = new FileReader();
-            reader.onload = function () {
-                filesArr.push(file);
-            };
-            reader.readAsDataURL(file)
+			// 첨부파일 검증
+			if (validation(file)) {
+				// 파일 배열에 담기
+				var reader = new FileReader();
+				reader.onload = function() {
+					filesArr.push(file);
+				};
+				reader.readAsDataURL(file)
 
-            // 목록 추가
-            let htmlData = '';
-            htmlData += '<div id="file' + fileNo + '" class="filebox">';
-            htmlData += '   <p class="name">' + file.name + '</p>';
-            htmlData += '   <a class="delete" onclick="deleteFile(' + fileNo + ');"><i class="far fa-minus-square"></i></a>';
-            htmlData += '</div>';
-            $('.file-list').append(htmlData);
-            fileNo++;
-        } else {
-            continue;
-        }
-    }
-    // 초기화
-    document.querySelector("input[type=file]").value = "";
-}
+				// 목록 추가
+				let htmlData = '';
+				htmlData += '<div id="file' + fileNo + '" class="filebox">';
+				htmlData += '   <p class="name">' + file.name + '</p>';
+				htmlData += '   <a class="delete" onclick="deleteFile('
+						+ fileNo
+						+ ');"><i class="far fa-minus-square"></i></a>';
+				htmlData += '</div>';
+				$('.file-list').append(htmlData);
+				fileNo++;
+			} else {
+				continue;
+			}
+		}
+		// 초기화
+		document.querySelector("input[type=file]").value = "";
+	}
 
-/* 첨부파일 검증 */
-function validation(obj){
-    const fileTypes = ['application/pdf', 'image/gif', 'image/jpeg', 'image/png', 'image/bmp', 'image/tif', 'application/haansofthwp', 'application/x-hwp'];
-    if (obj.name.length > 100) {
-        alert("파일명이 100자 이상인 파일은 제외되었습니다.");
-        return false;
-    } else if (obj.size > (100 * 1024 * 1024)) {
-        alert("최대 파일 용량인 100MB를 초과한 파일은 제외되었습니다.");
-        return false;
-    } else if (obj.name.lastIndexOf('.') == -1) {
-        alert("확장자가 없는 파일은 제외되었습니다.");
-        return false;
-    } else if (!fileTypes.includes(obj.type)) {
-        alert("첨부가 불가능한 파일은 제외되었습니다.");
-        return false;
-    } else {
-        return true;
-    }
-}
+	/* 첨부파일 검증 */
+	function validation(obj) {
+		const fileTypes = [ 'application/pdf', 'image/gif', 'image/jpeg',
+				'image/png', 'image/bmp', 'image/tif',
+				'application/haansofthwp', 'application/x-hwp' ];
+		if (obj.name.length > 100) {
+			alert("파일명이 100자 이상인 파일은 제외되었습니다.");
+			return false;
+		} else if (obj.size > (100 * 1024 * 1024)) {
+			alert("최대 파일 용량인 100MB를 초과한 파일은 제외되었습니다.");
+			return false;
+		} else if (obj.name.lastIndexOf('.') == -1) {
+			alert("확장자가 없는 파일은 제외되었습니다.");
+			return false;
+		} else if (!fileTypes.includes(obj.type)) {
+			alert("첨부가 불가능한 파일은 제외되었습니다.");
+			return false;
+		} else {
+			return true;
+		}
+	}
 
+	// 첨부파일 삭제 
+	function deleteFile(num) {
+		document.querySelector("#file" + num).remove();
+		filesArr[num].is_delete = true;
+	}
 
-// 첨부파일 삭제 
-function deleteFile(num) {
-    document.querySelector("#file" + num).remove();
-    filesArr[num].is_delete = true;
-}
+	// 폼 전송
+	function submitForm() {
+		// FormData 객체 생성
+		var formData = new FormData();
 
-// 폼 전송
-    function submitForm() {
-        // FormData 객체 생성
-        var formData = new FormData();
-        
-        // 텍스트 데이터 추가
-        formData.append("aid", $("input[name='aid']").val());
-      formData.append("fcontent", $("#fcontentform").val());
-        
-        // 파일 데이터 추가
-        for (var i = 0; i < filesArr.length; i++) {
-            if (!filesArr[i].is_delete) {
-                formData.append("uploadFile", filesArr[i]);
-            }
-        }
+		// 텍스트 데이터 추가
+		formData.append("aid", $("input[name='aid']").val());
+		formData.append("fcontent", $("#fcontentform").val());
 
-        // AJAX 통신
-        $.ajax({
-            method: 'POST',
-            url: "/feed/insert",
-            dataType: 'json',
-            data: formData,
-            async: true,
-            contentType: false, // 필수: FormData 객체 사용시 false로 설정
-            processData: false, // 필수: FormData 객체 사용시 false로 설정
-            complete: function () {
-                alert("파일업로드 성공");
-                modal2.css("display", "none");
-                location.href="/feed/feed"
-                
-            },
-            error: function (xhr, status, error) {
-                console.error(xhr.responseText);
-            }
-        });
-    }
+		// 파일 데이터 추가
+		for (var i = 0; i < filesArr.length; i++) {
+			if (!filesArr[i].is_delete) {
+				formData.append("uploadFile", filesArr[i]);
+			}
+		}
+
+		// AJAX 통신
+		$.ajax({
+			method : 'POST',
+			url : "/feed/insert",
+			dataType : 'json',
+			data : formData,
+			async : true,
+			contentType : false, // 필수: FormData 객체 사용시 false로 설정
+			processData : false, // 필수: FormData 객체 사용시 false로 설정
+			complete : function() {
+				alert("파일업로드 성공");
+				modal2.css("display", "none");
+				location.href = "/feed/feed"
+
+			},
+			error : function(xhr, status, error) {
+				console.error(xhr.responseText);
+			}
+		});
+	}
     
 </script>
 
@@ -278,13 +279,12 @@ function deleteFile(num) {
 <body>
 <header th:replace="~{fragments/header :: headerFragment}"></header>  
 
-   <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary" style="background-image: url('/feed/feedheader.jpg'); background-size: cover; width: 100%; height: 200px;">
+   <img  th:src="@{/feed/feedheader.jpg}" style="width: 100%; margin-bottom: 15px;">
 
-</div>
 
    <div class="container">
       <div class="card">
-         <div class="card-body">
+         <div class="card-body" style="box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);">
             <div class="d-flex align-items-center justify-content-between">
                <!-- d-flex와 justify-content-between 추가 -->
                <!-- Avatar -->
@@ -326,6 +326,8 @@ function deleteFile(num) {
         <textarea class="form-control" id="fcontentform" rows="3" name="fcontent"></textarea>
     </div>
                                 
+
+                                
     <!-- 이미지 등록 -->
     <input type="file" style="margin-top: 30px;" name="uploadFile" onchange="addFile(this);" multiple />
     <div class="file-list"></div>
@@ -362,7 +364,7 @@ function deleteFile(num) {
          <div th:each="f:${list}" class="col-md-6">
 
 
-            <div class="card mb-5" style="height: 900px;">
+            <div class="card mb-5" style="height: 900px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);">
                <div class="card-body">
                   <div class="d-flex align-items-center">
                      <!-- Avatar -->
@@ -380,16 +382,16 @@ function deleteFile(num) {
                         </div>
                      </div>
                      <table class="updatedelete table caption-top" style="margin-top:0px;">
-                   
-      <tbody th:if="${f.aid == session.a.aid}">
-         <tr>
-          <td class="delete" th:attr="id='delete-' + ${f.fno}"> 
-			  <span style="font-size: 13px;margin-left: 33px;">delete</span>
-		  </td>
-         </tr>
-
-      </tbody>
-   </table>
+					                   
+					      <tbody th:if="${f.aid == session.a.aid}">
+					         <tr>
+					          <td class="delete" th:attr="id='delete-' + ${f.fno}"> 
+								  <span style="font-size: 13px;margin-left: 33px;">delete</span>
+							  </td>
+					         </tr>
+					
+					      </tbody>
+					   </table>
    
                   </div>
                  
@@ -569,7 +571,7 @@ function deleteFile(num) {
                         
                            <h1 class="h2" style="margin-top: 30px;">댓글</h1>
                             <form th:attr="id='commentForm-'+${f.fno}">
-                           <div class="d-flex" style="margin-top: 20px;">
+                           <div class="d-flex" style="margin-top: 20px;height: 60px;">
                               <textarea data-autoresize=""
                                  class="form-control pe-5 bg-light flex-grow-1" rows="1"
                                  placeholder="Add a comment..." name="fcocomment"></textarea>

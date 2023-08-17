@@ -1,4 +1,3 @@
-
 package com.example.demo;
 
 import java.util.Optional;
@@ -65,8 +64,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 	private Account loadOrSave(Account user) {
 		// 이미 저장된 유저인지 확인
 		Optional<Account> usercheck = account.findByEmail(user.getEmail());
-		
-		if (usercheck.isEmpty()) { // 소셜로그인을 시도한 아이디가 없다면 저장하고
+		if (usercheck.isPresent()) { // 소셜로그인을 시도한 아이디가 없다면 저장하고
 			System.out.println("존재하지 않는 회원:");
 			return account.save(new Account(user.getAid(), user.getPwd(), user.getEmail(), user.getName_(), null, null, null,  null,null,Role.USER));
 			

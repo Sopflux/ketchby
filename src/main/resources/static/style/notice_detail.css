@@ -8,53 +8,70 @@
 
 body{ font-family:'Pretendard-Regular', 'sans-serif'}
 .maindiv {
-	transform: scale(0.8);
-	position: relative;
-	width: 100vw;
-	height: 100vh;
+	width: 100%;
+	padding: 5rem 10rem 30rem 15rem;
 	display: flex;
-	margin-left: 200px;
+	justify-content: center;
+}
+
+.writerdate{
+	    margin-top: 20px;
 }
 
 .titlediv {
-	top: 36px;
-	left: 9px;
 	width: 941px;
 	height: 140px;
-	display: flex;
-	position: absolute;
+	display: block;
 	align-items: flex-start;
 	flex-shrink: 0;
 }
 
 .noticetitle {
-	width: 941px;
-	font-size: 34px;
+	font-size: 24px;
 	font-weight: 700;
 }
 
 
 .noticewriter {
-	top: 85px;
-	height: auto;
-	position: absolute;
+	margin-right: 10px;
 	font-size: 20px;
 	font-weight: 700;
 }
 
 .noticedate {
-	top: 113px;
 	color: rgba(101, 110, 117, 1);
-	height: auto;
-	position: absolute;
 	font-size: 20px;
 	font-weight: 400;
 }
 
 .noticecontent {
-	top: 150px;
-	width: 941px;
-	position: absolute;
-	font-size: 28px;
-	line-height: 42px;
+	    width: 60%;
+    font-size: 20px;
+    line-height: 42px;
+}
+.top-category {
+	width: 15%;
+	margin: 0 !important;
+	padding: 3.6rem 0 0 0 !important;
+}
+
+.category-text {
+	font-size: 30px;
+	margin-bottom: 20px;
+}
+
+.category-text:hover {
+	color: rgba(154, 154, 154, 1);
+}
+
+p {
+	margin-top: 0;
+	margin-bottom: 1rem;
+}
+
+.main-community {
+	width: 70%;
+	margin: 0 !important;
+	padding: 0 !important;
+
 }

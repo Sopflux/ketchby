@@ -209,4 +209,5 @@ a {
     font-size: 18px;
     font-family: serif;
     margin-top: 10px;
+    font-weight: normal !important;
 }

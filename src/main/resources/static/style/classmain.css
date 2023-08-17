@@ -7,7 +7,7 @@
 }
 
 *, *::before, *::after {
-    font-family: 'Pretendard-Regular', sans-serif;
+    font-family: 'Pretendard-Regular', sans-serif !important;
 }
 
 body, html {
@@ -187,7 +187,7 @@ select {
 
 
 select option[selected] {
-    background-color: #007bff;
+    background-color: #008375;
     color: white;
 }
 
@@ -196,10 +196,13 @@ select option[selected] {
     margin-left: 10px;
 }
 
+#claddr-select {
+   margin-left: 10px;
+}
 
 .open-class {
-	margin-left: 860px;
-	width: 100px;
+   margin-left: 595px;
+   width: 100px;
     height: 40px;
     border-radius: 5px;
     color: white;
@@ -210,7 +213,7 @@ select option[selected] {
 }
 
 .searching {
-	width: calc(100% - 45px);
+   width: calc(100% - 45px);
     height: 40px;
     border: none;
     border-radius: 10px 0 0 10px;
@@ -219,7 +222,7 @@ select option[selected] {
 }
 
 .searching:focus {
-	outline: none;
+   outline: none;
 }
 
 .searchbtn {
@@ -262,7 +265,8 @@ select option[selected] {
 }
 
 
-/* Card */
+
+/* 카드 메인 */
 
 
 .card {
@@ -360,3 +364,17 @@ select option[selected] {
   color: #f39c12;
 }
 
+
+/* 별점 및 리뷰 카운트 스타일 */
+.cardStarReview {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.starReview {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.4);
+}

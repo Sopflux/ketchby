@@ -140,10 +140,8 @@
 		</div>
 		<div class="boardcontent">
 			<div class="boardimage" th:if="${b.bfname} != null">
-				<div
-					th:if="${#strings.endsWith(b.bfname, '.jpg')} or ${#strings.endsWith(b.bfname, '.gif')} or ${#strings.endsWith(b.bfname, '.png')}">
-					<img th:src="@{'/board/'+${b.bfname}}" />
-				</div>
+<img th:src="@{'/board/'+${b.bfname}}" />
+		
 
 			</div>
 			<span class="bcontent" th:text="${b.bcontent}"></span>
@@ -160,14 +158,18 @@
 
 		</div>
 		<div class="comment_top">
-			<span class="detguel">댓글</span>
-			<span class="comment_count"></span>
-			<input type="text" id="cocontent" name="cocontent" class="cocontent" />
-			<input type="hidden" id="cono" name="cono" th:value="${cono}" />
-			<input type="hidden" id="aid" name="aid" th:value="${session.a.aid}" />
-			<input type="hidden" id="snick" name="snick" th:value="${session.a.nick}" /> <!--세션에 저장된 닉네임 -->
-			<input type="hidden" id="bno" name="bno" th:value="${bno}" />
-			<button class="commentBtn" id="commentBtn">등록</button>
+			<div class="comment_1">
+				<span class="detguel">댓글</span>
+				<span class="comment_count"></span>
+			</div>
+			<div class="comment_2">
+				<input type="text" id="cocontent" name="cocontent" class="cocontent" />
+				<input type="hidden" id="cono" name="cono" th:value="${cono}" />
+				<input type="hidden" id="aid" name="aid" th:value="${session.a.aid}" />
+				<input type="hidden" id="snick" name="snick" th:value="${session.a.nick}" /> <!--세션에 저장된 닉네임 -->
+				<input type="hidden" id="bno" name="bno" th:value="${bno}" />
+				<button class="commentBtn" id="commentBtn">등록</button>
+			</div>
 		</div>
 
 

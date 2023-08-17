@@ -11,14 +11,14 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery.min.js"></script>
 <script>
-	
-	
-  	
+   
+   
+     
   $(document).ready(function() {
-	  
-	/*
-   		배너 슬라이드
-  	*/  
+     
+   /*
+         배너 슬라이드
+     */  
     const $slider = $('.slider');
     const $slides = $('.slide');
     const $prevBtn = $('#prevBtn');
@@ -118,9 +118,9 @@
   </button>
   <div class="slider">
     <div class="slide" style="background-image: url('class/banner1.jpg');"></div>
-	<div class="slide" style="background-image: url('class/banner2.jpg');"></div>
-	<div class="slide" style="background-image: url('class/banner3.jpg');"></div>
-	<div class="slide" style="background-image: url('class/banner4.jpg');"></div>
+   <div class="slide" style="background-image: url('class/banner2.jpg');"></div>
+   <div class="slide" style="background-image: url('class/banner3.jpg');"></div>
+   <div class="slide" style="background-image: url('class/banner4.jpg');"></div>
   </div>
   <button id="nextBtn" class="slider-btn">
     <img th:src="@{/class/next.png}" alt="Next" />
@@ -193,14 +193,19 @@
                 <div class="card">
                     <div class="card-img">
                        <img class="cardimg" th:src="@{'class/' + ${m.climg}}">
-					   <button class="clbtn" th:text="${m.cllevel}"></button>
-					   <button class="abtn" th:text="${m.cltype}"></button>
+                  <button class="clbtn" th:text="${m.cllevel}"></button>
+                  <button class="abtn" th:text="${m.cltype}"></button>
                     </div>
                     <div class="card-info">
                         <h4 class="card-category" th:text="${m.bcaname + ' > ' + m.scaname}"></h4>
-                        <a th:href="@{'classdetail.do?cl_no='+${m.clno}}" class="card-title" th:text="${m.cltitle}"></a>
+                        <a th:href="@{'classdetail?clno=' + ${m.clno}}" class="card-title" th:text="${m.cltitle}"></a>
                         <p class="card-addr" th:text="${m.claddr}"></p>
                         <div class="card-price" th:text="${m.clprice}+'원'"></div>
+                        <div class="cardStarReview">
+                      <h4 class="starReview">
+                         <span th:utext="${'⭐ ' + m.avgRstar + '.0&nbsp;&nbsp;&nbsp; 리뷰 (' + m.cntRno + ')'}"></span>
+                      </h4>
+                  </div>
                     </div>
                 </div>
             </th:block>
@@ -227,14 +232,19 @@
                 <div class="card">
                     <div class="card-img">
                        <img class="cardimg" th:src="@{'class/' + ${h.climg}}">
-					   <button class="clbtn" th:text="${h.cllevel}"></button>
-					   <button class="abtn" th:text="${h.cltype}"></button>
+                  <button class="clbtn" th:text="${h.cllevel}"></button>
+                  <button class="abtn" th:text="${h.cltype}"></button>
                     </div>
                     <div class="card-info">
                         <h4 class="card-category" th:text="${h.bcaname + ' > ' + h.scaname}"></h4>
-                        <a th:href="@{'classdetail.do?cl_no='+${h.clno}}" class="card-title" th:text="${h.cltitle}"></a>
+                        <a th:href="@{'classdetail?clno=' + ${h.clno}}" class="card-title" th:text="${h.cltitle}"></a>
                         <p class="card-addr" th:text="${h.claddr}"></p>
                         <div class="card-price" th:text="${h.clprice}+'원'"></div>
+                        <div class="cardStarReview">
+                      <h4 class="starReview">
+                         <span th:utext="${'⭐ ' + h.avgRstar + '.0&nbsp;&nbsp;&nbsp; 리뷰 (' + h.cntRno + ')'}"></span>
+                      </h4>
+                  </div>
                     </div>
                 </div>
             </th:block>
@@ -258,22 +268,22 @@
   </div>
   <div class="club-container">
     <th:block th:each="c : ${hotClubList}">  
-		<div class="club-card">
-		    <a href="@{/club/club_detail/{cbno}/{slocno}}" class="club-link">
-		      <div class="clubCard-img">
-		          <img class="clubCardimg" th:src="@{'club/' + ${c.cbimg}}">
-		      </div>
-			  <div class="clubCard-info">
-			     <div class="clubCard-tag" th:text="${c.scaname}"></div>
-			     	<h2 class="clubCard-title" th:text="${c.cbtitle}"></h2>
-			      	<p class="clubCard-description" th:text="'📌마감일: '+${c.cbclsdate}"></p>
-			      	<div class="clubCard-People">
-			        <span class="clubPeople" th:text="'👤참여자: '+${c.ap_cnt}+'/'+${c.cbpeople}">+3</span>
-			      	</div>
-			  </div>
-			</a>
-	  </div>
-	</th:block>
+      <div class="club-card">
+          <a th:href="'/club/club_detail/'+${c.cbno}+'/'+${c.slocno}" class="club-link">
+            <div class="clubCard-img">
+                <img class="clubCardimg" th:src="@{'club/' + ${c.cbimg}}">
+            </div>
+           <div class="clubCard-info">
+              <div class="clubCard-tag" th:text="${c.scaname}"></div>
+                 <h2 class="clubCard-title" th:text="${c.cbtitle}"></h2>
+                  <p class="clubCard-description" th:text="'📌마감일: '+${c.cbclsdate}"></p>
+                  <div class="clubCard-People">
+                 <span class="clubPeople" th:text="'👤참여자: '+${c.ap_cnt}+'/'+${c.cbpeople}">+3</span>
+                  </div>
+           </div>
+         </a>
+     </div>
+   </th:block>
   </div>
 </div>
 
@@ -287,7 +297,7 @@
         <tr th:each="b : ${hotBoardList}">
           <td class="club-rownum" th:text="${b.rownum}"></td>
           <td>
-            <a href="@{/community/community_detail/{bno}}" class="cldetail" th:text="${b.btitle}"></a>
+            <a th:href="'/community/community_detail/'+${b.bno}" class="cldetail" th:text="${b.btitle}"></a>
           </td>
           <td th:text="${b.aid}"></td>
           <td th:text="${b.bdate}"></td>

@@ -13,50 +13,41 @@ body {
 }
 
 .maindiv {
-	position: relative;
-	width: 100vw;
-	height: 100vh;
-	display: flex;
-	margin-left: 400px;
+	width: 100%;
+	padding: 5rem 10rem 3rem 15rem;
+	display: inline-flex;
+	justify-content: center;
 }
 
 #selectedImagePath {
-	margin: 10px 0px 0px 170px;
+	width: 1px;
+	margin: 8px 0px 0px 6px;
 }
 
 .titlediv {
-width: 730px;
-    height: 83px;
-    display: flex;
-    position: absolute;
-    align-items: flex-start;
-    flex-shrink: 0;
-    flex-direction: column;
+	height: 83px;
+	display: flex;
+	align-items: flex-start;
+	flex-shrink: 0;
+	flex-direction: column;
 }
-.form-floating{
-	margin-top: 50px;
-}
+
 .content {
-top: 104px;
-    width: 730px;
-    height: 940px;
-    display: flex;
-    position: absolute;
-    align-items: flex-start;
-    flex-shrink: 0;
+	width: 730px;
+	display: block;
+	align-items: flex-start;
+	flex-shrink: 0;
 
 }
 
 .jemok {
-top: 0px;
-    width: 730px;
-    height: 41px;
-    display: flex;
-    position: absolute;
-    align-items: flex-start;
-    flex-shrink: 0;
-    font-weight: bold;
-    font-size: 25px;
+	width: 730px;
+	height: 41px;
+	display: flex;
+	align-items: flex-start;
+	flex-shrink: 0;
+	font-weight: bold;
+	font-size: 25px;
 }
 
 .form-control {
@@ -75,23 +66,19 @@ top: 0px;
 }
 
 .neyongdiv {
-    top: 40px;
-    width: 730px;
-    height: 46px;
-    display: flex;
-    position: absolute;
-    align-items: flex-start;
-    flex-shrink: 0;
-    border-color: rgba(187, 187, 187, 1);
-    border-style: solid;
-    border-width: 0 0 1px;
+	height: 46px;
+	display: flex;
+	align-items: flex-start;
+	flex-shrink: 0;
+	border-color: rgba(187, 187, 187, 1);
+	border-style: solid;
+	border-width: 0 0 1px;
 }
 
 .neyong {
 	color: rgba(34, 34, 34, 1);
 	width: 105px;
 	height: auto;
-	position: absolute;
 	font-size: 23px;
 	font-style: Bold;
 	text-align: left;
@@ -102,27 +89,30 @@ top: 0px;
 	text-decoration: none;
 }
 
+.neyoungtab {
+	margin-top: 50px;
+	display: block;
+}
+
 .tabdiv {
-	top: 110px;
-	left: 0px;
 	width: 730px;
 	height: 46px;
 	display: flex;
-	position: absolute;
 	align-items: flex-start;
 	flex-shrink: 0;
 	border-color: rgba(187, 187, 187, 1);
 	border-style: solid;
 	border-width: 0 0 1px;
+	margin: 15px 0px;
 }
 
 .ipryuk {
+	justify-content: center;
 	top: 0px;
 	left: 0px;
 	width: 163px;
 	height: 46px;
 	display: flex;
-	position: absolute;
 	align-items: flex-start;
 	flex-shrink: 0;
 	border-color: rgba(34, 34, 34, 1);
@@ -135,7 +125,6 @@ top: 0px;
 	top: 5px;
 	left: 50px;
 	width: 56px;
-	position: absolute;
 	font-size: 15px;
 	font-style: Bold;
 	text-align: center;
@@ -143,29 +132,29 @@ top: 0px;
 	line-height: 44px;
 }
 
+.deleteandfilebtn {
+	gap: 30px;
+	margin-left: 360px;
+	display: flex;
+}
+
 .btnImg {
-	left: 605.080078125px;
 	width: 125px;
-	position: absolute;
 	border: 1px solid rgba(187, 187, 187, 1);
 	line-height: 27px;
 	background-color: white;
 	cursor: pointer;
 	padding: 5px 10px;
 	text-align: center;
-
 }
 
-.btnImg input[type="file"] {
-	display: none;
-}
 
 .btnImg:hover {
 	background-color: #E4E4E4;
 }
 
 .content_text {
-	top: 175px;
+	margin-top: 10px;
 	width: 730px;
 	height: 679px;
 	display: flex;
@@ -183,12 +172,11 @@ top: 0px;
 }
 
 .submitBtn {
-	top: 982px;
-	left: 308px;
+	margin-top: 30px;
+	margin-left: 320px;
 	width: 120px;
 	height: 44px;
 	display: flex;
-	position: absolute;
 	border-radius: 6px;
 	background-color: rgba(0, 131, 117, 1);
 	color: rgba(255, 255, 255, 1);
@@ -202,7 +190,32 @@ top: 0px;
 }
 
 .filedelete {
-	position: absolute;
-	top: 5px;
-	left: 550px;
+	margin-top: 8px;
+}
+
+.top-category {
+	width: 20%;
+	margin: 0 !important;
+	padding: 3.6rem 0 0 0 !important;
+}
+
+.category-text {
+	font-size: 30px;
+	margin-bottom: 20px;
+}
+
+.category-text:hover {
+	color: rgba(154, 154, 154, 1);
+}
+
+p {
+	margin-top: 0;
+	margin-bottom: 1rem;
+}
+
+.main-community {
+	width: 70%;
+	margin: 0 !important;
+	padding: 0 !important;
+
 }

@@ -13,21 +13,16 @@ body {
 }
 
 .maindiv {
-	margin-top: 100px;
-	transform: scale(1.1);
-	position: relative;
-	width: 100vw;
-	height: 100vh;
-	display: flex;
+	width: 100%;
+	padding: 5rem 10rem 3rem 15rem;
+	display: inline-flex;
 	justify-content: center;
 }
 
 #jemok {
-	top: 0px;
 	width: 730px;
 	height: 41px;
 	display: flex;
-	position: absolute;
 	align-items: flex-start;
 	flex-shrink: 0;
 	font-weight: bold;
@@ -35,30 +30,27 @@ body {
 }
 
 #selectedImagePath {
-	margin: 10px 0px 0px 170px;
+	width: 1px;
+	margin: 15px 0px 0px 6px;
 }
 
+
 .cbtitle {
-	top: 40px;
 	width: 730px;
 	height: 42px;
 	display: flex;
-	position: absolute;
 	align-items: flex-start;
 	flex-shrink: 0;
 	border-color: rgba(229, 229, 229, 1);
 	border-style: solid;
 	border-width: 1px;
 	background-color: rgba(255, 255, 255, 1);
-	font-size: 20px;
 }
 
 #category {
-	top: 105px;
 	width: 682px;
 	height: 32px;
 	display: flex;
-	position: absolute;
 	align-items: flex-start;
 	flex-shrink: 0;
 	font-size: 25px;
@@ -66,13 +58,13 @@ body {
 }
 
 .categorydiv {
-	top: 158px;
+	margin-top: 20px;
+	gap: 20px;
 	width: 731px;
 	height: 32px;
 	display: flex;
-	position: absolute;
 	align-items: flex-start;
-	flex-shrink: 0;
+	margin-bottom: 30px;
 }
 
 #bcano {
@@ -83,19 +75,17 @@ body {
 }
 
 #scano {
-	left: 170px;
 	width: 153px;
 	padding: 6px 13px;
-	position: absolute;
 	border-color: rgba(232, 232, 232, 1);
 	background-color: rgba(248, 248, 248, 1);
 }
 
 .neyong {
-	top: 230px;
 	width: 730px;
 	height: 43px;
-	position: absolute;
+	display: flex;
+	align-items: flex-start;
 	border-color: rgba(51, 51, 51, 1);
 	border-style: solid;
 	border-width: 0 0 2px;
@@ -104,25 +94,24 @@ body {
 }
 
 .tabdiv {
-	top: 300px;
 	width: 730px;
 	height: 46px;
 	display: flex;
-	position: absolute;
 	align-items: flex-start;
 	flex-shrink: 0;
 	border-color: rgba(187, 187, 187, 1);
 	border-style: solid;
 	border-width: 0 0 1px;
+	margin: 15px 0px;
 }
 
 .ipryuk {
+	justify-content: center;
 	top: 0px;
 	left: 0px;
 	width: 163px;
 	height: 46px;
 	display: flex;
-	position: absolute;
 	align-items: flex-start;
 	flex-shrink: 0;
 	border-color: rgba(34, 34, 34, 1);
@@ -135,7 +124,6 @@ body {
 	top: 5px;
 	left: 50px;
 	width: 56px;
-	position: absolute;
 	font-size: 15px;
 	font-style: Bold;
 	text-align: center;
@@ -144,9 +132,7 @@ body {
 }
 
 .btnImg {
-	left: 580px;
 	width: 125px;
-	position: absolute;
 	border: 1px solid rgba(187, 187, 187, 1);
 	line-height: 27px;
 	background-color: white;
@@ -164,10 +150,22 @@ body {
 	background-color: #E4E4E4;
 }
 
+
+.deleteandfilebtn {
+	margin-left: 230px;
+	gap: 30px;
+	margin-left: 350px;
+	display: flex;
+}
+
+.toptitle {
+	margin-bottom: 30px;
+}
+
 .content_text {
-	top: 370px;
-	width: 730px;
-	height: 470px;
+	margin-top: 10px;
+	width: 100%;
+	height: 100%x;
 	display: flex;
 	position: relative;
 	align-items: flex-start;
@@ -175,20 +173,18 @@ body {
 }
 
 .cbcontent {
-	font-size: 20px;
 	width: 730px;
 	height: 470px;
 	resize: none;
 	border-color: rgba(248, 248, 248, 1);
 	background-color: rgba(248, 248, 248, 1);
+	margin-bottom: 25px;
 }
 
 .hmang {
-	top: 880px;
 	width: 730px;
 	height: 43px;
 	display: flex;
-	position: absolute;
 	align-items: flex-start;
 	flex-shrink: 0;
 	border-color: rgba(51, 51, 51, 1);
@@ -198,76 +194,70 @@ body {
 	font-weight: bold;
 }
 
+.loccategory {
+	margin-top: 20px;
+	display: flex;
+	gap: 20px;
+	margin-bottom: 30px;
+}
+
 .bloca {
-	top: 950px;
 	width: 153px;
 	padding: 6px 13px;
-	position: absolute;
 	border-color: rgba(232, 232, 232, 1);
 	background-color: rgba(248, 248, 248, 1);
 }
 
 .sloca {
-	top: 950px;
-	margin-left: 170px;
 	width: 153px;
 	padding: 6px 13px;
-	position: absolute;
 	border-color: rgba(232, 232, 232, 1);
 	background-color: rgba(248, 248, 248, 1);
 }
 
 .membercount {
-	top: 1000px;
-	width: 730px;
-	height: 54px;
+	gap: 30px;
 	display: flex;
-	position: absolute;
 	align-items: flex-start;
 	border-color: rgba(235, 235, 235, 1);
 	border-style: solid;
 	border-width: 0 0 1px;
+	padding: 0 0 10px 0;
 }
 
 .inoyun {
 	top: 17px;
-	position: absolute;
 	font-style: Bold;
 	font-weight: 700;
 	line-height: 38px;
 }
 
 #cbpeople {
-	top: 10px;
-	left: 114px;
 	width: 140px;
 	height: 36px;
 	display: flex;
 	overflow: hidden;
-	position: absolute;
 	align-items: flex-start;
 	flex-shrink: 0;
 	background-color: #EAEAEA;
 	border: none;
-	font-size: 16px;
 }
 
 .closeaccount {
-	top: 1070px;
+	gap: 30px;
 	width: 730px;
-	height: 75px;
+	height: 55px;
 	display: flex;
-	position: absolute;
 	align-items: flex-start;
 	flex-shrink: 0;
 	border-color: rgba(235, 235, 235, 1);
 	border-style: solid;
 	border-width: 0 0 1px;
+	padding: 20px 0 0 0;
 }
 
 .mozip {
 	top: 17px;
-	position: absolute;
 	font-style: Bold;
 	font-weight: 700;
 	line-height: 38px;
@@ -279,7 +269,6 @@ body {
 	width: 150px;
 	height: 31px;
 	display: flex;
-	position: absolute;
 	align-items: flex-start;
 	flex-shrink: 0;
 	border-color: rgba(102, 102, 102, 1);
@@ -289,22 +278,45 @@ body {
 }
 
 .submit {
-	top: 1200px;
+	margin-top: 40px;
 	margin-left: 258px;
 	width: 210px;
 	height: 60px;
-	position: absolute;
-	flex-shrink: 0;
 	font-size: 18px;
 	text-align: center;
 	color: rgba(255, 255, 255, 1);
 	background-color: rgba(0, 131, 117, 1);
 	font-weight: 700;
-	justify-content: center;
 }
 
 .filedelete {
-	position: absolute;
-	top: 9px;
-	left: 530px;
+	margin-top: 8px;
+	width: 30%;
+}
+
+.top-category {
+	width: 15%;
+	margin: 0 !important;
+	padding: 3.6rem 0 0 0 !important;
+}
+
+.category-text {
+	font-size: 30px;
+	margin-bottom: 20px;
+}
+
+.category-text:hover {
+	color: rgba(154, 154, 154, 1);
+}
+
+p {
+	margin-top: 0;
+	margin-bottom: 1rem;
+}
+
+.main-community {
+	width: 70%;
+	margin: 0 !important;
+	padding: 0 !important;
+
 }

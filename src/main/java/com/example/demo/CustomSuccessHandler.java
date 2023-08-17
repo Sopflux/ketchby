@@ -45,11 +45,11 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
             if (a.getNick() == null) {
             	a.setNick("");
             	session.setAttribute("a", a);
-            	response.sendRedirect("/account/updateAccount");
+            	response.sendRedirect("/account/updateKakaoAccount");
             }else {
             	a.setPwd(null);
             	session.setAttribute("a", a);
-            	response.sendRedirect("/account/mypage");
+            	response.sendRedirect("/mainpage");
             	
             }
          } catch (Exception e) {

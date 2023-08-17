@@ -20,12 +20,12 @@
     }
 
     $(function () {
-		
-		 var keyword = "${keyword != null ? keyword : sessionKeyword}";
+      
+       var keyword = "${keyword != null ? keyword : sessionKeyword}";
             $("#searchKeyword").val(keyword);
   
   
-		// detail 버튼 클릭 시
+      // detail 버튼 클릭 시
         $(".cldetail").click(function () {
             console.log("cldetail clicked");
             let clno = $(this).data("clno");
@@ -36,6 +36,7 @@
                 data: { clno: clno },
                 success: function (d) {
                     $("#clno").val(d.clno);
+                    $("#climg").attr("src", '/class/'+d.climg);
                     $("#cltitle").val(d.cltitle);
                     $("#cllevel").val(d.cllevel);
                     $("#cltype").val(d.cltype);
@@ -81,7 +82,7 @@
 <body style="background-color:black">
     <div class="container-scroller">
         <!-- 사이드바 -->
-		<nav id="sidebar-all">
+      <nav id="sidebar-all">
             <ul class="sidebar">
                 <li class="sidebar-user">
                     Ketchby
@@ -90,13 +91,13 @@
                 <li><a href="/admin/user" id="user">👤 사용자 관리</a></li>
                 <li><a href="/admin/qna" id="qanda">📧 문의 관리</a></li>
                 <li><a href="/admin/notification" id="notification">📢 공지사항 관리</a></li>
-				<li class="has-submenu">
-				    <a href="#" id="class">📑 클래스 관리</a>
-				    <ul class="submenu">
-				        <li><a href="/admin/class">기존 클래스</a></li>
-				        <li><a href="/admin/classPending">승인 요청된 클래스</a></li>
-				    </ul>
-				</li>                
+            <li class="has-submenu">
+                <a href="#" id="class">📑 클래스 관리</a>
+                <ul class="submenu">
+                    <li><a href="/admin/class">기존 클래스</a></li>
+                    <li><a href="/admin/classPending">승인 요청된 클래스</a></li>
+                </ul>
+            </li>                
             </ul>
         </nav>        
         
@@ -109,19 +110,19 @@
                 <div class="main-table">
                     <h2>클래스</h2>
                     <p>요청된 클래스:63 </p>
-							<!--변경 해야할 내역-->
-							<div id="search5back">
-	                            <form method="get" action="/admin/classPending" id="searchbox5">
-									<select name="searchColumn" id="searchColumn">
-										<option value="all">전체</option>
-										<option value="clno">클래스 번호</option>
-										<option value="cltitle">클래스명</option>
-										<option value="cllevel">클래스 레벨</option>
-										<option value="aid">클래스 개설자</option>
-									</select>
-	                                <input type="search" name="keyword" id="keyword" />
-	                            </form>
-                        	</div>
+                     <!--변경 해야할 내역-->
+                     <div id="search5back">
+                               <form method="get" action="/admin/classPending" id="searchbox5">
+                           <select name="searchColumn" id="searchColumn">
+                              <option value="all">전체</option>
+                              <option value="clno">클래스 번호</option>
+                              <option value="cltitle">클래스명</option>
+                              <option value="cllevel">클래스 레벨</option>
+                              <option value="aid">클래스 개설자</option>
+                           </select>
+                                   <input type="search" name="keyword" id="keyword" />
+                               </form>
+                           </div>
                         <table class="table table-dark table-hover">
                             <thead>
                                 <tr>
@@ -143,18 +144,18 @@
                                     <td th:text="${c.cllevel}"></td>
                                     <td th:text="${c.aid}"></td>
                                     <td>
-									  <!--고쳐야 할 부분-->
-									  <a href="#" th:onclick="'updateClassPending('+${c.clno}+', \'승인\')'">승인 </a>
-                					  <a href="#" th:onclick="'updateClassPending('+${c.clno}+', \'비승인\')'"> 비승인</a>
+                             <!--고쳐야 할 부분-->
+                             <a href="#" th:onclick="'updateClassPending('+${c.clno}+', \'승인\')'">승인 </a>
+                                 <a href="#" th:onclick="'updateClassPending('+${c.clno}+', \'비승인\')'"> 비승인</a>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                         <div class="pagingNumber">
-				            <th:block th:each="i : ${#numbers.sequence(1, totalPage)}">
-							    <a th:href="@{/admin/classPending(pageNo=${i}, keyword=${keyword != null ? keyword : sessionKeyword}, searchColumn=${searchColumn != null ? searchColumn : sessionSearchColumn})}" th:text="${i}"></a>  
-							</th:block>
-						</div>
+                        <th:block th:each="i : ${#numbers.sequence(1, totalPage)}">
+                         <a th:href="@{/admin/classPending(pageNo=${i}, keyword=${keyword != null ? keyword : sessionKeyword}, searchColumn=${searchColumn != null ? searchColumn : sessionSearchColumn})}" th:text="${i}"></a>  
+                     </th:block>
+                  </div>
                </div>
             </div>
         </div>
@@ -174,20 +175,20 @@
                 <div class="row">
                     <!-- Left Column -->
                     <div class="col-md-4">
-                        <img src="/style/${detailClass.climg}" class="modal-image" id="climg">
+                        <img th:src="@{'class/' + ${climg}}" class="modal-image" id="climg">
                         <!-- Class Number -->
                         <div class="modal-form">
-                            <label for="clno">Class Number</label>
+                            <label for="clno">클래스 번호</label>
                             <input type="text" class="modal-input" id="clno" name="clno">
                         </div>
                         <!-- Class Level -->
                         <div class="modal-form">
-                            <label for="cllevel">Class Level</label>
+                            <label for="cllevel">클래스 레벨</label>
                             <input type="text" class="modal-input" id="cllevel" name="cllevel" >
                         </div>
                         <!-- Class Type -->
                         <div class="modal-form">
-                            <label for="clstype">Class Type</label>
+                            <label for="clstype">클래스 타입</label>
                             <input type="text" class="modal-input" id="cltype" name="cltype" >
                         </div>
                     </div>
@@ -196,42 +197,42 @@
                     <div class="col-md-8">
                         <!-- Class Name -->
                         <div class="modal-form">
-                            <label for="clname">Class Name</label>
+                            <label for="clname">클래스 명</label>
                             <input type="text" class="modal-input" id="cltitle" name="cltitle" >
                         </div>
                         <!-- Class Contents -->
                         <div class="modal-form">
-                            <label for="clcontent">Class Contents</label>
+                            <label for="clcontent">클래스 소개</label>
                             <textarea class="modal-input" id="clcontent" name="clcontent" rows="10" ></textarea>
                         </div>
                         <!-- Class Address -->
                         <div class="modal-form">
-                            <label for="claddr">Class Address</label>
+                            <label for="claddr">상세 주소</label>
                             <input type="text" class="modal-input" id="claddr" name="claddr" >
                         </div>
                         <!-- Class Start Date and End Date -->
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="modal-form">
-                                    <label for="clsdate">Class Start Date</label>
+                                    <label for="clsdate">시작 날짜</label>
                                     <input type="text" class="modal-input" id="clsdate" name="clsdate" >
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="modal-form">
-                                    <label for="cledate">Class End Date</label>
+                                    <label for="cledate">마감 날짜</label>
                                     <input type="text" class="modal-input" id="cledate" name="cledate" >
                                 </div>
                             </div>
                         </div>
                         <!-- Class People -->
                         <div class="modal-form">
-                            <label for="clpeople">Class People</label>
+                            <label for="clpeople">참여 가능 인원</label>
                             <input type="text" class="modal-input" id="clpeople" name="clpeople">
                         </div>
                         <!-- Class Price -->
                         <div class="modal-form">
-                            <label for="clprice">Class Price</label>
+                            <label for="clprice">클래스 가격</label>
                             <input type="text" class="modal-input" id="clprice" name="clprice" >
                         </div>
                     </div>

@@ -41,7 +41,18 @@ $(document).ready(function(){
     $('.gnb > li').mouseleave(function () {
         $(this).removeClass('active');
     });
-
+    
+    var logout = document.getElementById("logout");
+    
+    logout.click(()=>{
+		$.ajax(()=>{
+			url: '/logout';
+			success: ()=>{
+				alert('로그아웃하였습니다.');
+				location.reload();
+			}
+		})
+	})
 });
 </script>
 </head>
@@ -49,9 +60,12 @@ $(document).ready(function(){
 	<header id="header-header" th:fragment="headerFragment">
         <div class="title-bar"></div>
         <div class="header-top">
-            <a sec:authorize="!isAuthenticated()" href="/account/login" class="account-header"id="notlogin">로그인</a>
-            <a sec:authorize="!isAuthenticated()" href="/account/join" class="account-header" id="notlogin">회원가입</a>
-            <a sec:authorize="isAuthenticated()" href="/account/mypage" class="account-header" id="login">마이페이지</a>
+			<!-- 로그인 정보가 없다면 -->
+            <a sec:authorize="!isAuthenticated()" href="/account/login" class="account-header">로그인</a>
+            <a sec:authorize="!isAuthenticated()" href="/account/join" class="account-header">회원가입</a>
+			<!-- 로그인 정보가 있다면 -->
+            <a sec:authorize="isAuthenticated()" href="/account/mypage" class="account-header">마이페이지</a>
+            <a sec:authorize="isAuthenticated()" href="/account/logout" class="account-header" id="logout">로그아웃</a>
         </div>
         <div class="header-container">
             <a href="/mainpage">

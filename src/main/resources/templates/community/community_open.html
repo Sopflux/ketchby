@@ -22,14 +22,33 @@
 				$("#selectedImagePath").text("");
 				$("#uploadFile").val("")
 			})
+			$("#1").click(function(){
+				location.href="/club/clubmain";
+			})
+			$("#2").click(function(){
+				location.href="/community/community/1";
+			})
+			$("#3").click(function(){
+				location.href="/notice/noticemain/1";
+			})
+			$("#4").click(function(){
+				location.href="/qanda/qandamain";
+			})
 		})
 	</script>
 </head>
 
 <body>
 	<header th:replace="~{fragments/header :: headerFragment}"></header>
-	<div th:replace="menu :: head"></div>
+	
 	<div class="maindiv">
+		<div class="top-category">
+			<p id="1" class="category-text">#소모임</p>
+			<p id="2" class="category-text">#커뮤니티</p>
+			<p id="3" class="category-text">#공지사항</p>
+			<p id="4" class="category-text">#Q&A</p>
+		</div>
+		<div class="main-community">
 		<form action="/community/community_open" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="bno" th:value="${bno}" />
 			<input type="hidden" name="aid" th:value="${session.a.aid}" />
@@ -41,6 +60,8 @@
 				</div>
 			</div>
 			<div class="content">
+				
+				<div class="neyoungtab">
 				<div class="neyongdiv">
 					<span class="neyong">내용</span>
 				</div>
@@ -49,12 +70,17 @@
 					<div class="ipryuk">
 						<span class="iptyuktext">입력</span>
 					</div>
+					<div id="selectedImagePath"></div>
+					<div class="deleteandfilebtn">
+					<span class="filedelete">x삭제</span>
 					<label class="btnImg">
 						<input type="file" name="uploadFile" id="uploadFile" style="display: none;">
 						이미지등록
 					</label>
-					<span class="filedelete">x삭제</span>
-					<div id="selectedImagePath"></div>
+					</div>
+					
+					
+				</div>
 				</div>
 
 				<div class="content_text">
@@ -64,6 +90,7 @@
 			<input type="submit" value="등록" class="submitBtn" />
 
 		</form>
+		</div>
 	</div>
 	<footer th:replace="~{fragments/footer :: footerFragment}"></footer>
 </body>

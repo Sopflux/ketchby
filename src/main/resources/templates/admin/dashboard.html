@@ -19,30 +19,62 @@
 <script defer type="text/javascript" src="/quitStatistics.js"></script>
 <script defer type="text/javascript" src="/levelStatistics.js"></script>
 <script type="text/javascript">
-   
+    $(function(){
+		$(".submenu").hide();
+		
+        $("#class").click(function (e) {
+            e.preventDefault();
+            $(".submenu").slideToggle();
+        });
+        
+        $(".btnClose").click(function () {
+            $("#myModal").fadeOut();
+        });
+        
+        $(".imagesource").click(()=>{
+			window.location.href = "/mainpage";
+		})
+	})
 </script>
+<style>
+	.imagesource {
+		width: 250px; /*height: 75px*/
+		position: absolute;
+		top: 0;
+		left: 0;
+		background-color: #ffffff;
+	}
+	
+	.side-menu {
+		position: absolute;
+		top: 75px;
+		left: 0;
+	}
+</style>
 </head>
 <body>
 <div class="container-scroller">
 <!-- 사이드바 -->
-   <nav id="sidebar-all">
-        <ul class="sidebar">
-            <li class="sidebar-user">
-                <img th:src="@{/image/ketchbyLogo.png}" />
-            </li>
-            <li><a href="/admin/dashboard" id="dashboard">📊 Dashboard</a></li>
-            <li><a href="/admin/user" id="user">👤 사용자 관리</a></li>
-            <li><a href="/admin/qna" id="qna">📧 문의 관리</a></li>
-            <li><a href="/admin/notice" id="notice">📢 공지사항 관리</a></li>
-         <li class="has-submenu">
-             <a id="class">📑 클래스 관리</a>
-             <ul class="submenu">
-                 <li><a href="/admin/class">기존 클래스</a></li>
-                 <li><a href="/admin/classPending">승인 요청된 클래스</a></li>
-             </ul>
-         </li>                
-        </ul>
-    </nav>  
+		<nav id="sidebar-all">
+            <ul class="sidebar">
+                <li class="sidebar-user">
+                   <img class="imagesource" th:src="@{/image/ketchby.002.png}">
+                </li>
+                <div class="side-menu">
+	                <li><a href="/admin/dashboard" id="dashboard">📊 Dashboard</a></li>
+	                <li><a href="/admin/user" id="user">👤 사용자 관리</a></li>
+	                <li><a href="/admin/qna" id="qanda">📧 문의 관리</a></li>
+	                <li><a href="/admin/notice" id="notification">📢 공지사항 관리</a></li>
+					<li class="has-submenu">
+					    <a href="#" id="class">📑 클래스 관리</a>
+					    <ul class="submenu">
+					        <li><a href="/admin/class">기존 클래스</a></li>
+					        <li><a href="/admin/classPending">승인 요청된 클래스</a></li>
+					    </ul>
+					</li>                
+				</div>
+            </ul>
+        </nav>   
     
     <div id="page" class="page">
         <!-- 본문 헤더-->

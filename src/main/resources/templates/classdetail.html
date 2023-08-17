@@ -86,12 +86,14 @@ section::after {
 		
 		<!-- 마이페이지로 이동 -->
 		
-    	<p class="card-content" th:text="${cl_list.bcaname } + '>' + ${cl_list.scaname}"></p>
+    	<a class="card-content" th:text="${cl_list.bcaname } + '>' + ${cl_list.scaname}"></a>
     	<p class="td-title" th:text="${cl_list.cltitle }"></p>
 
     <table style="width:100%">
         <tr>
-            <td  class="card-writer" th:text="${a_info.nick } + ' >'"></td>
+            <td>
+				<a class="card-writer" th:href="@{/account/mypage(aid=${cl_list.aid})}" th:text="${a_info.nick } + ' >'">
+			</td>
             <td style="text-align:right">
                 <label class="label-ct" th:text="${cl_list.cltype }"></label>
                 <label class="label-cl" th:text="${cl_list.cllevel }"></label>
@@ -167,10 +169,8 @@ section::after {
 		  var type = $(".label-ct").text()
 		  var rsdate = /*[[${cl_list.clsdate }]]*/''
 		  if(type == '원데이'){
-			  alert(type)
 			  location.href="/pay/reservation_popup?clno="+clno;
 		  }else{
-			  alert(type)
 			 location.href="/pay/classpayment?clno="+clno+"&rsdate="+rsdate+"&clpeople=1";
 		  }
 		  
@@ -183,10 +183,10 @@ section::after {
     <hr style="margin: 0">
     <table class="table-cal">
         <tr>
-            <td>소개</td>
-            <td>시간</td>
-            <td>장소</td>
-            <td>후기</td>
+            <td style="padding: 20px 0 20px 0;">소개</td>
+            <td style="padding: 20px 0 20px 0;">시간</td>
+            <td style="padding: 20px 0 20px 0;">장소</td>
+            <td style="padding: 20px 0 20px 0;">후기</td>
         </tr>
     </table>
     <hr style="margin-bottom:50px">
