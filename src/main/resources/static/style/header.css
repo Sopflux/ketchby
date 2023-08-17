@@ -102,7 +102,8 @@ a{color: inherit;text-decoration: none;}
         border-top: 1px solid #dcdcdc
     }
     #header-header .nav ul.gnb li ul.sub li a {
-        text-align: center
+        text-align: center;
+        font-weight: normal !important;
     }
     #header-header .nav .active {
         position: relative
@@ -207,7 +208,7 @@ a {
 
 .header-text-top {
     font-size: 18px;
-    font-family: serif;
+    font-family: serif !important;
     margin-top: 10px;
     font-weight: normal !important;
 }

@@ -2,64 +2,66 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta charset="EUC-KR">
-	<title>공지사항</title>
-	<link rel="stylesheet" th:href="@{/style/footer.css}" />
+   <meta charset="EUC-KR">
+   <title>공지사항</title>
+   <link rel="stylesheet" th:href="@{/style/footer.css}" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 <link rel="stylesheet" th:href="@{/style/header.css}" />
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="/style/noticemain.css">
-	<script>
-		$(function () {
-		$("#1").click(function(){
-				location.href="/club/clubmain";
-			})
-			$("#2").click(function(){
-				location.href="/community/community/1";
-			})
-			$("#3").click(function(){
-				location.href="/notice/noticemain/1";
-			})
-			$("#4").click(function(){
-				location.href="/qanda/qandamain";
-			})
-			})
-	</script>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+   <link rel="stylesheet" type="text/css" href="/style/noticemain.css">
+   <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+   <script>
+    $(function () {
+        $("#1").click(function(){
+            location.href="/club/clubmain";
+        })
+        $("#2").click(function(){
+            location.href="/community/community/1";
+        })
+        $("#3").click(function(){
+            location.href="/notice/noticemain/1";
+        })
+        $("#4").click(function(){
+            location.href="/qanda/qandamain";
+        })
+    })
+</script>
+
 </head>
 
 <body>
-	<header th:replace="~{fragments/header :: headerFragment}"></header>
-	<div class="maindiv">
-		<div class="top-category">
-			<p id="1" class="category-text">#소모임</p>
-			<p id="2" class="category-text">#커뮤니티</p>
-			<p id="3" class="category-text">#공지사항</p>
-			<p id="4" class="category-text">#Q&A</p>
-		</div>
-		
-		<div class="main-community">
-		<div class="gongzi">공지사항</div>
-		<br />
-		<br />
-		<div class="notice">
-			<table class="notice_td">
-				<tr th:each="n:${list}">
-					<td class="notice-td-title">
-						<a class="a_title" th:text="${n.noticetitle}" th:href="@{'/notice/notice_detail/'+${n.noticeno}}"></a>
-					</td>
-					<td class="td-date" th:text="${n.noticedate}"></td>
-					<td class="td-author" th:text="${n.noticewriter}"></td>
-				</tr>
-			</table>
-			<div class="pagenum">
-				<th:block th:each="i:${#numbers.sequence(1, totalPage)}">
-					<a th:href="@{'/notice/noticemain/'+${i}}" th:text="${i}" class="page-number"></a>
-				</th:block>
-			</div>
-		</div>
-		</div>
-	</div>
-	<footer th:replace="~{fragments/footer :: footerFragment}"></footer>
+   <header th:replace="~{fragments/header :: headerFragment}"></header>
+   <div class="maindiv">
+      <div class="top-category">
+         <p id="1" class="category-text">#소모임</p>
+         <p id="2" class="category-text">#커뮤니티</p>
+         <p id="3" class="category-text">#공지사항</p>
+         <p id="4" class="category-text">#Q&A</p>
+      </div>
+      
+      <div class="main-community">
+      <div class="gongzi">공지사항</div>
+      <br />
+      <br />
+      <div class="notice">
+         <table class="notice_td">
+            <tr th:each="n:${list}">
+               <td class="notice-td-title">
+                  <a class="a_title" th:text="${n.noticetitle}" th:href="@{'/notice/notice_detail/'+${n.noticeno}}"></a>
+               </td>
+               <td class="td-date" th:text="${n.noticedate}"></td>
+               <td class="td-author" th:text="${n.noticewriter}"></td>
+            </tr>
+         </table>
+         <div class="pagenum">
+            <th:block th:each="i:${#numbers.sequence(1, totalPage)}">
+               <a th:href="@{'/notice/noticemain/'+${i}}" th:text="${i}" class="page-number"></a>
+            </th:block>
+         </div>
+      </div>
+      </div>
+   </div>
+   <footer th:replace="~{fragments/footer :: footerFragment}"></footer>
 </body>
 
 </html>

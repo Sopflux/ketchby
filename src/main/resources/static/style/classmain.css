@@ -72,9 +72,11 @@ body, html {
 }
 
 .input-group {
-    width: 100%;
+    width: 400px !important;
     max-width: 600px;
     margin: 0 auto;
+    align-items: stretch !important;
+    display: flex !important;
 }
 
 .form-control {

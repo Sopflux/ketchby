@@ -92,7 +92,7 @@ section::after {
     <table style="width:100%">
         <tr>
             <td>
-				<a class="card-writer" th:href="@{/account/mypage(aid=${cl_list.aid})}" th:text="${a_info.nick } + ' >'">
+				<a class="card-writer" th:href="@{/account/userpage(aid=${cl_list.aid})}" th:text="${a_info.nick } + ' >'">
 			</td>
             <td style="text-align:right">
                 <label class="label-ct" th:text="${cl_list.cltype }"></label>
