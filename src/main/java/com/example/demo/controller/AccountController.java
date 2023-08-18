@@ -113,7 +113,7 @@ public class AccountController {
       
       
       // 페이지 주인 정보 불러오기 
-      mav.addObject("user", dao.findByAid(aid));
+      mav.addObject("user", dao_mb.findByAid(aid));
       mav.addObject("image", image_mb.findFeedImage(aid)); // 피드 게시물 
       mav.addObject("cl", dao_mb.findOpenClass(aid));
       mav.addObject("clist", dao_mb.findOpenClub(aid));

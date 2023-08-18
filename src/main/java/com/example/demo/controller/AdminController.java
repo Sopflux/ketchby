@@ -136,7 +136,7 @@ public class AdminController {
 	
 	@GetMapping("/admin/updateClassPending")
 	public ModelAndView updateClassPending(int clno, String cfcd) {
-		ModelAndView mav = new ModelAndView("redirect:/admin/classPending");
+		ModelAndView mav = new ModelAndView("redirect:/classPending");
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("clno", clno);
 		map.put("cfcd", cfcd);

@@ -19,7 +19,7 @@ where cl.clno = c.clno and cl.aid = #{aid}
 		,#{aid},#{afollowaid})
 	</insert>
 	<select id="findOpenClass" resultType="class">
-		select cl.clno, clTitle,
+		select cl.clno, cltitle,clprice,to_char(clsdate,'yyyy-mm-dd')as clsdate,
 		bcaname, scaname, climg, nvl(avg(rstar), 0) as avg
 		, nvl(count(rstar),
 		0) as cnt
@@ -30,7 +30,7 @@ where cl.clno = c.clno and cl.aid = #{aid}
 		left join review r on cl.clno =
 		r.clno
 		where cl.aid = #{aid}
-		group by cl.clno, cltitle, bcaname,
+		group by cl.clno, cltitle, bcaname,clprice,clsdate,
 		scaname, climg
 
 	</select>
@@ -48,7 +48,7 @@ where cl.clno = c.clno and cl.aid = #{aid}
 	</insert>
 	<select id="findClassInfo" resultType="reclass">
 		select a.name_, cltitle,
-		to_char(clsdate,'YYYY-MM-DD'), climg,clno
+		to_char(clsdate,'YYYY-MM-DD') as clsdate, climg,clno
 		from class cl, account a
 		where a.aid = cl.aid and cl.clno = #{clno}
 	</select>
@@ -131,7 +131,7 @@ where cl.clno = c.clno and cl.aid = #{aid}
 		r.rstar, to_char(r.rdate,'YYYY-MM-DD') as rdate, cl.cltitle
 		from review r , account a,
 		class cl
-		where cl.aid =
+		where r.aid =
 		#{aid} and cl.clno = r.clno and cl.aid =a.aid
 	</select>
 	<select id="findByNick" resultType="account">
@@ -159,7 +159,7 @@ where cl.clno = c.clno and cl.aid = #{aid}
 	</select>
 
 	<select id="findByAid" resultType="account">
-		select * from account where
+		select aid,pwd,email,name_,nick,img,level_,regdate,role from account where
 		aid = #{aid}
 	</select>
 	<select id="findFollow" resultType="follow">

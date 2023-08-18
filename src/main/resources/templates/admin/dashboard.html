@@ -76,11 +76,10 @@
             </ul>
         </nav>   
     
-    <div id="page" class="page">
+<div id="page" class="page">
         <!-- 본문 헤더-->
         <div id="page-header">
         </div>
-
         <!-- 본문 메인-->
         <div class="main-wrapper">
              <div class="row">
@@ -93,6 +92,7 @@
                             </div>
                             <div class="card-content">
                                 <h2 th:text="${todayUsers}"></h2>
+                                <p th:text="'+'+${todayUsers}-${yesterdayUsers != null ? '+' + ((todayUsers != null ? todayUsers : 0) - (yesterdayUsers != null ? yesterdayUsers : 0)) : (todayUsers != null ? todayUsers : 0) - (yesterdayUsers != null ? yesterdayUsers : 0)}"></p>
                             </div>
                         </div>
                     </div>
@@ -120,6 +120,7 @@
                             </div>
                             <div class="card-content">
                                 <h2 th:text="${todayPayment}"></h2>
+                                 <p th:text="'+'+${todayPayment}-${yesterdayPayment != null ? '+' + ((todayPayment != null ? todayPayment : 0) - yesterdayPayment) : (todayPayment != null ? todayPayment : 0) - (yesterdayPayment != null ? yesterdayPayment : 0)}"></p>
                             </div>
                         </div>
                     </div>
@@ -133,6 +134,7 @@
                             </div>
                             <div class="card-content">
                                 <h2 th:text="${todayQuit}"></h2>
+                                <p th:text="${todayQuit}-${yesterdayQuit != null ? '+' + ((todayQuit != null ? todayQuit : 0) - yesterdayQuit) : (todayQuit != null ? todayQuit : 0) - (yesterdayQuit != null ? yesterdayQuit : 0)}"></p>
                             </div>
                         </div>
                     </div>
@@ -167,6 +169,7 @@
             <div class="chart-row">
              <div class="chart-wrapper2">
                      <div class="chart-title2">
+                        <h5>카테고리 별 클래스 수</h5>
                         <h5>카테고리별 클래스 수</h5>
                     </div>
                    <div class="chart-container2">
@@ -218,6 +221,7 @@
                </div>
                <div class="chart-wrapper3">
                    <div class="chart-title3">
+                        <h5>탈퇴이유 별 탈퇴 건수</h5>
                         <h5>탈퇴이유별 탈퇴 건수</h5>
                     </div>
                    <div class="chart-container3">

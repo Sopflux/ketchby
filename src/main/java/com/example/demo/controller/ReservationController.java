@@ -35,7 +35,8 @@ public class ReservationController {
 	
 	@PostMapping("/pay/classpayment")
 	public ModelAndView classpayment(Payment p) {
-		ModelAndView mav = new ModelAndView("redirect:/account/mypage");
+		int clno= p.getClno();
+		ModelAndView mav = new ModelAndView("redirect:/classdetail?clno="+clno);
 		System.out.println("p : "+p.toString());
 		String paymethod = p.getPaymethod();
 		

@@ -1217,7 +1217,7 @@ a {
 	color: rgba(170, 170, 172, 1);
 	width: 162px;
 	height: auto;
-	position: absolute;
+	position: relative;
 	font-size: 12px;
 	font-style: Semi Bold;
 	text-align: left;

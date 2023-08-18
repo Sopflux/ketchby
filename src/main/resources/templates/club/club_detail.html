@@ -64,7 +64,7 @@
 			alt="" />
 		<div class="maincontentdiv">
 			<div class="top">
-				<img th:src="@{'/image/'+${c.img}}" name="img" class="img" />
+				<img th:src="@{'/profile/'+${c.img}}" name="img" class="img" />
 				<div class="top-right">
 					<span name="cbtitle" class="cbtitle" th:text="${c.cbtitle}"></span>
 					<div class="top-right-text">
@@ -82,7 +82,7 @@
 			<div class="content">
 				<span class="cbcontent" th:text="${c.cbcontent}"></span>
 				<span class="jangso">장소</span>
-				<span class="blocname" name="blocname" th:text="${c.blocname}"></span>
+				<span class="blocname" name="blocname" th:text="${c.blocname + ' ' + c.slocname}"></span>
 				<span class="mozip">모집 마감일</span>
 				<span name="cbclsdate" class="cbclsdate" th:text="${c.cbclsdate}"></span>
 

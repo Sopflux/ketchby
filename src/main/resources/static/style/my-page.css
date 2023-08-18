@@ -30,6 +30,7 @@
 /* 클럽 카드 스타일 */
 
 .reviewTitle {
+	text-align: left;
 	font-weight: 600;
 	font-size: 14px;
 }
@@ -191,7 +192,9 @@
 	color: white;
 }
 
-
+.reviewstar{
+	text-align: left !important;
+}
 .profile {
 	width: 100%;
 	border: none !important;

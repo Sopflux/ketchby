@@ -77,29 +77,52 @@
         $(".btnClose").click(function () {
             $("#myModal").fadeOut();
         });
+        
+        $(".submenu").hide();
+
+		$(".imagesource").click(()=>{
+			window.location.href = "/mainpage";
+		})
     });
 </script>
+<style>
+		.imagesource {
+			width: 250px; /*height: 75px*/
+			position: absolute;
+			top: 0;
+			left: 0;
+			background-color: #ffffff;
+		}
+		
+		.side-menu {
+			position: absolute;
+			top: 75px;
+			left: 0;
+		}
+	</style>
 <body style="background-color:black">
     <div class="container-scroller">
-        <!-- 사이드바 -->
-      <nav id="sidebar-all">
+       <!-- 사이드바 -->
+		<nav id="sidebar-all">
             <ul class="sidebar">
                 <li class="sidebar-user">
-                    Ketchby
+                   <img class="imagesource" th:src="@{/image/ketchby.002.png}">
                 </li>
-                <li><a href="/admin/dashboard" id="dashboard">📊 Dashboard</a></li>
-                <li><a href="/admin/user" id="user">👤 사용자 관리</a></li>
-                <li><a href="/admin/qna" id="qanda">📧 문의 관리</a></li>
-                <li><a href="/admin/notice" id="notification">📢 공지사항 관리</a></li>
-            <li class="has-submenu">
-                <a href="#" id="class">📑 클래스 관리</a>
-                <ul class="submenu">
-                    <li><a href="/admin/class">기존 클래스</a></li>
-                    <li><a href="/admin/classPending">승인 요청된 클래스</a></li>
-                </ul>
-            </li>                
+                <div class="side-menu">
+	                <li><a href="/admin/dashboard" id="dashboard">📊 Dashboard</a></li>
+	                <li><a href="/admin/user" id="user">👤 사용자 관리</a></li>
+	                <li><a href="/admin/qna" id="qanda">📧 문의 관리</a></li>
+	                <li><a href="/admin/notice" id="notification">📢 공지사항 관리</a></li>
+					<li class="has-submenu">
+					    <a href="#" id="class">📑 클래스 관리</a>
+					    <ul class="submenu">
+					        <li><a href="/admin/class">기존 클래스</a></li>
+					        <li><a href="/admin/classPending">승인 요청된 클래스</a></li>
+					    </ul>
+					</li>                
+				</div>
             </ul>
-        </nav>        
+        </nav>         
         
         <div id="page" class="page">
             <!-- 본문 헤더-->

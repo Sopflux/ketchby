@@ -41,99 +41,159 @@
 </style>
 </head>
 <body style="background-color:black" >
-<div class="container-scroller">
-    <!-- 사이드바 -->
-		<nav id="sidebar-all">
-            <ul class="sidebar">
-                <li class="sidebar-user">
-                   <img class="imagesource" th:src="@{/image/ketchby.002.png}">
-                </li>
-                <div class="side-menu">
-	                <li><a href="/admin/dashboard" id="dashboard">📊 Dashboard</a></li>
-	                <li><a href="/admin/user" id="user">👤 사용자 관리</a></li>
-	                <li><a href="/admin/qna" id="qanda">📧 문의 관리</a></li>
-	                <li><a href="/admin/notice" id="notification">📢 공지사항 관리</a></li>
-					<li class="has-submenu">
-					    <a href="#" id="class">📑 클래스 관리</a>
-					    <ul class="submenu">
-					        <li><a href="/admin/class">기존 클래스</a></li>
-					        <li><a href="/admin/classPending">승인 요청된 클래스</a></li>
-					    </ul>
-					</li>                
-				</div>
-            </ul>
-        </nav>     
-    <div id="page" class="page">
-
+ <div id="page" class="page">
         <!-- 본문 헤더-->
         <div id="page-header">
-
         </div>
+        <!-- 본문 메인-->
         <div class="main-wrapper">
-            <div class="row">
+             <div class="row">
                 <div class="stretch-card">
                     <div class="card">
-                        <div class = "card-body">
-
-                        </div>
-                    </div>
-                </div>
-                <div class="stretch-card">
-                    <div class="card">
-                        <div class = "card-body">
-                            <div class = "card-title">
-                                <h4>사용자</h4>
+                        <div class="card-body">
+                            <div class="card-title">
+                                <h5>당일 신규 가입자</h5>
                                 <p>user</p>
                             </div>
-                            <div class = "card-content">
-                                <h2>24명</h2>
-                                <p>+3.5%</p>
+                            <div class="card-content">
+                                <h2 th:text="${todayUsers}"></h2>
+                                <p th:text="${todayUsers}-${yesterdayUsers != null ? '+' + ((todayUsers != null ? todayUsers : 0) - (yesterdayUsers != null ? yesterdayUsers : 0)) : (todayUsers != null ? todayUsers : 0) - (yesterdayUsers != null ? yesterdayUsers : 0)}"></p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="stretch-card">
                     <div class="card">
-                        <div class = "card-body">
-
+                        <div class="card-body">
+                     <div class="card-title">
+                                <h5>당일 개설 클래스</h5>
+                                <p>class</p>
+                            </div>
+                            <div class="card-content">
+                                <h2 th:text="${todayClass}"></h2>
+                                <p th:text="${todayClass}-${yesterdayClass}"></p>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="stretch-card">
                     <div class="card">
-                        <div class = "card-body">
-
+                        <div class="card-body">
+                     <div class="card-title">
+                                <h5>당일 예약 건수</h5>
+                                <p>payment</p>
+                            </div>
+                            <div class="card-content">
+                                <h2 th:text="${todayPayment}"></h2>
+                                 <p th:text="${todayPayment}-${yesterdayPayment != null ? '+' + ((todayPayment != null ? todayPayment : 0) - yesterdayPayment) : (todayPayment != null ? todayPayment : 0) - (yesterdayPayment != null ? yesterdayPayment : 0)}"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                     <div class="card-title">
+                                <h5>당일 탈퇴 인원</h5>
+                                <p>Quit</p>
+                            </div>
+                            <div class="card-content">
+                                <h2 th:text="${todayQuit}"></h2>
+                                <p th:text="${todayQuit}-${yesterdayQuit != null ? '+' + ((todayQuit != null ? todayQuit : 0) - yesterdayQuit) : (todayQuit != null ? todayQuit : 0) - (yesterdayQuit != null ? yesterdayQuit : 0)}"></p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="main-chart">
-                <div>
-                    <canvas id="myChart"></canvas>
-                </div>
-                <script>
-                    const ctx = document.getElementById('myChart');
-
-                    new Chart(ctx, {
-                        type: 'line',
-                        data: {
-                            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                            datasets: [{
-                                label: '# of Votes',
-                                data: [12, 19, 3, 5, 2, 3],
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            scales: {
-                                y: {
-                                    beginAtZero: true
-                                }
-                            }
-                        }
-                    });
-                </script>
-            </div>
+            <!--첫 줄 차트-->
+            <div class="chart-row">
+               <div class="chart-wrapper">
+                   <div class="chart-title">
+                        <h5>날짜별 신규 가입자 수</h5>
+                        <div class="chart-controls">
+                          <input type="date" id="startDate" name="startDate"> -
+                          <input type="date" id="endDate" name="endDate">
+      
+                          <button onclick="dailyUsersData()" id="btnSelect">선택</button>
+                      </div>
+                    </div>
+                   <div class="chart-container">
+                       <canvas id="dailyUsersChart"></canvas>
+                   </div>
+               </div>
+               <div class="chart-wrapper3">
+                   <div class="chart-title3">
+                        <h5>레벨별 사용자 분포</h5>
+                    </div>
+                   <div class="chart-container3">
+                       <canvas id="levelByUserChart"></canvas>
+                   </div> 
+               </div>
+           </div>
+           <!--두번째 줄 차트-->
+            <div class="chart-row">
+             <div class="chart-wrapper2">
+                     <div class="chart-title2">
+                        <h5>카테고리 별 클래스 수</h5>
+                        <h5>카테고리별 클래스 수</h5>
+                    </div>
+                   <div class="chart-container2">
+                       <canvas id="classByBcaChart"></canvas>
+                   </div> 
+               </div>
+               <div class="chart-wrapper">
+                   <div class="chart-title">
+                        <h5>신규 클래스 개설 추이</h5>
+                        <div class="chart-controls2">
+                          <div class="dropdown">
+                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownBtn" data-bs-toggle="dropdown" aria-expanded="false">
+                             요리/공예 <!-- 초기 텍스트 설정 -->
+                         </button>
+                         <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownBtn">
+                             <li><a class="dropdown-item active" >요리/공예</a></li>
+                             <li><a class="dropdown-item" >외국어</a></li>
+                             <li><a class="dropdown-item" >스포츠</a></li>
+                             <li><a class="dropdown-item" >음악</a></li>
+                             <li><a class="dropdown-item" >미술</a></li>
+                         </ul>
+                     </div>
+                          <input type="date" id="startDateCl" name="startDateCl"> -
+                          <input type="date" id="endDateCl" name="endDateCl">
+      
+                          <button onclick="dailyClassData()" id="btnSelectCl">선택</button>
+                      </div>
+                    </div>
+                   <div class="chart-container">
+                       <canvas id="dailyClassChart"></canvas>
+                   </div>
+               </div>
+           </div>
+            <!--세번째 줄 차트-->
+            <div class="chart-row">
+               <div class="chart-wrapper">
+                   <div class="chart-title">
+                        <h5>누적 클래스 예약 추이</h5>
+                        <div class="chart-controls">
+                          <input type="date" id="startDatePay" name="startDatePay"> -
+                          <input type="date" id="endDatePay" name="endDatePay">
+      
+                          <button onclick="dailyPaymentData()" id="btnSelectPay">선택</button>
+                      </div>
+                    </div>
+                   <div class="chart-container">
+                       <canvas id="dailyPaymentChart"></canvas>
+                   </div>
+               </div>
+               <div class="chart-wrapper3">
+                   <div class="chart-title3">
+                        <h5>탈퇴이유 별 탈퇴 건수</h5>
+                        <h5>탈퇴이유별 탈퇴 건수</h5>
+                    </div>
+                   <div class="chart-container3">
+                       <canvas id="quitReasonChart"></canvas>
+                   </div> 
+               </div>
+           </div>
         </div>
     </div>
 </div>

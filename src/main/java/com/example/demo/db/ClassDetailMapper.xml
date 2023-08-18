@@ -20,8 +20,17 @@
 	</select>
 	
 	<!-- 클래스 총 소요시간 조회 -->
-	<select id="totalClassTime" resultType="java.lang.Double">
-		select sum(tetime)-sum(tstime) from time where clno=#{clno}
+	<select id="totalClassEndTime" resultType="java.lang.String">
+		select distinct tetime from time where clno=#{clno}
+	</select>
+	
+	<select id="totalClassStartTime" resultType="java.lang.String">
+		select distinct tstime from time where clno=#{clno} 
+	</select>
+	
+	
+	<select id="countClassDay" resultType="java.lang.Integer">
+		select count(*) from time where clno=#{clno}
 	</select>
 	
 	<!-- 클래스 시간, 날짜 조회 -->
@@ -32,7 +41,7 @@
 	
 	<!-- 클래스 평균 평점 조회 -->
 	<select id="findScore" resultType="java.lang.Double">
-		select avg(rstar) from review where clno=#{clno }
+		select nvl(avg(rstar), 0) from review where clno=#{clno }
 	</select>
 	
 	<!-- 클래스 리뷰 조회 -->

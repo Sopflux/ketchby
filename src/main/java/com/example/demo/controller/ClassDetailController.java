@@ -1,8 +1,12 @@
 package com.example.demo.controller;
 
+import java.time.Duration;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +38,29 @@ public class ClassDetailController {
 		int likes = dao.countLike(map);
 		double avg = dao.findScore(clno);
 		avg = Math.round(avg*100)/100.0;
-		double times = dao.totalClassTime(clno);
+		
+		
+		
+		String startTime = dao.totalClassStartTime(clno);
+		String endTime = dao.totalClassEndTime(clno);
+		
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("HH:mm");
+		
+		LocalTime s = LocalTime.parse(startTime, format);
+		LocalTime e = LocalTime.parse(endTime, format);
+		
+		Duration duration = Duration.between(s, e);
+		System.out.println("duration: "+duration);
+		
+		long hours = duration.toHours();
+        long minutes = duration.toMinutesPart();
+        
+        LocalTime time = LocalTime.of((int) hours, (int) minutes);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        
+        String formattedTime = time.format(formatter);
+        System.out.println("Formatted time: " + formattedTime);
+		
 		int check = dao.checkLike(map);
 		
 		String clcontent = dao.findAllClass(clno).getClcontent();
@@ -48,7 +74,7 @@ public class ClassDetailController {
 		model.addAttribute("clno", clno);
 		model.addAttribute("likes", likes);
 		model.addAttribute("avg", avg);
-		model.addAttribute("times", times);
+		model.addAttribute("times", formattedTime);
 		model.addAttribute("aid", aid);
 		return "/classdetail";
 	}

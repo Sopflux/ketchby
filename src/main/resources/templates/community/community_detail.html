@@ -25,7 +25,7 @@
 					success: function (arr) {
 						$.each(arr, function () {
 							var tr = $("<tr></tr>");
-							var img = $("<img></img>").attr("src", "/image/" + this.img).addClass("comment_img")
+							var img = $("<img></img>").attr("src", "/profile/" + this.img).addClass("comment_img")
 							var td1 = $("<td></td>");
 							$(td1).append(img);
 							var td2 = $("<td></td>").html(this.nick).addClass("comment_nick");
@@ -133,7 +133,7 @@
 		<div class="titlediv">
 			<span class="btitle" th:text="${b.btitle}"></span>
 			<div class="nickdate">
-				<img th:src="@{'/image/'+${b.img}}" class="img" />
+				<img th:src="@{'/profile/'+${b.img}}" class="img" />
 				<span class="nick" th:text="${b.nick}" id="boardnick"></span> <!--작성자 닉네임 -->
 				<span class="bdate" th:text="${b.bdate}"></span>
 			</div>

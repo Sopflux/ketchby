@@ -57,7 +57,7 @@ public class SecurityConfig {
 		.userService(customOAuth2UserService); // 커스텀한 서비스에서 정보 처리
 		
 		
-		http.authorizeHttpRequests().requestMatchers("/join/**","/feed/**","/account/join","/class/**","/account/login","/","/ajax/emailCheck/**","/ajax/**","/image/**","/style/**","/classmain","/mainpage").permitAll()
+		http.authorizeHttpRequests().requestMatchers("/join/**","/feed/**","/club/**","/account/join","/class/**","/account/login","/","/ajax/emailCheck/**","/ajax/**","/image/**","/style/**","/classmain","/mainpage").permitAll()
 		.requestMatchers("/admin/**").hasRole("ADMIN")
 		.anyRequest().authenticated()
 		.and().csrf().ignoringRequestMatchers("/account/join");
@@ -93,7 +93,7 @@ public class SecurityConfig {
 				response.sendRedirect("/admin/dashboard");
 			   
 			} else  {
-				response.sendRedirect("/classmain");
+				response.sendRedirect("/mainpage");
 			}
 			
 		}

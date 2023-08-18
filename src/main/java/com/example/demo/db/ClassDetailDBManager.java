@@ -44,13 +44,22 @@ public class ClassDetailDBManager {
 			return a;
 		}
 		
-		public static double totalClassTime(int clno) {
+		public static String totalClassEndTime(int clno) {
 			SqlSession session = sqlSessionFactory.openSession();
-			double c = -1;
-			c = session.selectOne("classDetail.totalClassTime", clno);
+			String c = null;
+			c = session.selectOne("classDetail.totalClassEndTime", clno);
 			session.close();
 			return c;
 		}
+		
+		public static String totalClassStartTime(int clno) {
+			SqlSession session = sqlSessionFactory.openSession();
+			String c = null;
+			c = session.selectOne("classDetail.totalClassStartTime", clno);
+			session.close();
+			return c;
+		}
+		
 		
 		public static List<TimeVO> findClassTime(int clno) {
 			SqlSession session = sqlSessionFactory.openSession();

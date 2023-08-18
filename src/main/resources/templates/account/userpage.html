@@ -12,7 +12,9 @@
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
    <title>Ketchby</title>
-
+	<link rel="stylesheet" th:href="@{/style/footer.css}" />
+	
+	<link rel="stylesheet" th:href="@{/style/header.css}" />
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
    <link rel="stylesheet" href="./style/style.css" />
    <!--<link rel="stylesheet" href="./style/mypage.css" /> -->
@@ -24,11 +26,7 @@
    <!-- Bootstrap JavaScript -->
    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-   <style>
-      #follow {}
 
-      #following {}
-   </style>
    <script th:inline="javascript">
       $(function () {
          //메일문의를 눌렀을 때 
@@ -90,6 +88,7 @@
 </head>
 
 <body>
+	<header th:replace="~{fragments/header :: headerFragment}"></header>
    <div style="width: 100%; height: 100%;">
       <div class="mypage_body">
          <div class="card-body">
@@ -163,7 +162,7 @@
                   <div class="post" th:each="image:${image}">
                      <div class="post_image">
                         <img alt="feedImage" th:src="'../../feed/'+${image.imgname}" />
-                        <a href="#" th:text="${image.fno}"></a>
+                        
                      </div>
                   </div>
                </div>
@@ -179,15 +178,22 @@
                         <table class="my-page-item4" id="btn_class" th:data-value="${cl.clno}">
                         
                            <tr>
-                              <td rowspan="4"><img alt="classimg4561" th:src="'/class/'+${cl.climg}"
+                              <td rowspan="7"><img alt="classimg4561" th:src="'/class/'+${cl.climg}"
                                     style="width: 121px; height: 121px;" />
                               </td>
                               <td class="reserv_title" th:text="${cl.bcaname}+' > '+${cl.scaname}"></td>
+                          </tr>
+                              <tr>
+                              <td class="my-page-text36" th:text="${cl.clsdate}"></td>
+                          
                            </tr>
                            <tr>
                               <td class="reserv-text2" th:text="${cl.cltitle}"></td>
                            </tr>
                            <tr>
+							   <tr>
+										<td class="reserv-text" th:text="${cl.clprice} + '원'"></td>
+									</tr>
                               <td class="reserv-text2" th:text="'⭐ ️'+${cl.avg}+'('+${cl.cnt}+')'"></td>
                            </tr>
                            <tr>
@@ -213,7 +219,7 @@
                         <table class="club-item" id="btn_class"
                            th:attr="data-cbno=${c.cbno}, data-slocno=${c.slocno}">
                            <tr>
-                              <td rowspan="4">
+                              <td rowspan="5">
                                  <img th:src="'/club/' + ${c.cbimg}" class="clubimg" />
                               </td>
                               <td class="clubCard-tag" th:text="${c.scaname}">
@@ -344,7 +350,7 @@
          </div>
       </div>
    </div>
-
+<footer th:replace="~{fragments/footer :: footerFragment}"></footer>
 </body>
 
 </html>

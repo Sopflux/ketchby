@@ -3,10 +3,9 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Ketchby</title>
-<link rel="stylesheet" th:href="@{/style/header.css}" />
-<link rel="stylesheet" th:href="@{/style/footer.css}" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
-	<link th:href="@{/style/review.css}" rel="stylesheet" />
+
+
+	<link th:href="@{../style/review.css}" rel="stylesheet" />
 </head>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -51,7 +50,7 @@
 </script>
 
 <body style="display: flex; flex-direction: column; align-items: center; height: auto;">
-	<header th:replace="~{fragments/header :: headerFragment}"></header>
+	
 	<header class="review-top"></header>
 	<div style="display: flex; flex-direction: column; align-items: center; height: auto;">
 		<div class="review-title1">
@@ -61,7 +60,7 @@
 			<table style="margin: auto; height: auto;">
 				<tr>
 					<td style="text-align: center;" rowspan="4">
-						<img alt="img3766" th:src="'class/'+${rc.climg }" style="width: 121px; height: 121px;" />
+						<img alt="img3766" th:src="'../class/'+${rc.climg }" style="width: 121px; height: 121px;" />
 					</td>
 				</tr>
 				<tr>
@@ -99,20 +98,20 @@
 					function (index) {
 						if (index < selectedRating) {
 							$(this).attr("src",
-								"public/external/redstar.svg");
+								"../public/external/redstar.svg");
 						} else {
 							$(this)
 								.attr("src",
-									"public/external/iconstar44x44gray4154-xr59.svg");
+									"../public/external/iconstar44x44gray4154-xr59.svg");
 						}
 					});
 
 			for (let i = 1; i <= 5; i++) {
 				if (i <= selectedRating) {
-					$("#star" + i).attr("src", "public/external/redstar.svg");
+					$("#star" + i).attr("src", "../public/external/redstar.svg");
 				} else {
 					$("#star" + i).attr("src",
-						"public/external/iconstar44x44gray4154-xr59.svg");
+						"../public/external/iconstar44x44gray4154-xr59.svg");
 				}
 			}
 		}
@@ -124,31 +123,31 @@
 			<div class="review-radiogroup">
 				<div class="review-radio">
 					<div class="review-star" onclick="changeStarRating(1)">
-						<img id="star1" alt="iconstar44x44gray4154" src="public/external/iconstar44x44gray4154-xr59.svg"
+						<img id="star1" alt="iconstar44x44gray4154" src="../public/external/iconstar44x44gray4154-xr59.svg"
 							class="review-iconstar44x44gray" />
 					</div>
 				</div>
 				<div class="review-radio1">
 					<div class="review-star1" onclick="changeStarRating(2)">
-						<img id="star2" alt="iconstar44x44gray3769" src="public/external/iconstar44x44gray4154-xr59.svg"
+						<img id="star2" alt="iconstar44x44gray3769" src="../public/external/iconstar44x44gray4154-xr59.svg"
 							class="review-iconstar44x44gray1" />
 					</div>
 				</div>
 				<div class="review-radio2">
 					<div class="review-star2" onclick="changeStarRating(3)">
-						<img id="star3" alt="iconstar44x44gray3768" src="public/external/iconstar44x44gray4154-xr59.svg"
+						<img id="star3" alt="iconstar44x44gray3768" src="../public/external/iconstar44x44gray4154-xr59.svg"
 							class="review-iconstar44x44gray2" />
 					</div>
 				</div>
 				<div class="review-radio3">
 					<div class="review-star3" onclick="changeStarRating(4)">
-						<img id="star4" alt="iconstar44x44gray3767" src="public/external/iconstar44x44gray4154-xr59.svg"
+						<img id="star4" alt="iconstar44x44gray3767" src="../public/external/iconstar44x44gray4154-xr59.svg"
 							class="review-iconstar44x44gray3" />
 					</div>
 				</div>
 				<div class="review-radio4">
 					<div class="review-star4" onclick="changeStarRating(5)">
-						<img id="star5" alt="iconstar44x44gray3767" src="public/external/iconstar44x44gray4154-xr59.svg"
+						<img id="star5" alt="iconstar44x44gray3767" src="../public/external/iconstar44x44gray4154-xr59.svg"
 							class="review-iconstar44x44gray4" />
 					</div>
 				</div>
@@ -189,7 +188,7 @@
 	<footer class="review-footer" style="width: 100% ;height: 48px;">
 
 	</footer>
-<footer th:replace="~{fragments/footer :: footerFragment}"></footer>
+
 
 </body>
 

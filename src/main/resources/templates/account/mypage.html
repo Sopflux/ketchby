@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<title>Ketchby</title>
 	<link rel="stylesheet" th:href="@{/style/footer.css}" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+	
 	<link rel="stylesheet" th:href="@{/style/header.css}" />	
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -39,10 +39,7 @@
 				var clno = $(this).attr("data-value");
 				location.href = "/classdetail?clno=" + clno;
 			})
-			$(".class_card").click(function () {
-				var clno = $(this).attr("data-value");
-				location.href = "/classdetail?clno=" + clno;
-			})
+	
 			$(".club-item").click(function () {
 				var slocno=$(this).attr("data-slocno")
 				var cbno = $(this).attr("data-cbno");
@@ -52,7 +49,7 @@
 			$(".follow").click(function () {
 				$("#follow").css("color", "white")
 				$("#follow").css("background-color", "#008375")
-				location.href = "/account/updateAccount";
+				location.href = "/updateAccount";
 			})
 			console.log($("#follower").val)
 			console.log($("#following").val)
@@ -123,7 +120,7 @@
 				<table class="table table-bordered profile">
 					<tr>
 						<td>
-							<img class="img-circle" th:src="'../profile/'+${session.a.img}"
+							<img class="img-circle" th:src="'../image/'+${session.a.img}"
 								style="width: 170px; height: 170px;" alt="" />
 						</td>
 					</tr>
@@ -194,7 +191,6 @@
 						<div class="post" th:each="image:${image}">
 							<div class="post_image">
 								<img alt="feedImage" th:src="'../feed/'+${image.imgname}" />
-								<a href="#" th:text="${image.fno}"></a>
 							</div>
 						</div>
 					</div>
@@ -215,7 +211,7 @@
 										<td class="my-page-text36" th:text="${cd.rsdate}"></td>
 									</tr>
 									<tr>
-										<td class="clubCard-title"><a href="#" th:text="${cd.cltitle}"></a></td>
+										<td class="clubCard-title"><a href="'/classdetail?clno='+${cd.clno}" th:text="${cd.cltitle}"></a></td>
 									</tr>
 									<tr>
 										<td class="reserv-text" th:text="${cd.clprice} + '원'"></td>
@@ -233,7 +229,6 @@
                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
 
 						function openReviewPopup(cl_no) {
-							prevent.def
 							// 팝업 창을 열고 review.do 페이지를 로드
 							window.open("review?clno=" + cl_no, "review", "width=600, height=800");
 						}
@@ -248,8 +243,8 @@
 										<td class="reviewTitle" th:text="${r.cltitle}"></td>
 									</tr>
 									<tr>
-										<td><span th:each="num:${#numbers.sequence(1, r.rstar)}">⭐</span>️</td></tr>
-									<tr>	<td  ><span class="reviewWriter" th:text="${r.nick}"></span> | <span th:text="${r.rdate}"></span></td></tr>	
+										<td class="reviewstar"><span th:each="num:${#numbers.sequence(1, r.rstar)}">⭐</span>️</td></tr>
+									<tr>	<td  class="reviewstar"><span class="reviewWriter" th:text="${r.nick}"></span> | <span th:text="${r.rdate}"></span></td></tr>	
 										<tr><td class="my-page-text40" th:text="${r.rcontent}"> </td></tr>
 									</tr>
 								</table>
@@ -353,7 +348,7 @@
 						<table class="table table-borderless ">
 							<tr th:each="fing : ${following}" th:id="${fing.afollowaid}" class="following_body">
 								<td> <img class="img-circle" style="width: 50px;height: 50px;"
-										th:src="'../../image/'+${fing.img}" /></td>
+										th:src="'../../profile/'+${fing.img}" /></td>
 								<td><span th:text="${fing.aid}"></span><br />
 									<span th:text="${fing.nick}"></span>
 								</td>
@@ -381,7 +376,7 @@
 						<table class="table table-borderless ">
 							<tr th:each="fer : ${follower}" th:id="${fer.aid}" class="follower_body">
 								<td> <img class="img-circle" style="width:50px;height: 50px;"
-										th:src="'../../image/'+${fer.img}" /></td>
+										th:src="'../../profile/'+${fer.img}" /></td>
 								<td><span th:text="${fer.aid}"></span><br />
 									<span th:text="${fer.nick}"></span>
 								</td>

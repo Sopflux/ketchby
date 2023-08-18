@@ -21,8 +21,12 @@ public class ClassDetailDAO {
 		return ClassDetailDBManager.findAccountInfo(clno);
 	}
 	
-	public double totalClassTime(int clno) {
-		return ClassDetailDBManager.totalClassTime(clno);
+	public String totalClassEndTime(int clno) {
+		return ClassDetailDBManager.totalClassEndTime(clno);
+	}
+	
+	public String totalClassStartTime(int clno) {
+		return ClassDetailDBManager.totalClassStartTime(clno);
 	}
 	
 	public List<TimeVO> findClassTime(int clno) {
