@@ -14,12 +14,22 @@
 
 ## 👩‍💻개발 환경
 
-### BackEnd
----
-
-
-![image](https://github.com/hyunseo3/ketchby/assets/94173709/b8847e8a-9b7a-4572-92a6-fd4a2f99ddfa)
-
+<div style="text-align: left;">
+    <h2 style="border-bottom: 1px solid #d8dee4; color: #282d33;"> 🛠️ 개발 환경 </h2> <br> 
+    <div style="margin: ; text-align: left;" "text-align: left;"> <img src="https://img.shields.io/badge/Apache Tomcat-F8DC75?style=flat-square&logo=Apache Tomcat&logoColor=white">
+          <img src="https://img.shields.io/badge/Java-007396?style=flat-square&logo=Java&logoColor=white">
+          <img src="https://img.shields.io/badge/Javascript-F7DF1E?style=flat-square&logo=Javascript&logoColor=white">
+          <img src="https://img.shields.io/badge/jQuery-0769AD?style=flat-square&logo=jQuery&logoColor=white">
+          <img src="https://img.shields.io/badge/Bootstrap-7952B3?style=flat-square&logo=Bootstrap&logoColor=white">
+          <br/><img src="https://img.shields.io/badge/Figma-F24E1E?style=flat-square&logo=Figma&logoColor=white">
+          <img src="https://img.shields.io/badge/Github-181717?style=flat-square&logo=Github&logoColor=white">
+          <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=HTML5&logoColor=white">
+          <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=MySQL&logoColor=white">
+          <img src="https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=Node.js&logoColor=white">
+          <br/><img src="https://img.shields.io/badge/Oracle-F80000?style=flat-square&logo=Oracle&logoColor=white">
+          <img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=flat-square&logo=Spring Boot&logoColor=white">
+          </div>
+    </div>
 
 ## 📖ERD 다이어그램
 ![image](https://github.com/gr033/Ketchby/assets/128104387/7888f2af-37e5-4ff3-8622-2c1933bcfe05)
