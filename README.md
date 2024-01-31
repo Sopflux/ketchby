@@ -132,11 +132,11 @@
 
 ### 회원정보 수정 및 탈퇴
 ---
-![image 016](https://github.com/gr033/Ketchby/assets/128104387/7904b8c4-d868-4b4b-9a24-f0af6fd585db)
+![image](https://github.com/Sopflux/ketchby/assets/94173709/314f422c-42c2-4d89-8df9-4c5c65ec6342)
 
 ### 대시보드
 ---
-![image 017](https://github.com/gr033/Ketchby/assets/128104387/54d76ca6-206c-445b-b85a-64cc4a04343f)
+![image](https://github.com/Sopflux/ketchby/assets/94173709/e924ce2a-5c4e-4946-8002-ae5071543045)
 
 * 당일 및 전일의 신규 가입, 개설 클래스, 탈퇴 수 SQL쿼리를 작성해 전일 대비 당일 증감률 수치화
 * Chart.js 및 Ajax 할용
@@ -144,27 +144,27 @@
 
 ### 회원 관리
 ---
-![image 018](https://github.com/gr033/Ketchby/assets/128104387/c38d6778-0e74-4110-a5ab-01c457ee6541)
+![image](https://github.com/Sopflux/ketchby/assets/94173709/02f51de2-56f4-45fa-bdbb-7f232f24c61e)
 
 * 아이디, 이메일, 이름 각각의 칼럼과 전체 칼럼으로 선택하여 검색 가능
 * 모달과 FormData, Ajax를 활용해 회원의 상세 정보 확인 후 수정, 삭제
 
 ### 클래스 관리
 ---
-![image 019](https://github.com/gr033/Ketchby/assets/128104387/5836b59b-33c9-43a6-9dda-72a4c8d3ea64)
+![image](https://github.com/Sopflux/ketchby/assets/94173709/36a0fd88-d4d5-401c-a101-219162e83035)
 
 * 클래스 개설 시, 자동으로 승인 요청 클래스에 업로드
 * 승인된 클래스만을 메인 및 클래스 메인에 제시
 
 ### 공지사항 관리
 ---
-![image 020](https://github.com/gr033/Ketchby/assets/128104387/64ef2391-cc80-405a-9436-086af9928c00)
+![image](https://github.com/Sopflux/ketchby/assets/94173709/52bdefb6-873f-4e0b-b289-a777e0094ede)
 
 * 모달과 Ajax을 활용해 공지사항의 제목과 작성일, 내용을 확인 후 수정, 삭제 가능
 
 ### 문의사항 관리
 ---
-![image 021](https://github.com/gr033/Ketchby/assets/128104387/8b5d0764-2228-4b17-9898-b904aabe5103)
+![image](https://github.com/Sopflux/ketchby/assets/94173709/368559de-d44b-46d9-bebf-6e13d1157e6d)
 
 * 답장 여부, 각 칼럼 별로 검색 가능
 * 모달과 Ajax을 활용해 문의사항의 종류, 번호, 이름, 이메일, 제목, 문의 내용, 문의 일시 확인
