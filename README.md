@@ -29,13 +29,15 @@
 
 
 ## 📖ERD 다이어그램
-![image](https://github.com/gr033/Ketchby/assets/128104387/7888f2af-37e5-4ff3-8622-2c1933bcfe05)
+![image](https://github.com/gr033/Ketchby/assets/94173709/3a97ed5f-c2ee-4f95-8251-bfdee0c4985c)
+
+
 
 
 ## 🖥️화면 구성 및 주요 기능
 ### 로그인 & 회원가입
 ---
-![image](https://github.com/gr033/Ketchby/assets/128104387/1a85907b-afcf-464c-9afc-d1777bcaa3f0)
+![image](https://github.com/gr033/Ketchby/assets/94173709/c2fbb78d-ad1b-4afa-9ef4-fce5a8b4d3c3)
 
 * 
 * Oauth, spring security를 이용하여 카카오 계정과 연동
@@ -45,7 +47,7 @@
 
 ### 메인 페이지
 ---
-![image](https://github.com/gr033/Ketchby/assets/128104387/16a13008-5200-49f8-aa71-2b2afaa36b70)
+![image](https://github.com/gr033/Ketchby/assets/94173709/9b84637b-e063-4659-84d6-56bfd92f96bb)
 
 
 * % 연산 사용, 마지막 슬라이드에서 다시 처음 순환 가능
@@ -58,17 +60,17 @@
 ---
 1. 클래스 메인
 
-![image 004](https://github.com/gr033/Ketchby/assets/128104387/95d2d89c-f7f8-42d2-b51a-062f44f95579)
+![image](https://github.com/gr033/Ketchby/assets/94173709/4628014f-5898-4dcf-ab84-9223da70d669)
 
 
 2. 클래스 상세
 
-![image](https://github.com/gr033/Ketchby/assets/128104387/36c61858-f95a-48c9-a10b-ad24842eef64)
+![image](https://github.com/gr033/Ketchby/assets/94173709/552ebc5b-3afa-452a-a5d3-9fc634c9901f)
 
 
 3. 클래스 개설
 
-![image](https://github.com/gr033/Ketchby/assets/128104387/dc42f90a-90f5-4cc6-ae2a-f1147c1fc9ed)
+![image](https://github.com/gr033/Ketchby/assets/94173709/ab733e76-b800-4ee8-9e3d-e12ad600860c)
 
 * 검색, 카테고리별, 필터별로 조건에 맞는 카드 추출(updateQueryString)
 * 카카오 API를 사용하여 위치를 지도에 표시
@@ -77,7 +79,7 @@
 
 ### 예약/결제
 ---
-![image 007](https://github.com/gr033/Ketchby/assets/128104387/62b691a1-8a78-4299-9b96-8d869b297428)
+![image](https://github.com/gr033/Ketchby/assets/94173709/6e4185d6-4d44-41e6-a3a6-3dec548e1343)
 
 * JS를 통해 신청 가능한 날짜만 활성화
 * Import 모듈을 이용하여 결제 기능 구현
@@ -86,7 +88,7 @@
 
 ### 마이페이지
 ---
-![image 008](https://github.com/gr033/Ketchby/assets/128104387/126b7071-29d6-4842-a7e0-608df90616b4)
+![image](https://github.com/gr033/Ketchby/assets/94173709/d47135dd-fe48-4d74-b716-abaa1ba59a34)
 
 * 로그인 세션을 불러와 게시물, 수강내역, 소모임 등 Ketchby에서의 활동 확인
 
