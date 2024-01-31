@@ -79,7 +79,7 @@
 
 ### 예약/결제
 ---
-![image](https://github.com/gr033/Ketchby/assets/94173709/6e4185d6-4d44-41e6-a3a6-3dec548e1343)
+![image](https://github.com/Sopflux/ketchby/assets/94173709/ec077f5e-436e-4861-bef5-a05c17ba1241)
 
 * JS를 통해 신청 가능한 날짜만 활성화
 * Import 모듈을 이용하여 결제 기능 구현
@@ -88,28 +88,28 @@
 
 ### 마이페이지
 ---
-![image](https://github.com/gr033/Ketchby/assets/94173709/d47135dd-fe48-4d74-b716-abaa1ba59a34)
+![image](https://github.com/Sopflux/ketchby/assets/94173709/e8893156-c443-430d-97c8-d47cb811b9f7)
 
 * 로그인 세션을 불러와 게시물, 수강내역, 소모임 등 Ketchby에서의 활동 확인
 
 
 ### 공지사항
 ---
-![image 009](https://github.com/gr033/Ketchby/assets/128104387/996724ae-5186-4011-893c-2fc8fca3ad59)
+![image](https://github.com/Sopflux/ketchby/assets/94173709/3eab53cb-06e4-437c-b474-4728f401e5ed)
 
 * 관리자가 관리자 페이지에 작성한 공지사항만 출력 (Thymeleaf  for each문 사용)
 
 
 ### 커뮤니티
 ---
-![image 012](https://github.com/gr033/Ketchby/assets/128104387/280b5c49-d636-4c7c-8e86-37bf8e151362)
+![image](https://github.com/Sopflux/ketchby/assets/94173709/bf1ac72d-a814-4433-bb0f-4e3feb9c7736)
 
 * HOT 인기글을 rownum을 활용해 상위 5개 출력
 * select문을 사용하여 검색어에 맞는 쿼리 작동
 
 ### 커뮤니티 상세/등록
 ---
-![image 013](https://github.com/gr033/Ketchby/assets/128104387/19ab4593-7c7f-4c0e-a688-29da949c82b1)
+![image](https://github.com/Sopflux/ketchby/assets/94173709/42fbbb0a-d4e8-4c5e-b425-7a998c3a429f)
 
 * Thymeleaf를 사용해 본문 출력
 * 조건문을 활용하여 작성자와 로그인 세션 저장, 작성자 본인일 떄에만 수정, 삭제 가능
@@ -118,13 +118,13 @@
 
 ### 소모임
 ---
-![image 014](https://github.com/gr033/Ketchby/assets/128104387/f81d3b97-042a-4406-9d55-f284c46f8c9f)
+![image](https://github.com/Sopflux/ketchby/assets/94173709/a5b92415-7113-4639-a4cc-a6f86f301772)
 
 * select문을 사용하여 신청 가능한 소모임만 표시, controller 조건식으로 동일 소모임 중복 신청 불가능
 
 ### Q&A
 ---
-![image 015](https://github.com/gr033/Ketchby/assets/128104387/cccd5a91-e3f8-4e85-892b-77642ad9ce08)
+![image](https://github.com/Sopflux/ketchby/assets/94173709/a21cd9a7-f102-4fc7-9d58-fedbaa8e13cf)
 
 * Ajax을 이용해 자주 묻는 질문을 아코디언 형식으로 생성
 * 자바스크립트를 사용하여 이메일 복사 버튼 생성
